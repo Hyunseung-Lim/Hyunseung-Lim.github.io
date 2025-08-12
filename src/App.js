@@ -1,20 +1,19 @@
+import {HashRouter as Router, Route, Routes} from 'react-router-dom';
 import './App.css';
 
-import { Topbar } from './Components/topbar';
-import { About } from './Components/about';
-import { Projects } from './Components/projects';
-import { Publications } from './Components/publications';
-import { Footer } from './Components/footer';
+import { MainPage } from './Pages/MainPage';
+import { ResearchPage } from './Pages/ResearchPage';
 
 function App() {
   return (
-    <div className="App">
-      <Topbar/>
-      <section id="about"><About/></section>
-      <section id="projects"><Projects/></section>
-      <section id="publications"><Publications/></section>
-      <Footer/>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path='/' element={<MainPage/>} />
+          <Route path='/research' element={<ResearchPage/>} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
