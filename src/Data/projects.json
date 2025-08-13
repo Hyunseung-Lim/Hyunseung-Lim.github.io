@@ -7,13 +7,4 @@
         "description": "Datopia is a data-based dating service. By analyzing data, it captures everything from the preferences you didn't know you had to your minor daily habits. Through this, it goes beyond simple encounters to find you a destined partner with whom you can maintain a continuous relationship. But can love really be determined solely by data?",
         "image": "project_1.png"
     }
-    ,
-    {
-        "title": "Datopia",
-        "people": ["Hyunseung Lim", "Dasom Choi", "Kwangyoung Lee", "Taewan Kim", "Eunseo Oh", "Inhwa Song", "Seokyoung Park", "Yubin Choi", "Hwajung Hong"],
-        "highlight_people": [0],
-        "year": "2022",
-        "description": "Datopia is a data-based dating service. By analyzing data, it captures everything from the preferences you didn't know you had to your minor daily habits.",
-        "image": "project_1.png"
-    }
 ]

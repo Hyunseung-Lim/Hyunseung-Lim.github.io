@@ -1,0 +1,86 @@
+.segmented-control {
+    position: relative;
+    display: flex;
+    background-color: var(--segmented-bg);
+    border: 1px solid var(--segmented-border);
+    border-radius: 8px;
+    padding: 2px;
+    margin: 10px 0;
+    overflow: hidden;
+    height: 42px;
+    align-items: center;
+}
+
+.slider {
+    position: absolute;
+    top: 2px;
+    height: calc(100% - 4px);
+    background-color: var(--segmented-active-bg);
+    border-radius: 6px;
+    box-shadow: var(--segmented-shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.segmented-button {
+    position: relative;
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--segmented-text);
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    min-width: 100px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.segmented-button:hover {
+    color: var(--segmented-text-hover);
+}
+
+.segmented-button.active {
+    color: var(--segmented-text-active);
+    font-weight: 600;
+}
+
+.segmented-button:focus {
+    outline: none;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .segmented-control {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .segmented-control::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .segmented-button {
+        font-size: 0.7rem;
+        padding: 8px 4px;
+        min-width: 70px;
+        flex-shrink: 0;
+        height: 32px;
+    }
+    
+    .segmented-control {
+        height: 40px;
+    }
+}

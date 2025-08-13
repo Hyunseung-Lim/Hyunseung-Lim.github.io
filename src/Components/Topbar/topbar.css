@@ -11,11 +11,12 @@
     height: 24px;
     transition: transform 0.2s ease-out;
     text-decoration: none;
-    color: black;
-    background-color: white;
-    padding: 0px 16px;
+    color: var(--hamburger-text);
+    background-color: var(--hamburger-bg);
+    padding: 8px 16px;
     text-align: left;
-    
+    font-weight: 400;
+    font-size: 0.8rem;
 }
 
 .burger-icon {
@@ -30,7 +31,7 @@
 }
 
 .burger-icon .burger-sticks {
-    background: black;
+    background: var(--topbar-text);
     display: block;
     height: 2px;
     position: relative;
@@ -40,7 +41,7 @@
 
 .burger-icon .burger-sticks:before,
 .burger-icon .burger-sticks:after {
-    background: black;
+    background: var(--topbar-text);
     content: '';
     display: block;
     height: 100%;
@@ -93,20 +94,36 @@
     top: 0;
 }
 
-@media  (min-width:800px) {
+@media (min-width: 800.1px) {
     .links {
-        display: flex;
+        display: flex !important;
     }
     .burger-icon {
-        display: none;
+        display: none !important;
+    }
+    .menu {
+        display: none !important;
     }
 }
 
-@media (min-width:1200px) {
+@media (max-width: 800px) {
     .links {
-        display: flex;
+        display: none !important;
     }
     .burger-icon {
-        display: none;
+        display: inline-block !important;
+    }
+}
+
+/* 더 세밀한 반응형 제어 */
+@media (max-width: 800px) {
+    .topbar > .contents {
+        padding: 16px 24px;
+    }
+}
+
+@media (min-width: 800.1px) {
+    .topbar > .contents {
+        padding: 24px;
     }
 }

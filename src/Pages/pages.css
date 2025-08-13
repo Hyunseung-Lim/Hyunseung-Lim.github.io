@@ -20,15 +20,27 @@
   
   /* 슬라이더 컨테이너: 화면 중앙에 위치하며 폭 50% */
   .slider-container {
-    margin-top: 150px;
+    margin-top: 200px;
     width: 45%;
     overflow: hidden;
     position: relative;
+    aspect-ratio: 16/9;
+    background-color: transparent;
+  }
+  
+  @media (max-width: 768px) {
+    .slider-container {
+      width: calc(100% - 40px);
+      margin-top: 120px;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
   }
   
   /* slider: 내부의 슬라이드들을 가로로 나열 */
-  .slider {
+  .banner .slider {
     display: flex;
+    box-shadow: none;
   }
   
   /* 각 슬라이드: 너비는 JS에서 동적으로 설정 */
@@ -42,7 +54,7 @@
   .slide img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
   }
   
@@ -53,5 +65,87 @@
     width: 45%;
     justify-content: space-between;
     font-size: 0.8rem;
+  }
+  
+  @media (max-width: 768px) {
+    .banner-text {
+      width: calc(100% - 40px);
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
 
+  /* 공통 페이지 스타일 */
+  .page {
+    padding: 100px 50px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .page .title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+  }
+
+  /* Publication 페이지 스타일 */
+  .publications {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .year {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 40px 0 20px;
+    color: var(--text-secondary);
+    border-bottom: 2px solid var(--border-primary);
+    padding-bottom: 10px;
+  }
+
+
+  /* 애니메이션 효과 */
+  .animation {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s ease;
+  }
+
+  .page > *:not(.publications) {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .page .animation {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
+  /* 모바일 반응형 */
+  @media (max-width: 768px) {
+    .page {
+      padding: 80px 20px 30px;
+    }
+    
+    .page .title {
+      font-size: 1.5rem;
+    }
+    
+    .year {
+      font-size: 1.2rem;
+    }
+
+    .publication > .links {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .publication > .links > .venue-year {
+      margin-right: 0;
+      margin-bottom: 4px;
+    }
   }

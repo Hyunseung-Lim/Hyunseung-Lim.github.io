@@ -1,11 +1,11 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React from 'react';
 import { Topbar } from '../Components/Topbar/topbar';
 import { Footer } from '../Components/Footer/footer';
 import { About } from './about';
 import { Projects } from './projects';
 import { Publications } from './publications';
 
-export const ResearchPage = (props) => {
+export const ResearchPage = () => {
   return(
       <>
         <Topbar/>
