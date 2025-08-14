@@ -74,6 +74,8 @@
         overflow-x: auto;
         scrollbar-width: none;
         -ms-overflow-style: none;
+        max-width: 100%;
+        width: fit-content;
     }
     
     .segmented-control::-webkit-scrollbar {
@@ -82,8 +84,8 @@
     
     .segmented-button {
         font-size: 0.7rem;
-        padding: 8px 4px;
-        min-width: 70px;
+        padding: 8px 6px;
+        min-width: 75px;
         flex-shrink: 0;
         height: 32px;
     }

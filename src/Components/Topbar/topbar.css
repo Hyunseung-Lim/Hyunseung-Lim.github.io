@@ -109,7 +109,7 @@
     top: 0;
 }
 
-@media (min-width: 800.1px) {
+@media (min-width: 769px) {
     .links {
         display: flex !important;
     }
@@ -119,26 +119,19 @@
     .menu {
         display: none !important;
     }
+    .topbar > .contents {
+        padding: 24px;
+    }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .links {
         display: none !important;
     }
     .burger-icon {
         display: inline-block !important;
     }
-}
-
-/* 더 세밀한 반응형 제어 */
-@media (max-width: 800px) {
     .topbar > .contents {
         padding: 16px 24px;
-    }
-}
-
-@media (min-width: 800.1px) {
-    .topbar > .contents {
-        padding: 24px;
     }
 }

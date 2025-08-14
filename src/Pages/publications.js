@@ -102,7 +102,7 @@ export const Publications = (props) => {
             filteredData = filteredData.filter(pub => 
                 pub.field && (
                     pub.field.includes(fieldValue) ||
-                    (fieldValue === "others_field" && (pub.field.includes("ethics") || pub.field.includes("others")))
+                    (fieldValue === "others_field" && !pub.field.includes("hai") && !pub.field.includes("llm"))
                 )
             );
         }
@@ -186,8 +186,23 @@ export const Publications = (props) => {
                                                 <div ref={element} className="title">{publication.title}</div>
                                                 <div ref={element} className="authors">
                                                     <span dangerouslySetInnerHTML={{
-                                                        __html: publication.author.replace(/Hyunseung Lim/g, '<span class="highlight_author">Hyunseung Lim</span>')
+                                                        __html: (() => {
+                                                            const authors = publication.author.split(', ');
+                                                            if (isMobile && authors.length > 6) {
+                                                                const firstFour = authors.slice(0, 4).join(', ');
+                                                                const remainingCount = authors.length - 4;
+                                                                return `${firstFour}, and ${remainingCount} more authors`.replace(/Hyunseung Lim/g, '<span class="highlight_author">Hyunseung Lim</span>');
+                                                            }
+                                                            return publication.author.replace(/Hyunseung Lim/g, '<span class="highlight_author">Hyunseung Lim</span>');
+                                                        })()
                                                     }} />
+                                                </div>
+                                                <div ref={element} className="venue-links">
+                                                    <span className="venue-text">{publication.venue}</span>
+                                                    {publication.pdf && <a href={`/PDF/${publication.pdf}`} target="_blank" rel="noopener noreferrer">PDF</a>}
+                                                    {publication.doi && <><span className="separator"> • </span><a href={publication.doi} target="_blank" rel="noopener noreferrer">DOI</a></>}
+                                                    {publication.link && <><span className="separator"> • </span><a href={publication.link} target="_blank" rel="noopener noreferrer">WEB</a></>}
+                                                    {publication.bibtex && <><span className="separator"> • </span><a href={`/bib/${publication.bibtex}`} target="_blank" rel="noopener noreferrer">BIB</a></>}
                                                 </div>
                                             </div>
                                         </div>
@@ -196,13 +211,6 @@ export const Publications = (props) => {
                                                 <span className="award">{publication.award}</span>
                                             </div>
                                         )}
-                                        <div ref={element} className="links">
-                                            <span className="venue-year">{publication.venue}</span>
-                                            {publication.pdf && <a href={`/PDF/${publication.pdf}`} target="_blank" rel="noopener noreferrer">PDF</a>}
-                                            {publication.doi && <a href={publication.doi} target="_blank" rel="noopener noreferrer">DOI</a>}
-                                            {publication.link && <a href={publication.link} target="_blank" rel="noopener noreferrer">WEB</a>}
-                                            {publication.bibtex && <a href={`/bib/${publication.bibtex}`} target="_blank" rel="noopener noreferrer">BIB</a>}
-                                        </div>
                                     </div>
                                 )}
                             </div>

@@ -23,7 +23,7 @@ export const ThemeToggle = ({ isMobile = false }) => {
   if (isMobile) {
     return (
       <button className="theme-toggle mobile" onClick={toggleTheme}>
-        Dark Mode
+        {isDark ? 'Light Mode' : 'Dark Mode'}
       </button>
     );
   }
