@@ -199,10 +199,20 @@ export const Publications = (props) => {
                                                 </div>
                                                 <div ref={element} className="venue-links">
                                                     <span className="venue-text">{publication.venue}</span>
-                                                    {publication.pdf && <a href={`/PDF/${publication.pdf}`} target="_blank" rel="noopener noreferrer">PDF</a>}
-                                                    {publication.doi && <><span className="separator"> • </span><a href={publication.doi} target="_blank" rel="noopener noreferrer">DOI</a></>}
-                                                    {publication.link && <><span className="separator"> • </span><a href={publication.link} target="_blank" rel="noopener noreferrer">WEB</a></>}
-                                                    {publication.bibtex && <><span className="separator"> • </span><a href={`/bib/${publication.bibtex}`} target="_blank" rel="noopener noreferrer">BIB</a></>}
+                                                    {(() => {
+                                                        const links = [];
+                                                        if (publication.pdf) links.push(<a key="pdf" href={`/PDF/${publication.pdf}`} target="_blank" rel="noopener noreferrer">PDF</a>);
+                                                        if (publication.doi) links.push(<a key="doi" href={publication.doi} target="_blank" rel="noopener noreferrer">DOI</a>);
+                                                        if (publication.link) links.push(<a key="web" href={publication.link} target="_blank" rel="noopener noreferrer">WEB</a>);
+                                                        if (publication.bibtex) links.push(<a key="bib" href={`/bib/${publication.bibtex}`} target="_blank" rel="noopener noreferrer">BIB</a>);
+                                                        
+                                                        return links.map((link, index) => (
+                                                            <React.Fragment key={link.key}>
+                                                                {index > 0 && <span className="separator"> • </span>}
+                                                                {link}
+                                                            </React.Fragment>
+                                                        ));
+                                                    })()}
                                                 </div>
                                             </div>
                                         </div>
