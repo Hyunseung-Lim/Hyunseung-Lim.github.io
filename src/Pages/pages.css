@@ -123,6 +123,93 @@
     transform: translateY(0);
   }
 
+  /* Publication 항목별 애니메이션 */
+  .publications .year {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--animation-transition-speed) var(--animation-transition-easing), transform var(--animation-transition-speed) var(--animation-transition-easing);
+    will-change: opacity, transform;
+  }
+
+  .publications .year.animation {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .publications .info {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--animation-transition-speed) var(--animation-transition-easing), transform var(--animation-transition-speed) var(--animation-transition-easing);
+    will-change: opacity, transform;
+  }
+
+  .publications .info.animation {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .publications .title {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--animation-transition-speed) var(--animation-transition-easing), transform var(--animation-transition-speed) var(--animation-transition-easing);
+    will-change: opacity, transform;
+  }
+
+  .publications .title.animation {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .publications .authors {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--animation-transition-speed) var(--animation-transition-easing), transform var(--animation-transition-speed) var(--animation-transition-easing);
+    will-change: opacity, transform;
+  }
+
+  .publications .authors.animation {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .publications .awards {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--animation-transition-speed) var(--animation-transition-easing), transform var(--animation-transition-speed) var(--animation-transition-easing);
+    will-change: opacity, transform;
+  }
+
+  .publications .awards.animation {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .publications .links {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--animation-transition-speed) var(--animation-transition-easing), transform var(--animation-transition-speed) var(--animation-transition-easing);
+    will-change: opacity, transform;
+  }
+
+  .publications .links.animation {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 다크모드 전환 중 애니메이션 최적화 - 이미 보이는 요소들은 opacity 유지 */
+  .publications .year.animation,
+  .publications .info.animation,
+  .publications .title.animation,
+  .publications .authors.animation,
+  .publications .awards.animation,
+  .publications .links.animation {
+    transition: 
+      opacity var(--animation-transition-speed) var(--animation-transition-easing),
+      transform var(--animation-transition-speed) var(--animation-transition-easing),
+      color var(--theme-transition-speed) var(--theme-transition-easing),
+      background-color var(--theme-transition-speed) var(--theme-transition-easing) !important;
+  }
+
 
   /* 모바일 반응형 */
   @media (max-width: 768px) {

@@ -1,3 +1,5 @@
+@import url('../styles/transitions.css');
+
 .topbar {
     position: fixed; 
     top: 0;
@@ -11,7 +13,7 @@
     color: var(--topbar-text);
     font-size: 1rem;
     font-weight: 800;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color var(--theme-transition-speed) var(--theme-transition-easing), color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 .topbar  > .contents {
@@ -27,7 +29,7 @@
     color: var(--topbar-text);
     font-weight: 800;
     font-size: 1rem;
-    transition: color 0.3s ease;
+    transition: color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 .topbar > .contents > .logo-link:hover {
@@ -54,7 +56,7 @@
     margin-left: 20px;
     font-size: 0.8rem;
     font-weight: 400;
-    transition: color 0.3s ease;
+    transition: color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 .topbar > .contents > .links > a:hover {

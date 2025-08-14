@@ -1,3 +1,5 @@
+@import url('../../styles/transitions.css');
+
 .segmented-control {
     position: relative;
     display: flex;
@@ -9,6 +11,9 @@
     overflow: hidden;
     height: 42px;
     align-items: center;
+    transition: 
+        background-color var(--theme-transition-speed) var(--theme-transition-easing),
+        border-color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 .slider {
@@ -18,7 +23,10 @@
     background-color: var(--segmented-active-bg);
     border-radius: 6px;
     box-shadow: var(--segmented-shadow);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 
+        all 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color var(--theme-transition-speed) var(--theme-transition-easing),
+        box-shadow var(--theme-transition-speed) var(--theme-transition-easing);
     z-index: 1;
 }
 
@@ -33,7 +41,7 @@
     font-size: 0.85rem;
     font-weight: 500;
     color: var(--segmented-text);
-    transition: color 0.2s ease;
+    transition: color var(--theme-transition-speed) var(--theme-transition-easing);
     white-space: nowrap;
     min-width: 100px;
     z-index: 2;

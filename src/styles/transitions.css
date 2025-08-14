@@ -1,0 +1,90 @@
+/* Theme Transition Module - 모든 컴포넌트에서 사용할 수 있는 테마 전환 스타일 */
+
+/* 전역 변수 정의 */
+:root {
+  --theme-transition-speed: 0.1s;
+  --theme-transition-easing: ease;
+  --animation-transition-speed: 0.6s;
+  --animation-transition-easing: ease;
+}
+
+/* 기본 테마 전환 클래스 */
+.theme-transition {
+  transition: 
+    color var(--theme-transition-speed) var(--theme-transition-easing),
+    background-color var(--theme-transition-speed) var(--theme-transition-easing),
+    border-color var(--theme-transition-speed) var(--theme-transition-easing),
+    box-shadow var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+/* 애니메이션과 테마 전환이 함께 필요한 요소용 */
+.theme-transition-with-animation {
+  transition: 
+    opacity var(--animation-transition-speed) var(--animation-transition-easing),
+    transform var(--animation-transition-speed) var(--animation-transition-easing),
+    color var(--theme-transition-speed) var(--theme-transition-easing),
+    background-color var(--theme-transition-speed) var(--theme-transition-easing),
+    border-color var(--theme-transition-speed) var(--theme-transition-easing),
+    box-shadow var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+/* 특정 속성만 필요한 경우의 유틸리티 클래스들 */
+.theme-transition-color {
+  transition: color var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.theme-transition-bg {
+  transition: background-color var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.theme-transition-border {
+  transition: border-color var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.theme-transition-shadow {
+  transition: box-shadow var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+/* 컴포넌트별 최적화된 전환 */
+.theme-transition-topbar {
+  transition: 
+    background-color var(--theme-transition-speed) var(--theme-transition-easing),
+    color var(--theme-transition-speed) var(--theme-transition-easing),
+    border-bottom var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.theme-transition-button {
+  transition: 
+    background-color var(--theme-transition-speed) var(--theme-transition-easing),
+    color var(--theme-transition-speed) var(--theme-transition-easing),
+    border-color var(--theme-transition-speed) var(--theme-transition-easing),
+    box-shadow var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.theme-transition-segmented {
+  transition: 
+    background-color var(--theme-transition-speed) var(--theme-transition-easing),
+    color var(--theme-transition-speed) var(--theme-transition-easing),
+    border-color var(--theme-transition-speed) var(--theme-transition-easing),
+    box-shadow var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+/* 성능 최적화 */
+.theme-transition,
+.theme-transition-with-animation,
+.theme-transition-color,
+.theme-transition-bg,
+.theme-transition-border,
+.theme-transition-shadow,
+.theme-transition-topbar,
+.theme-transition-button,
+.theme-transition-segmented {
+  will-change: color, background-color, border-color, box-shadow;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 애니메이션이 있는 요소들의 성능 최적화 */
+.theme-transition-with-animation {
+  will-change: opacity, transform, color, background-color, border-color, box-shadow;
+}
