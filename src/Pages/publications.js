@@ -151,7 +151,7 @@ export const Publications = (props) => {
                                 {label: "LLM", value: "llm", ref: llmRef2},
                                 {label: "Creativity", value: "creativity", ref: creativityRef},
                                 {label: "Learning", value: "learning", ref: learningRef},
-                                {label: "Ethics", value: "ethics", ref: ethicsRef},
+                                {label: "AI Ethics", value: "ethics", ref: ethicsRef},
                                 {label: "Others", value: "others", ref: othersRef2}
                             ]}
                         />
@@ -204,6 +204,8 @@ export const Publications = (props) => {
                                                         if (publication.pdf) links.push(<a key="pdf" href={`/PDF/${publication.pdf}`} target="_blank" rel="noopener noreferrer">PDF</a>);
                                                         if (publication.doi) links.push(<a key="doi" href={publication.doi} target="_blank" rel="noopener noreferrer">DOI</a>);
                                                         if (publication.link) links.push(<a key="web" href={publication.link} target="_blank" rel="noopener noreferrer">WEB</a>);
+                                                        if (publication.recording) links.push(<a key="recording" href={publication.recording} target="_blank" rel="noopener noreferrer">REC</a>);
+                                                        if (publication.video) links.push(<a key="video" href={publication.video} target="_blank" rel="noopener noreferrer">VID</a>);
                                                         if (publication.bibtex) links.push(<a key="bib" href={`/bib/${publication.bibtex}`} target="_blank" rel="noopener noreferrer">BIB</a>);
                                                         
                                                         return links.map((link, index) => (
