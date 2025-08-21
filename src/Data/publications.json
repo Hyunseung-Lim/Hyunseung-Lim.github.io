@@ -14,6 +14,34 @@
       "video": ""
     },
     {
+      "title": "Mind the Blind Spots: A Focus-Level Evaluation Framework for LLM Reviews",
+      "author": "Hyungyu Shin, Jingyu Tang, Yoonjoo Lee, Nayoung Kim, Hyunseung Lim, Ji Yong Cho, Hwajung Hong, Moontae Lee, Juho Kim",
+      "venue": "EMNLP 2025 Main Conference",
+      "award": "",
+      "year": 2025,
+      "field": ["llm"],
+      "type": "conference",
+      "pdf": "",
+      "doi": "",
+      "bibtex": "",
+      "recording": "",
+      "video": ""
+    },
+    {
+      "title": "Culture is Everywhere: A Call for Intentionally Cultural Evaluation",
+      "author": "Juhyun Oh, Inha Cha, Michael Saxon, Hyunseung Lim, Shaily Bhatt, Alice Oh",
+      "venue": "EMNLP 2025 Findings",
+      "award": "",
+      "year": 2025,
+      "field": ["llm", "ethics"],
+      "type": "conference",
+      "pdf": "",
+      "doi": "",
+      "bibtex": "",
+      "recording": "",
+      "video": ""
+    },
+    {
       "title": "A Large-Scale Real-World Evaluation of an LLM-Based Virtual Teaching Assistant",
       "author": "Sunjun Kweon, Sooyohn Nam, Hyunseung Lim, Hwajung Hong, Edward Choi",
       "venue": "ACL (Industry) 2025",
