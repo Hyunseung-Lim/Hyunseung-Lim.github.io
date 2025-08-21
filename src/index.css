@@ -69,6 +69,8 @@ html {
   box-sizing: inherit;
 }
 
+@import url('./styles/transitions.css');
+
 body {
   margin: 0;
   padding: 0;
@@ -78,7 +80,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--theme-transition-speed) var(--theme-transition-easing), color var(--theme-transition-speed) var(--theme-transition-easing);
   max-width: 100vw;
   overflow-x: hidden;
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import '../Components/components.css'
 import './pages.css'
 import { SegmentedControl } from '../Components/SegmentedButton/segmentedbutton'
@@ -9,6 +9,28 @@ import publicationData from '../Data/publications.json'
 
 export const Publications = (props) => {
     const fadeInRef = useFadeInAnimation();
+
+    const element = useCallback((node) => {
+        const options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.1,
+        }
+        
+        if (node && node.nodeType === Node.ELEMENT_NODE) {
+            const observer = new IntersectionObserver(entries => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('animation');
+                } else {
+                  entry.target.classList.remove('animation');
+                }
+              });
+            }, options);
+        
+            observer.observe(node);
+        }
+    }, []);
 
     const [isMobile, setIsMobile] = useState(Number(window.innerWidth <= 992));
     
@@ -80,7 +102,7 @@ export const Publications = (props) => {
             filteredData = filteredData.filter(pub => 
                 pub.field && (
                     pub.field.includes(fieldValue) ||
-                    (fieldValue === "others_field" && (pub.field.includes("ethics") || pub.field.includes("others")))
+                    (fieldValue === "others_field" && !pub.field.includes("hai") && !pub.field.includes("llm"))
                 )
             );
         }
@@ -129,7 +151,7 @@ export const Publications = (props) => {
                                 {label: "LLM", value: "llm", ref: llmRef2},
                                 {label: "Creativity", value: "creativity", ref: creativityRef},
                                 {label: "Learning", value: "learning", ref: learningRef},
-                                {label: "Ethics", value: "ethics", ref: ethicsRef},
+                                {label: "AI Ethics", value: "ethics", ref: ethicsRef},
                                 {label: "Others", value: "others", ref: othersRef2}
                             ]}
                         />
@@ -156,30 +178,51 @@ export const Publications = (props) => {
                     <div className='publicationlist'>
                         {yearList.map(year =>
                             <div key={year}>
-                                <div className="year">{year}</div>
+                                <div ref={element} className="year">{year}</div>
                                 {filteredPublications.filter(pub => pub.year === year && pub.title && pub.year > 0).map(publication =>
                                     <div key={publication.title + (publication.authors?.join('') || publication.author || '')} className="publication">
-                                        <div className="info">
+                                        <div ref={element} className="info">
                                             <div className="maininfo">
-                                                <div className="title">{publication.title}</div>
-                                                <div className="authors">
+                                                <div ref={element} className="title">{publication.title}</div>
+                                                <div ref={element} className="authors">
                                                     <span dangerouslySetInnerHTML={{
-                                                        __html: publication.author.replace(/Hyunseung Lim/g, '<span class="highlight_author">Hyunseung Lim</span>')
+                                                        __html: (() => {
+                                                            const authors = publication.author.split(', ');
+                                                            if (isMobile && authors.length > 6) {
+                                                                const firstFour = authors.slice(0, 4).join(', ');
+                                                                const remainingCount = authors.length - 4;
+                                                                return `${firstFour}, and ${remainingCount} more authors`.replace(/Hyunseung Lim/g, '<span class="highlight_author">Hyunseung Lim</span>');
+                                                            }
+                                                            return publication.author.replace(/Hyunseung Lim/g, '<span class="highlight_author">Hyunseung Lim</span>');
+                                                        })()
                                                     }} />
+                                                </div>
+                                                <div ref={element} className="venue-links">
+                                                    <span className="venue-text">{publication.venue}</span>
+                                                    {(() => {
+                                                        const links = [];
+                                                        if (publication.pdf) links.push(<a key="pdf" href={`/PDF/${publication.pdf}`} target="_blank" rel="noopener noreferrer">PDF</a>);
+                                                        if (publication.doi) links.push(<a key="doi" href={publication.doi} target="_blank" rel="noopener noreferrer">DOI</a>);
+                                                        if (publication.link) links.push(<a key="web" href={publication.link} target="_blank" rel="noopener noreferrer">WEB</a>);
+                                                        if (publication.recording) links.push(<a key="recording" href={publication.recording} target="_blank" rel="noopener noreferrer">REC</a>);
+                                                        if (publication.video) links.push(<a key="video" href={publication.video} target="_blank" rel="noopener noreferrer">VID</a>);
+                                                        if (publication.bibtex) links.push(<a key="bib" href={`/bib/${publication.bibtex}`} target="_blank" rel="noopener noreferrer">BIB</a>);
+                                                        
+                                                        return links.map((link, index) => (
+                                                            <React.Fragment key={link.key}>
+                                                                {index > 0 && <span className="separator"> • </span>}
+                                                                {link}
+                                                            </React.Fragment>
+                                                        ));
+                                                    })()}
                                                 </div>
                                             </div>
                                         </div>
                                         {publication.award && (
-                                            <div className="awards">
+                                            <div ref={element} className="awards">
                                                 <span className="award">{publication.award}</span>
                                             </div>
                                         )}
-                                        <div className="links">
-                                            <span className="venue-year">{publication.venue}</span>
-                                            {publication.pdf && <a href={`/PDF/${publication.pdf}`} target="_blank" rel="noopener noreferrer">PDF</a>}
-                                            {publication.doi && <a href={publication.doi} target="_blank" rel="noopener noreferrer">DOI</a>}
-                                            {publication.bibtex && <a href={`/bib/${publication.bibtex}`} target="_blank" rel="noopener noreferrer">BIB</a>}
-                                        </div>
                                     </div>
                                 )}
                             </div>

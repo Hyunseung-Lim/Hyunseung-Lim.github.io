@@ -1,3 +1,5 @@
+@import url('../../styles/transitions.css');
+
 .menu {
     display: none;
 }
@@ -6,17 +8,26 @@
     display: none;
 }
 
-.menu > .hamburger-bar {
-    display: block;
+.menu > .hamburger-bar,
+.menu > .theme-toggle.mobile {
+    display: flex;
+    align-items: center;
     height: 24px;
-    transition: transform 0.2s ease-out;
+    transition: 
+        transform 0.2s ease-out,
+        color var(--theme-transition-speed) var(--theme-transition-easing),
+        background-color var(--theme-transition-speed) var(--theme-transition-easing);
     text-decoration: none;
     color: var(--hamburger-text);
     background-color: var(--hamburger-bg);
-    padding: 8px 16px;
+    padding: 10px 16px;
     text-align: left;
     font-weight: 400;
     font-size: 0.8rem;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
 }
 
 .burger-icon {
@@ -35,7 +46,9 @@
     display: block;
     height: 2px;
     position: relative;
-    transition: background .2s ease-out;
+    transition: 
+        background .2s ease-out,
+        background-color var(--theme-transition-speed) var(--theme-transition-easing);
     width: 18px;
 }
 
@@ -46,7 +59,9 @@
     display: block;
     height: 100%;
     position: absolute;
-    transition: all .2s ease-out;
+    transition: 
+        all .2s ease-out,
+        background-color var(--theme-transition-speed) var(--theme-transition-easing);
     width: 100%;
 }
 
@@ -67,13 +82,13 @@
     position: fixed;
     flex-direction: column;
     margin-top: 60px;
-    width: 130px;
+    width: 120px;
     height: 100px;
     z-index: 1;
     top: 0;
     right: 0;
     height: 100%;
-    max-width: 130px;
+    max-width: 120px;
     transition: 0.5s ease;
 }
 
@@ -94,7 +109,7 @@
     top: 0;
 }
 
-@media (min-width: 800.1px) {
+@media (min-width: 769px) {
     .links {
         display: flex !important;
     }
@@ -104,26 +119,19 @@
     .menu {
         display: none !important;
     }
+    .topbar > .contents {
+        padding: 24px;
+    }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .links {
         display: none !important;
     }
     .burger-icon {
         display: inline-block !important;
     }
-}
-
-/* 더 세밀한 반응형 제어 */
-@media (max-width: 800px) {
     .topbar > .contents {
         padding: 16px 24px;
-    }
-}
-
-@media (min-width: 800.1px) {
-    .topbar > .contents {
-        padding: 24px;
     }
 }

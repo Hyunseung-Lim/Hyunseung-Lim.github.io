@@ -1,3 +1,5 @@
+@import url('../../styles/transitions.css');
+
 .theme-toggle {
   background: none;
   border: none;
@@ -25,33 +27,27 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* 모바일 테마 토글은 hamburger-bar 스타일을 상속받음 */
 .theme-toggle.mobile {
-  padding: 8px 16px 10px 16px;
-  height: auto;
-  font-size: 0.8rem;
-  font-weight: 400;
-  text-decoration: none;
-  background-color: var(--hamburger-bg);
-  color: var(--hamburger-text);
-  text-align: left;
-  display: block;
-  width: 100%;
+  justify-content: flex-start;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .theme-toggle.mobile:hover {
   transform: none;
-  background-color: transparent;
+  background-color: var(--hamburger-bg);
 }
 
 /* 데스크탑에서 모바일 버튼 숨기기 */
-@media (min-width: 800.1px) {
+@media (min-width: 769px) {
   .theme-toggle.mobile {
     display: none !important;
   }
 }
 
 /* 모바일에서 데스크탑 버튼 숨기기 */
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .theme-toggle.desktop {
     display: none !important;
   }
