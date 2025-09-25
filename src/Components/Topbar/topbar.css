@@ -89,7 +89,7 @@
     right: 0;
     height: 100%;
     max-width: 120px;
-    transition: 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .burger-check:checked~.burger-icon .burger-sticks {

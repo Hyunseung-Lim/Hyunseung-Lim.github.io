@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   color: var(--topbar-text);
-  transition: all 0.3s ease;
+  transition: all var(--theme-transition-speed) var(--theme-transition-easing);
   font-family: inherit;
 }
 

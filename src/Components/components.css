@@ -108,7 +108,7 @@
     width: 28px;
     height: 28px;
     padding: 8px;
-    transition: all 0.2s linear;
+    transition: transform 0.2s linear;
 }
 
 .about > .contents > .icons > a > img:hover {
@@ -126,6 +126,33 @@
 .projectlist {
     display: flex;
     flex-direction: column;
+}
+
+.project-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all var(--theme-transition-speed) var(--theme-transition-easing);
+    border-radius: 8px;
+    padding: 0;
+}
+
+.project-link:hover .proj-title {
+    opacity: 0.7;
+}
+
+.proj-meta {
+    font-size: 0.9rem;
+    color: var(--secondary-text, #666666);
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.proj-status,
+.proj-type {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
 }
 
 .project {
@@ -226,6 +253,7 @@
     text-align: left;
     line-height: 1.3;
     letter-spacing: normal;
+    transition: color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 .publication > .info > .maininfo > .authors {
@@ -234,6 +262,7 @@
     font-style: italic;
     font-size: 14px;
     margin-bottom: 8px;
+    transition: color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 .publication > .info > .maininfo > .authors .highlight_author {
@@ -277,6 +306,7 @@
 .publication .venue-links > a {
     text-decoration: none;
     font-weight: normal;
+    transition: color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 .publication .venue-links > a:hover {

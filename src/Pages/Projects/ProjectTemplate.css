@@ -1,0 +1,286 @@
+/* Project Template Styles - Minimal Design */
+.project-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color, #ffffff);
+  color: var(--text-color, #333333);
+  transition: all var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+/* Transparent topbar for banner images */
+.project-page.has-banner:not(.scrolled-past-banner) .topbar {
+  background: transparent;
+  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.project-page.has-banner.scrolled-past-banner .topbar {
+  background: var(--topbar-bg);
+  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+/* Banner Section */
+.banner-section {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-container {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Add padding for projects without banner to avoid topbar overlap */
+.project-page:not(.has-banner) .project-container {
+  padding-top: 4rem;
+}
+
+/* Header Section */
+.project-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  animation: slideDown 0.6s ease-out;
+}
+
+.project-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--text-color, #333333);
+  letter-spacing: -0.02em;
+}
+
+.project-period {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--secondary-text, #666666);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.project-meta-info {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5rem;
+}
+
+.project-status-section,
+.project-type-section {
+  text-align: left;
+}
+
+.meta-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-color, #333333);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+}
+
+.meta-value {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--secondary-text, #666666);
+  opacity: 0.8;
+}
+
+.participants-list {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-color, #333333);
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.highlighted-participant {
+  font-weight: 500;
+  color: var(--text-color, #333333);
+}
+
+/* Content Section */
+.project-content {
+  animation: fadeInRight 0.8s ease-out 0.4s both;
+}
+
+/* Dark Mode Support */
+.dark-mode .project-page {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --card-bg: #222222;
+  --border-color: #333333;
+  --secondary-text: #999999;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .project-container {
+    padding: 1.5rem;
+  }
+
+  .project-page:not(.has-banner) .project-container {
+    padding-top: 3.5rem;
+  }
+
+  .project-title {
+    font-size: 2.2rem;
+  }
+
+  .project-period {
+    font-size: 1.1rem;
+  }
+
+  .meta-label {
+    font-size: 0.75rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+  }
+
+
+  .banner-section {
+    height: 50vh;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-container {
+    padding: 1rem;
+  }
+
+  .project-page:not(.has-banner) .project-container {
+    padding-top: 3rem;
+  }
+
+  .project-title {
+    font-size: 2rem;
+  }
+
+  .project-period {
+    font-size: 1.1rem;
+  }
+
+  .meta-label {
+    font-size: 0.75rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+  }
+
+
+  .participants-list {
+    font-size: 0.95rem;
+  }
+
+  .banner-section {
+    height: 40vh;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .project-page:not(.has-banner) .project-container {
+    padding-top: 2.5rem;
+  }
+
+  .project-title {
+    font-size: 1.8rem;
+  }
+
+  .project-period {
+    font-size: 1rem;
+  }
+
+  .meta-label {
+    font-size: 0.7rem;
+  }
+
+  .meta-value {
+    font-size: 0.8rem;
+  }
+
+  .banner-section {
+    height: 35vh;
+    min-height: 200px;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Focus states for accessibility */
+.participants-section:focus-within {
+  outline: 1px solid var(--text-color, #333333);
+  outline-offset: 2px;
+}

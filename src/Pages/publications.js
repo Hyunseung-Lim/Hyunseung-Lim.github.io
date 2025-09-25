@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import '../Components/components.css'
 import './pages.css'
 import { SegmentedControl } from '../Components/SegmentedButton/segmentedbutton'
@@ -8,29 +8,8 @@ import { Footer } from '../Components/Footer/footer'
 import publicationData from '../Data/publications.json'
 
 export const Publications = (props) => {
-    const fadeInRef = useFadeInAnimation();
+    const fadeInRef = useFadeInAnimation(); // 기존 시스템으로 되돌리기
 
-    const element = useCallback((node) => {
-        const options = {
-            root: null,
-            rootMargin: "0px",
-            threshold: 0.1,
-        }
-        
-        if (node && node.nodeType === Node.ELEMENT_NODE) {
-            const observer = new IntersectionObserver(entries => {
-              entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add('animation');
-                } else {
-                  entry.target.classList.remove('animation');
-                }
-              });
-            }, options);
-        
-            observer.observe(node);
-        }
-    }, []);
 
     const [isMobile, setIsMobile] = useState(Number(window.innerWidth <= 992));
     
@@ -178,13 +157,13 @@ export const Publications = (props) => {
                     <div className='publicationlist'>
                         {yearList.map(year =>
                             <div key={year}>
-                                <div ref={element} className="year">{year}</div>
+                                <div ref={fadeInRef} className="year">{year}</div>
                                 {filteredPublications.filter(pub => pub.year === year && pub.title && pub.year > 0).map(publication =>
                                     <div key={publication.title + (publication.authors?.join('') || publication.author || '')} className="publication">
-                                        <div ref={element} className="info">
+                                        <div ref={fadeInRef} className="info">
                                             <div className="maininfo">
-                                                <div ref={element} className="title">{publication.title}</div>
-                                                <div ref={element} className="authors">
+                                                <div ref={fadeInRef} className="title">{publication.title}</div>
+                                                <div ref={fadeInRef} className="authors">
                                                     <span dangerouslySetInnerHTML={{
                                                         __html: (() => {
                                                             const authors = publication.author.split(', ');
@@ -197,7 +176,7 @@ export const Publications = (props) => {
                                                         })()
                                                     }} />
                                                 </div>
-                                                <div ref={element} className="venue-links">
+                                                <div ref={fadeInRef} className="venue-links">
                                                     <span className="venue-text">{publication.venue}</span>
                                                     {(() => {
                                                         const links = [];
@@ -219,7 +198,7 @@ export const Publications = (props) => {
                                             </div>
                                         </div>
                                         {publication.award && (
-                                            <div ref={element} className="awards">
+                                            <div ref={fadeInRef} className="awards">
                                                 <span className="award">{publication.award}</span>
                                             </div>
                                         )}

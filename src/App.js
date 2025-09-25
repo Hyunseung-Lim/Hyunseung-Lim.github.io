@@ -6,6 +6,7 @@ import { MainPage } from './Pages/MainPage';
 import { ResearchPage } from './Pages/ResearchPage';
 import { Publications } from './Pages/publications';
 import { ProjectsPage } from './Pages/ProjectsPage';
+import { DatopiaProject } from './Pages/Projects/Datopia/Datopia';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path='/' element={<MainPage/>} />
             <Route path='/research' element={<ResearchPage/>} />
             <Route path='/projects' element={<ProjectsPage/>} />
+            <Route path='/projects/datopia' element={<DatopiaProject/>} />
             <Route path='/publications' element={<Publications/>} />
           </Routes>
         </div>
