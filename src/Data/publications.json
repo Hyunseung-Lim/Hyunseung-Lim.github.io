@@ -14,7 +14,7 @@
       "video": ""
     },
     {
-      "title": "PANORAMA: A Dataset and Benchmark Tasks Capturing the Evaluation Trails and Rationales in Patent Examination",
+      "title": "PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination",
       "author": "Hyunseung Lim, Sooyohn Nam, Sungmin Na, Ji Yong Cho, June Yong Yang, Hyungyu Shin, Yoonjoo Lee, Juho Kim, Moontae Lee, Hwajung Hong",
       "venue": "NeurIPS 2025 Datasets and Benchmarks Track",
       "award": "",
@@ -63,9 +63,9 @@
       "year": 2025,
       "field": ["ethics"],
       "type": "poster",
-      "pdf": "",
-      "doi": "",
-      "bibtex": "",
+      "pdf": "hyewon_uist_2025.pdf",
+      "doi": "https://dl.acm.org/doi/10.1145/3746058.3758404",
+      "bibtex": "hyewon_uist_2025.bib",
       "recording": "",
       "video": ""
     },

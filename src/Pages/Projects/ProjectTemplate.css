@@ -3,8 +3,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-color, #ffffff);
-  color: var(--text-color, #333333);
+  background-color: var(--bg-primary, #ffffff);
+  color: var(--text-primary, #333333);
   transition: all var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
@@ -53,7 +53,7 @@
   text-align: center;
   margin-bottom: 3rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  border-bottom: 1px solid var(--border-primary, #e0e0e0);
   animation: slideDown 0.6s ease-out;
 }
 
@@ -61,14 +61,14 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 1rem 0;
-  color: var(--text-color, #333333);
+  color: var(--text-primary, #333333);
   letter-spacing: -0.02em;
 }
 
 .project-period {
   font-size: 1.2rem;
   font-weight: 300;
-  color: var(--secondary-text, #666666);
+  color: var(--text-secondary, #666666);
   opacity: 0.8;
   margin-bottom: 1rem;
   text-align: center;
@@ -88,7 +88,7 @@
 .meta-label {
   font-size: 0.8rem;
   font-weight: 500;
-  color: var(--text-color, #333333);
+  color: var(--text-primary, #333333);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.3rem;
@@ -97,21 +97,21 @@
 .meta-value {
   font-size: 0.9rem;
   font-weight: 400;
-  color: var(--secondary-text, #666666);
+  color: var(--text-secondary, #666666);
   opacity: 0.8;
 }
 
 .participants-list {
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--text-color, #333333);
+  color: var(--text-primary, #333333);
   font-weight: 300;
   opacity: 0.8;
 }
 
 .highlighted-participant {
   font-weight: 500;
-  color: var(--text-color, #333333);
+  color: var(--text-primary, #333333);
 }
 
 /* Content Section */
@@ -119,13 +119,10 @@
   animation: fadeInRight 0.8s ease-out 0.4s both;
 }
 
-/* Dark Mode Support */
+/* Dark Mode Support - 전역 CSS 변수 사용 */
 .dark-mode .project-page {
-  --bg-color: #1a1a1a;
-  --text-color: #e0e0e0;
-  --card-bg: #222222;
-  --border-color: #333333;
-  --secondary-text: #999999;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 /* Animations */
@@ -281,6 +278,6 @@
 
 /* Focus states for accessibility */
 .participants-section:focus-within {
-  outline: 1px solid var(--text-color, #333333);
+  outline: 1px solid var(--text-primary, #333333);
   outline-offset: 2px;
 }

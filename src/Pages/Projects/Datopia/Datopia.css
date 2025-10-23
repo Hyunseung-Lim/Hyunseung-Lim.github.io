@@ -25,6 +25,33 @@
   transition: color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
+.datopia-animation {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: clamp(120px, 25vh, 220px);
+  pointer-events: none;
+  z-index: 1000;
+  overflow: visible;
+}
+
+.datopia-animation__sprite {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: min(25vh, 200px);
+  max-height: 25vh;
+  width: auto;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+  transform: translateX(100%);
+  animation-name: datopia-glide;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
 /* Dark Mode Support */
 .dark-mode .datopia-content {
   --text-color: #e0e0e0;
@@ -39,6 +66,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes datopia-glide {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(calc(-100vw - 100%));
   }
 }
 
@@ -63,6 +99,10 @@
     font-size: 1rem;
     padding: 1rem;
   }
+
+  .datopia-animation {
+    height: clamp(100px, 25vh, 180px);
+  }
 }
 
 @media (max-width: 480px) {
@@ -72,5 +112,9 @@
 
   .content-title {
     font-size: 1.2rem;
+  }
+
+  .datopia-animation {
+    height: clamp(90px, 25vh, 150px);
   }
 }
