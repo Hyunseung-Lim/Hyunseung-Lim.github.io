@@ -236,6 +236,8 @@ src/Pages/Projects/
    - 배너 이미지 포함
    - 페이지 진입 시 테마 컨텍스트를 강제로 다크 모드로 설정 (퇴장 시 이전 테마 복귀)
    - 프로젝트 설명과 별도로 `dato2.gif`를 화면 하단에 고정해 반복 재생
+   - 전시 소개 영상(YouTube) 임베드와 전시 이미지 2종(데스크탑 가로/모바일 세로, 동일 높이 가변 프레임) (`src/Pages/Projects/Datopia/Datopia.js`, `Datopia.css`)
+   - 영상·이미지 사이 분리선과 wavy underline 강조 텍스트 추가
    - 1→2→3개 순환으로 이미지를 이어 붙여 이동시킴 (`src/Pages/Projects/Datopia/Datopia.js`, `Datopia.css`)
    - 각 이미지 높이는 뷰포트 25% 이하로 제한되어 다양한 화면 비율 대응
 

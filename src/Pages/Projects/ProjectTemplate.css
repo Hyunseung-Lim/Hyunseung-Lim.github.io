@@ -37,7 +37,8 @@
 
 .project-container {
   flex: 1;
-  max-width: 800px;
+  max-width: 824px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   animation: fadeInUp 0.8s ease-out;

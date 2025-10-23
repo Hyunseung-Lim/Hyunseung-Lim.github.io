@@ -68,8 +68,43 @@ export const DatopiaProject = () => {
               Datopia is a data-based dating service. By analyzing data, it captures everything
               from the preferences you didn't know you had to your minor daily habits. Through this,
               it goes beyond simple encounters to find you a destined partner with whom you can
-              maintain a continuous relationship. But can love really be determined solely by data?
-            </p>
+            maintain a continuous relationship.{' '}
+            <span className="datopia-highlight">
+              But can love really be determined solely by data?
+            </span>
+          </p>
+          </div>
+          <div className="datopia-media">
+            <div className="datopia-media__frame" role="region" aria-label="Datopia showcase video">
+              <iframe
+                src="https://www.youtube.com/embed/2mOZOPmv0KI?rel=0"
+                title="Datopia Exhibition Walkthrough"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="datopia-divider" role="presentation" aria-hidden="true" />
+            <div className="datopia-figures">
+              {[
+                {
+                  src: `${process.env.PUBLIC_URL}/projects/datopia/datopia_fig1.png`,
+                  alt: 'Datopia interface detail'
+                },
+                {
+                  src: `${process.env.PUBLIC_URL}/projects/datopia/datopia_fig2.png`,
+                  alt: 'Datopia exhibition interaction'
+                }
+              ].map((figure, index) => (
+                <img
+                  key={index}
+                  src={figure.src}
+                  alt={figure.alt}
+                  className="datopia-figure"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+            <div className="datopia-divider" role="presentation" aria-hidden="true" />
           </div>
         </div>
       </ProjectTemplate>
