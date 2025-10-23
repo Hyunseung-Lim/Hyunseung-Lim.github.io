@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ProjectTemplate } from '../ProjectTemplate';
+import { useTheme } from '../../../contexts/ThemeContext';
 import './Datopia.css';
 
 const RUN_SEQUENCE = [1, 2, 3];
@@ -27,7 +28,23 @@ export const DatopiaProject = () => {
 
   const [runIndex, setRunIndex] = useState(0);
   const [cycleId, setCycleId] = useState(0);
+  const { isDark, setThemeMode } = useTheme();
+  const previousThemeRef = useRef(isDark ? 'dark' : 'light');
   const batchSize = RUN_SEQUENCE[runIndex];
+
+  useEffect(() => {
+    if (!isDark) {
+      setThemeMode('dark');
+    }
+  }, [isDark, setThemeMode]);
+
+  useEffect(() => {
+    return () => {
+      if (previousThemeRef.current !== 'dark') {
+        setThemeMode(previousThemeRef.current);
+      }
+    };
+  }, [setThemeMode]);
 
   const handleAnimationCycleEnd = () => {
     setRunIndex(prev => (prev + 1) % RUN_SEQUENCE.length);
