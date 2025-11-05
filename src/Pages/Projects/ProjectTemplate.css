@@ -5,7 +5,9 @@
   flex-direction: column;
   background-color: var(--bg-primary, #ffffff);
   color: var(--text-primary, #333333);
-  transition: all var(--theme-transition-speed) var(--theme-transition-easing);
+  transition:
+    background-color var(--theme-transition-speed) var(--theme-transition-easing),
+    color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 /* Transparent topbar for banner images */
@@ -41,7 +43,6 @@
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
-  animation: fadeInUp 0.8s ease-out;
 }
 
 /* Add padding for projects without banner to avoid topbar overlap */
@@ -55,7 +56,6 @@
   margin-bottom: 3rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid var(--border-primary, #e0e0e0);
-  animation: slideDown 0.6s ease-out;
 }
 
 .project-title {
@@ -64,6 +64,15 @@
   margin: 0 0 1rem 0;
   color: var(--text-primary, #333333);
   letter-spacing: -0.02em;
+}
+
+.project-subtitle {
+  margin: 0 0 1.1rem 0;
+  font-size: 1.08rem;
+  font-weight: 400;
+  color: var(--text-secondary, #666666);
+  letter-spacing: 0.01em;
+  line-height: 1.5;
 }
 
 .project-period {
@@ -79,6 +88,8 @@
   display: flex;
   justify-content: space-around;
   margin-top: 1.5rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .project-status-section,
@@ -103,7 +114,7 @@
 }
 
 .participants-list {
-  font-size: 1rem;
+  font-size: 0.96rem;
   line-height: 1.6;
   color: var(--text-primary, #333333);
   font-weight: 300;
@@ -115,60 +126,64 @@
   color: var(--text-primary, #333333);
 }
 
+.participants-list a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--theme-transition-speed) var(--theme-transition-easing), color var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.participants-list a:hover,
+.participants-list a:focus-visible {
+  border-bottom-color: currentColor;
+}
+
+.highlighted-participant a {
+  font-weight: inherit;
+}
+
 /* Content Section */
 .project-content {
-  animation: fadeInRight 0.8s ease-out 0.4s both;
+  width: 100%;
+  display: block;
+}
+
+.project-section {
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+
+.project-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.section-text {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.section-list {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.section-list li {
+  margin-bottom: 0.5rem;
 }
 
 /* Dark Mode Support - 전역 CSS 변수 사용 */
 .dark-mode .project-page {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }
 
 /* Responsive Design */
@@ -183,6 +198,10 @@
 
   .project-title {
     font-size: 2.2rem;
+  }
+
+  .project-subtitle {
+    font-size: 1rem;
   }
 
   .project-period {
@@ -273,12 +292,9 @@
 }
 
 /* Smooth transitions for all interactive elements */
-* {
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-
-/* Focus states for accessibility */
-.participants-section:focus-within {
-  outline: 1px solid var(--text-primary, #333333);
-  outline-offset: 2px;
+.project-container * {
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 }

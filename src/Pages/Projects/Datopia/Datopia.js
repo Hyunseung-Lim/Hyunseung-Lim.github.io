@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { ProjectTemplate } from '../ProjectTemplate';
-import { useTheme } from '../../../contexts/ThemeContext';
+import { PROJECTS } from '../../../Data/projectsMeta';
 import './Datopia.css';
 
 const RUN_SEQUENCE = [1, 2, 3];
@@ -8,43 +8,11 @@ const GLIDE_DURATION = 9; // seconds
 const GLIDE_DELAY_STEP = 1.4; // seconds
 
 export const DatopiaProject = () => {
-  const projectData = {
-    title: "Datopia",
-    period: "2022",
-    status: "Completed",
-    projectType: "Exhibition",
-    participants: [
-      "Hyunseung Lim",
-      "Dasom Choi",
-      "Kwangyoung Lee",
-      "Taewan Kim",
-      "Eunseo Oh",
-      "Inhwa Song",
-      "Seokyoung Park",
-      "Yubin Choi",
-      "Hwajung Hong"
-    ]
-  };
+  const projectData = PROJECTS['datopia'];
 
   const [runIndex, setRunIndex] = useState(0);
   const [cycleId, setCycleId] = useState(0);
-  const { isDark, setThemeMode } = useTheme();
-  const previousThemeRef = useRef(isDark ? 'dark' : 'light');
   const batchSize = RUN_SEQUENCE[runIndex];
-
-  useEffect(() => {
-    if (!isDark) {
-      setThemeMode('dark');
-    }
-  }, [isDark, setThemeMode]);
-
-  useEffect(() => {
-    return () => {
-      if (previousThemeRef.current !== 'dark') {
-        setThemeMode(previousThemeRef.current);
-      }
-    };
-  }, [setThemeMode]);
 
   const handleAnimationCycleEnd = () => {
     setRunIndex(prev => (prev + 1) % RUN_SEQUENCE.length);
@@ -60,7 +28,8 @@ export const DatopiaProject = () => {
         status={projectData.status}
         projectType={projectData.projectType}
         bannerImage={`${process.env.PUBLIC_URL}/images/project_1.png`}
-        themeMode="dark"
+        highlightParticipants={projectData.highlightParticipants}
+        themeMode={projectData.themeMode ?? 'auto'}
       >
         <div className="datopia-content">
           <div className="project-description">
@@ -68,11 +37,11 @@ export const DatopiaProject = () => {
               Datopia is a data-based dating service. By analyzing data, it captures everything
               from the preferences you didn't know you had to your minor daily habits. Through this,
               it goes beyond simple encounters to find you a destined partner with whom you can
-            maintain a continuous relationship.{' '}
-            <span className="datopia-highlight">
-              But can love really be determined solely by data?
-            </span>
-          </p>
+              maintain a continuous relationship.{' '}
+              <span className="datopia-highlight">
+                But can love really be determined solely by data?
+              </span>
+            </p>
           </div>
           <div className="datopia-media">
             <div className="datopia-media__frame" role="region" aria-label="Datopia showcase video">

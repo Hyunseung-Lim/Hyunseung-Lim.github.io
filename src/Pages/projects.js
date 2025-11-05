@@ -1,55 +1,73 @@
-import '../Components/components.css'
-import './pages.css'
-import { useFadeInAnimation } from '../hooks/useFadeInAnimation'
+import '../Components/components.css';
+import './pages.css';
+import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
+import { useTheme } from '../contexts/ThemeContext';
+import { PROJECTS, PROJECT_ORDER } from '../Data/projectsMeta';
+
+const handleMouseEnter = (event) => {
+  const hoverSrc = event.currentTarget.getAttribute('data-hover');
+  if (hoverSrc) {
+    event.currentTarget.src = hoverSrc;
+  }
+};
+
+const handleMouseLeave = (event) => {
+  const originalSrc = event.currentTarget.getAttribute('data-original');
+  if (originalSrc) {
+    event.currentTarget.src = originalSrc;
+  }
+};
 
 export const Projects = () => {
-    const fadeInRef = useFadeInAnimation();
+  const fadeInRef = useFadeInAnimation(0.1);
+  const { isDark } = useTheme();
 
-    // Static project data for main projects page
-    const projectData = [
-        {
-            title: "Datopia",
-            people: ["Hyunseung Lim", "Dasom Choi", "Kwangyoung Lee", "Taewan Kim", "Eunseo Oh", "Inhwa Song", "Seokyoung Park", "Yubin Choi", "Hwajung Hong"],
-            period: "2022",
-            status: "Completed",
-            projectType: "Exhibition",
-            description: "Datopia is a data-based dating service. By analyzing data, it captures everything from the preferences you didn't know you had to your minor daily habits. Through this, it goes beyond simple encounters to find you a destined partner with whom you can maintain a continuous relationship. But can love really be determined solely by data?",
-            image: "project_1.png"
-        }
-    ];
+  return (
+    <div className="page">
+      <div className="projects">
+        <div className="project-tiles">
+          {PROJECT_ORDER.map((projectId) => {
+            const project = PROJECTS[projectId];
+            if (!project) {
+              return null;
+            }
+            const iconPath = isDark && project.iconDark ? project.iconDark : project.icon;
+            const hoverPath = isDark && project.hoverIconDark ? project.hoverIconDark : project.hoverIcon;
 
-    return(
-        <div className="page">
-            <div className="projects">
-                <div ref={fadeInRef} className='title'>Projects</div>
-                <div className='projectlist'>
-                    {projectData.map(project => (
-                        <div ref={fadeInRef} className='project-item bibliography' key={project.title}>
-                            <a href={`#/projects/${project.title.toLowerCase()}`} className='project-link'>
-                                <div className='proj-title pub-title'>{project.title} ({project.period})</div>
-                                <div className='proj-meta'>
-                                    <span className='proj-status'>{project.status}</span>
-                                    {project.status && project.projectType && ' • '}
-                                    <span className='proj-type'>{project.projectType}</span>
-                                </div>
-                                <div className='proj-authors pub-authors'>
-                                    {project.people.map((person, index) => (
-                                        <span key={index} className='authorholder'>
-                                            <span className={person === "Hyunseung Lim" ? "highlight_person" : "person"}>
-                                                {person === "Hyunseung Lim" ? <strong>{person}</strong> : person}
-                                            </span>
-                                            {index < project.people.length - 1 ? ', ' : ''}
-                                        </span>
-                                    ))}
-                                </div>
-                                <div className='proj-description pub-others'>
-                                    <div className='proj-desc-text'>{project.description}</div>
-                                </div>
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            const iconSrc = `${process.env.PUBLIC_URL}${iconPath}`;
+            const hoverSrc = hoverPath ? `${process.env.PUBLIC_URL}${hoverPath}` : null;
+            const linkTarget = project.href;
+            const isExternal = Boolean(project.external);
+
+            return (
+              <div className="project-tile" key={project.id} ref={fadeInRef}>
+                <a
+                  href={linkTarget}
+                  className="project-tile__link"
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                >
+                  <div className="project-tile__image-container">
+                    <img
+                      src={iconSrc}
+                      data-original={iconSrc}
+                      data-hover={hoverSrc || undefined}
+                      alt={`${project.title} icon`}
+                      className="project-tile__image"
+                      loading="lazy"
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                    />
+                  </div>
+                  <p className="project-tile__title">
+                    {project.title}
+                  </p>
+                </a>
+              </div>
+            );
+          })}
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};

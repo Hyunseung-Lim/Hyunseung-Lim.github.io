@@ -1,14 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react'
-import '../Components/components.css'
-import './pages.css'
-import { SegmentedControl } from '../Components/SegmentedButton/segmentedbutton'
-import { useFadeInAnimation } from '../hooks/useFadeInAnimation'
-import { Topbar } from '../Components/Topbar/topbar'
-import { Footer } from '../Components/Footer/footer'
-import publicationData from '../Data/publications.json'
+import '../Components/components.css';
+import './pages.css';
+import { SegmentedControl } from '../Components/SegmentedButton/segmentedbutton';
+import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
+import { Topbar } from '../Components/Topbar/topbar';
+import { Footer } from '../Components/Footer/footer';
+import publicationData from '../Data/publications.json';
+import personLinks from '../Data/personLinks.json';
 
 export const Publications = (props) => {
-    const fadeInRef = useFadeInAnimation(); // 기존 시스템으로 되돌리기
+    const fadeInRef = useFadeInAnimation();
 
 
     const [isMobile, setIsMobile] = useState(Number(window.innerWidth <= 992));
@@ -56,6 +57,71 @@ export const Publications = (props) => {
     const [typeValue, setTypeValue] = useState("all");
     const [yearList, setYearList] = useState([]);
     const [filteredPublications, setFilteredPublications] = useState([]);
+
+    const renderAuthorName = (name, index) => {
+        const trimmed = name.trim();
+        if (!trimmed) return null;
+
+        const link = personLinks[trimmed];
+        const isHighlighted = trimmed === 'Hyunseung Lim';
+        const classNames = [];
+        if (isHighlighted) classNames.push('highlight_author');
+
+        if (link) {
+            classNames.push('author-link');
+            return (
+                <a
+                    href={link}
+                    className={classNames.join(' ') || undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {trimmed}
+                </a>
+            );
+        }
+
+        return (
+            <span className={classNames.join(' ') || undefined}>
+                {trimmed}
+            </span>
+        );
+    };
+
+    const renderAuthors = (authorString) => {
+        if (!authorString) {
+            return null;
+        }
+
+        const authors = authorString.split(',').map((name) => name.trim()).filter(Boolean);
+        if (authors.length === 0) {
+            return null;
+        }
+
+        if (isMobile && authors.length > 6) {
+            const displayedAuthors = authors.slice(0, 4);
+            const remainingCount = authors.length - displayedAuthors.length;
+            const fragments = displayedAuthors.map((name, index) => (
+                <React.Fragment key={`${name}-${index}`}>
+                    {index > 0 && ', '}
+                    {renderAuthorName(name, index)}
+                </React.Fragment>
+            ));
+            fragments.push(
+                <React.Fragment key="more-authors">
+                    , and {remainingCount} more authors
+                </React.Fragment>
+            );
+            return fragments;
+        }
+
+        return authors.map((name, index) => (
+            <React.Fragment key={`${name}-${index}`}>
+                {index > 0 && ', '}
+                {renderAuthorName(name, index)}
+            </React.Fragment>
+        ));
+    };
 
     function getYear(currentPubs) {
         let newYearList = [];
@@ -164,17 +230,7 @@ export const Publications = (props) => {
                                             <div className="maininfo">
                                                 <div ref={fadeInRef} className="title">{publication.title}</div>
                                                 <div ref={fadeInRef} className="authors">
-                                                    <span dangerouslySetInnerHTML={{
-                                                        __html: (() => {
-                                                            const authors = publication.author.split(', ');
-                                                            if (isMobile && authors.length > 6) {
-                                                                const firstFour = authors.slice(0, 4).join(', ');
-                                                                const remainingCount = authors.length - 4;
-                                                                return `${firstFour}, and ${remainingCount} more authors`.replace(/Hyunseung Lim/g, '<span class="highlight_author">Hyunseung Lim</span>');
-                                                            }
-                                                            return publication.author.replace(/Hyunseung Lim/g, '<span class="highlight_author">Hyunseung Lim</span>');
-                                                        })()
-                                                    }} />
+                                                    {renderAuthors(publication.author)}
                                                 </div>
                                                 <div ref={fadeInRef} className="venue-links">
                                                     <span className="venue-text">{publication.venue}</span>

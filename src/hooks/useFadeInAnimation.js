@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-export const useFadeInAnimation = (threshold = 0.1, useNewSystem = false) => {
+export const useFadeInAnimation = (threshold = 0.1) => {
   const observersRef = useRef(new Map());
 
   const disconnectAll = useCallback(() => {
@@ -13,7 +13,6 @@ export const useFadeInAnimation = (threshold = 0.1, useNewSystem = false) => {
 
   const elementRef = useCallback((node) => {
     if (!node) {
-      disconnectAll();
       return;
     }
 
@@ -27,23 +26,46 @@ export const useFadeInAnimation = (threshold = 0.1, useNewSystem = false) => {
       threshold,
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries, currentObserver) => {
       entries.forEach((entry) => {
-        if (useNewSystem) {
-          entry.target.classList.toggle('fade-in-active', entry.isIntersecting);
-        } else {
-          entry.target.classList.toggle('animation', entry.isIntersecting);
+        if (!entry.isIntersecting) {
+          return;
         }
+
+        entry.target.classList.add('fade-in-active');
+        currentObserver.unobserve(entry.target);
+        currentObserver.disconnect();
+        observersRef.current.delete(entry.target);
       });
     }, options);
 
-    if (useNewSystem) {
-      node.classList.add('fade-in-element');
-    }
-
+    node.classList.add('fade-in-element');
     observer.observe(node);
     observersRef.current.set(node, observer);
-  }, [disconnectAll, threshold, useNewSystem]);
+
+    if (typeof window !== 'undefined') {
+      const rect = node.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const isInView = rect.top <= viewportHeight && rect.bottom >= 0;
+
+      if (isInView) {
+        const activate = () => {
+          node.classList.remove('fade-in-active');
+          void node.offsetHeight;
+          node.classList.add('fade-in-active');
+          observer.unobserve(node);
+          observer.disconnect();
+          observersRef.current.delete(node);
+        };
+
+        if (typeof window.requestAnimationFrame === 'function') {
+          window.requestAnimationFrame(() => window.requestAnimationFrame(activate));
+        } else {
+          setTimeout(activate, 16);
+        }
+      }
+    }
+  }, [threshold]);
 
   useEffect(() => () => disconnectAll(), [disconnectAll]);
 

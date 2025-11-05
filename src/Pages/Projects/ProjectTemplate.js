@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Topbar } from '../../Components/Topbar/topbar';
 import { Footer } from '../../Components/Footer/footer';
 import { useFadeInAnimation } from '../../hooks/useFadeInAnimation';
+import { useTheme } from '../../contexts/ThemeContext';
 import './ProjectTemplate.css';
+import personLinks from '../../Data/personLinks.json';
 
 export const ProjectTemplate = ({
   title,
+  subtitle,
   period,
-  participants,
+  participants = [],
   status,
   projectType,
   bannerImage,
   themeMode = 'auto', // 'auto', 'light', 'dark'
+  highlightParticipants = [],
   children
 }) => {
   const fadeInRef = useFadeInAnimation();
   const [isScrolledPastBanner, setIsScrolledPastBanner] = useState(false);
+  const { isDark, setThemeMode } = useTheme();
+  const initialThemeRef = useRef(isDark ? 'dark' : 'light');
+  const highlightSet = highlightParticipants.length > 0 ? new Set(highlightParticipants) : null;
+  const appliedThemeRef = useRef(null);
 
   useEffect(() => {
     if (!bannerImage) return;
@@ -30,23 +38,43 @@ export const ProjectTemplate = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, [bannerImage]);
 
-  useEffect(() => {
-    const body = document.body;
-
-    if (themeMode === 'dark') {
-      body.classList.add('dark-mode');
-    } else if (themeMode === 'light') {
-      body.classList.remove('dark-mode');
+  useLayoutEffect(() => {
+    if (themeMode === 'auto') {
+      return undefined;
     }
-    // 'auto'인 경우 기존 ThemeContext가 관리
-  }, [themeMode]);
+
+    const desiredMode = themeMode === 'dark' ? 'dark' : 'light';
+    const initialMode = initialThemeRef.current;
+
+    if (appliedThemeRef.current !== desiredMode) {
+      setThemeMode(desiredMode);
+      appliedThemeRef.current = desiredMode;
+    }
+
+    return () => {
+      appliedThemeRef.current = null;
+      if (initialMode !== desiredMode) {
+        setThemeMode(initialMode);
+      }
+    };
+  }, [setThemeMode, themeMode]);
 
   const renderParticipants = () => {
     return participants.map((participant, index) => {
-      const isHighlighted = participant === 'Hyunseung Lim';
+      const isHighlighted = highlightSet
+        ? highlightSet.has(index)
+        : participant === 'Hyunseung Lim';
+      const link = personLinks[participant];
+
+      const content = link ? (
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          {participant}
+        </a>
+      ) : participant;
+
       return (
         <span key={index} className={isHighlighted ? 'highlighted-participant' : ''}>
-          {participant}
+          {content}
           {index < participants.length - 1 && ', '}
         </span>
       );
@@ -68,6 +96,7 @@ export const ProjectTemplate = ({
       <div className="project-container">
         <header className="project-header" ref={fadeInRef}>
           <h1 className="project-title">{title}</h1>
+          {subtitle && <p className="project-subtitle">{subtitle}</p>}
           <div className="project-period">{period}</div>
           <div className="participants-list">
             {renderParticipants()}
