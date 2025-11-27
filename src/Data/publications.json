@@ -22,8 +22,8 @@
     "field": ["llm", "hai", "creativity", "learning"],
     "type": "journal",
     "pdf": "",
-    "doi": "",
-    "bibtex": "",
+    "doi": "https://www.sciencedirect.com/science/article/pii/S1071581925002447",
+    "bibtex": "hyunseung_ijhcs_2026.bib",
     "recording": "",
     "video": ""
   },
@@ -36,8 +36,8 @@
     "field": ["llm", "hai"],
     "type": "journal",
     "pdf": "",
-    "doi": "",
-    "bibtex": "",
+    "doi": "https://www.sciencedirect.com/science/article/pii/S1071581925002496",
+    "bibtex": "donggun_ijhcs_2026.bib",
     "recording": "",
     "video": ""
   },
