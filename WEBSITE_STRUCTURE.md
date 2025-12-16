@@ -65,7 +65,7 @@ Hyunseung-Lim.github.io/
 
 ## 주요 컴포넌트 및 기능
 
-### 1. 라우팅 구조 (`src/App.js:10-25`)
+### 1. 라우팅 구조 (`src/App.js:10-34`)
 ```javascript
 <Routes>
   <Route path='/' element={<MainPage />} />
@@ -74,7 +74,11 @@ Hyunseung-Lim.github.io/
   <Route path='/projects/datopia' element={<DatopiaProject />} />
   <Route path='/projects/feed-o-meter' element={<FeedOMeterProject />} />
   <Route path='/projects/crafteam' element={<CrafteamProject />} />
+  <Route path='/projects/stereohunter' element={<StereoHunterProject />} />
+  <Route path='/projects/elevate' element={<ElevateProject />} />
   <Route path='/projects/aqua' element={<AquaProject />} />
+  <Route path='/projects/aqua-design' element={<AquaDesignProject />} />
+  <Route path='/projects/brownie' element={<BrownieProject />} />
   <Route path='/publications' element={<Publications />} />
 </Routes>
 ```
@@ -113,7 +117,6 @@ export const PROJECTS = {
     title: 'Datopia',
     subtitle: '선택사항',
     period: 'YYYY',
-    status: 'Completed|Ongoing',
     projectType: 'Research|Exhibition|Design Project',
     icon: '/projects/datopia/icon.png',         // 라이트 모드 기본 아이콘
     hoverIcon: '/projects/datopia/icon_hover.gif',
@@ -141,6 +144,8 @@ export const PROJECT_ORDER = [
 - `external`이 `true`일 경우 개별 페이지 대신 외부 링크로 연결.
 - `participants`는 `src/Data/personLinks.json`과 연계되어 자동 하이퍼링크 처리됨.
 - `highlightParticipants`: 강조할 참여자 인덱스 배열. 미지정 시 `Hyunseung Lim`만 자동 강조.
+- `subtitle` 값은 모든 프로젝트에서 필수로 사용 중이며, 상세 페이지에서 제목 바로 아래 표시됩니다.
+- `status` 필드는 2025년 9월 26일부로 완전히 제거되었습니다. 필요한 경우 본문에서 직접 설명하세요.
 
 ### 4. 주요 페이지 컴포넌트
 
@@ -151,7 +156,7 @@ export const PROJECT_ORDER = [
 #### Projects 페이지 (`src/Pages/projects.js`)
 - **아이콘 기반 프로젝트 그리드**: Crafteam, StereoHunter, PANORAMA, Feed-O-Meter, AQUA, Datopia, Brownie, Elevate, Aqua Design
 - **다크/라이트 전용 아이콘 자동 전환** (`ThemeContext` 상태에 따라 세트 교체)
-- **Feed-O-Meter·Crafteam·AQUA**: 템플릿 기반 개별 상세 페이지로 이동
+- **Datopia·Feed-O-Meter·Crafteam·StereoHunter·Elevate·AQUA·Aqua Design·Brownie**: 템플릿 기반 개별 상세 페이지로 이동
 - **PANORAMA**: 외부 GitHub 리포지토리로 바로 연결
 - **중앙 페이드인 시스템**: `useFadeInAnimation(0.1)`으로 모든 카드 동일 타이밍의 페이드 인 적용
 - **호버 자산 제어**: `data-hover` 속성과 공통 핸들러로 정리, 필요 시 다크 모드 전용 아이콘 사용
@@ -274,6 +279,8 @@ src/Pages/Projects/
 - **간소화된 레이아웃**: Team Members를 년도 아래로 이동, 불필요한 박스 제거
 - **타이포그래피**: 가는 폰트 웨이트(300-500), 적절한 레터스페이싱
 - **공통 섹션 스타일**: `.project-section`, `.section-title`, `.section-text` 등 기본 레이아웃은 `ProjectTemplate.css`에서 중앙 관리 (필요할 때만 개별 CSS 추가)
+- **메타 정보 정렬**: 헤더 메타 블록은 `Period → Project Type` 순으로 고정되며 Status 열은 더 이상 노출되지 않습니다.
+- **스크롤 초기화**: 페이지 진입 시 `window.scrollTo(0, 0)`를 호출해 이전 페이지 스크롤 위치가 잔존하는 문제를 방지합니다.
 
 #### 4. **템플릿 Props**
 ```javascript
@@ -368,6 +375,7 @@ src/Pages/Projects/
 - **4단계 브레이크포인트**: 992px, 768px, 480px
 - **상단바 겹침 방지**: 배너 없는 프로젝트는 자동 padding-top 적용
 - **모바일 최적화**: 배너 높이, 폰트 크기, 여백 조정
+- **Aqua Design 특화**: 모바일에서는 텍스트가 먼저, 이미지가 나중에 나오며 이미지 폭을 75%로 줄여 세로 스크롤 가독성을 확보
 
 ## 향후 수정 시 주의사항
 1. **데이터 추가**: `src/Data/` 폴더의 JSON 파일들 수정 (기존 시스템)
@@ -417,5 +425,17 @@ src/Pages/Projects/
 - **새로운 컴포넌트**: CSS 변수 사용시 자동으로 일관된 전환 적용
 - **디버깅**: 2초 느린 전환(`transition: all 2s ease`)으로 테스트 가능
 
+## Legacy 정리 & 최적화 (2025-09-26)
+1. **Project Meta Status 제거**: `status` 필드를 완전히 삭제하고, 필요 시 본문 섹션에서 진행 상황을 기술하도록 정리했습니다.
+2. **Period 우선 배치**: 상세 페이지 헤더의 메타 정보는 항상 Period → Project Type 순으로 노출됩니다.
+3. **Subtitle 일관화**: 모든 프로젝트가 `subtitle`을 갖도록 데이터 정비를 완료해, 제목 바로 아래 줄에서 내러티브를 강조합니다.
+4. **스크롤 초기화**: 개별 프로젝트 페이지 진입 시 스크롤을 항상 최상단으로 이동시켜, 이전 페이지에서 내려간 상태로 새로운 페이지가 부분만 보이던 레거시 문제를 제거했습니다.
+5. **Aqua Design 전면 개편**:
+   - `public/projects/aqua-design/thumbnail.png`, `thumbnail_dark.png`, `img1.png` 자산을 추가하고 테마별 배너를 자동 전환.
+   - 좌측 이미지(85%) / 우측 본문(60% 비중)의 커스텀 섹션과 굵은 서브타이틀, 강조 텍스트를 도입.
+   - Datopia 페이지와 동일한 패턴으로 YouTube 임베드(`https://www.youtube.com/embed/hctUpCzpNfU?si=0as3GUUX7a9Agss-`)를 추가.
+   - 모바일에서는 텍스트 → 이미지 순으로 자동 재배치하고 이미지 폭을 75%로 축소해 가독성을 확보.
+6. **문서 업데이트**: 본 문서에 최신 구조, 필드 변화, 레이아웃 규칙을 반영해 향후 유지보수시 혼선을 방지했습니다.
+
 ---
-*최종 업데이트: 2025년 9월 25일*
+*최종 업데이트: 2025년 9월 26일*

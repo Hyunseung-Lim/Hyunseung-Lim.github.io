@@ -1,8 +1,15 @@
 import { ProjectTemplate } from '../ProjectTemplate';
 import { PROJECTS } from '../../../Data/projectsMeta';
+import { useTheme } from '../../../contexts/ThemeContext';
+import './AquaDesign.css';
 
 export const AquaDesignProject = () => {
   const projectData = PROJECTS['aqua-design'];
+  const { isDark } = useTheme();
+  const lightBanner = `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail.png`;
+  const darkBanner = `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail_dark.png`;
+  const bannerImage = isDark ? darkBanner : lightBanner;
+  const overviewImage = `${process.env.PUBLIC_URL}/projects/aqua-design/img1.png`;
 
   return (
     <ProjectTemplate
@@ -10,17 +17,35 @@ export const AquaDesignProject = () => {
       subtitle={projectData.subtitle}
       period={projectData.period}
       participants={projectData.participants}
-      status={projectData.status}
       projectType={projectData.projectType}
       highlightParticipants={projectData.highlightParticipants}
+      bannerImage={bannerImage}
       themeMode={projectData.themeMode ?? 'auto'}
     >
-      <section className="project-section">
-        <h2 className="section-title">Overview</h2>
-        <p className="section-text">
-          Aqua Design extends the AQUA initiative by prototyping tangible displays that react to water quality and flow in real time. The project investigates how urban residents can sense micro changes in their hydrological environment through playful material interactions.
-        </p>
+      <section className="project-section aqua-design-overview">
+        <div className="aqua-design-overview__media">
+          <img src={overviewImage} alt="Visualization of AQUA asset management interface" loading="lazy" />
+        </div>
+        <div className="aqua-design-overview__text">
+          <p className="aqua-design-overview__subtitle">People Tend to Associate Money with Purpose</p>
+          <p className="aqua-design-overview__content">
+            According to behavioural economics, people place different values on money on subjective criteria.
+            This called <strong>Mental Accounting</strong>. However, this difference of values is not clearly expressed in traditional
+            asset management systems. <strong>AQUA</strong> is asset management system that expresses the different purposes money is associated with.
+          </p>
+        </div>
       </section>
+
+      <div className="aqua-design-video" role="region" aria-label="AQUA concept walkthrough video">
+        <div className="aqua-design-video__frame">
+          <iframe
+            src="https://www.youtube.com/embed/hctUpCzpNfU?si=0as3GUUX7a9Agss-"
+            title="AQUA Design walkthrough"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
+      </div>
 
       <section className="project-section">
         <h2 className="section-title">Role</h2>

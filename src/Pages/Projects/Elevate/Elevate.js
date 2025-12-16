@@ -10,7 +10,6 @@ export const ElevateProject = () => {
       subtitle={projectData.subtitle}
       period={projectData.period}
       participants={projectData.participants}
-      status={projectData.status}
       projectType={projectData.projectType}
       highlightParticipants={projectData.highlightParticipants}
       themeMode={projectData.themeMode ?? 'auto'}

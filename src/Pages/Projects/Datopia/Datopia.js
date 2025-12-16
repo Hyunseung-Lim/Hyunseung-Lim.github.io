@@ -23,9 +23,9 @@ export const DatopiaProject = () => {
     <>
       <ProjectTemplate
         title={projectData.title}
+        subtitle={projectData.subtitle}
         period={projectData.period}
         participants={projectData.participants}
-        status={projectData.status}
         projectType={projectData.projectType}
         bannerImage={`${process.env.PUBLIC_URL}/images/project_1.png`}
         highlightParticipants={projectData.highlightParticipants}

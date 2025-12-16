@@ -1,0 +1,94 @@
+.aqua-design-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.aqua-design-overview__media {
+}
+
+.aqua-design-overview__media img {
+  display: block;
+  width: 85%;
+  margin: 0;
+  height: auto;
+}
+
+.aqua-design-overview__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.aqua-design-overview__subtitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--text-primary, #1f1f1f);
+}
+
+.aqua-design-overview__content {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text-primary, #333333);
+  margin: 0;
+}
+
+.aqua-design-video {
+  width: 100%;
+  margin: 1.5rem auto 3rem;
+}
+
+.aqua-design-video__frame {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.aqua-design-video__frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+}
+
+@media (max-width: 768px) {
+  .aqua-design-overview {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .aqua-design-overview__text {
+    order: 1;
+  }
+  .aqua-design-overview__media {
+    order: 2;
+  }
+
+  .aqua-design-overview__subtitle {
+    font-size: 0.92rem;
+  }
+
+  .aqua-design-overview__media img {
+    margin: 0 auto;
+    width: 75%;
+  }
+
+  .aqua-design-video {
+    margin: 1.5rem 0 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .aqua-design-overview {
+    gap: 1.25rem;
+  }
+
+  .aqua-design-overview__content {
+    font-size: 0.85rem;
+  }
+}

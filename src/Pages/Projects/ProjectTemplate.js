@@ -11,7 +11,6 @@ export const ProjectTemplate = ({
   subtitle,
   period,
   participants = [],
-  status,
   projectType,
   bannerImage,
   themeMode = 'auto', // 'auto', 'light', 'dark'
@@ -59,6 +58,13 @@ export const ProjectTemplate = ({
     };
   }, [setThemeMode, themeMode]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto'
+    });
+  }, []);
+
   const renderParticipants = () => {
     return participants.map((participant, index) => {
       const isHighlighted = highlightSet
@@ -97,15 +103,14 @@ export const ProjectTemplate = ({
         <header className="project-header" ref={fadeInRef}>
           <h1 className="project-title">{title}</h1>
           {subtitle && <p className="project-subtitle">{subtitle}</p>}
-          <div className="project-period">{period}</div>
           <div className="participants-list">
             {renderParticipants()}
           </div>
           <div className="project-meta-info">
-            {status && (
-              <div className="project-status-section">
-                <div className="meta-label">Status</div>
-                <div className="meta-value">{status}</div>
+            {period && (
+              <div className="project-period-section">
+                <div className="meta-label">Period</div>
+                <div className="meta-value">{period}</div>
               </div>
             )}
             {projectType && (
