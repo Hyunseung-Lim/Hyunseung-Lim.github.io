@@ -1,6 +1,7 @@
-import {HashRouter as Router, Route, Routes} from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { ScrollToTop } from './Components/ScrollToTop';
 
 import { MainPage } from './Pages/MainPage';
 import { ResearchPage } from './Pages/ResearchPage';
@@ -19,6 +20,7 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
+        <ScrollToTop />
         <div className="App">
           <Routes>
             <Route path='/' element={<MainPage/>} />

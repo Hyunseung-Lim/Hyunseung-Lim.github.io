@@ -49,7 +49,7 @@ Hyunseung-Lim.github.io/
 │   │       ├── Crafteam/     # Crafteam 전용 페이지
 │   │       ├── Datopia/      # Datopia 전용 페이지
 │   │       ├── FeedOMeter/   # Feed-O-Meter 전용 페이지
-│   │       └── ProjectTemplate.{js,css}
+│   │       └── ProjectTemplate.css   # 공통 프로젝트 스타일
 │   ├── constants/           # 상수 정의
 │   ├── contexts/            # React Context들
 │   │   └── ThemeContext.js  # 테마 컨텍스트
@@ -124,9 +124,7 @@ export const PROJECTS = {
     hoverIconDark: null,
     href: '#/projects/datopia',                 // 내부 링크 또는 외부 URL
     external: false,
-    themeMode: 'dark',                          // 'auto' | 'light' | 'dark' (선택)
-    participants: ['Hyunseung Lim', '...'],     // 참여자 리스트
-    highlightParticipants: [0, 3]               // 강조할 참여자 인덱스 (선택)
+    themeMode: 'dark'                           // 'auto' | 'light' | 'dark' (선택)
   },
   // ...
 };
@@ -142,8 +140,6 @@ export const PROJECT_ORDER = [
 - `iconDark`·`hoverIconDark`: 다크 모드에 특화된 아이콘이 있을 때만 설정(없으면 `null`).
 - `themeMode`: 개별 프로젝트 페이지에서 강제로 적용할 테마가 있을 때 사용 (`'auto'`가 기본값).
 - `external`이 `true`일 경우 개별 페이지 대신 외부 링크로 연결.
-- `participants`는 `src/Data/personLinks.json`과 연계되어 자동 하이퍼링크 처리됨.
-- `highlightParticipants`: 강조할 참여자 인덱스 배열. 미지정 시 `Hyunseung Lim`만 자동 강조.
 - `subtitle` 값은 모든 프로젝트에서 필수로 사용 중이며, 상세 페이지에서 제목 바로 아래 표시됩니다.
 - `status` 필드는 2025년 9월 26일부로 완전히 제거되었습니다. 필요한 경우 본문에서 직접 설명하세요.
 
@@ -241,64 +237,28 @@ export const PROJECT_ORDER = [
 ## 새로운 프로젝트 템플릿 시스템 (2025년 9월 24일 추가)
 
 ### 개별 프로젝트 페이지 구조
-기존의 JSON 기반 프로젝트 목록에서 개별 페이지 시스템으로 변경:
+각 프로젝트 페이지는 이제 공통 컴포넌트를 사용하지 않고, 다음 구조를 따릅니다:
 
 ```
 src/Pages/Projects/
-├── ProjectTemplate.js       # 재사용 가능한 프로젝트 템플릿
-├── ProjectTemplate.css      # 미니멀 디자인 템플릿 스타일
-└── [ProjectName]/          # 개별 프로젝트 폴더
-    ├── [ProjectName].js    # 프로젝트 페이지 컴포넌트
-    └── [ProjectName].css   # (선택) 프로젝트별 커스텀 스타일
+├── ProjectTemplate.css      # 공통 스타일 정의 (삭제 예정 아님)
+└── [ProjectName]/
+    ├── [ProjectName].js     # Topbar/배너/본문/푸터까지 직접 렌더링
+    └── [ProjectName].css    # (선택) 추가 스타일
 ```
+- `src/Pages/Projects/ProjectTemplate.js`는 새 프로젝트를 만들 때 복제할 수 있는 참조용 컴포넌트로, 공통 구조와 훅 사용법이 모두 포함되어 있습니다.
 
-### 프로젝트 템플릿 기능
-
-#### 1. **배너 이미지 시스템**
-- **풀스크린 배너**: 60vh 높이의 반응형 배너 이미지
-- **투명한 상단바**: 배너 위에서는 완전 투명, 스크롤 시 원래 배경으로 복원
-- **스크롤 감지**: 배너 영역을 지나치면 자동으로 상단바 스타일 전환
+### 공통 동작
+1. **배너 & 스크롤 감지**: 각 페이지에서 `useProjectPageFrame` 훅을 호출해 60vh 배너 높이, 투명 Topbar, 스크롤 전환을 제어합니다.
+2. **테마 강제 적용**: `themeMode` 값(`auto`/`light`/`dark`)을 훅에 전달해 진입 시 테마를 강제하고, 언마운트 시 원상 복구합니다.
+3. **미니멀 디자인 유지**: `.project-section`, `.section-title`, `.section-text` 등은 `ProjectTemplate.css`에서 공통 정의를 사용하며, 필요한 경우에만 프로젝트별 CSS를 추가합니다.
+4. **페이드인 제어**: 헤더와 본문 섹션 모두 각 페이지에서 `useFadeInAnimation`을 직접 호출해 ref를 연결합니다.
 
 ### 현재 제공 중인 프로젝트 페이지
-- **Datopia** (`/projects/datopia`): 다크 모드 전용 테마로 렌더링, 애니메이션 배경 포함
-- **Feed-O-Meter** (`/projects/feed-o-meter`): 템플릿 기반 리서치 소개
-- **Crafteam** (`/projects/crafteam`): 협업 워크숍 기록
-- **AQUA** (`/projects/aqua`): 설치형 프로젝트 개요
-- **PANORAMA**: 프로젝트 그리드에서 GitHub 리포지토리로 바로 이동 (개별 페이지 없음)
-- **반응형 높이**: 데스크톱(60vh) → 태블릿(50vh) → 모바일(40vh) → 초소형(35vh)
-
-#### 2. **테마 모드 제어**
-- **auto**: 기본값, 사용자의 테마 설정을 따름 (ThemeContext)
-- **light**: 항상 라이트 모드로 고정
-- **dark**: 항상 다크 모드로 고정
-- `ProjectTemplate`이 `ThemeContext`와 직접 연동되어 강제 테마 적용 시 이전 사용자 설정을 안전하게 복원
-
-#### 3. **미니멀 디자인**
-- **무채색 팔레트**: 흑백 + 회색조만 사용
-- **그림자 효과 제거**: 모든 box-shadow 및 카드 상승 효과 제거
-- **간소화된 레이아웃**: Team Members를 년도 아래로 이동, 불필요한 박스 제거
-- **타이포그래피**: 가는 폰트 웨이트(300-500), 적절한 레터스페이싱
-- **공통 섹션 스타일**: `.project-section`, `.section-title`, `.section-text` 등 기본 레이아웃은 `ProjectTemplate.css`에서 중앙 관리 (필요할 때만 개별 CSS 추가)
-- **메타 정보 정렬**: 헤더 메타 블록은 `Period → Project Type` 순으로 고정되며 Status 열은 더 이상 노출되지 않습니다.
-- **스크롤 초기화**: 페이지 진입 시 `window.scrollTo(0, 0)`를 호출해 이전 페이지 스크롤 위치가 잔존하는 문제를 방지합니다.
-
-#### 4. **템플릿 Props**
-```javascript
-<ProjectTemplate
-  title="프로젝트 제목"
-  year="연도"
-  participants={["참여자1", "참여자2", ...]}
-  highlightParticipants={[0, 2]}  // 강조할 참여자 인덱스
-  bannerImage="/path/to/banner.jpg"  // 선택사항
-  themeMode="dark"  // 'auto', 'light', 'dark'
->
-  {/* 프로젝트별 커스텀 콘텐츠 */}
-</ProjectTemplate>
-```
-
-#### 5. **참여자 렌더링**
-- `personLinks.json` 매핑으로 등록된 인물명은 자동으로 외부 링크가 부여됨
-- `highlightParticipants` 배열이 존재하면 해당 인덱스만 강조, 미지정 시 `Hyunseung Lim`이 기본 강조 대상
+- **Datopia** (`/projects/datopia`): 다크 모드 고정, 배너 + 애니메이션 배경
+- **Feed-O-Meter** (`/projects/feed-o-meter`): 공통 섹션 구성
+- **Crafteam**, **AQUA**, **Brownie**, **Elevate**, **StereoHunter**, **Aqua Design** 등 대부분의 프로젝트가 동일한 패턴으로 구현
+- **PANORAMA**: 프로젝트 그리드에서 GitHub 리포로 바로 이동 (상세 페이지 없음)
 
 ### 라우팅 시스템 업데이트
 - 기존: `/projects` (전체 프로젝트 목록)
@@ -306,7 +266,7 @@ src/Pages/Projects/
 - 메인 프로젝트 페이지에서 각 프로젝트로 링크 연결
 
 ### 현재 구현된 프로젝트
-- **Crafteam** (`/projects/crafteam`): 협업 워크숍 기록, `ProjectTemplate` 공통 섹션 활용.
+- **Crafteam** (`/projects/crafteam`): 협업 워크숍 기록, 공통 CSS 클래스를 활용해 구성.
 - **StereoHunter** (`/projects/stereohunter`): 인간-LLM 협업 시 고정관념 탐지 워크플로 연구, 바이어스 시각화 실험 요약.
 - **PANORAMA**: 그리드에서 GitHub 리포지토리로 직접 이동 (개별 상세 페이지 없음).
 - **Feed-O-Meter** (`/projects/feed-o-meter`): 디자인 피드백 역할극 연구, 참여자 링크 자동 매핑.
@@ -316,7 +276,7 @@ src/Pages/Projects/
 - **Elevate** (`/projects/elevate`): 대형 워커블 핀 어레이 설치 프로젝트, 기본 템플릿 기반.
 - **Aqua Design** (`/projects/aqua-design`): AQUA 확장 버전, 프로젝트 템플릿 재사용.
 
-> 모든 개별 프로젝트 페이지는 `PROJECTS`(src/Data/projectsMeta.js)에서 메타 정보를 가져와 `ProjectTemplate`에 주입합니다.
+> 모든 개별 프로젝트 페이지는 `PROJECTS`(src/Data/projectsMeta.js)에서 메타 정보를 불러와 직접 Topbar/헤더/본문 블록을 구성합니다.
 
 ### FadeIn 애니메이션 시스템 ⭐ 중앙 제어
 > **2025-09-25**: fadeIn 애니메이션 시스템 완전 개편 및 중앙 제어 구현
@@ -350,19 +310,28 @@ src/Pages/Projects/
 - `const fadeInRef = useFadeInAnimation();` 형태로 호출 (threshold 기본값 0.1)
 - `ref={fadeInRef}`를 원하는 요소에 전달하면 뷰포트 진입 시 자동으로 `.fade-in-active`가 부여됨
 
-#### 4. **페이지별 적용 상태**
-- ✅ **Main / About / Projects / Publications / ProjectTemplate**: 전부 `.fade-in-element` 시스템으로 통일
+#### 4. **Fade-in 미동작 시 체크리스트**
+> 자세한 가이드는 `FADEIN_GUIDE.md` 참고
+1. **부모/자식에 ref 중복 여부**: 부모 `.project-section`에 ref가 붙어 있으면 자식 텍스트가 이미 표시된 상태로 렌더될 수 있음. 필요하다면 자식 요소에만 ref 적용.
+2. **CSS 전환 덮어쓰기 확인**: `.project-container *` 등 전역 규칙이 opacity/transform transition을 제거하지 않는지 점검. 필요한 요소에는 명시적으로 transition을 선언.
+3. **초기 상태 설정 여부**: fade 대상 요소의 기본 상태가 `opacity:0`, `transform`으로 숨겨져 있는지 확인. 기본값이 1이면 전환이 체감되지 않음.
+4. **뷰포트 초기 위치**: 페이지 진입 시 이미 화면 안에 있으면 훅이 빠르게 `fade-in-active`를 붙인다. 이때는 자식 요소에 ref를 주거나 한 프레임 지연시키는 방식으로 조정.
+5. **ref 전달 대상**: React Fragment나 커스텀 컴포넌트에 ref를 주면 DOM 노드가 전달되지 않는다. 실제 DOM 요소에 ref가 연결됐는지 확인.
+6. **OS 접근성 설정**: Reduce Motion을 켜면 브라우저가 애니메이션을 최소화할 수도 있음.
+
+#### 5. **페이지별 적용 상태**
+- ✅ **Main / About / Projects / Publications / 개별 프로젝트 페이지**: 전부 `.fade-in-element` 시스템으로 통일
 - ✅ `.animation` 기반 레거시는 완전히 제거됨
 - ✅ 프로젝트 카드, 퍼블리케이션 텍스트 모두 동일한 fade + 24px slide-up 모션 공유
 
-#### 5. **중앙 제어 애니메이션 사양**
+#### 6. **중앙 제어 애니메이션 사양**
 | 항목 | 값 |
 |------|----|
 | 초기 상태 | opacity 0, translateY(24px) |
 | 활성 상태 | opacity 1, translateY(0) |
 | 기본 속도 | `--animation-transition-speed` (0.6s ease-out) |
 
-#### 6. **적용 방법 요약**
+#### 7. **적용 방법 요약**
 1. `const fadeInRef = useFadeInAnimation();` 선언
 2. `ref={fadeInRef}`만 부여하면 모든 요소가 동일한 타이밍으로 등장
 
@@ -370,6 +339,8 @@ src/Pages/Projects/
 - Intersection Observer 기반으로 엔트리 시점에만 class 토글
 - 초기 viewport 안에 있는 요소는 두 프레임 지연 후 활성화시켜 부드러운 전환 보장
 - 모든 애니메이션 속성은 `src/styles/transitions.css`에서 일괄 관리
+- **폴백 체계**: `useFadeInAnimation`이 Intersection Observer에 등록되면, 스크롤/리사이즈 이벤트에서 뷰포트 안 요소를 재검증하여 누락된 섹션도 강제로 `fade-in-active` 상태로 전환
+- **프로젝트 섹션 등록**: 각 프로젝트 컴포넌트가 필요한 섹션에 직접 `useFadeInAnimation` ref를 연결
 
 ### 반응형 설계
 - **4단계 브레이크포인트**: 992px, 768px, 480px
@@ -391,7 +362,7 @@ src/Pages/Projects/
 ## 기술적 특징
 - **스크롤 이벤트 최적화**: useEffect를 통한 이벤트 리스너 관리
 - **CSS 변수 활용**: 다크/라이트 모드 간 부드러운 전환
-- **컴포넌트 재사용성**: ProjectTemplate을 통한 일관된 레이아웃
+- **공통 스타일 재사용**: `ProjectTemplate.css`를 통해 레이아웃을 통일하고, 로직은 각 프로젝트가 직접 제어
 - **접근성 고려**: 적절한 alt 텍스트, focus state 제공
 
 ## 테마 전환 시스템 (Theme Transition System)

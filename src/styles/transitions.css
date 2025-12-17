@@ -77,6 +77,19 @@
   transform: translateY(0);
 }
 
+.project-fade-block {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--animation-transition-speed) var(--animation-transition-easing),
+    transform var(--animation-transition-speed) var(--animation-transition-easing);
+}
+
+.project-fade-block.fade-in-element.fade-in-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* 애니메이션과 테마 전환이 함께 필요한 요소 */
 .theme-transition-publication,
 .theme-transition-with-animation {

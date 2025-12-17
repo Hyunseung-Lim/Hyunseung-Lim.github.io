@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import { ProjectTemplate } from '../ProjectTemplate';
+import { Topbar } from '../../../Components/Topbar/topbar';
+import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
+import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
+import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import './Datopia.css';
 
 const RUN_SEQUENCE = [1, 2, 3];
@@ -9,6 +12,11 @@ const GLIDE_DELAY_STEP = 1.4; // seconds
 
 export const DatopiaProject = () => {
   const projectData = PROJECTS['datopia'];
+  const [scrollRoot, setScrollRoot] = useState(null);
+  const fadeInRef = useFadeInAnimation({ root: scrollRoot });
+  const bannerImage = `${process.env.PUBLIC_URL}/images/project_1.png`;
+  const themeMode = projectData.themeMode ?? 'auto';
+  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
 
   const [runIndex, setRunIndex] = useState(0);
   const [cycleId, setCycleId] = useState(0);
@@ -20,63 +28,84 @@ export const DatopiaProject = () => {
   };
 
   return (
-    <>
-      <ProjectTemplate
-        title={projectData.title}
-        subtitle={projectData.subtitle}
-        period={projectData.period}
-        participants={projectData.participants}
-        projectType={projectData.projectType}
-        bannerImage={`${process.env.PUBLIC_URL}/images/project_1.png`}
-        highlightParticipants={projectData.highlightParticipants}
-        themeMode={projectData.themeMode ?? 'auto'}
-      >
-        <div className="datopia-content">
-          <div className="project-description">
-            <p className="description-text">
-              Datopia is a data-based dating service. By analyzing data, it captures everything
-              from the preferences you didn't know you had to your minor daily habits. Through this,
-              it goes beyond simple encounters to find you a destined partner with whom you can
-              maintain a continuous relationship.{' '}
-              <span className="datopia-highlight">
-                But can love really be determined solely by data?
-              </span>
-            </p>
+    <div className={pageClassName}>
+      <Topbar hideThemeToggle={shouldHideThemeToggle} />
+      <div className="banner-section">
+        <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+      </div>
+
+      <div className="project-container" ref={setScrollRoot}>
+        <header className="project-header">
+          <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
+            <h1 className="project-title">{projectData.title}</h1>
+            {projectData.subtitle && (
+              <p className="project-subtitle">{projectData.subtitle}</p>
+            )}
           </div>
-          <div className="datopia-media">
-            <div className="datopia-media__frame" role="region" aria-label="Datopia showcase video">
-              <iframe
-                src="https://www.youtube.com/embed/2mOZOPmv0KI?rel=0"
-                title="Datopia Exhibition Walkthrough"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
+          <div className="project-meta-info">
+            {projectData.period && (
+              <div className="project-period-section project-header__fade-block project-fade-block" ref={fadeInRef}>
+                <div className="meta-label">Period</div>
+                <div className="meta-value">{projectData.period}</div>
+              </div>
+            )}
+            {projectData.projectType && (
+              <div className="project-type-section project-header__fade-block project-fade-block" ref={fadeInRef}>
+                <div className="meta-label">Project Type</div>
+                <div className="meta-value">{projectData.projectType}</div>
+              </div>
+            )}
+          </div>
+        </header>
+
+        <main className="project-content">
+          <section className="project-section datopia-content">
+            <div className="project-description" ref={fadeInRef}>
+              <p className="description-text">
+                Datopia is a data-based dating service. By analyzing data, it captures everything
+                from the preferences you didn't know you had to your minor daily habits. Through this,
+                it goes beyond simple encounters to find you a destined partner with whom you can
+                maintain a continuous relationship.{' '}
+                <span className="datopia-highlight">
+                  But can love really be determined solely by data?
+                </span>
+              </p>
             </div>
-            <div className="datopia-divider" role="presentation" aria-hidden="true" />
-            <div className="datopia-figures">
-              {[
-                {
-                  src: `${process.env.PUBLIC_URL}/projects/datopia/datopia_fig1.png`,
-                  alt: 'Datopia interface detail'
-                },
-                {
-                  src: `${process.env.PUBLIC_URL}/projects/datopia/datopia_fig2.png`,
-                  alt: 'Datopia exhibition interaction'
-                }
-              ].map((figure, index) => (
-                <img
-                  key={index}
-                  src={figure.src}
-                  alt={figure.alt}
-                  className="datopia-figure"
-                  loading="lazy"
+            <div className="datopia-media" ref={fadeInRef}>
+              <div className="datopia-media__frame" role="region" aria-label="Datopia showcase video">
+                <iframe
+                  src="https://www.youtube.com/embed/2mOZOPmv0KI?rel=0"
+                  title="Datopia Exhibition Walkthrough"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
                 />
-              ))}
+              </div>
+              <div className="datopia-divider" role="presentation" aria-hidden="true" />
+              <div className="datopia-figures">
+                {[
+                  {
+                    src: `${process.env.PUBLIC_URL}/projects/datopia/datopia_fig1.png`,
+                    alt: 'Datopia interface detail'
+                  },
+                  {
+                    src: `${process.env.PUBLIC_URL}/projects/datopia/datopia_fig2.png`,
+                    alt: 'Datopia exhibition interaction'
+                  }
+                ].map((figure, index) => (
+                  <img
+                    key={index}
+                    src={figure.src}
+                    alt={figure.alt}
+                    className="datopia-figure"
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+              <div className="datopia-divider" role="presentation" aria-hidden="true" />
             </div>
-            <div className="datopia-divider" role="presentation" aria-hidden="true" />
-          </div>
-        </div>
-      </ProjectTemplate>
+          </section>
+        </main>
+      </div>
 
       <div className="datopia-animation" key={cycleId}>
         {Array.from({ length: batchSize }).map((_, index) => (
@@ -95,6 +124,8 @@ export const DatopiaProject = () => {
           />
         ))}
       </div>
-    </>
+
+      <Footer />
+    </div>
   );
 };

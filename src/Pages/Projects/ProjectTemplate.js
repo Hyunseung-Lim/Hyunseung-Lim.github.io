@@ -1,129 +1,77 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Topbar } from '../../Components/Topbar/topbar';
 import { Footer } from '../../Components/Footer/footer';
 import { useFadeInAnimation } from '../../hooks/useFadeInAnimation';
-import { useTheme } from '../../contexts/ThemeContext';
-import './ProjectTemplate.css';
-import personLinks from '../../Data/personLinks.json';
+import { useProjectPageFrame } from '../../hooks/useProjectPageFrame';
 
-export const ProjectTemplate = ({
-  title,
-  subtitle,
-  period,
-  participants = [],
-  projectType,
-  bannerImage,
-  themeMode = 'auto', // 'auto', 'light', 'dark'
-  highlightParticipants = [],
-  children
-}) => {
-  const fadeInRef = useFadeInAnimation();
-  const [isScrolledPastBanner, setIsScrolledPastBanner] = useState(false);
-  const { isDark, setThemeMode } = useTheme();
-  const initialThemeRef = useRef(isDark ? 'dark' : 'light');
-  const highlightSet = highlightParticipants.length > 0 ? new Set(highlightParticipants) : null;
-  const appliedThemeRef = useRef(null);
-
-  useEffect(() => {
-    if (!bannerImage) return;
-
-    const handleScroll = () => {
-      const bannerHeight = window.innerHeight * 0.6; // 60vh
-      const scrollY = window.scrollY;
-      setIsScrolledPastBanner(scrollY > bannerHeight);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [bannerImage]);
-
-  useLayoutEffect(() => {
-    if (themeMode === 'auto') {
-      return undefined;
-    }
-
-    const desiredMode = themeMode === 'dark' ? 'dark' : 'light';
-    const initialMode = initialThemeRef.current;
-
-    if (appliedThemeRef.current !== desiredMode) {
-      setThemeMode(desiredMode);
-      appliedThemeRef.current = desiredMode;
-    }
-
-    return () => {
-      appliedThemeRef.current = null;
-      if (initialMode !== desiredMode) {
-        setThemeMode(initialMode);
-      }
-    };
-  }, [setThemeMode, themeMode]);
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'auto'
-    });
-  }, []);
-
-  const renderParticipants = () => {
-    return participants.map((participant, index) => {
-      const isHighlighted = highlightSet
-        ? highlightSet.has(index)
-        : participant === 'Hyunseung Lim';
-      const link = personLinks[participant];
-
-      const content = link ? (
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          {participant}
-        </a>
-      ) : participant;
-
-      return (
-        <span key={index} className={isHighlighted ? 'highlighted-participant' : ''}>
-          {content}
-          {index < participants.length - 1 && ', '}
-        </span>
-      );
-    });
+/**
+ * Reference component used as a starting template when creating new project pages.
+ * Duplicate this file into a new folder and adjust the metadata/content to match the project.
+ */
+export const ProjectTemplate = () => {
+  const projectData = {
+    title: 'Project Title',
+    subtitle: 'One sentence subtitle describing the project',
+    period: '2025',
+    projectType: 'Research',
+    bannerImage: null,
+    themeMode: 'auto'
   };
 
-  const shouldHideThemeToggle = themeMode === 'light' || themeMode === 'dark';
+  const [scrollRoot, setScrollRoot] = useState(null);
+  const fadeInRef = useFadeInAnimation({ root: scrollRoot });
+  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(
+    projectData.bannerImage,
+    projectData.themeMode
+  );
 
   return (
-    <div className={`project-page ${bannerImage ? 'has-banner' : ''} ${bannerImage && isScrolledPastBanner ? 'scrolled-past-banner' : ''} theme-${themeMode}`}>
+    <div className={pageClassName}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
-      {bannerImage && (
+      {projectData.bannerImage && (
         <div className="banner-section">
-          <img src={bannerImage} alt={`${title} banner`} className="banner-image" />
+          <img src={projectData.bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
         </div>
       )}
 
-      <div className="project-container">
-        <header className="project-header" ref={fadeInRef}>
-          <h1 className="project-title">{title}</h1>
-          {subtitle && <p className="project-subtitle">{subtitle}</p>}
-          <div className="participants-list">
-            {renderParticipants()}
-          </div>
+      <div className="project-container" ref={setScrollRoot}>
+        <header className="project-header">
+          <h1 className="project-title project-fade-block" ref={fadeInRef}>{projectData.title}</h1>
+          {projectData.subtitle && <p className="project-subtitle project-fade-block" ref={fadeInRef}>{projectData.subtitle}</p>}
           <div className="project-meta-info">
-            {period && (
-              <div className="project-period-section">
+            {projectData.period && (
+              <div className="project-period-section project-fade-block" ref={fadeInRef}>
                 <div className="meta-label">Period</div>
-                <div className="meta-value">{period}</div>
+                <div className="meta-value">{projectData.period}</div>
               </div>
             )}
-            {projectType && (
-              <div className="project-type-section">
+            {projectData.projectType && (
+              <div className="project-type-section project-fade-block" ref={fadeInRef}>
                 <div className="meta-label">Project Type</div>
-                <div className="meta-value">{projectType}</div>
+                <div className="meta-value">{projectData.projectType}</div>
               </div>
             )}
           </div>
         </header>
 
-        <main className="project-content" ref={fadeInRef}>
-          {children}
+        <main className="project-content">
+          <section className="project-section">
+            <h2 className="section-title">Overview</h2>
+            <p className="section-text" ref={fadeInRef}>
+              Describe the project goals, context, and outcomes. This block should provide a succinct narrative
+              that introduces visitors to the project.
+            </p>
+          </section>
+
+          <section className="project-section">
+            <h2 className="section-title">Highlights</h2>
+            <ul className="section-list" ref={fadeInRef}>
+              <li>Key highlight or contribution.</li>
+              <li>Another milestone, study, or insight.</li>
+              <li>Optional third bullet.</li>
+            </ul>
+          </section>
         </main>
       </div>
 

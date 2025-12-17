@@ -143,6 +143,12 @@
     flex: 0 1 200px;
     display: flex;
     justify-content: center;
+}
+
+.project-tile__fade-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     opacity: 0;
     transform: translateY(24px);
     transition:
@@ -150,7 +156,7 @@
         transform var(--animation-transition-speed) var(--animation-transition-easing);
 }
 
-.project-tile.fade-in-active {
+.project-tile__fade-wrapper.fade-in-active {
     opacity: 1;
     transform: translateY(0);
 }
@@ -211,6 +217,10 @@
     .project-tile {
         flex: 0 1 calc(50% - 10px);
         max-width: calc(50% - 10px);
+    }
+
+    .project-tile__fade-wrapper {
+        width: 100%;
     }
 
     .project-tile__image-container {

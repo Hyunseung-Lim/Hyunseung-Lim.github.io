@@ -2,8 +2,7 @@ export const PROJECTS = {
   datopia: {
     id: 'datopia',
     title: 'Datopia',
-    subtitle: 'A speculative dating service driven by personal data analytics',
-    period: '2022',
+    period: '2022.09-2022.12',
     projectType: 'Exhibition',
     icon: '/projects/datopia/icon.png',
     hoverIcon: '/projects/datopia/icon_hover.gif',
@@ -11,97 +10,59 @@ export const PROJECTS = {
     hoverIconDark: null,
     href: '#/projects/datopia',
     external: false,
-    themeMode: 'dark',
-    participants: [
-      'Hyunseung Lim',
-      'Dasom Choi',
-      'Kwangyoung Lee',
-      'Taewan Kim',
-      'Eunseo Oh',
-      'Inhwa Song',
-      'Seokyoung Park',
-      'Yubin Choi',
-      'Hwajung Hong'
-    ],
-    highlightParticipants: [0]
+    themeMode: 'dark'
   },
   'feed-o-meter': {
     id: 'feed-o-meter',
     title: 'Feed-O-Meter',
     subtitle: 'Fostering Design Feedback Skills through Role-playing Interactions with AI Mentee',
-    period: '2024',
+    period: '2023.09-2025.01',
     projectType: 'Research',
     icon: '/projects/feed-o-meter/icon.png',
     hoverIcon: '/projects/feed-o-meter/icon_hover.gif',
     iconDark: '/projects/feed-o-meter/icon_dark.png',
     hoverIconDark: '/projects/feed-o-meter/icon_hover_dark.gif',
     href: '#/projects/feed-o-meter',
-    external: false,
-    participants: [
-      'Hyunseung Lim',
-      'Dasom Choi',
-      'DaEun Choi',
-      'Sooyohn Nam',
-      'Hwajung Hong'
-    ],
-    highlightParticipants: [0]
+    external: false
   },
   elevate: {
     id: 'elevate',
     title: 'Elevate',
     subtitle: 'A Large-scale Walkable Pin-array Display',
-    period: '2020-2021',
+    period: '2019.12-2020.09',
     projectType: 'Research',
     icon: '/projects/elevate/icon.png',
     hoverIcon: '/projects/elevate/icon_hover.gif',
     iconDark: '/projects/elevate/icon_dark.png',
     hoverIconDark: '/projects/elevate/icon_hover_dark.gif',
     href: '#/projects/elevate',
-    external: false,
-    participants: [
-      'Seungwoo Je', 'Hyunseung Lim', 'Kongpyung Moon', 'Shan-Yuan Teng', 'Jas Brooks', 'Pedro Lopes', 'Andrea Bianchi'
-    ],
-    highlightParticipants: [1]
+    external: false
   },
   stereohunter: {
     id: 'stereohunter',
     title: 'StereoHunter',
     subtitle: 'Understanding User Perspectives on Stereotypical Biases in Large Language Models',
-    period: '2022-2025',
+    period: '2022.10-2025.01',
     projectType: 'Research',
     icon: '/projects/stereohunter/icon.png',
     hoverIcon: '/projects/stereohunter/icon_hover.gif',
     iconDark: '/projects/stereohunter/icon_dark.png',
     hoverIconDark: '/projects/stereohunter/icon_hover_dark.gif',
     href: '#/projects/stereohunter',
-    external: false,
-    participants: [
-      'Hyunseung Lim',
-      'Dasom Choi',
-      'Hwajung Hong'
-    ],
-    highlightParticipants: [0]
+    external: false
   },
   crafteam: {
     id: 'crafteam',
     title: 'Crafteam',
     subtitle: 'Building Human-Multi-Agent Teams for Creative Works',
-    period: '2025',
+    period: '2025.01-2025.09',
     projectType: 'Research',
     icon: '/projects/crafteam/icon.png',
     hoverIcon: '/projects/crafteam/icon_hover.gif',
     iconDark: '/projects/crafteam/icon_dark.png',
     hoverIconDark: '/projects/crafteam/icon_hover_dark.gif',
     href: '#/projects/crafteam',
-    external: false,
-    participants: [
-      'Hyunseung Lim',
-      'Dasom Choi',
-      'Sooyohn Nam',
-      'Bogoan Kim',
-      'Hwajung Hong'
-    ],
-    highlightParticipants: [0]
+    external: false
   },
   aqua: {
     id: 'aqua',
@@ -114,21 +75,7 @@ export const PROJECTS = {
     iconDark: '/projects/aqua/icon_dark.png',
     hoverIconDark: '/projects/aqua/icon_hover_dark.gif',
     href: '#/projects/aqua',
-    external: false,
-    participants: [
-      'Hyunseung Lim',
-      'Ji Yong Cho',
-      'Taewan Kim',
-      'Jeongeon Park',
-      'Hyungyu Shin',
-      'Seulgi Choi',
-      'Sunghyun Park',
-      'Kyungjae Lee',
-      'Juho Kim',
-      'Moontae Lee',
-      'Hwajung Hong'
-    ],
-    highlightParticipants: [0]
+    external: false
   },
   'aqua-design': {
     id: 'aqua-design',
@@ -141,11 +88,7 @@ export const PROJECTS = {
     iconDark: null,
     hoverIconDark: null,
     href: '#/projects/aqua-design',
-    external: false,
-    participants: [
-      'Kihang Jung', 'Dongwook Shin', 'Sungmin Choi', 'Hyunseung Lim', 'Dasom Choi', 'Sunok Lee', 'Sangsu Lee'
-    ],
-    highlightParticipants: [3]
+    external: false
   },
   brownie: {
     id: 'brownie',
@@ -158,37 +101,20 @@ export const PROJECTS = {
     iconDark: '/projects/brownie/icon_dark.png',
     hoverIconDark: '/projects/brownie/icon_hover_dark.gif',
     href: '#/projects/brownie',
-    external: false,
-    participants: [
-      'Hyunseung Lim'
-    ],
-    highlightParticipants: [0]
+    external: false
   },
   panorama: {
     id: 'panorama',
     title: 'PANORAMA',
     subtitle: 'Dataset and benchmarks capturing patent examination decision trails',
-    period: '2025',
+    period: '2024.06-2025.05',
     projectType: 'Research',
     icon: '/projects/panorama/icon.png',
     hoverIcon: '/projects/panorama/icon_hover.gif',
     iconDark: '/projects/panorama/icon_dark.png',
     hoverIconDark: '/projects/panorama/icon_hover_dark.gif',
     href: 'https://github.com/LGAI-Research/PANORAMA',
-    external: true,
-    participants: [
-      'Hyunseung Lim',
-      'Sooyohn Nam',
-      'Sungmin Na',
-      'Ji Yong Cho',
-      'June Yong Yang',
-      'Hyungyu Shin',
-      'Yoonjoo Lee',
-      'Juho Kim',
-      'Moontae Lee',
-      'Hwajung Hong'
-    ],
-    highlightParticipants: [0]
+    external: true
   }
 };
 

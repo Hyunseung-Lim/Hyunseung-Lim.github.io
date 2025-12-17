@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import '../Components/components.css';
 import './pages.css';
 import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
@@ -19,13 +20,17 @@ const handleMouseLeave = (event) => {
 };
 
 export const Projects = () => {
-  const fadeInRef = useFadeInAnimation(0.1);
+  const [scrollContainer, setScrollContainer] = useState(null);
+  const fadeInRef = useFadeInAnimation({
+    threshold: 0.1,
+    root: scrollContainer
+  });
   const { isDark } = useTheme();
 
   return (
     <div className="page">
       <div className="projects">
-        <div className="project-tiles">
+        <div className="project-tiles" ref={setScrollContainer}>
           {PROJECT_ORDER.map((projectId) => {
             const project = PROJECTS[projectId];
             if (!project) {
@@ -40,29 +45,31 @@ export const Projects = () => {
             const isExternal = Boolean(project.external);
 
             return (
-              <div className="project-tile" key={project.id} ref={fadeInRef}>
-                <a
-                  href={linkTarget}
-                  className="project-tile__link"
-                  target={isExternal ? '_blank' : undefined}
-                  rel={isExternal ? 'noopener noreferrer' : undefined}
-                >
-                  <div className="project-tile__image-container">
-                    <img
-                      src={iconSrc}
-                      data-original={iconSrc}
-                      data-hover={hoverSrc || undefined}
-                      alt={`${project.title} icon`}
-                      className="project-tile__image"
-                      loading="lazy"
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
-                    />
-                  </div>
-                  <p className="project-tile__title">
-                    {project.title}
-                  </p>
-                </a>
+              <div className="project-tile" key={project.id}>
+                <div className="project-tile__fade-wrapper" ref={fadeInRef}>
+                  <a
+                    href={linkTarget}
+                    className="project-tile__link"
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noopener noreferrer' : undefined}
+                  >
+                    <div className="project-tile__image-container">
+                      <img
+                        src={iconSrc}
+                        data-original={iconSrc}
+                        data-hover={hoverSrc || undefined}
+                        alt={`${project.title} icon`}
+                        className="project-tile__image"
+                        loading="lazy"
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      />
+                    </div>
+                    <p className="project-tile__title">
+                      {project.title}
+                    </p>
+                  </a>
+                </div>
               </div>
             );
           })}
