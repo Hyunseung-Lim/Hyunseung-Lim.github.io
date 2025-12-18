@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import './Brownie.css';
@@ -9,19 +9,106 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 export const BrownieProject = () => {
   const projectData = PROJECTS.brownie;
   const [scrollRoot, setScrollRoot] = useState(null);
+  const [volume, setVolume] = useState(80);
+  const [isPlayerReady, setIsPlayerReady] = useState(false);
+  const playerContainerRef = useRef(null);
+  const playerRef = useRef(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const bannerImage = projectData.bannerImage ?? null;
-  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const heroVideoBase = 'https://www.youtube.com/embed/3SPt_vbqIFs';
+  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(heroVideoBase, themeMode);
+
+  useEffect(() => {
+    const existingScript = document.querySelector('script[src="https://www.youtube.com/iframe_api"]');
+
+    const createPlayer = () => {
+      if (!window.YT || !window.YT.Player || !playerContainerRef.current || playerRef.current) {
+        return;
+      }
+
+      playerRef.current = new window.YT.Player(playerContainerRef.current, {
+        videoId: '3SPt_vbqIFs',
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          modestbranding: 1,
+          rel: 0,
+          playsinline: 1,
+          autohide: 1
+        },
+        events: {
+          onReady: event => {
+            setIsPlayerReady(true);
+            event.target.unMute();
+            event.target.setVolume(volume);
+            event.target.playVideo();
+          }
+        }
+      });
+    };
+
+    if (window.YT && window.YT.Player) {
+      createPlayer();
+    } else {
+      const previousCallback = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => {
+        previousCallback?.();
+        createPlayer();
+      };
+      if (!existingScript) {
+        const script = document.createElement('script');
+        script.src = 'https://www.youtube.com/iframe_api';
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    }
+
+    return () => {
+      if (window.onYouTubeIframeAPIReady) {
+        window.onYouTubeIframeAPIReady = null;
+      }
+      if (playerRef.current) {
+        playerRef.current.destroy();
+        playerRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!playerRef.current || !isPlayerReady) {
+      return;
+    }
+    playerRef.current.setVolume(volume);
+    if (volume === 0) {
+      playerRef.current.mute();
+    } else {
+      playerRef.current.unMute();
+    }
+  }, [volume, isPlayerReady]);
+
+  const handleVolumeChange = event => {
+    setVolume(Number(event.target.value));
+  };
 
   return (
     <div className={pageClassName}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
-      {bannerImage && (
-        <div className="banner-section">
-          <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-        </div>
-      )}
+      <section className="banner-section brownie-hero" aria-label="Brownie concept walkthrough video">
+        <div className="brownie-hero__video" ref={playerContainerRef} />
+        {isPlayerReady && (
+          <div className="brownie-hero__controls" aria-label="Video volume control">
+            <label htmlFor="brownie-volume-slider">Volume</label>
+            <input
+              id="brownie-volume-slider"
+              type="range"
+              min="0"
+              max="100"
+              value={volume}
+              onChange={handleVolumeChange}
+            />
+          </div>
+        )}
+      </section>
       <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>

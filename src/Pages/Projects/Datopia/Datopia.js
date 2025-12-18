@@ -14,7 +14,7 @@ export const DatopiaProject = () => {
   const projectData = PROJECTS['datopia'];
   const [scrollRoot, setScrollRoot] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
-  const bannerImage = `${process.env.PUBLIC_URL}/images/project_1.png`;
+  const bannerImage = `${process.env.PUBLIC_URL}/projects/datopia/thumbnail.png`;
   const themeMode = projectData.themeMode ?? 'auto';
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
 
@@ -55,6 +55,18 @@ export const DatopiaProject = () => {
                 <div className="meta-value">{projectData.projectType}</div>
               </div>
             )}
+            <div
+              className="project-awards-section project-header__fade-block project-fade-block"
+              aria-label="Project awards"
+              ref={fadeInRef}
+            >
+              <img
+                src={`${process.env.PUBLIC_URL}/projects/datopia/ddp.png`}
+                alt="Datopia featured at DDP"
+                className="project-award-badge"
+                loading="lazy"
+              />
+            </div>
           </div>
         </header>
 
