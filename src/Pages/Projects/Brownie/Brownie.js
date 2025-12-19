@@ -9,7 +9,7 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 export const BrownieProject = () => {
   const projectData = PROJECTS.brownie;
   const [scrollRoot, setScrollRoot] = useState(null);
-  const [volume, setVolume] = useState(80);
+  const [volume, setVolume] = useState(50);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
   const playerContainerRef = useRef(null);
   const playerRef = useRef(null);

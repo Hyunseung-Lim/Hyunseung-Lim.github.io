@@ -5,6 +5,7 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import './Aqua.css';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 export const AquaProject = () => {
   const projectData = PROJECTS.aqua;
@@ -13,6 +14,10 @@ export const AquaProject = () => {
   const themeMode = projectData.themeMode ?? 'auto';
   const bannerImage = projectData.bannerImage ?? null;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const { isDark } = useTheme();
+  const awardBadgeSrc = isDark
+    ? `${process.env.PUBLIC_URL}/projects/aqua/dis2024_dark.png`
+    : `${process.env.PUBLIC_URL}/projects/aqua/dis2024.png`;
 
   return (
     <div className={pageClassName}>
@@ -45,15 +50,15 @@ export const AquaProject = () => {
             )}
             <div className="project-awards-section project-header__fade-block project-fade-block" ref={fadeInRef}>
               <a
-                href="https://ifdesign.com/en/winner-ranking/project/aqua/312577"
+                href="https://dl.acm.org/doi/abs/10.1145/3643834.3660705"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="project-award-link"
-                aria-label="iF Design Award 2021"
+                aria-label="Read DIS 2024 publication"
               >
                 <img
-                  src={`${process.env.PUBLIC_URL}/projects/aqua/design_award.svg`}
-                  alt="iF Design Award 2021"
+                  src={awardBadgeSrc}
+                  alt="DIS 2024 Exhibition Badge"
                   className="project-award-badge"
                   loading="lazy"
                 />

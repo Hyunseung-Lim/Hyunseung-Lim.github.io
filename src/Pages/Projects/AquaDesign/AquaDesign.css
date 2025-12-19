@@ -45,6 +45,7 @@
 
 .project-page:not(.has-banner) .project-container {
   padding-top: 4rem;
+  margin-top: 3.5rem;
 }
 
 .project-container .fade-in-element {
@@ -132,8 +133,9 @@
 }
 
 .project-section {
-  margin-bottom: 2.5rem;
+  margin: 0 0 2.5rem 0;
   line-height: 1.7;
+  padding: 0;
 }
 
 .project-section:last-of-type {
@@ -152,6 +154,7 @@
 
   .project-page:not(.has-banner) .project-container {
     padding-top: 3.5rem;
+    margin-top: 2.5rem;
   }
 
   .project-title {
@@ -175,6 +178,7 @@
 
   .project-page:not(.has-banner) .project-container {
     padding-top: 3rem;
+    margin-top: 2rem;
   }
 
   .project-title {
@@ -195,6 +199,7 @@
 
   .project-page:not(.has-banner) .project-container {
     padding-top: 2.5rem;
+    margin-top: 1.5rem;
   }
 
   .project-title {

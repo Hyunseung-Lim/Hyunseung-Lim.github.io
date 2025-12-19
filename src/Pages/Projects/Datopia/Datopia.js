@@ -60,12 +60,20 @@ export const DatopiaProject = () => {
               aria-label="Project awards"
               ref={fadeInRef}
             >
-              <img
-                src={`${process.env.PUBLIC_URL}/projects/datopia/ddp.png`}
-                alt="Datopia featured at DDP"
-                className="project-award-badge"
-                loading="lazy"
-              />
+              <a
+                href="https://www.youtube.com/watch?v=Fe4sXzLPVj0"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Watch DDP exhibition highlight"
+                className="project-award-link"
+              >
+                <img
+                  src={`${process.env.PUBLIC_URL}/projects/datopia/ddp.png`}
+                  alt="Datopia featured at DDP"
+                  className="project-award-badge"
+                  loading="lazy"
+                />
+              </a>
             </div>
           </div>
         </header>
