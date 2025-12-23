@@ -4,6 +4,7 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
+import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import './Aqua.css';
 import { useTheme } from '../../../contexts/ThemeContext';
 
@@ -69,26 +70,33 @@ export const AquaProject = () => {
 
         <main className="project-content">
           <section className="project-section project-section__fade" ref={fadeInRef}>
-            <h2 className="section-title">Overview</h2>
-            <p className="section-text">
-              AQUA investigates symbiotic relationships between urban residents and water systems through playful, data-driven installations that surface hidden infrastructures.
+            <p className="section-text aqua-body project-fade-block" ref={fadeInRef}>
+              Research promotion enables researchers to share advanced knowledge with pertinent academic communities. The question-and-answer (QA) style articles are effective for researchers to promote their research by enabling readers to understand research on complex subjects. Recent advances in large language models have opened avenues for supporting researchers in creating QA-style articles for research promotion. However, without the authors’ involvement, these models may only partially capture the researcher’s intention and voice. We developed AQUA, a research probe that enables researchers to co-create QA-style articles with LLMs to promote their research papers. A user study (n=12) reveals that LLMs reduced authors’ burden and helped them understand the readers’ perspectives. Nevertheless, LLMs failed to capture the unique intent of the authors, and their automated generation discouraged authors from carefully revising their answers. Based on our findings, we discuss human-LLM interaction design to enable authors to create QA-style articles that reflect their intention.
             </p>
           </section>
 
           <section className="project-section project-section__fade" ref={fadeInRef}>
-            <h2 className="section-title">Role</h2>
-            <p className="section-text">
-              Directed concept development, data storytelling, and interactive fabrication with a cross-disciplinary team of designers and engineers.
-            </p>
-          </section>
-
-          <section className="project-section project-section__fade" ref={fadeInRef}>
-            <h2 className="section-title">Highlights</h2>
-            <ul className="section-list">
-              <li>Installed a responsive fountain that adapts to community usage.</li>
-              <li>Co-designed participatory workshops with local residents.</li>
-              <li>Produced an open-source toolkit for water-sensing prototypes.</li>
-            </ul>
+            <h2 className="section-title">BibTeX</h2>
+            <BibtexCard
+              ref={fadeInRef}
+              text={`@inproceedings{10.1145/3643834.3660705,
+author = {Lim, Hyunseung and Cho, Ji Yong and Kim, Taewan and Park, Jeongeon and Shin, Hyungyu and Choi, Seulgi and Park, Sunghyun and Lee, Kyungjae and Kim, Juho and Lee, Moontae and Hong, Hwajung},
+title = {Co-Creating Question-and-Answer Style Articles with Large Language Models for Research Promotion},
+year = {2024},
+isbn = {9798400705830},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3643834.3660705},
+doi = {10.1145/3643834.3660705},
+abstract = {Research promotion enables researchers to share advanced knowledge with pertinent academic communities. The question-and-answer (QA) style articles are effective for researchers to promote their research by enabling readers to understand research on complex subjects. Recent advances in large language models (LLMs) have opened avenues for supporting researchers in creating QA-style articles for research promotion. However, without the authors’ involvement, these models may only partially capture the researcher’s intention and voice. We developed AQUA, a research probe that enables researchers to co-create QA-style articles with LLMs to promote their research papers. A user study (n=12) reveals that LLMs reduced authors’ burden and helped them understand the readers’ perspectives. Nevertheless, LLMs failed to capture the unique intent of the authors, and their automated generation discouraged authors from carefully revising their answers. Based on our findings, we discuss human-LLM interaction design to enable authors to create QA-style articles that reflect their intention.},
+booktitle = {Proceedings of the 2024 ACM Designing Interactive Systems Conference},
+pages = {975–994},
+numpages = {20},
+keywords = {Human-AI Interaction, Large Language Model, Question-and-Answer, Research Promotion},
+location = {Copenhagen, Denmark},
+series = {DIS '24}
+}`}
+            />
           </section>
         </main>
       </div>

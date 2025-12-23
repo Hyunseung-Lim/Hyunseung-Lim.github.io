@@ -10,19 +10,31 @@ const formatSize = value => (typeof value === 'number' ? `${value}px` : value);
 const DRAG_MULTIPLIER = 1.18;
 const MOMENTUM_MULTIPLIER = 260;
 const MOMENTUM_DAMPING = 0.9;
-const MOMENTUM_THRESHOLD = 0.01;
+const MOMENTUM_THRESHOLD = 0.0075;
 
 export const MobileScreenRail = ({
   heading,
   description,
   screens = [],
   cardWidth = 'clamp(240px, 28vw, 360px)',
+  desktopCardWidth = 'clamp(220px, 22vw, 320px)',
   cardHeight = 'auto',
   gap = 24,
   showMetadata = true,
   clampToContainer = false
 }) => {
-  const computedWidth = formatSize(cardWidth);
+  const [isDesktop, setIsDesktop] = useState(() => (typeof window !== 'undefined' ? window.innerWidth >= 992 : false));
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window === 'undefined') return;
+      setIsDesktop(window.innerWidth >= 992);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const activeCardWidth = isDesktop ? desktopCardWidth : cardWidth;
+  const computedWidth = formatSize(activeCardWidth);
   const computedHeight = formatSize(cardHeight);
   const gapValue = typeof gap === 'number' ? gap : 0;
   const gapCssValue = typeof gap === 'number' ? `${gap}px` : gap;
@@ -282,6 +294,7 @@ MobileScreenRail.propTypes = {
     })
   ),
   cardWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  desktopCardWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   cardHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   gap: PropTypes.number,
   showMetadata: PropTypes.bool,

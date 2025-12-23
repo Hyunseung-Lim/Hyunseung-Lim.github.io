@@ -15,7 +15,7 @@ export const PROJECTS = {
   'feed-o-meter': {
     id: 'feed-o-meter',
     title: 'Feed-O-Meter',
-    subtitle: 'Fostering Design Feedback Skills through Role-playing Interactions with AI Mentee',
+    subtitle: 'Investigating AI-generated mentee personas as interactive agents for scaffolding design feedback practice',
     period: '2023.09-2025.01',
     projectType: 'Research',
     icon: '/projects/feed-o-meter/icon.png',
@@ -53,8 +53,8 @@ export const PROJECTS = {
   },
   crafteam: {
     id: 'crafteam',
-    title: 'Crafteam',
-    subtitle: 'Building Human-Multi-Agent Teams for Creative Works',
+    title: 'CrafTeam',
+    subtitle: 'Understanding Human–Multi-Agent Team Formation for Creative Work',
     period: '2025.01-2025.09',
     projectType: 'Research',
     icon: '/projects/crafteam/icon.png',
@@ -106,15 +106,15 @@ export const PROJECTS = {
   panorama: {
     id: 'panorama',
     title: 'PANORAMA',
-    subtitle: 'Dataset and benchmarks capturing patent examination decision trails',
+    subtitle: 'A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination',
     period: '2024.06-2025.05',
     projectType: 'Research',
     icon: '/projects/panorama/icon.png',
     hoverIcon: '/projects/panorama/icon_hover.gif',
     iconDark: '/projects/panorama/icon_dark.png',
     hoverIconDark: '/projects/panorama/icon_hover_dark.gif',
-    href: 'https://github.com/LGAI-Research/PANORAMA',
-    external: true
+    href: '#/projects/panorama',
+    external: false
   }
 };
 

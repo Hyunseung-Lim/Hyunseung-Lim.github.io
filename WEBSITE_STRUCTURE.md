@@ -34,7 +34,8 @@ Hyunseung-Lim.github.io/
 │   │   ├── Footer/          # 푸터 컴포넌트
 │   │   ├── SegmentedButton/ # 세그먼트 버튼 컴포넌트
 │   │   ├── ThemeToggle/     # 테마 토글 컴포넌트
-│   │   └── Topbar/          # 상단 네비게이션 바
+│   │   ├── Topbar/          # 상단 네비게이션 바
+│   │   └── BibtexCard/      # BibTeX 복사 카드 (본문, 아이콘, 복사 상태 관리)
 │   ├── Data/                # 데이터 파일들
 │   │   ├── publications.json # 논문 데이터
 │   │   └── personLinks.json # 인물명 ↔ 외부 링크 매핑

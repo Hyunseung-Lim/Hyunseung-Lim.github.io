@@ -1,0 +1,197 @@
+.project-page--panorama {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary, #ffffff);
+  color: var(--text-primary, #333333);
+  transition:
+    background-color var(--theme-transition-speed) var(--theme-transition-easing),
+    color var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.project-page--panorama.has-banner:not(.scrolled-past-banner) .topbar {
+  background: transparent;
+  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.project-page--panorama.has-banner.scrolled-past-banner .topbar {
+  background: var(--topbar-bg);
+  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.project-page--panorama .banner-section {
+  position: relative;
+  width: 100%;
+  height: min(60vh, 100vw);
+  min-height: min(400px, 100vw);
+  overflow: hidden;
+}
+
+.project-page--panorama .banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-page--panorama .project-container {
+  flex: 1;
+  max-width: 824px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.project-page--panorama:not(.has-banner) .project-container {
+  padding-top: 4rem;
+  margin-top: 3.5rem;
+}
+
+.project-page--panorama .project-container .fade-in-element {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--animation-transition-speed) var(--animation-transition-easing),
+    transform var(--animation-transition-speed) var(--animation-transition-easing);
+}
+
+.project-page--panorama .project-container .fade-in-element.fade-in-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-page--panorama .project-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-primary, #e0e0e0);
+}
+
+.project-page--panorama .project-header__fade-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.project-page--panorama .project-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--text-primary, #333333);
+  letter-spacing: -0.02em;
+}
+
+.project-page--panorama .project-subtitle {
+  margin: 0 0 1.1rem 0;
+  font-size: 1.08rem;
+  font-weight: 400;
+  color: var(--text-secondary, #666666);
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+}
+
+.project-page--panorama .project-meta-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1.5rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.project-page--panorama .project-type-section,
+.project-page--panorama .project-period-section {
+  text-align: center;
+}
+
+.project-page--panorama .project-content {
+  width: 100%;
+  display: block;
+}
+
+.project-page--panorama .project-section {
+  margin: 0 0 2.5rem 0;
+  line-height: 1.7;
+  padding: 0;
+}
+
+.project-page--panorama .section-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.project-page--panorama .section-text {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.project-page--panorama .panorama-body {
+  text-align: left;
+  line-height: 1.65;
+  font-size: 0.85rem;
+}
+
+.project-page--panorama .panorama-link {
+  text-decoration: underline;
+  color: inherit;
+  font-weight: 600;
+}
+
+.dark-mode .project-page--panorama {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+@media (max-width: 992px) {
+  .project-page--panorama .project-container {
+    padding: 1.5rem;
+  }
+
+  .project-page--panorama:not(.has-banner) .project-container {
+    padding-top: 3.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .project-page--panorama .project-title {
+    font-size: 2.2rem;
+  }
+
+  .project-page--panorama .project-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-page--panorama .project-container {
+    padding: 1rem;
+  }
+
+  .project-page--panorama:not(.has-banner) .project-container {
+    padding-top: 3.5rem;
+    margin-top: 2.25rem;
+  }
+
+  .project-page--panorama .project-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-page--panorama .project-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .project-page--panorama:not(.has-banner) .project-container {
+    padding-top: 3.1rem;
+    margin-top: 1.85rem;
+  }
+
+  .project-page--panorama .project-title {
+    font-size: 1.8rem;
+  }
+}

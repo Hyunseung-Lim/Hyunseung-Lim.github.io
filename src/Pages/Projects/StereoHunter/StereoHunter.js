@@ -6,6 +6,7 @@ import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { useTheme } from '../../../contexts/ThemeContext';
 import './StereoHunter.css';
+import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 
 export const StereoHunterProject = () => {
   const projectData = PROJECTS.stereohunter;
@@ -16,6 +17,23 @@ export const StereoHunterProject = () => {
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
   const { isDark } = useTheme();
   const facctLogo = `${process.env.PUBLIC_URL}/projects/stereohunter/${isDark ? 'facct_dark.png' : 'facct.png'}`;
+  const bibtexEntry = `@inproceedings{10.1145/3715275.3732207,
+author = {Lim, Hyunseung and Choi, Dasom and Hong, Hwajung},
+title = {How Do Users Identify and Perceive Stereotypes? Understanding User Perspectives on Stereotypical Biases in Large Language Models},
+year = {2025},
+isbn = {9798400714825},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3715275.3732207},
+doi = {10.1145/3715275.3732207},
+abstract = {Warning: This article contains stereotypical and offensive contents.Stereotypical biases in large language models (LLMs) have the potential to result in discriminatory responses, posing harm to users and disrupting interactions. While prior research has predominantly focused on assessing stereotypes in LLMs with fairness metrics, there is a limited understanding of how users identify and perceive stereotypes in LLMs. To address this gap, we introduce StereoHunter, a research probe tool designed to examine how individuals identify and perceive stereotypes by observing interactions in which users elicit stereotypical responses from LLMs. Our findings reveal the nuanced considerations and challenges participants faced when evaluating these stereotypes, which varied based on their backgrounds and preconceptions about LLMs. Based on these insights, we discuss how diverse user perspectives can be reflected in identifying stereotypes and informing fairness metrics for mitigating biases in LLMs.},
+booktitle = {Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency},
+pages = {3241–3253},
+numpages = {13},
+keywords = {AI fairness, stereotype, algorithmic harms, large language model, human-AI interaction},
+location = {},
+series = {FAccT '25}
+}`;
 
   return (
     <div className={`${pageClassName} project-page--stereohunter`}>
@@ -68,29 +86,22 @@ export const StereoHunterProject = () => {
 
         <main className="project-content">
           <section className="project-section">
-            <h2 className="section-title">Overview</h2>
-            <p className="section-text" ref={fadeInRef}>
-              StereoHunter investigates how design practitioners surface, interrogate, and mitigate
-              stereotypical responses when collaborating with large language models during early-stage
-              concept work.
+            <p className="section-text project-fade-block stereohunter-body" ref={fadeInRef}>
+              Stereotypical biases in large language models (LLMs) have the potential to result in discriminatory responses,
+              posing harm to users and disrupting interactions. While prior research has predominantly focused on assessing
+              stereotypes in LLMs with fairness metrics, there is a limited understanding of how users identify and perceive
+              stereotypes in LLMs. To address this gap, we introduce StereoHunter, a research probe tool designed to examine
+              how individuals identify and perceive stereotypes by observing interactions in which users elicit stereotypical
+              responses from LLMs. Our findings reveal the nuanced considerations and challenges participants faced when
+              evaluating these stereotypes, which varied based on their backgrounds and preconceptions about LLMs. Based on
+              these insights, we discuss how diverse user perspectives can be reflected in identifying stereotypes and informing
+              fairness metrics for mitigating biases in LLMs.
             </p>
           </section>
-
-          <section className="project-section">
-            <h2 className="section-title">Role</h2>
-            <p className="section-text" ref={fadeInRef}>
-              Leading study design, facilitating co-analysis workshops, and prototyping interactive
-              bias-spotting aids that integrate with existing creative tools.
-            </p>
-          </section>
-
-          <section className="project-section">
-            <h2 className="section-title">Highlights</h2>
-            <ul className="section-list" ref={fadeInRef}>
-              <li>Ran collaborative critique sessions across design studios to catalogue stereotype signals.</li>
-              <li>Built lightweight LLM probes that visualize how prompt phrasing shifts perceived bias.</li>
-              <li>Drafting guidelines to help hybrid teams negotiate bias remediation strategies.</li>
-            </ul>
+          <div className="stereohunter-divider" role="presentation" aria-hidden="true" />
+          <section className="project-section stereohunter-bibtex">
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
+            <BibtexCard ref={fadeInRef} text={bibtexEntry} className="project-fade-block" />
           </section>
         </main>
       </div>

@@ -8,6 +8,15 @@ import { Footer } from '../Components/Footer/footer';
 import publicationData from '../Data/publications.json';
 import personLinks from '../Data/personLinks.json';
 
+const PROJECT_WEB_ROUTES = {
+    'PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination': '#/projects/panorama',
+    'Feed-O-Meter: Investigating AI-Generated Mentee Personas as Interactive Agents for Scaffolding Design Feedback Practice': '#/projects/feed-o-meter',
+    'How Do Users Identify and Perceive Stereotypes? Understanding User Perspectives on Stereotypical Biases in Large Language Models': '#/projects/stereohunter',
+    'Co-Creating Question-and-Answer Style Articles with Large Language Models for Research Promotion': '#/projects/aqua',
+    'Elevate: A Walkable Pin-Array for Large Shape-Changing Terrains': '#/projects/elevate',
+    'Elevate: a large-scale walkable pin-array display': '#/projects/elevate'
+};
+
 export const Publications = (props) => {
     const fadeInRef = useFadeInAnimation();
 
@@ -180,7 +189,7 @@ export const Publications = (props) => {
             <Topbar/>
             <div className='page'>
                 <div className="publications">
-                    <div ref={fadeInRef} className="selection">
+                    <div ref={fadeInRef} className={`selection ${isMobile ? 'selection--mobile' : ''}`}>
                         <SegmentedControl
                             name="field"
                             callback={(val) => setFieldValue(val)}
@@ -235,18 +244,46 @@ export const Publications = (props) => {
                                                 <div ref={fadeInRef} className="venue-links">
                                                     <span className="venue-text">{publication.venue}</span>
                                                     {(() => {
-                                                        const links = [];
-                                                        if (publication.pdf) links.push(<a key="pdf" href={`/PDF/${publication.pdf}`} target="_blank" rel="noopener noreferrer">PDF</a>);
-                                                        if (publication.doi) links.push(<a key="doi" href={publication.doi} target="_blank" rel="noopener noreferrer">DOI</a>);
-                                                        if (publication.link) links.push(<a key="web" href={publication.link} target="_blank" rel="noopener noreferrer">WEB</a>);
-                                                        if (publication.recording) links.push(<a key="recording" href={publication.recording} target="_blank" rel="noopener noreferrer">REC</a>);
-                                                        if (publication.video) links.push(<a key="video" href={publication.video} target="_blank" rel="noopener noreferrer">VID</a>);
-                                                        if (publication.bibtex) links.push(<a key="bib" href={`/bib/${publication.bibtex}`} target="_blank" rel="noopener noreferrer">BIB</a>);
-                                                        
-                                                        return links.map((link, index) => (
-                                                            <React.Fragment key={link.key}>
+                                                        const linkEntries = [];
+                                                        const addLink = ({ key, href, label, newTab = true, primary = false }) => {
+                                                            if (!href) return;
+                                                            const props = {};
+                                                            if (newTab) {
+                                                                props.target = '_blank';
+                                                                props.rel = 'noopener noreferrer';
+                                                            }
+                                                            const classNames = ['venue-link'];
+                                                            if (primary) classNames.push('venue-link--primary');
+                                                            linkEntries.push({
+                                                                key,
+                                                                primary,
+                                                                element: (
+                                                                    <a key={key} href={href} className={classNames.join(' ')} {...props}>
+                                                                        {label}
+                                                                    </a>
+                                                                )
+                                                            });
+                                                        };
+
+                                                        const projectRoute = PROJECT_WEB_ROUTES[publication.title];
+                                                        if (projectRoute) {
+                                                            addLink({ key: 'project-web', href: projectRoute, label: 'WEB', newTab: false, primary: true });
+                                                        }
+                                                        if (publication.pdf) addLink({ key: 'pdf', href: `/PDF/${publication.pdf}`, label: 'PDF', primary: true });
+                                                        if (publication.doi) addLink({ key: 'doi', href: publication.doi, label: 'DOI' });
+                                                        if (publication.link) addLink({ key: 'link', href: publication.link, label: 'LINK' });
+                                                        if (publication.recording) addLink({ key: 'recording', href: publication.recording, label: 'REC' });
+                                                        if (publication.video) addLink({ key: 'video', href: publication.video, label: 'VID' });
+                                                        if (publication.bibtex) addLink({ key: 'bib', href: `/bib/${publication.bibtex}`, label: 'BIB' });
+
+                                                        const visibleEntries = isMobile
+                                                            ? linkEntries.filter(entry => entry.primary)
+                                                            : linkEntries;
+
+                                                        return visibleEntries.map((entry, index) => (
+                                                            <React.Fragment key={entry.key}>
                                                                 {index > 0 && <span className="separator"> • </span>}
-                                                                {link}
+                                                                {entry.element}
                                                             </React.Fragment>
                                                         ));
                                                     })()}

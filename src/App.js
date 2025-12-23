@@ -15,6 +15,7 @@ import { AquaDesignProject } from './Pages/Projects/AquaDesign/AquaDesign';
 import { BrownieProject } from './Pages/Projects/Brownie/Brownie';
 import { ElevateProject } from './Pages/Projects/Elevate/Elevate';
 import { StereoHunterProject } from './Pages/Projects/StereoHunter/StereoHunter';
+import { PanoramaProject } from './Pages/Projects/Panorama/Panorama';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path='/projects/elevate' element={<ElevateProject/>} />
             <Route path='/projects/aqua' element={<AquaProject/>} />
             <Route path='/projects/aqua-design' element={<AquaDesignProject/>} />
+            <Route path='/projects/panorama' element={<PanoramaProject/>} />
             <Route path='/projects/brownie' element={<BrownieProject/>} />
             <Route path='/publications' element={<Publications/>} />
           </Routes>

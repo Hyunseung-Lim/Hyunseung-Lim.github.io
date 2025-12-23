@@ -5,6 +5,7 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import './Elevate.css';
+import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 
 export const ElevateProject = () => {
   const projectData = PROJECTS.elevate;
@@ -72,10 +73,9 @@ export const ElevateProject = () => {
         <main className="project-content">
           <section className="project-section elevate-overview">
             <div className="elevate-overview__copy project-fade-block" ref={fadeInRef}>
-              <p className="section-text">
-                Elevate enables users to experience not only large variations in shapes but also the details of the
+              <p className="section-text elevate-body">
+                <strong>Elevate</strong> enables users to experience not only large variations in shapes but also the details of the
                 underlying terrain. This provides possible way to utilize through applications.
-                <br />
                 <br />
                 Current head-mounted displays enable users to explore virtual worlds by simply walking through them.
                 This led researchers to create haptic displays that can also simulate different types of elevation
@@ -99,12 +99,28 @@ export const ElevateProject = () => {
           </section>
 
           <section className="project-section">
-            <h2 className="section-title">Highlights</h2>
-            <ul className="section-list" ref={fadeInRef}>
-              <li>Mapped pain points in collaborative evaluation workflows across two design schools.</li>
-              <li>Co-designed speculative AI interventions to surface hidden applicant signals.</li>
-              <li>Preparing a longitudinal field deployment targeting the 2025 admissions cycle.</li>
-            </ul>
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
+            <BibtexCard
+              ref={fadeInRef}
+              text={`@inproceedings{10.1145/3411764.3445454,
+author = {Je, Seungwoo and Lim, Hyunseung and Moon, Kongpyung and Teng, Shan-Yuan and Brooks, Jas and Lopes, Pedro and Bianchi, Andrea},
+title = {Elevate: A Walkable Pin-Array for Large Shape-Changing Terrains},
+year = {2021},
+isbn = {9781450380966},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3411764.3445454},
+doi = {10.1145/3411764.3445454},
+abstract = {Current head-mounted displays enable users to explore virtual worlds by simply walking through them (i.e., real-walking VR). This led researchers to create haptic displays that can also simulate different types of elevation shapes. However, existing shape-changing floors are limited by their tabletop scale or the coarse resolution of the terrains they can display due to the limited number of actuators and low vertical resolution. To tackle this challenge, we introduce Elevate, a dynamic and walkable pin-array floor on which users can experience not only large variations in shapes but also the details of the underlying terrain. Our system achieves this by packing 1200 pins arranged on a 1.80 \\texttimes{} 0.60m platform, in which each pin can be actuated to one of ten height levels (resolution: 15mm/level). To demonstrate its applicability, we present our haptic floor combined with four walkable applications and a user study that reported increased realism and enjoyment.},
+booktitle = {Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems},
+articleno = {127},
+numpages = {11},
+keywords = {Haptic Floor, Shape Changing Display, VR},
+location = {Yokohama, Japan},
+series = {CHI '21}
+}`}
+              className="project-fade-block"
+            />
           </section>
         </main>
       </div>

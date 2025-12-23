@@ -94,6 +94,20 @@
     }
   }
 
+  .selection {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .selection--mobile {
+      width: 100%;
+    }
+
+    .selection--mobile .segmented-control {
+      width: 100%;
+    }
+  }
+
   /* 공통 페이지 스타일 */
   .page {
     padding: 100px 50px 50px;
@@ -186,8 +200,11 @@
       text-align: left;
     }
 
-    .publication .venue-links > a,
-    .publication .venue-links > .separator {
+    .publication .venue-links > .venue-link {
       display: none;
+    }
+
+    .publication .venue-links > .venue-link--primary {
+      display: inline-block;
     }
   }

@@ -1,0 +1,58 @@
+.bibtex-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.bibtex-card[data-hovered="true"] .bibtex-card__block {
+  border-color: #666666;
+}
+
+.dark-mode .bibtex-card[data-hovered="true"] .bibtex-card__block {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.bibtex-card__copy {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  border-radius: 999px;
+  padding: 0.2rem;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bibtex-card__copy img {
+  width: 24px;
+  height: 28px;
+  display: block;
+}
+
+.bibtex-card__block {
+  width: 100%;
+  padding: 1.85rem 1.25rem 1.25rem;
+  border-radius: 12px;
+  background: var(--bg-secondary, #f7f7f7);
+  border: 1px solid var(--border-primary, #e0e0e0);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  margin: 1rem 0 0;
+  text-align: left;
+}
+
+.bibtex-card__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

@@ -23,8 +23,8 @@
 .project-page--brownie .banner-section {
   position: relative;
   width: 100%;
-  height: 60vh;
-  min-height: 400px;
+  height: min(60vh, 100vw);
+  min-height: min(400px, 100vw);
   overflow: hidden;
 }
 
@@ -35,8 +35,14 @@
   object-position: center;
 }
 
+.project-page--brownie .banner-section picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .project-page--brownie .brownie-banner {
-  height: clamp(380px, 70vh, 640px);
+  height: min(clamp(380px, 70vh, 640px), 100vw);
 }
 
 .project-page--brownie .brownie-banner-image {
@@ -128,14 +134,16 @@
 .project-page--brownie .project-meta-info {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   margin-top: 1.5rem;
   gap: 1.5rem;
   flex-wrap: wrap;
+  text-align: center;
 }
 
 .project-page--brownie .project-type-section,
 .project-page--brownie .project-period-section {
-  text-align: left;
+  text-align: center;
 }
 
 .project-page--brownie .project-awards-section {
@@ -230,9 +238,9 @@
     font-size: 0.85rem;
   }
 
-  .banner-section {
-    height: 50vh;
-    min-height: 300px;
+  .project-page--brownie .banner-section {
+    height: min(50vh, 100vw);
+    min-height: min(300px, 100vw);
   }
 }
 
@@ -242,8 +250,8 @@
   }
 
   .project-page--brownie:not(.has-banner) .project-container {
-    padding-top: 3rem;
-    margin-top: 2rem;
+    padding-top: 3.5rem;
+    margin-top: 2.25rem;
   }
 
   .project-page--brownie .project-title {
@@ -251,8 +259,8 @@
   }
 
   .banner-section.brownie-hero {
-    height: 70vh;
-    min-height: 360px;
+    height: min(70vh, 100vw);
+    min-height: min(360px, 100vw);
   }
 
   .brownie-hero__controls {
@@ -268,9 +276,9 @@
     width: 100%;
   }
 
-  .banner-section {
-    height: 40vh;
-    min-height: 250px;
+  .project-page--brownie .banner-section {
+    height: min(40vh, 100vw);
+    min-height: min(250px, 100vw);
   }
 }
 
@@ -281,8 +289,8 @@
   }
 
   .project-page--brownie:not(.has-banner) .project-container {
-    padding-top: 2.5rem;
-    margin-top: 1.5rem;
+    padding-top: 3.1rem;
+    margin-top: 1.85rem;
   }
 
   .project-page--brownie .project-title {
@@ -319,8 +327,8 @@
     width: 140px;
   }
 
-  .banner-section {
-    height: 35vh;
-    min-height: 200px;
+  .project-page--brownie .banner-section {
+    height: min(35vh, 100vw);
+    min-height: min(200px, 100vw);
   }
 }

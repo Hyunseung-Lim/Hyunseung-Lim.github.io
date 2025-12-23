@@ -4,11 +4,11 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
-import './Crafteam.css';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
+import './Panorama.css';
 
-export const CrafteamProject = () => {
-  const projectData = PROJECTS.crafteam;
+export const PanoramaProject = () => {
+  const projectData = PROJECTS.panorama;
   const [scrollRoot, setScrollRoot] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
@@ -16,7 +16,7 @@ export const CrafteamProject = () => {
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
 
   return (
-    <div className={`${pageClassName} project-page--crafteam`}>
+    <div className={`${pageClassName} project-page--panorama`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
       {bannerImage && (
         <div className="banner-section">
@@ -48,8 +48,22 @@ export const CrafteamProject = () => {
 
         <main className="project-content">
           <section className="project-section project-section__fade" ref={fadeInRef}>
-            <p className="section-text crafteam-body project-fade-block" ref={fadeInRef}>
-              Team-based collaboration is a cornerstone of modern creative work. Recent advances in generative AI open possibilities for humans to collaborate with multiple AI agents in distinct roles to address complex creative workflows. Yet, how to form Human–Multi-Agent Teams (HMATs) is underexplored, especially given that inter-agent interactions increase complexity and the risk of unexpected behaviors. In this exploratory study, we aim to understand how to form HMATs for creative work using CrafTeam, a technology probe that allows users to form and collaborate with their teams. We conducted a study with 12 design practitioners, in which participants iterated through a three-step cycle: forming HMATs, ideating with their teams, and reflecting on their teams' ideation. Our findings reveal that while participants initially attempted autonomous team operations, they ultimately adopted team formations in which they directly orchestrated agents. We discuss design considerations for HMAT formation that humans can effectively orchestrate multiple agents.
+            <p className="section-text panorama-body project-fade-block" ref={fadeInRef}>
+              Patent examination remains an ongoing challenge in the NLP literature even after the advent of large language
+              models, as it requires an extensive yet nuanced human judgment on whether a submitted claim meets the
+              statutory standards of novelty and non-obviousness against previously granted claims–prior art–in expert
+              domains. Previous NLP studies have approached this challenge as a prediction task with high-level proxies such as similarity metrics or classifiers trained on historical labels.
+              However, this approach often overlooks the step-by-step evaluations that examiners must make with profound
+              information, including rationales for the decisions provided in office actions documents, which also makes it
+              harder to measure the current state of techniques in patent review processes. To fill this gap, we construct{' '}
+              <strong>PANORAMA</strong>, a dataset of 8,143 U.S. patent examination records that preserves the full decision trails,
+              including original applications, all cited references, Non-Final Rejections, and Notices of Allowance. Also,{' '}
+              <strong>PANORAMA</strong> decomposes the trails into sequential benchmarks that emulate patent professionals' patent review
+              processes and allow researchers to examine large language models' capabilities at each step of them. Our
+              dataset is openly available at{' '}
+              <a href="https://huggingface.co/datasets/LG-AI-Research/PANORAMA" target="_blank" rel="noopener noreferrer" className="panorama-link">
+                URL
+              </a>.
             </p>
           </section>
 
@@ -58,7 +72,15 @@ export const CrafteamProject = () => {
             <BibtexCard
               ref={fadeInRef}
               className="project-fade-block"
-              text={`Coming soon`}
+              text={`@misc{lim2025panoramadatasetbenchmarkscapturing,
+title={PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination},
+author={Hyunseung Lim and Sooyohn Nam and Sungmin Na and Ji Yong Cho and June Yong Yang and Hyungyu Shin and Yoonjoo Lee and Juho Kim and Moontae Lee and Hwajung Hong},
+year={2025},
+eprint={2510.24774},
+archivePrefix={arXiv},
+primaryClass={cs.CY},
+url={https://arxiv.org/abs/2510.24774},
+}`}
             />
           </section>
         </main>

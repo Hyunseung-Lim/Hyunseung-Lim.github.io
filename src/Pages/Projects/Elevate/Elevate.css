@@ -23,8 +23,8 @@
 .project-page--elevate .banner-section {
   position: relative;
   width: 100%;
-  height: 60vh;
-  min-height: 400px;
+  height: min(60vh, 100vw);
+  min-height: min(400px, 100vw);
   overflow: hidden;
 }
 
@@ -35,8 +35,14 @@
   object-position: center;
 }
 
+.project-page--elevate .banner-section picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .project-page--elevate .elevate-banner {
-  height: clamp(380px, 70vh, 640px);
+  height: min(clamp(380px, 70vh, 640px), 100vw);
 }
 
 .project-page--elevate .elevate-banner-image {
@@ -106,14 +112,16 @@
 .project-page--elevate .project-meta-info {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   margin-top: 1.5rem;
   gap: 1.5rem;
   flex-wrap: wrap;
+  text-align: center;
 }
 
 .project-page--elevate .project-type-section,
 .project-page--elevate .project-period-section {
-  text-align: left;
+  text-align: center;
 }
 
 .project-page--elevate .project-awards-section {
@@ -171,6 +179,11 @@
   font-size: 1.05rem;
   color: var(--text-primary);
   text-align: left;
+}
+
+.project-page--elevate .elevate-body {
+  font-size: 1rem;
+  line-height: 1.65;
 }
 
 .project-page--elevate .section-list {
@@ -242,9 +255,9 @@
     font-size: 0.85rem;
   }
 
-  .banner-section {
-    height: 50vh;
-    min-height: 300px;
+  .project-page--elevate .banner-section {
+    height: min(50vh, 100vw);
+    min-height: min(300px, 100vw);
   }
 }
 
@@ -254,17 +267,17 @@
   }
 
   .project-page--elevate:not(.has-banner) .project-container {
-    padding-top: 3rem;
-    margin-top: 2rem;
+    padding-top: 3.5rem;
+    margin-top: 2.25rem;
   }
 
   .project-page--elevate .project-title {
     font-size: 2rem;
   }
 
-  .banner-section {
-    height: 40vh;
-    min-height: 250px;
+  .project-page--elevate .banner-section {
+    height: min(40vh, 100vw);
+    min-height: min(250px, 100vw);
   }
 }
 
@@ -275,16 +288,16 @@
   }
 
   .project-page--elevate:not(.has-banner) .project-container {
-    padding-top: 2.5rem;
-    margin-top: 1.5rem;
+    padding-top: 3.1rem;
+    margin-top: 1.85rem;
   }
 
   .project-page--elevate .project-title {
     font-size: 1.8rem;
   }
 
-  .banner-section {
-    height: 35vh;
-    min-height: 200px;
+  .project-page--elevate .banner-section {
+    height: min(35vh, 100vw);
+    min-height: min(200px, 100vw);
   }
 }
