@@ -4,6 +4,7 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
+import { useTheme } from '../../../contexts/ThemeContext';
 import './StereoHunter.css';
 
 export const StereoHunterProject = () => {
@@ -13,9 +14,11 @@ export const StereoHunterProject = () => {
   const themeMode = projectData.themeMode ?? 'auto';
   const bannerImage = projectData.bannerImage ?? null;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const { isDark } = useTheme();
+  const facctLogo = `${process.env.PUBLIC_URL}/projects/stereohunter/${isDark ? 'facct_dark.png' : 'facct.png'}`;
 
   return (
-    <div className={pageClassName}>
+    <div className={`${pageClassName} project-page--stereohunter`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
       {bannerImage && (
         <div className="banner-section">
@@ -40,6 +43,26 @@ export const StereoHunterProject = () => {
                 <div className="meta-value">{projectData.projectType}</div>
               </div>
             )}
+            <div
+              className="project-awards-section project-fade-block"
+              aria-label="Project awards"
+              ref={fadeInRef}
+            >
+              <a
+                href="https://dl.acm.org/doi/full/10.1145/3715275.3732207"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-award-link"
+                aria-label="Read ACM FAccT paper"
+              >
+                <img
+                  src={facctLogo}
+                  alt="ACM FAccT"
+                  className="project-award-badge stereohunter-award"
+                  loading="lazy"
+                />
+              </a>
+            </div>
           </div>
         </header>
 

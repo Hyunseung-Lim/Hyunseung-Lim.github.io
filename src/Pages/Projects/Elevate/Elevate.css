@@ -1,5 +1,5 @@
 /* Base project layout */
-.project-page {
+.project-page--elevate {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,17 +10,17 @@
     color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
-.project-page.has-banner:not(.scrolled-past-banner) .topbar {
+.project-page--elevate.has-banner:not(.scrolled-past-banner) .topbar {
   background: transparent;
   transition: background var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
-.project-page.has-banner.scrolled-past-banner .topbar {
+.project-page--elevate.has-banner.scrolled-past-banner .topbar {
   background: var(--topbar-bg);
   transition: background var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
-.banner-section {
+.project-page--elevate .banner-section {
   position: relative;
   width: 100%;
   height: 60vh;
@@ -28,14 +28,25 @@
   overflow: hidden;
 }
 
-.banner-image {
+.project-page--elevate .banner-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.project-container {
+.project-page--elevate .elevate-banner {
+  height: clamp(380px, 70vh, 640px);
+}
+
+.project-page--elevate .elevate-banner-image {
+  object-position: center 95% !important;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.project-page--elevate .project-container {
   flex: 1;
   max-width: 824px;
   width: 100%;
@@ -43,12 +54,12 @@
   padding: 2rem;
 }
 
-.project-page:not(.has-banner) .project-container {
+.project-page--elevate:not(.has-banner) .project-container {
   padding-top: 4rem;
   margin-top: 3.5rem;
 }
 
-.project-container .fade-in-element {
+.project-page--elevate .project-container .fade-in-element {
   opacity: 0;
   transform: translateY(24px);
   transition:
@@ -56,12 +67,12 @@
     transform var(--animation-transition-speed) var(--animation-transition-easing);
 }
 
-.project-container .fade-in-element.fade-in-active {
+.project-page--elevate .project-container .fade-in-element.fade-in-active {
   opacity: 1;
   transform: translateY(0);
 }
 
-.project-header {
+.project-page--elevate .project-header {
   position: relative;
   text-align: center;
   margin-bottom: 3rem;
@@ -69,13 +80,13 @@
   border-bottom: 1px solid var(--border-primary, #e0e0e0);
 }
 
-.project-header__fade-block {
+.project-page--elevate .project-header__fade-block {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.project-title {
+.project-page--elevate .project-title {
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 1rem 0;
@@ -83,7 +94,7 @@
   letter-spacing: -0.02em;
 }
 
-.project-subtitle {
+.project-page--elevate .project-subtitle {
   margin: 0 0 1.1rem 0;
   font-size: 1.08rem;
   font-weight: 400;
@@ -92,7 +103,7 @@
   line-height: 1.5;
 }
 
-.project-meta-info {
+.project-page--elevate .project-meta-info {
   display: flex;
   justify-content: space-around;
   margin-top: 1.5rem;
@@ -100,19 +111,24 @@
   flex-wrap: wrap;
 }
 
-.project-type-section,
-.project-period-section {
+.project-page--elevate .project-type-section,
+.project-page--elevate .project-period-section {
   text-align: left;
 }
 
-.project-awards-section {
+.project-page--elevate .project-awards-section {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
 }
 
-.meta-label {
+.project-page--elevate .elevate-award {
+  width: 90px;
+  height: auto;
+}
+
+.project-page--elevate .meta-label {
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--text-primary, #333333);
@@ -121,71 +137,100 @@
   margin-bottom: 0.3rem;
 }
 
-.meta-value {
+.project-page--elevate .meta-value {
   font-size: 0.9rem;
   font-weight: 400;
   color: var(--text-secondary, #666666);
   opacity: 0.8;
 }
 
-.project-content {
+.project-page--elevate .project-content {
   width: 100%;
   display: block;
 }
 
-.project-section {
+.project-page--elevate .project-section {
   margin: 0 0 2.5rem 0;
   line-height: 1.7;
   padding: 0;
 }
 
-.project-section:last-of-type {
+.project-page--elevate .project-section:last-of-type {
   margin-bottom: 0;
 }
 
-.section-title {
+.project-page--elevate .section-title {
   font-size: 1.35rem;
   font-weight: 600;
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
 }
 
-.section-text {
+
+.project-page--elevate .section-text {
   font-size: 1.05rem;
   color: var(--text-primary);
+  text-align: left;
 }
 
-.section-list {
+.project-page--elevate .section-list {
   padding-left: 1.5rem;
   margin: 1rem 0;
   font-size: 1.05rem;
   color: var(--text-primary);
 }
 
-.section-list li {
+.project-page--elevate .section-list li {
   margin-bottom: 0.5rem;
 }
 
-.dark-mode .project-page {
+.project-page--elevate .elevate-overview__copy {
+  width: 100%;
+  text-align: left;
+}
+
+.project-page--elevate .elevate-video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.project-page--elevate .elevate-video-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.project-page--elevate .elevate-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-primary, #e0e0e0);
+  margin-top: 3rem;
+}
+
+.dark-mode .project-page--elevate {
   background-color: var(--bg-primary);
   color: var(--text-primary);
 }
 
 @media (max-width: 992px) {
-  .project-container {
+  .project-page--elevate .project-container {
     padding: 1.5rem;
   }
 
-  .project-page:not(.has-banner) .project-container {
+  .project-page--elevate:not(.has-banner) .project-container {
     padding-top: 3.5rem;
     margin-top: 2.5rem;
   }
 
-  .project-title {
+  .project-page--elevate .project-title {
     font-size: 2.2rem;
   }
 
-  .project-subtitle {
+  .project-page--elevate .project-subtitle {
     font-size: 1rem;
   }
 
@@ -204,16 +249,16 @@
 }
 
 @media (max-width: 768px) {
-  .project-container {
+  .project-page--elevate .project-container {
     padding: 1rem;
   }
 
-  .project-page:not(.has-banner) .project-container {
+  .project-page--elevate:not(.has-banner) .project-container {
     padding-top: 3rem;
     margin-top: 2rem;
   }
 
-  .project-title {
+  .project-page--elevate .project-title {
     font-size: 2rem;
   }
 
@@ -224,17 +269,17 @@
 }
 
 @media (max-width: 480px) {
-  .project-header {
+  .project-page--elevate .project-header {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
   }
 
-  .project-page:not(.has-banner) .project-container {
+  .project-page--elevate:not(.has-banner) .project-container {
     padding-top: 2.5rem;
     margin-top: 1.5rem;
   }
 
-  .project-title {
+  .project-page--elevate .project-title {
     font-size: 1.8rem;
   }
 

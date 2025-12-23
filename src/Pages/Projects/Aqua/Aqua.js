@@ -20,7 +20,7 @@ export const AquaProject = () => {
     : `${process.env.PUBLIC_URL}/projects/aqua/dis2024.png`;
 
   return (
-    <div className={pageClassName}>
+    <div className={`${pageClassName} project-page--aqua`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
       {bannerImage && (

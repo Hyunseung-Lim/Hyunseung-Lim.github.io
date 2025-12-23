@@ -5,6 +5,7 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
+import { MobileScreenRail } from '../../../Components/MobileScreenRail/MobileScreenRail';
 import './AquaDesign.css';
 
 export const AquaDesignProject = () => {
@@ -20,7 +21,7 @@ export const AquaDesignProject = () => {
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
 
   return (
-    <div className={pageClassName}>
+    <div className={`${pageClassName} project-page--aqua-design`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
       {bannerImage && (
@@ -97,7 +98,20 @@ export const AquaDesignProject = () => {
                 allowFullScreen
               />
             </div>
+            <div className="aqua-design-divider" role="presentation" aria-hidden="true" />
           </section>
+
+          <MobileScreenRail
+            heading="Mobile Screens"
+            screens={Array.from({ length: 10 }).map((_, index) => ({
+              image: `${process.env.PUBLIC_URL}/projects/aqua-design/screen/${index + 1}.png`,
+              alt: `AQUA design mobile screen ${index + 1}`
+            }))}
+            cardWidth="clamp(260px, 24vw, 360px)"
+            gap={32}
+            showMetadata={false}
+            clampToContainer
+          />
         </main>
       </div>
 

@@ -4,6 +4,7 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
+import { MobileScreenRail } from '../../../Components/MobileScreenRail/MobileScreenRail';
 import './Datopia.css';
 
 const RUN_SEQUENCE = [1, 2, 3];
@@ -28,7 +29,7 @@ export const DatopiaProject = () => {
   };
 
   return (
-    <div className={pageClassName}>
+    <div className={`${pageClassName} project-page--datopia`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
       <div className="banner-section">
         <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
@@ -91,16 +92,34 @@ export const DatopiaProject = () => {
                 </span>
               </p>
             </div>
+            <div
+              className="datopia-video-frame"
+              role="region"
+              aria-label="Datopia showcase video"
+              ref={fadeInRef}
+            >
+              <iframe
+                src="https://www.youtube.com/embed/2mOZOPmv0KI?rel=0"
+                title="Datopia Exhibition Walkthrough"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="datopia-divider" role="presentation" aria-hidden="true" />
+            <MobileScreenRail
+              heading="Speculative UI Concept"
+              screens={Array.from({ length: 10 }).map((_, index) => ({
+                image: `${process.env.PUBLIC_URL}/projects/datopia/screen/${index + 1}.png`,
+                alt: `Datopia mobile scenario ${index + 1}`
+              }))}
+              cardWidth="clamp(260px, 24vw, 360px)"
+              gap={32}
+              showMetadata={false}
+              clampToContainer
+            />
             <div className="datopia-media" ref={fadeInRef}>
-              <div className="datopia-media__frame" role="region" aria-label="Datopia showcase video">
-                <iframe
-                  src="https://www.youtube.com/embed/2mOZOPmv0KI?rel=0"
-                  title="Datopia Exhibition Walkthrough"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
-              </div>
               <div className="datopia-divider" role="presentation" aria-hidden="true" />
+              <h2 className="datopia-media-title">Exhibition</h2>
               <div className="datopia-figures">
                 {[
                   {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import './Brownie.css';
@@ -9,106 +9,30 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 export const BrownieProject = () => {
   const projectData = PROJECTS.brownie;
   const [scrollRoot, setScrollRoot] = useState(null);
-  const [volume, setVolume] = useState(50);
-  const [isPlayerReady, setIsPlayerReady] = useState(false);
-  const playerContainerRef = useRef(null);
-  const playerRef = useRef(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const heroVideoBase = 'https://www.youtube.com/embed/3SPt_vbqIFs';
-  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(heroVideoBase, themeMode);
-
-  useEffect(() => {
-    const existingScript = document.querySelector('script[src="https://www.youtube.com/iframe_api"]');
-
-    const createPlayer = () => {
-      if (!window.YT || !window.YT.Player || !playerContainerRef.current || playerRef.current) {
-        return;
-      }
-
-      playerRef.current = new window.YT.Player(playerContainerRef.current, {
-        videoId: '3SPt_vbqIFs',
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          modestbranding: 1,
-          rel: 0,
-          playsinline: 1,
-          autohide: 1
-        },
-        events: {
-          onReady: event => {
-            setIsPlayerReady(true);
-            event.target.unMute();
-            event.target.setVolume(volume);
-            event.target.playVideo();
-          }
-        }
-      });
-    };
-
-    if (window.YT && window.YT.Player) {
-      createPlayer();
-    } else {
-      const previousCallback = window.onYouTubeIframeAPIReady;
-      window.onYouTubeIframeAPIReady = () => {
-        previousCallback?.();
-        createPlayer();
-      };
-      if (!existingScript) {
-        const script = document.createElement('script');
-        script.src = 'https://www.youtube.com/iframe_api';
-        script.async = true;
-        document.body.appendChild(script);
-      }
-    }
-
-    return () => {
-      if (window.onYouTubeIframeAPIReady) {
-        window.onYouTubeIframeAPIReady = null;
-      }
-      if (playerRef.current) {
-        playerRef.current.destroy();
-        playerRef.current = null;
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!playerRef.current || !isPlayerReady) {
-      return;
-    }
-    playerRef.current.setVolume(volume);
-    if (volume === 0) {
-      playerRef.current.mute();
-    } else {
-      playerRef.current.unMute();
-    }
-  }, [volume, isPlayerReady]);
-
-  const handleVolumeChange = event => {
-    setVolume(Number(event.target.value));
-  };
+  const desktopBanner = `${process.env.PUBLIC_URL}/projects/brownie/thumbnail.png`;
+  const mobileBanner = `${process.env.PUBLIC_URL}/projects/brownie/thumbnail_mobile.png`;
+  const conceptVideoUrl = 'https://www.youtube.com/embed/3SPt_vbqIFs?rel=0';
+  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(desktopBanner, themeMode);
 
   return (
-    <div className={pageClassName}>
+    <div className={`${pageClassName} project-page--brownie`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
-      <section className="banner-section brownie-hero" aria-label="Brownie concept walkthrough video">
-        <div className="brownie-hero__video" ref={playerContainerRef} />
-        {isPlayerReady && (
-          <div className="brownie-hero__controls" aria-label="Video volume control">
-            <label htmlFor="brownie-volume-slider">Volume</label>
-            <input
-              id="brownie-volume-slider"
-              type="range"
-              min="0"
-              max="100"
-              value={volume}
-              onChange={handleVolumeChange}
+
+      {desktopBanner && (
+        <div className="banner-section brownie-banner">
+          <picture>
+            <source media="(max-width: 640px)" srcSet={mobileBanner} />
+            <img
+              src={desktopBanner}
+              alt={`${projectData.title} banner`}
+              className="banner-image brownie-banner-image"
             />
-          </div>
-        )}
-      </section>
+          </picture>
+        </div>
+      )}
+
       <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
@@ -140,10 +64,16 @@ export const BrownieProject = () => {
           </section>
 
           <section className="project-section project-section__fade" ref={fadeInRef}>
-            <h2 className="section-title">Role</h2>
-            <p className="section-text">
-              Leading interaction design and prototyping of the AI assistant, as well as co-creation workshops with local bakers.
-            </p>
+            <h2 className="section-title">Concept Walkthrough</h2>
+            <div className="brownie-video-frame">
+              <iframe
+                src={conceptVideoUrl}
+                title="Brownie concept walkthrough"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="brownie-divider" role="presentation" aria-hidden="true" />
           </section>
 
           <section className="project-section project-section__fade" ref={fadeInRef}>

@@ -15,7 +15,7 @@ export const CrafteamProject = () => {
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
 
   return (
-    <div className={pageClassName}>
+    <div className={`${pageClassName} project-page--crafteam`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
       {bannerImage && (
         <div className="banner-section">

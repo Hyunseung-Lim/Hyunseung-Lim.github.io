@@ -11,15 +11,25 @@ export const ElevateProject = () => {
   const [scrollRoot, setScrollRoot] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const bannerImage = projectData.bannerImage ?? null;
-  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const desktopBanner =
+    projectData.bannerImage ?? `${process.env.PUBLIC_URL}/projects/elevate/thumbnail.png`;
+  const mobileBanner = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail_mobile.png`;
+  const installationVideoUrl = 'https://www.youtube.com/embed/QvuVQ68uf-w?rel=0';
+  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(desktopBanner, themeMode);
 
   return (
-    <div className={pageClassName}>
+    <div className={`${pageClassName} project-page--elevate`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
-      {bannerImage && (
-        <div className="banner-section">
-          <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+      {desktopBanner && (
+        <div className="banner-section elevate-banner">
+          <picture>
+            <source media="(max-width: 640px)" srcSet={mobileBanner} />
+            <img
+              src={desktopBanner}
+              alt={`${projectData.title} banner`}
+              className="banner-image elevate-banner-image"
+            />
+          </picture>
         </div>
       )}
 
@@ -40,24 +50,52 @@ export const ElevateProject = () => {
                 <div className="meta-value">{projectData.projectType}</div>
               </div>
             )}
+            <div className="project-awards-section project-fade-block" aria-label="Project awards" ref={fadeInRef}>
+              <a
+                href="https://dl.acm.org/doi/abs/10.1145/3411764.3445454"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-award-link"
+                aria-label="View CHI 2021 publication"
+              >
+                <img
+                  src={`${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`}
+                  alt="CHI 2021"
+                  className="project-award-badge elevate-award"
+                  loading="lazy"
+                />
+              </a>
+            </div>
           </div>
         </header>
 
         <main className="project-content">
-          <section className="project-section">
-            <h2 className="section-title">Overview</h2>
-            <p className="section-text" ref={fadeInRef}>
-              Elevate explores how generative AI can scaffold equitable evaluation practices in graduate
-              admissions, tracing how reviewers interpret portfolios, statements, and AI-augmented artifacts.
-            </p>
+          <section className="project-section elevate-overview">
+            <div className="elevate-overview__copy project-fade-block" ref={fadeInRef}>
+              <p className="section-text">
+                Elevate enables users to experience not only large variations in shapes but also the details of the
+                underlying terrain. This provides possible way to utilize through applications.
+                <br />
+                <br />
+                Current head-mounted displays enable users to explore virtual worlds by simply walking through them.
+                This led researchers to create haptic displays that can also simulate different types of elevation
+                shapes. However, existing shape-changing floors are limited by their tabletop scale or the coarse
+                resolution of the terrains they can display due to the limited number of actuators and low vertical
+                resolution.
+              </p>
+            </div>
           </section>
 
           <section className="project-section">
-            <h2 className="section-title">Role</h2>
-            <p className="section-text" ref={fadeInRef}>
-              Leading mixed-methods studies with admissions committees, prototyping decision-support
-              tooling, and shaping responsible AI guidelines for creative programs.
-            </p>
+            <div className="elevate-video-frame" ref={fadeInRef}>
+              <iframe
+                src={installationVideoUrl}
+                title="Elevate installation walkthrough"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="elevate-divider" role="presentation" aria-hidden="true" />
           </section>
 
           <section className="project-section">

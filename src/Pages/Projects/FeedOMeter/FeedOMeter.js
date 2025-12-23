@@ -15,7 +15,7 @@ export const FeedOMeterProject = () => {
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
 
   return (
-    <div className={pageClassName}>
+    <div className={`${pageClassName} project-page--feed-o-meter`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
       {bannerImage && (
         <div className="banner-section">

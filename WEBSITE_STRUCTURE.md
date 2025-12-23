@@ -253,6 +253,7 @@ src/Pages/Projects/
 2. **테마 강제 적용**: `themeMode` 값(`auto`/`light`/`dark`)을 훅에 전달해 진입 시 테마를 강제하고, 언마운트 시 원상 복구합니다.
 3. **미니멀 디자인 유지**: `.project-section`, `.section-title`, `.section-text` 등은 `ProjectTemplate.css`에서 공통 정의를 사용하며, 필요한 경우에만 프로젝트별 CSS를 추가합니다.
 4. **페이드인 제어**: 헤더와 본문 섹션 모두 각 페이지에서 `useFadeInAnimation`을 직접 호출해 ref를 연결합니다.
+5. **페이지별 스코프 클래스**: 각 상세 페이지는 루트 컨테이너에 `project-page--{projectId}` 클래스를 추가하고, CSS에서도 해당 접두사로 모든 규칙을 네임스페이스합니다(예: `.project-page--datopia .project-section`). 새로운 프로젝트를 추가할 때도 동일한 규칙을 따라야 다른 페이지와 스타일이 섞이지 않습니다.
 
 ### 현재 제공 중인 프로젝트 페이지
 - **Datopia** (`/projects/datopia`): 다크 모드 고정, 배너 + 애니메이션 배경
