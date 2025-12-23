@@ -42,7 +42,9 @@
 }
 
 .project-page--brownie .brownie-banner {
-  height: min(clamp(380px, 70vh, 640px), 100vw);
+  height: min(60vh, 100vw);
+  max-height: 60vh;
+  min-height: 0;
 }
 
 .project-page--brownie .brownie-banner-image {

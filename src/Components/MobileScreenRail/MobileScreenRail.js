@@ -10,7 +10,7 @@ const formatSize = value => (typeof value === 'number' ? `${value}px` : value);
 const DRAG_MULTIPLIER = 1.18;
 const MOMENTUM_MULTIPLIER = 260;
 const MOMENTUM_DAMPING = 0.9;
-const MOMENTUM_THRESHOLD = 0.0075;
+const MOMENTUM_THRESHOLD = 0.0065;
 
 export const MobileScreenRail = ({
   heading,

@@ -37,7 +37,9 @@ export const BrownieProject = () => {
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
             <h1 className="project-title">{projectData.title}</h1>
-            {projectData.subtitle && <p className="project-subtitle">{projectData.subtitle}</p>}
+            {projectData.subtitle && (
+              <p className="project-subtitle">A Social Community for Sharing Cooking Fails</p>
+            )}
           </div>
           <div className="project-meta-info">
             {projectData.period && (
@@ -64,7 +66,6 @@ export const BrownieProject = () => {
           </section>
 
           <section className="project-section project-section__fade" ref={fadeInRef}>
-            <h2 className="section-title">Concept Walkthrough</h2>
             <div className="brownie-video-frame">
               <iframe
                 src={conceptVideoUrl}
@@ -76,14 +77,6 @@ export const BrownieProject = () => {
             <div className="brownie-divider" role="presentation" aria-hidden="true" />
           </section>
 
-          <section className="project-section project-section__fade" ref={fadeInRef}>
-            <h2 className="section-title">Highlights</h2>
-            <ul className="section-list">
-              <li>Developing a conversational recipe ideation workflow that balances creativity with dietary needs.</li>
-              <li>Running pilot tasting sessions to iterate on sensory feedback loops.</li>
-              <li>Preparing user study protocols for a late-2024 evaluation.</li>
-            </ul>
-          </section>
         </main>
       </div>
       <Footer />
