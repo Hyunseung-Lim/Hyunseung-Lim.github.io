@@ -25,17 +25,24 @@ Hyunseung-Lim.github.io/
 │   │       └── dis2024/      # DIS 2024 컨퍼런스 배너 이미지들
 │   └── projects/             # 프로젝트별 아이콘 및 미디어
 │       ├── aqua/
+│       ├── aqua-design/
+│       ├── brownie/
 │       ├── crafteam/
 │       ├── datopia/
+│       ├── elevate/
 │       ├── feed-o-meter/
-│       └── panorama/
+│       ├── panorama/
+│       └── stereohunter/
 ├── src/                      # 소스 코드
 │   ├── Components/           # 재사용 가능한 컴포넌트들
-│   │   ├── Footer/          # 푸터 컴포넌트
-│   │   ├── SegmentedButton/ # 세그먼트 버튼 컴포넌트
-│   │   ├── ThemeToggle/     # 테마 토글 컴포넌트
-│   │   ├── Topbar/          # 상단 네비게이션 바
-│   │   └── BibtexCard/      # BibTeX 복사 카드 (본문, 아이콘, 복사 상태 관리)
+│   │   ├── Footer/           # 푸터 컴포넌트
+│   │   ├── SegmentedButton/  # 세그먼트 버튼 컴포넌트
+│   │   ├── ThemeToggle/      # 테마 토글 컴포넌트
+│   │   ├── Topbar/           # 상단 네비게이션 바
+│   │   ├── MobileScreenRail/ # 모바일 화면 레일 컴포넌트
+│   │   ├── ScrollToTop.js    # 라우팅 전환 시 스크롤 초기화
+│   │   ├── BibtexCard/       # BibTeX 복사 카드 (본문, 아이콘, 복사 상태 관리)
+│   │   └── components.css    # 공통 레이아웃 및 섹션 스타일
 │   ├── Data/                # 데이터 파일들
 │   │   ├── publications.json # 논문 데이터
 │   │   └── personLinks.json # 인물명 ↔ 외부 링크 매핑
@@ -45,18 +52,24 @@ Hyunseung-Lim.github.io/
 │   │   ├── ProjectsPage.js  # 프로젝트 페이지
 │   │   ├── ResearchPage.js  # 연구 페이지
 │   │   ├── publications.js  # 논문 목록 페이지
-│   │   └── Projects/        # 개별 프로젝트 페이지들
-│   │       ├── Aqua/         # AQUA 전용 페이지
-│   │       ├── Crafteam/     # Crafteam 전용 페이지
-│   │       ├── Datopia/      # Datopia 전용 페이지
-│   │       ├── FeedOMeter/   # Feed-O-Meter 전용 페이지
-│   │       └── ProjectTemplate.css   # 공통 프로젝트 스타일
+│   │   └── Projects/         # 개별 프로젝트 페이지들
+│   │       ├── Aqua/
+│   │       ├── AquaDesign/
+│   │       ├── Brownie/
+│   │       ├── Crafteam/
+│   │       ├── Datopia/
+│   │       ├── Elevate/
+│   │       ├── FeedOMeter/
+│   │       ├── Panorama/
+│   │       ├── StereoHunter/
+│   │       └── ProjectTemplate.js  # 새 프로젝트용 레퍼런스
 │   ├── constants/           # 상수 정의
 │   ├── contexts/            # React Context들
 │   │   └── ThemeContext.js  # 테마 컨텍스트
 │   ├── hooks/               # 커스텀 훅들
 │   │   ├── useFadeInAnimation.js
-│   │   └── useInfiniteCarousel.js
+│   │   ├── useInfiniteCarousel.js
+│   │   └── useProjectPageFrame.js
 │   ├── styles/              # 스타일 파일들
 │   ├── App.js               # 메인 앱 컴포넌트
 │   └── index.js            # 엔트리 포인트
@@ -79,6 +92,7 @@ Hyunseung-Lim.github.io/
   <Route path='/projects/elevate' element={<ElevateProject />} />
   <Route path='/projects/aqua' element={<AquaProject />} />
   <Route path='/projects/aqua-design' element={<AquaDesignProject />} />
+  <Route path='/projects/panorama' element={<PanoramaProject />} />
   <Route path='/projects/brownie' element={<BrownieProject />} />
   <Route path='/publications' element={<Publications />} />
 </Routes>
@@ -90,7 +104,16 @@ Hyunseung-Lim.github.io/
 - **전역 상태 관리**
 - Context API를 통한 테마 상태 관리
 
-### 3. 데이터 구조
+### 3. 스크롤 초기화 (`src/Components/ScrollToTop.js`)
+- 해시 라우트가 변경될 때마다 `window.scrollTo`를 호출해 화면을 항상 최상단으로 이동
+- `Router` 내부에 전역으로 배치돼 모든 페이지 전환에 적용
+
+### 4. 인터랙티브 모바일 레일 (`src/Components/MobileScreenRail/`)
+- 프로젝트 상세 페이지에서 모바일 스크린 모음을 수평 스크롤로 전시
+- 포인터 드래그, 스크롤 휠, 모멘텀 애니메이션을 지원해 자연스러운 조작감 제공
+- 컨테이너 폭을 계산해 좌우 스페이서를 자동 조정하고, 텍스트/메타데이터 영역을 옵션으로 표시
+
+### 5. 데이터 구조
 
 #### 논문 데이터 (`src/Data/publications.json`)
 ```json
@@ -133,7 +156,13 @@ export const PROJECTS = {
 export const PROJECT_ORDER = [
   'crafteam',
   'panorama',
-  // ...
+  'feed-o-meter',
+  'aqua',
+  'datopia',
+  'stereohunter',
+  'brownie',
+  'elevate',
+  'aqua-design'
 ];
 ```
 - `PROJECTS`: 프로젝트 카드 및 상세 페이지에 필요한 모든 메타 정보를 보관하는 맵.
@@ -141,7 +170,7 @@ export const PROJECT_ORDER = [
 - `iconDark`·`hoverIconDark`: 다크 모드에 특화된 아이콘이 있을 때만 설정(없으면 `null`).
 - `themeMode`: 개별 프로젝트 페이지에서 강제로 적용할 테마가 있을 때 사용 (`'auto'`가 기본값).
 - `external`이 `true`일 경우 개별 페이지 대신 외부 링크로 연결.
-- `subtitle` 값은 모든 프로젝트에서 필수로 사용 중이며, 상세 페이지에서 제목 바로 아래 표시됩니다.
+- `subtitle` 값은 선택 사항이지만, 스토리텔링을 강화하려면 프로젝트 데이터에 추가하는 것을 권장합니다.
 - `status` 필드는 2025년 9월 26일부로 완전히 제거되었습니다. 필요한 경우 본문에서 직접 설명하세요.
 
 ### 4. 주요 페이지 컴포넌트
@@ -151,15 +180,13 @@ export const PROJECT_ORDER = [
 - **페이드인 애니메이션**
 - **반응형 디자인**
 #### Projects 페이지 (`src/Pages/projects.js`)
-- **아이콘 기반 프로젝트 그리드**: Crafteam, StereoHunter, PANORAMA, Feed-O-Meter, AQUA, Datopia, Brownie, Elevate, Aqua Design
+- **아이콘 기반 프로젝트 그리드**: `PROJECT_ORDER` 순서(Crafteam → Panorama → Feed-O-Meter → AQUA → Datopia → StereoHunter → Brownie → Elevate → Aqua Design)를 유지
 - **다크/라이트 전용 아이콘 자동 전환** (`ThemeContext` 상태에 따라 세트 교체)
-- **Datopia·Feed-O-Meter·Crafteam·StereoHunter·Elevate·AQUA·Aqua Design·Brownie**: 템플릿 기반 개별 상세 페이지로 이동
-- **PANORAMA**: 외부 GitHub 리포지토리로 바로 연결
+- **모든 카드**: Datopia, Feed-O-Meter, Crafteam, StereoHunter, Elevate, AQUA, Aqua Design, Brownie, PANORAMA 모두 자체 상세 페이지(`#/projects/...`)로 이동
 - **중앙 페이드인 시스템**: `useFadeInAnimation(0.1)`으로 모든 카드 동일 타이밍의 페이드 인 적용
 - **호버 자산 제어**: `data-hover` 속성과 공통 핸들러로 정리, 필요 시 다크 모드 전용 아이콘 사용
 - **지연 로딩**: 모든 프로젝트 아이콘에 `loading="lazy"` 적용
 - **데이터 소스**: `src/Data/projectsMeta.js`의 `PROJECTS` 맵과 `PROJECT_ORDER` 배열을 참조해 아이콘/링크/메타 정보를 일괄 관리
-- **참여자 링크 자동 매핑**: `personLinks.json`에 등록된 인물명은 자동으로 외부 사이트 하이퍼링크 제공
 
 #### Publications 페이지 (`src/Pages/publications.js`)
 - **다중 필터링 시스템**:
@@ -182,6 +209,12 @@ export const PROJECT_ORDER = [
 - 재사용 가능한 애니메이션 훅
 - `.fade-in-element` 기반의 중앙 제어 시스템을 단일 타이밍으로 적용
 - 레거시 `.animation` 클래스 경로 제거로 코드 단순화 및 유지보수성 향상
+
+#### `useProjectPageFrame` (`src/hooks/useProjectPageFrame.js`)
+- 프로젝트 상세 페이지 진입 시 스크롤을 최상단으로 이동
+- 배너 존재 여부에 따라 `has-banner` / `scrolled-past-banner` 클래스를 토글해 헤더 스타일을 제어
+- `themeMode` 값(`auto`/`light`/`dark`)을 받아 페이지 생애주기 동안 테마를 강제하고 언마운트 시 복구
+- Topbar에서 테마 토글을 숨겨야 할지 여부를 반환
 
 ### 6. 네비게이션 (`src/Components/Topbar/topbar.js`)
 - **반응형 햄버거 메뉴**
@@ -242,25 +275,26 @@ export const PROJECT_ORDER = [
 
 ```
 src/Pages/Projects/
-├── ProjectTemplate.css      # 공통 스타일 정의 (삭제 예정 아님)
+├── ProjectTemplate.js      # 공통 구조 정의 (복제용)
 └── [ProjectName]/
     ├── [ProjectName].js     # Topbar/배너/본문/푸터까지 직접 렌더링
-    └── [ProjectName].css    # (선택) 추가 스타일
+    └── [ProjectName].css    # 프로젝트별 세부 스타일
 ```
-- `src/Pages/Projects/ProjectTemplate.js`는 새 프로젝트를 만들 때 복제할 수 있는 참조용 컴포넌트로, 공통 구조와 훅 사용법이 모두 포함되어 있습니다.
+- `ProjectTemplate.js`는 새 프로젝트를 만들 때 복제할 수 있는 참조용 컴포넌트로, 공통 구조와 훅 사용법이 모두 포함되어 있습니다.
 
 ### 공통 동작
 1. **배너 & 스크롤 감지**: 각 페이지에서 `useProjectPageFrame` 훅을 호출해 60vh 배너 높이, 투명 Topbar, 스크롤 전환을 제어합니다.
 2. **테마 강제 적용**: `themeMode` 값(`auto`/`light`/`dark`)을 훅에 전달해 진입 시 테마를 강제하고, 언마운트 시 원상 복구합니다.
-3. **미니멀 디자인 유지**: `.project-section`, `.section-title`, `.section-text` 등은 `ProjectTemplate.css`에서 공통 정의를 사용하며, 필요한 경우에만 프로젝트별 CSS를 추가합니다.
+3. **미니멀 디자인 유지**: `.project-section`, `.section-title`, `.section-text` 등 공통 클래스는 `src/Components/components.css`에서 정의되며, 필요한 경우에만 각 프로젝트 폴더의 CSS에서 덮어씁니다.
 4. **페이드인 제어**: 헤더와 본문 섹션 모두 각 페이지에서 `useFadeInAnimation`을 직접 호출해 ref를 연결합니다.
 5. **페이지별 스코프 클래스**: 각 상세 페이지는 루트 컨테이너에 `project-page--{projectId}` 클래스를 추가하고, CSS에서도 해당 접두사로 모든 규칙을 네임스페이스합니다(예: `.project-page--datopia .project-section`). 새로운 프로젝트를 추가할 때도 동일한 규칙을 따라야 다른 페이지와 스타일이 섞이지 않습니다.
 
 ### 현재 제공 중인 프로젝트 페이지
 - **Datopia** (`/projects/datopia`): 다크 모드 고정, 배너 + 애니메이션 배경
-- **Feed-O-Meter** (`/projects/feed-o-meter`): 공통 섹션 구성
-- **Crafteam**, **AQUA**, **Brownie**, **Elevate**, **StereoHunter**, **Aqua Design** 등 대부분의 프로젝트가 동일한 패턴으로 구현
-- **PANORAMA**: 프로젝트 그리드에서 GitHub 리포로 바로 이동 (상세 페이지 없음)
+- **Feed-O-Meter** (`/projects/feed-o-meter`): 공통 섹션 구성 + BibTeX 카드
+- **Aqua Design** (`/projects/aqua-design`): 테마별 배너 전환, YouTube 임베드, `MobileScreenRail` 사용
+- **PANORAMA** (`/projects/panorama`): 데이터셋 개요와 BibTeX를 포함한 전용 상세 페이지
+- **Crafteam**, **AQUA**, **Brownie**, **Elevate**, **StereoHunter** 등 나머지 프로젝트도 동일한 템플릿 구조와 페이드인 시스템을 공유
 
 ### 라우팅 시스템 업데이트
 - 기존: `/projects` (전체 프로젝트 목록)
@@ -270,11 +304,11 @@ src/Pages/Projects/
 ### 현재 구현된 프로젝트
 - **Crafteam** (`/projects/crafteam`): 협업 워크숍 기록, 공통 CSS 클래스를 활용해 구성.
 - **StereoHunter** (`/projects/stereohunter`): 인간-LLM 협업 시 고정관념 탐지 워크플로 연구, 바이어스 시각화 실험 요약.
-- **PANORAMA**: 그리드에서 GitHub 리포지토리로 직접 이동 (개별 상세 페이지 없음).
+- **PANORAMA** (`/projects/panorama`): 데이터셋/벤치마크 설명과 BibTeX 카드, HuggingFace 링크 포함.
 - **Feed-O-Meter** (`/projects/feed-o-meter`): 디자인 피드백 역할극 연구, 참여자 링크 자동 매핑.
 - **AQUA** (`/projects/aqua`): 설치형 프로젝트 개요, 데이터 스토리텔링 강조.
 - **Datopia** (`/projects/datopia`): 다크 모드 전용, 배너 + `dato2.gif` 애니메이션 배경.
-- **Brownie** (`/projects/brownie`): AI 베이커리 어시스턴트 콘셉트, 라이트/다크 아이콘 지원.
+- **Brownie** (`/projects/brownie`): 반응형 `<picture>` 배너 + 단일 YouTube 임베드(기본 플레이어 UI 사용).
 - **Elevate** (`/projects/elevate`): 대형 워커블 핀 어레이 설치 프로젝트, 기본 템플릿 기반.
 - **Aqua Design** (`/projects/aqua-design`): AQUA 확장 버전, 프로젝트 템플릿 재사용.
 
@@ -358,13 +392,13 @@ src/Pages/Projects/
    - `App.js`에 새 라우트 추가
 3. **배너 이미지**: `public/images/` 폴더에 추가
 4. **테마 설정**: 프로젝트별로 `themeMode` prop으로 테마 강제 설정 가능
-5. **스타일 커스터마이징**: 필요한 경우에만 각 프로젝트 폴더에 CSS를 추가 (기본 섹션 스타일은 `ProjectTemplate.css` 제공)
+5. **스타일 커스터마이징**: 필요한 경우에만 각 프로젝트 폴더에 CSS를 추가 (기본 섹션 스타일은 `src/Components/components.css`에서 제공)
 6. **빌드 전 테스트**: `npm start`로 로컬 테스트 후 `npm run deploy`로 배포
 
 ## 기술적 특징
 - **스크롤 이벤트 최적화**: useEffect를 통한 이벤트 리스너 관리
 - **CSS 변수 활용**: 다크/라이트 모드 간 부드러운 전환
-- **공통 스타일 재사용**: `ProjectTemplate.css`를 통해 레이아웃을 통일하고, 로직은 각 프로젝트가 직접 제어
+- **공통 스타일 재사용**: `ProjectTemplate.js`와 `components.css`를 통해 레이아웃을 통일하고, 로직은 각 프로젝트가 직접 제어
 - **접근성 고려**: 적절한 alt 텍스트, focus state 제공
 
 ## 테마 전환 시스템 (Theme Transition System)
@@ -401,7 +435,7 @@ src/Pages/Projects/
 ## Legacy 정리 & 최적화 (2025-09-26)
 1. **Project Meta Status 제거**: `status` 필드를 완전히 삭제하고, 필요 시 본문 섹션에서 진행 상황을 기술하도록 정리했습니다.
 2. **Period 우선 배치**: 상세 페이지 헤더의 메타 정보는 항상 Period → Project Type 순으로 노출됩니다.
-3. **Subtitle 일관화**: 모든 프로젝트가 `subtitle`을 갖도록 데이터 정비를 완료해, 제목 바로 아래 줄에서 내러티브를 강조합니다.
+3. **Subtitle 정비**: 가능한 프로젝트에 `subtitle`을 채워 제목 바로 아래 줄에서 내러티브를 강조하고, 누락된 경우에도 UI가 자연스럽게 동작하도록 정리했습니다.
 4. **스크롤 초기화**: 개별 프로젝트 페이지 진입 시 스크롤을 항상 최상단으로 이동시켜, 이전 페이지에서 내려간 상태로 새로운 페이지가 부분만 보이던 레거시 문제를 제거했습니다.
 5. **Aqua Design 전면 개편**:
    - `public/projects/aqua-design/thumbnail.png`, `thumbnail_dark.png`, `img1.png` 자산을 추가하고 테마별 배너를 자동 전환.
@@ -409,10 +443,10 @@ src/Pages/Projects/
    - Datopia 페이지와 동일한 패턴으로 YouTube 임베드(`https://www.youtube.com/embed/hctUpCzpNfU?si=0as3GUUX7a9Agss-`)를 추가.
    - 모바일에서는 텍스트 → 이미지 순으로 자동 재배치하고 이미지 폭을 75%로 축소해 가독성을 확보.
 6. **문서 업데이트**: 본 문서에 최신 구조, 필드 변화, 레이아웃 규칙을 반영해 향후 유지보수시 혼선을 방지했습니다.
-7. **Brownie 히어로 영상 개편 (2025-12-18)**:
-   - 페이지 진입 시 전체 화면을 덮는 유튜브 플레이어를 자동 재생하며, 기본 UI를 모두 숨긴다.
-   - IFrame API를 직접 로드하여 커스텀 볼륨 슬라이더(데스크톱: 좌측 하단, 모바일: 영상이 눕혀진 기준의 좌하단)에 연결.
-   - 모바일에서는 비디오와 볼륨 패널 모두 90° 회전시켜 세로 뷰포트에서도 가로 영상 경험을 유지한다.
+7. **Brownie 히어로 섹션 재정비 (2025-12-18)**:
+   - `<picture>` 요소를 사용해 데스크톱/모바일 배너 이미지를 교체하고, 동일한 YouTube 임베드를 배치했습니다.
+   - IFrame은 기본 컨트롤을 유지하며 자동 재생·커스텀 슬라이더는 사용하지 않습니다.
+   - 모바일에서도 동일한 영상 프레임을 재사용하도록 내부 divider와 여백을 조정했습니다.
 
 ---
-*최종 업데이트: 2025년 9월 26일*
+*최종 업데이트: 2025년 12월 23일*
