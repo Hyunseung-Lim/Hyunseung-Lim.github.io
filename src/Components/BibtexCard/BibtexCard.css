@@ -24,8 +24,8 @@
 }
 
 .bibtex-card__copy img {
-  width: 24px;
-  height: 28px;
+  width: 22px;
+  height: 26px;
   display: block;
 }
 
@@ -33,7 +33,7 @@
   width: 100%;
   padding: 1.85rem 1.25rem 1.25rem;
   border-radius: 12px;
-  background: var(--bg-secondary, #f7f7f7);
+  background: #eeeeee;
   border: 1px solid var(--border-primary, #e0e0e0);
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   font-size: 0.75rem;
@@ -44,6 +44,10 @@
   overflow-x: auto;
   margin: 1rem 0 0;
   text-align: left;
+}
+
+.dark-mode .bibtex-card__block {
+  background: var(--bg-secondary, #1a1a1a);
 }
 
 .bibtex-card__sr-only {

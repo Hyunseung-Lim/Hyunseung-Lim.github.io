@@ -106,8 +106,18 @@ export const DatopiaProject = () => {
               />
             </div>
             <div className="datopia-divider" role="presentation" aria-hidden="true" />
+            <section className="datopia-welcome project-fade-block" ref={fadeInRef}>
+              <h2 className="datopia-welcome__title">
+                Welcome to Datopia!
+              </h2>
+              <p className="datopia-welcome__body">
+                In Datopia, you don't need to create a profile yourself, and you don't have to keep swiping every day to find someone who matches you. All you need to do is consent to data collection. Once you agree, Datopia immediately starts collecting your data and recommends a partner who suits you. There's no doubt that the person Datopia recommends is the right match for you. So you can focus solely on connecting with the person you're recommended!
+              </p>
+              <p className="datopia-welcome__body">
+                And though it probably won't happen, if you don't like your recommended match, try our premium service.
+              </p>
+            </section>
             <MobileScreenRail
-              heading="Speculative UI Concept"
               screens={Array.from({ length: 10 }).map((_, index) => ({
                 image: `${process.env.PUBLIC_URL}/projects/datopia/screen/${index + 1}.png`,
                 alt: `Datopia mobile scenario ${index + 1}`
@@ -117,6 +127,15 @@ export const DatopiaProject = () => {
               showMetadata={false}
               clampToContainer
             />
+            <section className="datopia-reflection project-fade-block" ref={fadeInRef}>
+              <h2 className="datopia-reflection__title">Rethinking Future Love</h2>
+              <p className="datopia-reflection__body">
+                Datopia is a critical design project that invites reflection on how data-driven services, now deeply embedded in everyday life, might transform the ways we form relationships. Today, a wide range of recommendation algorithms make decision-making easier. At times, they even infer our preferences, behaviors, and memories, including things we may not be fully aware of, and make decisions on our behalf.
+              </p>
+              <p className="datopia-reflection__body">
+                But can love really be judged by data alone? How can we be sure that the person an algorithm recommends is truly our destined partner? Is it okay to hand over agency in love to an algorithm? Through Datopia, this exhibition imagines a new form of love that may exist in the future, offering visitors a chance to experience it and to reflect on these questions.
+              </p>
+            </section>
             <div className="datopia-media" ref={fadeInRef}>
               <div className="datopia-divider" role="presentation" aria-hidden="true" />
               <h2 className="datopia-media-title">Exhibition</h2>

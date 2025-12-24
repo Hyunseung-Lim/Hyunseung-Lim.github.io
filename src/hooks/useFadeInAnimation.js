@@ -1,6 +1,38 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 const DEFAULT_ROOT_MARGIN = '0px 0px -5%';
+const SCROLLABLE_OVERFLOW_VALUES = new Set(['auto', 'scroll', 'overlay']);
+
+const hasScrollableOverflow = (styleValue) => styleValue && SCROLLABLE_OVERFLOW_VALUES.has(styleValue);
+
+const isScrollableElement = (node) => {
+  if (
+    typeof window === 'undefined' ||
+    typeof document === 'undefined' ||
+    !node ||
+    node.nodeType !== Node.ELEMENT_NODE
+  ) {
+    return false;
+  }
+
+  const styles = window.getComputedStyle(node);
+  const overflow = styles.overflow;
+  const overflowX = styles.overflowX;
+  const overflowY = styles.overflowY;
+  const hasScrollableAxis =
+    hasScrollableOverflow(overflow) ||
+    hasScrollableOverflow(overflowX) ||
+    hasScrollableOverflow(overflowY);
+
+  if (!hasScrollableAxis) {
+    return false;
+  }
+
+  const canScrollVertically = node.scrollHeight > node.clientHeight + 1;
+  const canScrollHorizontally = node.scrollWidth > node.clientWidth + 1;
+
+  return canScrollVertically || canScrollHorizontally;
+};
 
 const normalizeRootForObserver = (root) => {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
@@ -8,6 +40,10 @@ const normalizeRootForObserver = (root) => {
   }
 
   if (!root || root === window || root === document.body || root === document.documentElement) {
+    return null;
+  }
+
+  if (!isScrollableElement(root)) {
     return null;
   }
 

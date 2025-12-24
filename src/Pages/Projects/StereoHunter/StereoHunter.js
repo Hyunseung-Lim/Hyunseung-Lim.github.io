@@ -87,15 +87,12 @@ series = {FAccT '25}
         <main className="project-content">
           <section className="project-section">
             <p className="section-text project-fade-block stereohunter-body" ref={fadeInRef}>
-              Stereotypical biases in large language models (LLMs) have the potential to result in discriminatory responses,
+              Stereotypical biases in large language models have the potential to result in discriminatory responses,
               posing harm to users and disrupting interactions. While prior research has predominantly focused on assessing
               stereotypes in LLMs with fairness metrics, there is a limited understanding of how users identify and perceive
-              stereotypes in LLMs. To address this gap, we introduce StereoHunter, a research probe tool designed to examine
+              stereotypes in LLMs. To address this gap, we introduce <strong>StereoHunter</strong>, a research probe tool designed to examine
               how individuals identify and perceive stereotypes by observing interactions in which users elicit stereotypical
-              responses from LLMs. Our findings reveal the nuanced considerations and challenges participants faced when
-              evaluating these stereotypes, which varied based on their backgrounds and preconceptions about LLMs. Based on
-              these insights, we discuss how diverse user perspectives can be reflected in identifying stereotypes and informing
-              fairness metrics for mitigating biases in LLMs.
+              responses from LLMs.
             </p>
           </section>
           <div className="stereohunter-divider" role="presentation" aria-hidden="true" />

@@ -7,6 +7,7 @@
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+  --mobile-screen-rail-padding-inline: 0px;
 }
 
 .mobile-screen-rail__track {
@@ -46,8 +47,8 @@
   align-items: center;
   padding-bottom: 1.5rem;
   scroll-snap-type: x proximity;
-  padding-inline: 0;
-  scroll-padding-inline: 0;
+  padding-inline: var(--mobile-screen-rail-padding-inline);
+  scroll-padding-inline: var(--mobile-screen-rail-padding-inline);
   mask-image: none;
   cursor: grab;
   touch-action: pan-y;
@@ -62,8 +63,8 @@
 }
 
 .mobile-screen-rail__scroller--clamped {
-  padding-inline: 0;
-  scroll-padding-inline: 0;
+  padding-inline: var(--mobile-screen-rail-padding-inline);
+  scroll-padding-inline: var(--mobile-screen-rail-padding-inline);
   mask-image: none;
 }
 
@@ -152,6 +153,10 @@
 }
 
 @media (max-width: 768px) {
+  .mobile-screen-rail {
+    --mobile-screen-rail-padding-inline: 1rem;
+  }
+
   .mobile-screen-rail__heading {
     font-size: 1.5rem;
   }

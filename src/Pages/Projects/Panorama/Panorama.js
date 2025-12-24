@@ -49,13 +49,7 @@ export const PanoramaProject = () => {
         <main className="project-content">
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <p className="section-text panorama-body project-fade-block" ref={fadeInRef}>
-              Patent examination remains an ongoing challenge in the NLP literature even after the advent of large language
-              models, as it requires an extensive yet nuanced human judgment on whether a submitted claim meets the
-              statutory standards of novelty and non-obviousness against previously granted claims–prior art–in expert
-              domains. Previous NLP studies have approached this challenge as a prediction task with high-level proxies such as similarity metrics or classifiers trained on historical labels.
-              However, this approach often overlooks the step-by-step evaluations that examiners must make with profound
-              information, including rationales for the decisions provided in office actions documents, which also makes it
-              harder to measure the current state of techniques in patent review processes. To fill this gap, we construct{' '}
+              We construct{' '}
               <strong>PANORAMA</strong>, a dataset of 8,143 U.S. patent examination records that preserves the full decision trails,
               including original applications, all cited references, Non-Final Rejections, and Notices of Allowance. Also,{' '}
               <strong>PANORAMA</strong> decomposes the trails into sequential benchmarks that emulate patent professionals' patent review

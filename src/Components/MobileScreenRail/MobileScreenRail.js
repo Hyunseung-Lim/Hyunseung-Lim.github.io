@@ -171,6 +171,10 @@ export const MobileScreenRail = ({
     const anchorPadLeft = parseFloat(anchorStyles.paddingLeft) || 0;
     const anchorPadRight = parseFloat(anchorStyles.paddingRight) || 0;
 
+    const scrollerStyles = window.getComputedStyle(scroller);
+    const scrollerPadLeft = parseFloat(scrollerStyles.paddingLeft) || 0;
+    const scrollerPadRight = parseFloat(scrollerStyles.paddingRight) || 0;
+
     const cardElement = scroller.querySelector('.mobile-screen-card');
     let cardPadLeft = 0;
     let cardPadRight = 0;
@@ -191,6 +195,8 @@ export const MobileScreenRail = ({
       leftSpacer = Math.max(0, leftSpacer - trim);
       rightSpacer = Math.max(0, rightSpacer - trim);
     }
+    leftSpacer = Math.max(0, leftSpacer - scrollerPadLeft);
+    rightSpacer = Math.max(0, rightSpacer - scrollerPadRight);
     return { left: leftSpacer, right: rightSpacer };
   }, [gapValue]);
 
