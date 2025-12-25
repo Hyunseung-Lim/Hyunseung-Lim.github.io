@@ -5,6 +5,8 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
+import { useTheme } from '../../../contexts/ThemeContext';
+import { PanoramaDiagram } from './diagram';
 import './Panorama.css';
 
 export const PanoramaProject = () => {
@@ -14,6 +16,7 @@ export const PanoramaProject = () => {
   const themeMode = projectData.themeMode ?? 'auto';
   const bannerImage = projectData.bannerImage ?? null;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const { isDark } = useTheme();
 
   return (
     <div className={`${pageClassName} project-page--panorama`}>
@@ -43,6 +46,16 @@ export const PanoramaProject = () => {
                 <div className="meta-value">{projectData.projectType}</div>
               </div>
             )}
+            <img
+              src={
+                isDark
+                  ? `${process.env.PUBLIC_URL}/projects/panorama/neurips_dark.png`
+                  : `${process.env.PUBLIC_URL}/projects/panorama/neurips.png`
+              }
+              alt="NeurIPS 2025"
+              className="project-meta-conference-badge"
+              loading="lazy"
+            />
           </div>
         </header>
 
@@ -59,6 +72,10 @@ export const PanoramaProject = () => {
                 URL
               </a>.
             </p>
+          </section>
+
+          <section className="project-section project-section__fade panorama-diagram-section" ref={fadeInRef}>
+            <PanoramaDiagram fadeRef={fadeInRef} isDark={isDark} />
           </section>
 
           <section className="project-section project-section__fade" ref={fadeInRef}>

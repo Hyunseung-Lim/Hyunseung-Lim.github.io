@@ -118,6 +118,8 @@ export const DatopiaProject = () => {
               </p>
             </section>
             <MobileScreenRail
+              className="project-fade-block datopia-mobile-rail"
+              sectionRef={fadeInRef}
               screens={Array.from({ length: 10 }).map((_, index) => ({
                 image: `${process.env.PUBLIC_URL}/projects/datopia/screen/${index + 1}.png`,
                 alt: `Datopia mobile scenario ${index + 1}`

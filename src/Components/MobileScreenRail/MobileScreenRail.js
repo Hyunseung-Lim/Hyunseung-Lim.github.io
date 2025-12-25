@@ -7,10 +7,10 @@ import './MobileScreenRail.css';
  * Each screen can include a text block followed by an image snapshot.
  */
 const formatSize = value => (typeof value === 'number' ? `${value}px` : value);
-const DRAG_MULTIPLIER = 1.18;
-const MOMENTUM_MULTIPLIER = 260;
+const DRAG_MULTIPLIER = 1.5;
+const MOMENTUM_MULTIPLIER = 320;
 const MOMENTUM_DAMPING = 0.9;
-const MOMENTUM_THRESHOLD = 0.0065;
+const MOMENTUM_THRESHOLD = 0.005;
 
 export const MobileScreenRail = ({
   heading,
@@ -21,7 +21,9 @@ export const MobileScreenRail = ({
   cardHeight = 'auto',
   gap = 24,
   showMetadata = true,
-  clampToContainer = false
+  clampToContainer = false,
+  className = '',
+  sectionRef = null
 }) => {
   const [isDesktop, setIsDesktop] = useState(() => (typeof window !== 'undefined' ? window.innerWidth >= 992 : false));
   useEffect(() => {
@@ -161,11 +163,12 @@ export const MobileScreenRail = ({
   const computeSpacers = useCallback(() => {
     const scroller = scrollerRef.current;
     const intro = introRef.current;
-    if (!scroller || !intro) return null;
+    if (!scroller) return null;
+    const anchorSource = intro ?? scroller;
     const anchor =
-      intro.closest('.project-container') ||
-      intro.closest('.project-content') ||
-      intro;
+      anchorSource.closest('.project-container') ||
+      anchorSource.closest('.project-content') ||
+      anchorSource;
     const anchorRect = anchor.getBoundingClientRect();
     const anchorStyles = window.getComputedStyle(anchor);
     const anchorPadLeft = parseFloat(anchorStyles.paddingLeft) || 0;
@@ -224,8 +227,23 @@ export const MobileScreenRail = ({
     ? 'mobile-screen-rail__scroller mobile-screen-rail__scroller--clamped'
     : 'mobile-screen-rail__scroller';
 
+  const sectionClassName = ['mobile-screen-rail', className].filter(Boolean).join(' ');
+  const handleSectionRef = useCallback(
+    (node) => {
+      if (!sectionRef) return;
+      if (typeof sectionRef === 'function') {
+        sectionRef(node);
+        return;
+      }
+      if (typeof sectionRef === 'object') {
+        sectionRef.current = node;
+      }
+    },
+    [sectionRef]
+  );
+
   return (
-    <section className="mobile-screen-rail">
+    <section className={sectionClassName} ref={handleSectionRef}>
       {(heading || description) && (
         <div className="mobile-screen-rail__intro" ref={introRef}>
           {heading && <h2 className="mobile-screen-rail__heading">{heading}</h2>}
@@ -304,5 +322,10 @@ MobileScreenRail.propTypes = {
   cardHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   gap: PropTypes.number,
   showMetadata: PropTypes.bool,
-  clampToContainer: PropTypes.bool
+  clampToContainer: PropTypes.bool,
+  className: PropTypes.string,
+  sectionRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  ])
 };

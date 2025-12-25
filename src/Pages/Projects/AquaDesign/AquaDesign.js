@@ -102,6 +102,8 @@ export const AquaDesignProject = () => {
           </section>
 
           <MobileScreenRail
+            className="project-fade-block aqua-design-mobile-rail"
+            sectionRef={fadeInRef}
             heading="Mobile Screens"
             screens={Array.from({ length: 10 }).map((_, index) => ({
               image: `${process.env.PUBLIC_URL}/projects/aqua-design/screen/${index + 1}.png`,

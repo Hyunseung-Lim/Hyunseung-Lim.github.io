@@ -6,6 +6,7 @@
 - 여러 요소에 같은 ref를 재사용해도 괜찮습니다.
 - 커스텀 React 컴포넌트(예: `Link`, `Button` 래퍼)에는 ref를 바로 전달하지 않으므로, 반드시 `<div>`, `<section>`, `<a>` 같은 실 DOM 래퍼를 만들어 ref를 걸어주세요.
 - 스크롤 컨테이너가 따로 있으면 `const fadeInRef = useFadeInAnimation({ threshold: 0.1, root: scrollEl });`처럼 `root` 옵션을 넘겨주세요. `root`는 state/callback ref 등으로 DOM 엘리먼트를 전달해야 하며, 단순 ref 객체(`useRef`)를 그대로 넘기면 리렌더가 일어나지 않아 동작하지 않습니다.
+- 개별 프로젝트 페이지처럼 `.project-container`가 별도의 스크롤 컨테이너 역할을 한다면, Datopia/Aqua Design 사례처럼 `ref={setScrollRoot}`로 컨테이너 DOM을 저장한 뒤 `useFadeInAnimation({ root: scrollRoot })`로 넘겨야 요소가 화면에 들어왔을 때마다 순차적으로 페이드인됩니다. 루트를 지정하지 않으면 윈도우 기준으로 즉시 활성화될 수 있습니다.
 
 ## 2. CSS 조건
 - `.fade-in-element` 상태에서 `opacity:0`, `transform: translateY(...)`가 적용되어야 합니다.
