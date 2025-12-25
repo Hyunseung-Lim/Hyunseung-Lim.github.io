@@ -4,8 +4,9 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
-import './Crafteam.css';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
+import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
+import './Crafteam.css';
 
 export const CrafteamProject = () => {
   const projectData = PROJECTS.crafteam;
@@ -14,6 +15,16 @@ export const CrafteamProject = () => {
   const themeMode = projectData.themeMode ?? 'auto';
   const bannerImage = projectData.bannerImage ?? null;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const resourceLinks = [
+    {
+      type: 'paper',
+      href: projectData.paperLink ?? '#',
+      label: 'Paper (Coming Soon)',
+      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconAlt: 'ACM DL'
+    }
+  ];
 
   return (
     <div className={`${pageClassName} project-page--crafteam`}>
@@ -44,6 +55,7 @@ export const CrafteamProject = () => {
               </div>
             )}
           </div>
+          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
         <main className="project-content">

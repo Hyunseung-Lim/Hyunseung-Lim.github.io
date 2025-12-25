@@ -88,6 +88,12 @@
   border-bottom: 1px solid var(--border-primary, #e0e0e0);
 }
 
+@media (min-width: 769px) {
+  .project-page--elevate .project-header {
+    padding-bottom: 1.5rem;
+  }
+}
+
 .project-page--elevate .project-header__fade-block {
   display: flex;
   flex-direction: column;

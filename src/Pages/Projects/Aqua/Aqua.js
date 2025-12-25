@@ -4,9 +4,10 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
-import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
-import './Aqua.css';
 import { useTheme } from '../../../contexts/ThemeContext';
+import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
+import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
+import './Aqua.css';
 
 export const AquaProject = () => {
   const projectData = PROJECTS.aqua;
@@ -19,6 +20,15 @@ export const AquaProject = () => {
   const awardBadgeSrc = isDark
     ? `${process.env.PUBLIC_URL}/projects/aqua/dis2024_dark.png`
     : `${process.env.PUBLIC_URL}/projects/aqua/dis2024.png`;
+  const resourceLinks = [
+    {
+      type: 'paper',
+      href: 'https://doi.org/10.1145/3643834.3660705',
+      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconAlt: 'ACM DL'
+    }
+  ];
 
   return (
     <div className={`${pageClassName} project-page--aqua`}>
@@ -50,22 +60,15 @@ export const AquaProject = () => {
               </div>
             )}
             <div className="project-awards-section project-header__fade-block project-fade-block" ref={fadeInRef}>
-              <a
-                href="https://dl.acm.org/doi/abs/10.1145/3643834.3660705"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-award-link"
-                aria-label="Read DIS 2024 publication"
-              >
-                <img
-                  src={awardBadgeSrc}
-                  alt="DIS 2024 Exhibition Badge"
-                  className="project-award-badge"
-                  loading="lazy"
-                />
-              </a>
+              <img
+                src={awardBadgeSrc}
+                alt="DIS 2024 Exhibition Badge"
+                className="project-award-badge"
+                loading="lazy"
+              />
             </div>
           </div>
+          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
         <main className="project-content">

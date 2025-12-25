@@ -68,7 +68,7 @@ export const PROJECTS = {
     id: 'aqua',
     title: 'AQUA',
     subtitle: 'Co-Creating Question-and-Answer Style Articles with Large Language Models for Research Promotion',
-    period: '2024',
+    period: '2023.03-2024.01',
     projectType: 'Research',
     icon: '/projects/aqua/icon.png',
     hoverIcon: '/projects/aqua/icon_hover.gif',

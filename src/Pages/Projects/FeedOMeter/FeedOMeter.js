@@ -4,8 +4,9 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
-import './FeedOMeter.css';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
+import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
+import './FeedOMeter.css';
 
 export const FeedOMeterProject = () => {
   const projectData = PROJECTS['feed-o-meter'];
@@ -14,6 +15,16 @@ export const FeedOMeterProject = () => {
   const themeMode = projectData.themeMode ?? 'auto';
   const bannerImage = projectData.bannerImage ?? null;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const resourceLinks = [
+    {
+      type: 'paper',
+      href: 'https://doi.org/10.1016/j.ijhcs.2025.103687',
+      icon: `${process.env.PUBLIC_URL}/icons/elsevier.png`,
+      iconDark: `${process.env.PUBLIC_URL}/icons/elsevier.png`,
+      iconAlt: 'Elsevier'
+    },
+    { type: 'github', href: 'https://github.com/Hyunseung-Lim/Feed-O-Meter' }
+  ];
 
   return (
     <div className={`${pageClassName} project-page--feed-o-meter`}>
@@ -44,6 +55,7 @@ export const FeedOMeterProject = () => {
               </div>
             )}
           </div>
+          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
         <main className="project-content">

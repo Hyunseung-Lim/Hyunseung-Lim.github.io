@@ -5,8 +5,9 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { useTheme } from '../../../contexts/ThemeContext';
-import './StereoHunter.css';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
+import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
+import './StereoHunter.css';
 
 export const StereoHunterProject = () => {
   const projectData = PROJECTS.stereohunter;
@@ -17,6 +18,16 @@ export const StereoHunterProject = () => {
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
   const { isDark } = useTheme();
   const facctLogo = `${process.env.PUBLIC_URL}/projects/stereohunter/${isDark ? 'facct_dark.png' : 'facct.png'}`;
+  const resourceLinks = [
+    {
+      type: 'paper',
+      href: 'https://doi.org/10.1145/3715275.3732207',
+      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconAlt: 'ACM DL'
+    },
+    { type: 'github', href: 'https://github.com/Hyunseung-Lim/stereoHunter' }
+  ];
   const bibtexEntry = `@inproceedings{10.1145/3715275.3732207,
 author = {Lim, Hyunseung and Choi, Dasom and Hong, Hwajung},
 title = {How Do Users Identify and Perceive Stereotypes? Understanding User Perspectives on Stereotypical Biases in Large Language Models},
@@ -46,42 +57,37 @@ series = {FAccT '25}
 
       <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
-          <h1 className="project-title project-fade-block" ref={fadeInRef}>{projectData.title}</h1>
-          {projectData.subtitle && <p className="project-subtitle project-fade-block" ref={fadeInRef}>{projectData.subtitle}</p>}
+          <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
+            <h1 className="project-title">{projectData.title}</h1>
+            {projectData.subtitle && <p className="project-subtitle">{projectData.subtitle}</p>}
+          </div>
           <div className="project-meta-info">
             {projectData.period && (
-              <div className="project-period-section project-fade-block" ref={fadeInRef}>
+              <div className="project-period-section project-fade-block project-header__fade-block" ref={fadeInRef}>
                 <div className="meta-label">Period</div>
                 <div className="meta-value">{projectData.period}</div>
               </div>
             )}
             {projectData.projectType && (
-              <div className="project-type-section project-fade-block" ref={fadeInRef}>
+              <div className="project-type-section project-fade-block project-header__fade-block" ref={fadeInRef}>
                 <div className="meta-label">Project Type</div>
                 <div className="meta-value">{projectData.projectType}</div>
               </div>
             )}
             <div
-              className="project-awards-section project-fade-block"
+              className="project-awards-section project-fade-block project-header__fade-block"
               aria-label="Project awards"
               ref={fadeInRef}
             >
-              <a
-                href="https://dl.acm.org/doi/full/10.1145/3715275.3732207"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-award-link"
-                aria-label="Read ACM FAccT paper"
-              >
-                <img
-                  src={facctLogo}
-                  alt="ACM FAccT"
-                  className="project-award-badge stereohunter-award"
-                  loading="lazy"
-                />
-              </a>
+              <img
+                src={facctLogo}
+                alt="ACM FAccT"
+                className="project-award-badge stereohunter-award"
+                loading="lazy"
+              />
             </div>
           </div>
+          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
         <main className="project-content">

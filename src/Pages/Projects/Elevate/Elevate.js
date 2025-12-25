@@ -4,8 +4,9 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
-import './Elevate.css';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
+import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
+import './Elevate.css';
 
 export const ElevateProject = () => {
   const projectData = PROJECTS.elevate;
@@ -17,6 +18,15 @@ export const ElevateProject = () => {
   const mobileBanner = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail_mobile.png`;
   const installationVideoUrl = 'https://www.youtube.com/embed/QvuVQ68uf-w?rel=0';
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(desktopBanner, themeMode);
+  const resourceLinks = [
+    {
+      type: 'paper',
+      href: 'https://doi.org/10.1145/3411764.3445454',
+      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconAlt: 'ACM DL'
+    }
+  ];
 
   return (
     <div className={`${pageClassName} project-page--elevate`}>
@@ -52,22 +62,15 @@ export const ElevateProject = () => {
               </div>
             )}
             <div className="project-awards-section project-fade-block" aria-label="Project awards" ref={fadeInRef}>
-              <a
-                href="https://dl.acm.org/doi/abs/10.1145/3411764.3445454"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-award-link"
-                aria-label="View CHI 2021 publication"
-              >
-                <img
-                  src={`${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`}
-                  alt="CHI 2021"
-                  className="project-award-badge elevate-award"
-                  loading="lazy"
-                />
-              </a>
+              <img
+                src={`${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`}
+                alt="CHI 2021"
+                className="project-award-badge elevate-award"
+                loading="lazy"
+              />
             </div>
           </div>
+          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
         <main className="project-content">
