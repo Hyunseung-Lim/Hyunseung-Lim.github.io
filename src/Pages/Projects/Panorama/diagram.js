@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import './Panorama.css';
 
 const PROCESS_STEPS = [
@@ -134,6 +134,36 @@ const DATASET_ICON_MAP = {
 export const PanoramaDiagram = ({ fadeRef, isDark }) => {
   const [hoveredProcess, setHoveredProcess] = useState(null);
   const [hoveredBenchmark, setHoveredBenchmark] = useState(null);
+  const [isHoverEnabled, setIsHoverEnabled] = useState(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return true;
+    return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return undefined;
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const handleChange = event => setIsHoverEnabled(event.matches);
+    setIsHoverEnabled(mediaQuery.matches);
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+    } else {
+      mediaQuery.addListener(handleChange);
+    }
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', handleChange);
+      } else {
+        mediaQuery.removeListener(handleChange);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isHoverEnabled) {
+      setHoveredProcess(null);
+      setHoveredBenchmark(null);
+    }
+  }, [isHoverEnabled]);
   const hoveredDatasetSet = useMemo(() => {
     const ids = new Set();
     const processSet = hoveredProcess ? PROCESS_DATASET_MAP[hoveredProcess] : null;
@@ -155,8 +185,8 @@ export const PanoramaDiagram = ({ fadeRef, isDark }) => {
                   className={`process-step ${index === PROCESS_STEPS.length - 1 ? 'is-last' : ''} ${
                     isHovered ? 'is-hovered' : ''
                   } ${isHovered ? 'is-active' : ''}`}
-                  onMouseEnter={() => setHoveredProcess(step.key)}
-                  onMouseLeave={() => setHoveredProcess(null)}
+                  onMouseEnter={isHoverEnabled ? () => setHoveredProcess(step.key) : undefined}
+                  onMouseLeave={isHoverEnabled ? () => setHoveredProcess(null) : undefined}
                 >
                   <div className="process-step__row">
                     <div className="process-role-block">
@@ -326,8 +356,8 @@ export const PanoramaDiagram = ({ fadeRef, isDark }) => {
           <div
             key={task.title}
             className={`benchmark-card ${index === 0 ? 'benchmark-card--wide-options' : ''}`}
-            onMouseEnter={() => setHoveredBenchmark(task.title)}
-            onMouseLeave={() => setHoveredBenchmark(null)}
+            onMouseEnter={isHoverEnabled ? () => setHoveredBenchmark(task.title) : undefined}
+            onMouseLeave={isHoverEnabled ? () => setHoveredBenchmark(null) : undefined}
           >
             <h4 className="benchmark-card__title">{task.title}</h4>
             <div className="benchmark-card__content">

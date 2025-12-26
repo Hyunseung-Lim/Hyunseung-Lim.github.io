@@ -7,10 +7,12 @@ import './MobileScreenRail.css';
  * Each screen can include a text block followed by an image snapshot.
  */
 const formatSize = value => (typeof value === 'number' ? `${value}px` : value);
-const DRAG_MULTIPLIER = 1.5;
-const MOMENTUM_MULTIPLIER = 320;
-const MOMENTUM_DAMPING = 0.9;
-const MOMENTUM_THRESHOLD = 0.005;
+const TOUCH_DRAG_MULTIPLIER = 1.65;
+const DESKTOP_DRAG_MULTIPLIER = 2.35;
+const DESKTOP_MOMENTUM_BOOST = 1.35;
+const MOMENTUM_MULTIPLIER = 380;
+const MOMENTUM_DAMPING = 0.92;
+const MOMENTUM_THRESHOLD = 0.004;
 
 export const MobileScreenRail = ({
   heading,
@@ -49,6 +51,8 @@ export const MobileScreenRail = ({
     if (!node) return undefined;
 
     let isDragging = false;
+    let activeDragMultiplier = TOUCH_DRAG_MULTIPLIER;
+    let momentumBoost = 1;
     let startX = 0;
     let startScrollLeft = 0;
     let pointerId = null;
@@ -66,7 +70,7 @@ export const MobileScreenRail = ({
 
     const startMomentum = currentVelocity => {
       cancelMomentum();
-      const boost = 1 + Math.min(Math.abs(currentVelocity), 1) * 0.5;
+      const boost = 1 + Math.min(Math.abs(currentVelocity), 1) * 0.35;
       let momentum = -currentVelocity * MOMENTUM_MULTIPLIER * boost;
       const step = () => {
         if (Math.abs(momentum) < 0.2) {
@@ -81,12 +85,15 @@ export const MobileScreenRail = ({
     };
 
     const handlePointerDown = event => {
-      const isMouse = event.pointerType === 'mouse';
+      const pointerType = event.pointerType || 'mouse';
+      const isMouse = pointerType === 'mouse' || pointerType === 'pen';
       if (isMouse && event.button !== 0) {
         return;
       }
       event.preventDefault();
-       cancelMomentum();
+      cancelMomentum();
+      activeDragMultiplier = isMouse ? DESKTOP_DRAG_MULTIPLIER : TOUCH_DRAG_MULTIPLIER;
+      momentumBoost = isMouse ? DESKTOP_MOMENTUM_BOOST : 1;
       isDragging = true;
       pointerId = event.pointerId;
       startX = event.clientX;
@@ -102,10 +109,10 @@ export const MobileScreenRail = ({
       if (!isDragging) return;
       event.preventDefault();
       const deltaX = event.clientX - startX;
-      node.scrollLeft = startScrollLeft - deltaX * DRAG_MULTIPLIER;
+      node.scrollLeft = startScrollLeft - deltaX * activeDragMultiplier;
       const now = performance.now();
       const dt = Math.max(now - lastTime, 16);
-      velocity = ((event.clientX - lastX) * DRAG_MULTIPLIER) / dt;
+      velocity = ((event.clientX - lastX) * activeDragMultiplier) / dt;
       lastX = event.clientX;
       lastTime = now;
     };
@@ -123,7 +130,7 @@ export const MobileScreenRail = ({
       }
       node.classList.remove('mobile-screen-rail__scroller--dragging');
       if (Math.abs(velocity) > MOMENTUM_THRESHOLD) {
-        startMomentum(velocity);
+        startMomentum(velocity * momentumBoost);
       }
     };
 
@@ -139,7 +146,7 @@ export const MobileScreenRail = ({
       if (!delta) return;
       event.preventDefault();
       cancelMomentum();
-      node.scrollBy({ left: delta });
+      node.scrollBy({ left: delta, behavior: 'smooth' });
     };
 
     node.addEventListener('pointerdown', handlePointerDown);

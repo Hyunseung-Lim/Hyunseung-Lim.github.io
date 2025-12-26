@@ -23,8 +23,9 @@
 .project-page--aqua-design .banner-section {
   position: relative;
   width: 100%;
-  height: min(60vh, 100vw);
-  min-height: min(400px, 100vw);
+  height: min(50vh, 100vw);
+  max-height: 50vh;
+  min-height: min(400px, 50vh, 100vw);
   overflow: hidden;
 }
 
@@ -198,8 +199,9 @@
   }
 
   .banner-section {
-    height: 50vh;
-    min-height: 300px;
+    height: min(50vh, 100vw);
+    max-height: 50vh;
+    min-height: min(300px, 50vh);
   }
 }
 
@@ -245,7 +247,7 @@
 
   .banner-section {
     height: 40vh;
-    min-height: 250px;
+    min-height: min(250px, 50vh);
   }
 }
 
@@ -266,7 +268,7 @@
 
   .banner-section {
     height: 35vh;
-    min-height: 200px;
+    min-height: min(200px, 50vh);
   }
 }
 

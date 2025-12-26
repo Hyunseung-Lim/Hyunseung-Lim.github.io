@@ -31,7 +31,7 @@
 
 .bibtex-card__block {
   width: 100%;
-  padding: 1.85rem 1.25rem 1.25rem;
+  padding: 2.25rem 1.25rem 1.25rem;
   border-radius: 12px;
   background: #eeeeee;
   border: 1px solid var(--border-primary, #e0e0e0);
@@ -59,4 +59,10 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+@media (max-width: 640px) {
+  .bibtex-card__block {
+    font-size: 0.6rem;
+  }
 }

@@ -302,9 +302,11 @@
   mask-composite: exclude;
 }
 
-.process-step:hover::after {
-  opacity: 1;
-  animation: process-border-draw 0.45s linear forwards;
+@media (hover: hover) and (pointer: fine) {
+  .process-step:hover::after {
+    opacity: 1;
+    animation: process-border-draw 0.45s linear forwards;
+  }
 }
 
 .process-step.is-active::after {
@@ -473,11 +475,6 @@
   background: rgba(98, 71, 190, 0.1);
 }
 
-.dataset-block--hovered {
-  border-color: rgba(98, 71, 190, 0.5);
-  background: rgba(98, 71, 190, 0.04);
-}
-
 .dataset-title {
   font-size: 0.78rem;
   font-weight: 600;
@@ -618,11 +615,6 @@
   transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
-.benchmark-card:hover {
-  border-color: rgba(98, 71, 190, 0.5);
-  background: rgba(98, 71, 190, 0.05);
-}
-
 .benchmark-card__title {
   margin: 0.1rem 0 0.05rem;
   font-size: 0.82rem;
@@ -755,11 +747,6 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-.dark-mode .dataset-block--hovered {
-  border-color: rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.05);
-}
-
 .dark-mode .dataset-panel__layer--back {
   background: rgba(84, 65, 130, 0.24);
   border-color: rgba(255, 255, 255, 0.08);
@@ -847,9 +834,16 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-.dark-mode .benchmark-card:hover {
-  border-color: rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.08);
+@media (hover: hover) and (pointer: fine) {
+  .benchmark-card:hover {
+    border-color: rgba(98, 71, 190, 0.5);
+    background: rgba(98, 71, 190, 0.05);
+  }
+
+  .dark-mode .benchmark-card:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+  }
 }
 
 .dark-mode .benchmark-card__layer--back {
@@ -938,10 +932,6 @@
 }
 
 /* maintain two columns down to smallest widths */
-.dark-mode .benchmark-card:hover {
-  border-color: rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.08);
-}
 .benchmark-card--wide-options .benchmark-card__body .benchmark-options {
   justify-content: flex-start;
 }

@@ -23,8 +23,9 @@
 .project-page--elevate .banner-section {
   position: relative;
   width: 100%;
-  height: min(60vh, 100vw);
-  min-height: min(400px, 100vw);
+  height: min(50vh, 100vw);
+  max-height: 50vh;
+  min-height: min(400px, 50vh, 100vw);
   overflow: hidden;
 }
 
@@ -42,8 +43,8 @@
 }
 
 .project-page--elevate .elevate-banner {
-  height: min(60vh, 100vw);
-  max-height: 60vh;
+  height: min(50vh, 100vw);
+  max-height: 50vh;
   min-height: 0;
 }
 
@@ -265,7 +266,8 @@
 
   .project-page--elevate .banner-section {
     height: min(50vh, 100vw);
-    min-height: min(300px, 100vw);
+    max-height: 50vh;
+    min-height: min(300px, 50vh, 100vw);
   }
 }
 
@@ -285,7 +287,7 @@
 
   .project-page--elevate .banner-section {
     height: min(40vh, 100vw);
-    min-height: min(250px, 100vw);
+    min-height: min(250px, 50vh, 100vw);
   }
 }
 
@@ -306,6 +308,6 @@
 
   .project-page--elevate .banner-section {
     height: min(35vh, 100vw);
-    min-height: min(200px, 100vw);
+    min-height: min(200px, 50vh, 100vw);
   }
 }

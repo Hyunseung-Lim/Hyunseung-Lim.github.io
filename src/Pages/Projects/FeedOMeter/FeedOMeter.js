@@ -20,7 +20,7 @@ export const FeedOMeterProject = () => {
       type: 'paper',
       href: 'https://doi.org/10.1016/j.ijhcs.2025.103687',
       icon: `${process.env.PUBLIC_URL}/icons/elsevier.png`,
-      iconDark: `${process.env.PUBLIC_URL}/icons/elsevier.png`,
+      iconDark: `${process.env.PUBLIC_URL}/icons/elsevier_dark.png`,
       iconAlt: 'Elsevier'
     },
     { type: 'github', href: 'https://github.com/Hyunseung-Lim/Feed-O-Meter' }
