@@ -158,36 +158,45 @@ export const FeedOMeterUI = ({ fadeRef }) => {
     setMetricLevels(FEEDBACK_METRICS.map(() => Math.floor(Math.random() * 7) + 1));
   };
 
-  const randomizeMenteeAvatar = downgrade => {
-    setMenteeAvatarKey(prev => {
-      const { row, col } = prev;
-      const candidates = [];
-      if (downgrade) {
-        if (row > 1) candidates.push({ row: row - 1, col });
-        if (col > 1) candidates.push({ row, col: col - 1 });
-        if (!candidates.length) return prev;
-      } else {
-        candidates.push({ row, col });
-        if (row > 1) candidates.push({ row: row - 1, col });
-        if (row < 5) candidates.push({ row: row + 1, col });
-        if (col > 1) candidates.push({ row, col: col - 1 });
-        if (col < 5) candidates.push({ row, col: col + 1 });
-      }
+const randomizeMenteeAvatar = direction => {
+  setMenteeAvatarKey(prev => {
+    const { row, col } = prev;
+    const candidates = [];
+    if (direction === 'downgrade') {
+      if (row > 1) candidates.push({ row: row - 1, col });
+      if (col > 1) candidates.push({ row, col: col - 1 });
+      if (!candidates.length) return prev;
       return candidates[Math.floor(Math.random() * candidates.length)];
-    });
-  };
+    }
+
+    if (direction === 'upgrade') {
+      if (row < 5) candidates.push({ row: row + 1, col });
+      if (col < 5) candidates.push({ row, col: col + 1 });
+      if (!candidates.length) return prev;
+      return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    candidates.push({ row, col });
+    if (row > 1) candidates.push({ row: row - 1, col });
+    if (row < 5) candidates.push({ row: row + 1, col });
+    if (col > 1) candidates.push({ row, col: col - 1 });
+    if (col < 5) candidates.push({ row, col: col + 1 });
+
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  });
+};
 
   const handleSend = () => {
     const trimmed = chatInput.trim();
     if (!trimmed) return;
     const userMessage = { speaker: 'mentor', content: trimmed };
     const menteeReplies = [
-      { text: 'Thanks for the feedback!', downgrade: false },
-      { text: 'That’s a great point—let me note that down.', downgrade: false },
-      { text: 'I’ll explore that direction next.', downgrade: false },
-      { text: 'Interesting! I hadn’t thought about it that way.', downgrade: false },
-      { text: 'Appreciate the perspective—let me iterate on that.', downgrade: false },
-      { text: '이해를 못했는데 다시 알려주세요.', downgrade: true }
+      { text: 'Thanks for the feedback!' },
+      { text: 'That’s a great point—let me note that down.' },
+      { text: 'I’ll explore that direction next.' },
+      { text: 'Interesting! I hadn’t thought about it that way.' },
+      { text: 'Appreciate the perspective—let me iterate on that.', direction: 'upgrade' },
+      { text: 'I didn\'t understand, please explain again.', direction: 'downgrade' }
     ];
     const selectedReply = menteeReplies[Math.floor(Math.random() * menteeReplies.length)];
     const reply = {
@@ -199,7 +208,7 @@ export const FeedOMeterUI = ({ fadeRef }) => {
     adjustTextareaHeight();
     randomizeGaugeAngles();
     randomizeMetricLevels();
-    randomizeMenteeAvatar(selectedReply.downgrade);
+    randomizeMenteeAvatar(selectedReply.direction);
     awardExperience();
   };
 
@@ -413,6 +422,9 @@ export const FeedOMeterUI = ({ fadeRef }) => {
           </section>
         </div>
       </div>
+      <p className="feedometer-ui__note">
+        This interaction is randomly simulated and not powered by the LLM pipeline.
+      </p>
       <div className="feedometer-ui__fallback">
         <img
           src={`${process.env.PUBLIC_URL}/projects/feed-o-meter/feed-o-meterUI.png`}
