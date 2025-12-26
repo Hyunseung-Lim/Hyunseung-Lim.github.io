@@ -42,7 +42,7 @@ booktitle = {Proceedings of the 2025 ACM Conference on Fairness, Accountability,
 pages = {3241–3253},
 numpages = {13},
 keywords = {AI fairness, stereotype, algorithmic harms, large language model, human-AI interaction},
-location = {},
+location = {Athens, Greece},
 series = {FAccT '25}
 }`;
 
@@ -63,19 +63,19 @@ series = {FAccT '25}
           </div>
           <div className="project-meta-info">
             {projectData.period && (
-              <div className="project-period-section project-fade-block project-header__fade-block" ref={fadeInRef}>
+              <div className="project-period-section project-fade-block" ref={fadeInRef}>
                 <div className="meta-label">Period</div>
                 <div className="meta-value">{projectData.period}</div>
               </div>
             )}
             {projectData.projectType && (
-              <div className="project-type-section project-fade-block project-header__fade-block" ref={fadeInRef}>
+              <div className="project-type-section project-fade-block" ref={fadeInRef}>
                 <div className="meta-label">Project Type</div>
                 <div className="meta-value">{projectData.projectType}</div>
               </div>
             )}
             <div
-              className="project-awards-section project-fade-block project-header__fade-block"
+              className="project-awards-section project-fade-block"
               aria-label="Project awards"
               ref={fadeInRef}
             >

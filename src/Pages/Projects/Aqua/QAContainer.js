@@ -17,17 +17,17 @@ const QA_ITEMS = [
     }
   },
   {
-    question: 'Why is a Q&A format suitable for promoting research papers?',
+    question: 'Why is a QA format suitable for promoting research papers?',
     answer: (
       <>
         <p>
-          A Q&amp;A format works well for promoting research papers for pedagogical, narrative, and communication reasons.
+          A QA format works well for promoting research papers for pedagogical, narrative, and communication reasons.
         </p>
         <p>
           <strong>Structuring complex information and building a narrative</strong>
         </p>
         <p>
-          A Q&amp;A format turns dense, technical content into a roadmap: each question acts as a milestone guiding readers
+          A QA format turns dense, technical content into a roadmap: each question acts as a milestone guiding readers
           toward the paper’s key contributions. The back-and-forth structure makes explanations feel more like a narrative
           than a block of facts.
         </p>
@@ -35,14 +35,14 @@ const QA_ITEMS = [
           <strong>Effective for learning</strong>
         </p>
         <p>
-          Q&amp;A mirrors how many people learn—by asking questions and refining understanding—so readers can follow a clear
+          QA mirrors how many people learn—by asking questions and refining understanding—so readers can follow a clear
           flow from the question to evidence to an answer.
         </p>
         <p>
           <strong>Bridging the gap to the reader’s perspective</strong>
         </p>
         <p>
-          Because authors know their work so well, they can underestimate what readers find confusing. A Q&amp;A structure
+          Because authors know their work so well, they can underestimate what readers find confusing. A QA structure
           forces authors to anticipate reader questions, leading to clearer wording, less jargon, and more concrete examples.
         </p>
       </>
@@ -63,7 +63,7 @@ const QA_ITEMS = [
             publications or topics—beyond the paper currently being promoted.
           </li>
           <li>
-            <strong>Follow-up questions:</strong> suggest additional questions based on Q&amp;A pairs already created.
+            <strong>Follow-up questions:</strong> suggest additional questions based on QA pairs already created.
           </li>
         </ul>
       </>
@@ -80,7 +80,7 @@ const QA_ITEMS = [
       <>
         <p>
           The answer recommendation feature is designed to generate high-quality, paper-grounded responses. It uses a
-          Flan-T5-3B model configured with QASA settings for scientific Q&amp;A, and it produces answers based directly on
+          Flan-T5-3B model configured with QASA settings for scientific QA, and it produces answers based directly on
           the text of the target research paper being promoted so the generated content stays aligned with the paper’s key
           information.
         </p>
@@ -102,7 +102,7 @@ const QA_ITEMS = [
     )
   },
   {
-    question: 'What were the key findings and implications?',
+    question: 'What were the key findings?',
     answer: (
       <>
         <p>
@@ -119,8 +119,12 @@ const QA_ITEMS = [
     answer: (
       <>
         <p>
-          It started from a simple question: "How can we communicate professional research outcomes more effectively and
-          engagingly to the public or to researchers in other fields?" <br/> Promoting research matters because it helps increase
+          It started from a simple question:{' '}
+          <span style={{ fontWeight: 600 }}>
+            "How can we communicate professional research outcomes more effectively and engagingly to the public or to
+            researchers in other fields?"
+          </span>{' '}
+          <br /> Promoting research matters because it helps increase
           academic visibility and can spark interdisciplinary collaboration, but it also demands two different writing skills
           at once—scientific writing that conveys facts accurately and creative writing that turns expert knowledge into an
           accessible, engaging narrative for non-expert readers. Most researchers find it difficult to balance these two.
@@ -149,19 +153,31 @@ export const QAContainer = ({ fadeRef, isDark }) => {
     setExpandedIndex(prev => (prev === index ? null : index));
   };
 
+  const handleKeyDown = (event, index) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleIndex(index);
+    }
+  };
+
   return (
     <div className="aqua-qa-container">
       {QA_ITEMS.map((item, index) => {
         const isExpanded = expandedIndex === index;
+        const answerId = `aqua-qa-answer-${index}`;
         return (
           <div key={item.question} className={`aqua-qa-item${isExpanded ? ' is-expanded' : ''}`}>
-            <div className="aqua-qa-item__inner project-fade-block" ref={fadeRef}>
-              <button
-                type="button"
-                className="aqua-qa-question"
-                onClick={() => toggleIndex(index)}
-                aria-expanded={isExpanded}
-              >
+            <div
+              className="aqua-qa-item__inner project-fade-block"
+              ref={fadeRef}
+              role="button"
+              tabIndex={0}
+              aria-expanded={isExpanded}
+              aria-controls={answerId}
+              onClick={() => toggleIndex(index)}
+              onKeyDown={event => handleKeyDown(event, index)}
+            >
+              <div className="aqua-qa-question">
                 <span>{item.question}</span>
                 <span className="aqua-qa-icon" aria-hidden="true">
                   <img
@@ -171,8 +187,8 @@ export const QAContainer = ({ fadeRef, isDark }) => {
                     loading="lazy"
                   />
                 </span>
-              </button>
-              <div className="aqua-qa-answer" aria-hidden={!isExpanded}>
+              </div>
+              <div className="aqua-qa-answer" id={answerId} aria-hidden={!isExpanded}>
                 <div className="aqua-qa-answer__body">
                   {item.answer}
                   {item.image && (

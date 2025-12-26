@@ -49,6 +49,11 @@ export const MobileScreenRail = ({
   useEffect(() => {
     const node = scrollerRef.current;
     if (!node) return undefined;
+    const supportsPointerQuery = typeof window !== 'undefined' && typeof window.matchMedia === 'function';
+    const hasFinePointer = supportsPointerQuery ? window.matchMedia('(pointer: fine)').matches : true;
+    if (!hasFinePointer) {
+      return undefined;
+    }
 
     let isDragging = false;
     let activeDragMultiplier = TOUCH_DRAG_MULTIPLIER;

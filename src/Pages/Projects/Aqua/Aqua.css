@@ -181,6 +181,13 @@
   text-align: left;
 }
 
+@media (max-width: 640px) {
+  .project-page--aqua .section-text.aqua-body {
+    font-size: 0.8rem;
+    line-height: 1.68;
+  }
+}
+
 .aqua-qa-section {
   margin-top: 1.5rem;
 }
@@ -203,13 +210,18 @@
   background: #f6f6f6;
   border: 1px solid var(--border-primary, #e0e0e0);
   border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.aqua-qa-item__inner:focus-visible {
+  outline: 2px solid #3a7576;
+  outline-offset: 2px;
 }
 
 .aqua-qa-question {
   width: 100%;
-  background: transparent;
-  border: none;
-  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -218,13 +230,7 @@
   font-weight: 600;
   font-size: 1rem;
   text-align: left;
-  cursor: pointer;
   gap: 0.4rem;
-}
-
-.aqua-qa-question:focus-visible {
-  outline: 2px solid #3a7576;
-  outline-offset: 2px;
 }
 
 .aqua-qa-icon {
@@ -239,10 +245,11 @@
   height: 16px;
   display: block;
   transition: transform 0.3s ease;
+  transform: rotate(180deg);
 }
 
 .aqua-qa-item.is-expanded .aqua-qa-icon__image {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .aqua-qa-answer {

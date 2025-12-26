@@ -98,10 +98,8 @@
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1.25rem;
-  row-gap: 1rem;
-  margin-top: 1.25rem;
-  width: 100%;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
   text-align: center;
 }
 
@@ -111,14 +109,11 @@
 }
 
 .project-page--datopia .project-awards-section {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 0.25rem;
-  padding: 0;
-  line-height: 0;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .project-page--datopia .project-award-link {
@@ -139,7 +134,7 @@
   color: var(--text-primary, #333333);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
 }
 
 .project-page--datopia .meta-value {
@@ -583,6 +578,15 @@
 
   .datopia-animation {
     height: clamp(100px, 25vh, 180px);
+  }
+}
+
+@media (max-width: 640px) {
+  .project-page--datopia .description-text,
+  .project-page--datopia .datopia-welcome__body,
+  .project-page--datopia .datopia-reflection__body {
+    font-size: 0.9rem;
+    line-height: 1.65;
   }
 }
 

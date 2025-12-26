@@ -4,6 +4,7 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
+import { useTheme } from '../../../contexts/ThemeContext';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import './Elevate.css';
@@ -18,6 +19,10 @@ export const ElevateProject = () => {
   const mobileBanner = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail_mobile.png`;
   const installationVideoUrl = 'https://www.youtube.com/embed/QvuVQ68uf-w?rel=0';
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(desktopBanner, themeMode);
+  const { isDark } = useTheme();
+  const awardBadgeSrc = isDark
+    ? `${process.env.PUBLIC_URL}/projects/elevate/chi_logo_dark.png`
+    : `${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`;
   const resourceLinks = [
     {
       type: 'paper',
@@ -63,7 +68,7 @@ export const ElevateProject = () => {
             )}
             <div className="project-awards-section project-fade-block" aria-label="Project awards" ref={fadeInRef}>
               <img
-                src={`${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`}
+                src={awardBadgeSrc}
                 alt="CHI 2021"
                 className="project-award-badge elevate-award"
                 loading="lazy"

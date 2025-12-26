@@ -7,6 +7,7 @@ import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import './FeedOMeter.css';
+import { FeedOMeterUI } from './FeedOMeterUI';
 
 export const FeedOMeterProject = () => {
   const projectData = PROJECTS['feed-o-meter'];
@@ -43,13 +44,13 @@ export const FeedOMeterProject = () => {
           </div>
           <div className="project-meta-info">
             {projectData.period && (
-              <div className="project-period-section project-header__fade-block project-fade-block" ref={fadeInRef}>
+              <div className="project-period-section project-fade-block" ref={fadeInRef}>
                 <div className="meta-label">Period</div>
                 <div className="meta-value">{projectData.period}</div>
               </div>
             )}
             {projectData.projectType && (
-              <div className="project-type-section project-header__fade-block project-fade-block" ref={fadeInRef}>
+              <div className="project-type-section project-fade-block" ref={fadeInRef}>
                 <div className="meta-label">Project Type</div>
                 <div className="meta-value">{projectData.projectType}</div>
               </div>
@@ -64,6 +65,7 @@ export const FeedOMeterProject = () => {
               Effective feedback helps designers develop design concepts and refine their ideas, supporting informed decision-making throughout the iterative design process. However, in studio-based design courses, students often struggle to provide feedback due to a lack of confidence and fear of being judged, which limits their ability to develop essential feedback-giving skills. To address this gap, we proposed Feed-O-Meter, a system with large language models pipeline to create an environment where students can practice giving design feedback. The system enables users to role-play as mentors providing feedback to an AI mentee, and enabling them to reflect on how that feedback impacts the AI mentee's idea development process.
             </p>
           </section>
+          <FeedOMeterUI fadeRef={fadeInRef} />
 
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
