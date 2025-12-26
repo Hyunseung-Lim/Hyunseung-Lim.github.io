@@ -195,7 +195,7 @@
   display: flex;
   justify-content: center;
   background: transparent;
-  padding: 3rem 0;
+  padding: 0.5rem 0;
 }
 
 .feedometer-ui__frame {
