@@ -1,7 +1,8 @@
-/* mainPage 영역: 높이를 100vh로 고정해서 내부 스크롤이 발생하지 않도록 함 */
+/* mainPage 영역: 모바일 주소바 변화를 반영한 동적 높이 유지 */
 .mainPage {
     width: 100%;
-    height: 100vh;
+    min-height: var(--app-height, 100vh);
+    height: var(--app-height, 100vh);
     overflow: hidden;
     display: flex;
     flex-direction: column;

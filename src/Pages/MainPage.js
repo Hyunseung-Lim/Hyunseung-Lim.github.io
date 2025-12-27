@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Topbar } from '../Components/Topbar/topbar';
 import { Footer } from '../Components/Footer/footer';
 import { useInfiniteCarousel } from '../hooks/useInfiniteCarousel';
@@ -7,6 +7,18 @@ import { BANNER_IMAGES, CAROUSEL_CONFIG } from '../constants';
 import './pages.css';
 
 export const MainPage = () => {
+  useEffect(() => {
+    const setAppHeight = () => {
+      const height = window.innerHeight;
+      document.documentElement.style.setProperty('--app-height', `${height}px`);
+    };
+
+    setAppHeight();
+
+    window.addEventListener('resize', setAppHeight);
+    return () => window.removeEventListener('resize', setAppHeight);
+  }, []);
+
   const fadeInRef = useFadeInAnimation();
   const { extendedImages, sliderStyle } = useInfiniteCarousel(
     BANNER_IMAGES,
