@@ -287,7 +287,7 @@ const randomizeMenteeAvatar = direction => {
               <div className="feedometer-idea-card__header">
                 <h3>{IDEA_DETAILS.title}</h3>
                 <button type="button" className="feedometer-idea-card__button">
-                  Update Idea
+                  Update
                 </button>
               </div>
               <div className="feedometer-idea-card__section">

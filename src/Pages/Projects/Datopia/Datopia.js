@@ -107,7 +107,7 @@ export const DatopiaProject = () => {
             </div>
             <div className="datopia-divider" role="presentation" aria-hidden="true" />
             <section className="datopia-welcome project-fade-block" ref={fadeInRef}>
-              <h2 className="datopia-welcome__title">
+              <h2 className="section-title datopia-welcome__title">
                 Welcome to Datopia!
               </h2>
               <p className="datopia-welcome__body">
@@ -130,7 +130,7 @@ export const DatopiaProject = () => {
               clampToContainer
             />
             <section className="datopia-reflection project-fade-block" ref={fadeInRef}>
-              <h2 className="datopia-reflection__title">Rethinking Future Love</h2>
+              <h2 className="section-title datopia-reflection__title">Rethinking Future Love</h2>
               <p className="datopia-reflection__body">
                 Datopia is a critical design project that invites reflection on how data-driven services, now deeply embedded in everyday life, might transform the ways we form relationships. Today, a wide range of recommendation algorithms make decision-making easier. At times, they even infer our preferences, behaviors, and memories, including things we may not be fully aware of, and make decisions on our behalf.
               </p>
@@ -140,7 +140,7 @@ export const DatopiaProject = () => {
             </section>
             <div className="datopia-media" ref={fadeInRef}>
               <div className="datopia-divider" role="presentation" aria-hidden="true" />
-              <h2 className="datopia-media-title">Exhibition</h2>
+              <h2 className="section-title datopia-media-title">Exhibition</h2>
               <div className="datopia-figures">
                 {[
                   {

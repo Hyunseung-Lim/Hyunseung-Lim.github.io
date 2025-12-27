@@ -60,6 +60,8 @@ export const BibtexCard = forwardRef(({ text, className = '' }, ref) => {
 
   const combinedClassName = ['bibtex-card', className].filter(Boolean).join(' ');
 
+  const lines = text.split('\n');
+
   return (
     <div
       className={combinedClassName}
@@ -81,7 +83,17 @@ export const BibtexCard = forwardRef(({ text, className = '' }, ref) => {
         <span className="bibtex-card__sr-only">Copy BibTeX entry</span>
       </div>
       <pre className="bibtex-card__block">
-        {text}
+        {lines.map((line, index) => {
+          const isAbstractLine = line.trimStart().toLowerCase().startsWith('abstract =');
+          return (
+            <span
+              key={`bibtex-line-${index}`}
+              className={`bibtex-card__line${isAbstractLine ? ' bibtex-card__line--abstract' : ''}`}
+            >
+              {line}
+            </span>
+          );
+        })}
       </pre>
     </div>
   );

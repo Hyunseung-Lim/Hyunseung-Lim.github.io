@@ -46,6 +46,11 @@
   text-align: left;
 }
 
+.bibtex-card__line {
+  display: block;
+  white-space: pre-wrap;
+}
+
 .dark-mode .bibtex-card__block {
   background: var(--bg-secondary, #1a1a1a);
 }
@@ -65,4 +70,7 @@
   .bibtex-card__block {
     font-size: 0.6rem;
   }
+}
+.bibtex-card__line--abstract {
+  display: none;
 }

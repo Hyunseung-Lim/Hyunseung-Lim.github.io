@@ -65,7 +65,12 @@ export const FeedOMeterProject = () => {
               Effective feedback helps designers develop concepts and refine ideas, supporting informed decision-making throughout the iterative design process. However, in studio-based design courses, students often hesitate to give feedback due to low confidence and fear of judgment, which hinders the development of feedback-giving skills. To address this gap, we proposed Feed-O-Meter, an LLM-powered system that creates a safe space for students to practice design feedback. It lets users role-play as mentors giving feedback to an AI mentee and reflect on how their feedback shapes the mentee's idea development.
             </p>
           </section>
-          <FeedOMeterUI fadeRef={fadeInRef} />
+          <section className="project-section project-section__fade feedometer-ui-section" ref={fadeInRef}>
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+              Feed-O-Meter UI
+            </h2>
+            <FeedOMeterUI fadeRef={fadeInRef} />
+          </section>
 
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>

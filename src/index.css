@@ -70,6 +70,7 @@ html {
 }
 
 @import url('./styles/transitions.css');
+@import url('./styles/project-pages.css');
 
 body {
   margin: 0;

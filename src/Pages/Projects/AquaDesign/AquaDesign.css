@@ -62,87 +62,6 @@
   transform: translateY(0);
 }
 
-.project-page--aqua-design .project-header {
-  position: relative;
-  text-align: center;
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--border-primary, #e0e0e0);
-}
-
-.project-page--aqua-design .project-header__fade-block {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.project-page--aqua-design .project-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0 0 1rem 0;
-  color: var(--text-primary, #333333);
-  letter-spacing: -0.02em;
-}
-
-.project-page--aqua-design .project-subtitle {
-  margin: 0 0 1.1rem 0;
-  font-size: 1.08rem;
-  font-weight: 400;
-  color: var(--text-secondary, #666666);
-  letter-spacing: 0.01em;
-  line-height: 1.5;
-}
-
-.project-page--aqua-design .project-meta-info {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-  text-align: center;
-}
-
-.project-page--aqua-design .project-type-section,
-.project-page--aqua-design .project-period-section {
-  text-align: center;
-}
-
-.project-page--aqua-design .project-awards-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.project-page--aqua-design .project-award-link {
-  display: inline-flex;
-  align-items: center;
-}
-
-.project-page--aqua-design .project-award-badge {
-  display: block;
-  width: 120px;
-  max-width: 100%;
-  height: auto;
-}
-
-.project-page--aqua-design .meta-label {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-primary, #333333);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.3rem;
-}
-
-.project-page--aqua-design .meta-value {
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--text-secondary, #666666);
-  opacity: 0.8;
-}
 
 .project-page--aqua-design .project-content {
   width: 100%;
@@ -174,28 +93,6 @@
     margin-top: 2.5rem;
   }
 
-  .project-page--aqua-design .project-title {
-    font-size: 2.2rem;
-  }
-
-  .project-page--aqua-design .project-subtitle {
-    font-size: 1rem;
-  }
-
-  .project-page--aqua-design .project-meta-info {
-    gap: 1rem;
-    row-gap: 0.85rem;
-    margin-top: 1rem;
-  }
-
-  .project-page--aqua-design .meta-label {
-    font-size: 0.75rem;
-  }
-
-  .project-page--aqua-design .meta-value {
-    font-size: 0.85rem;
-  }
-
   .banner-section {
     height: min(50vh, 100vw);
     max-height: 50vh;
@@ -213,36 +110,6 @@
     margin-top: 2.25rem;
   }
 
-  .project-page--aqua-design .project-meta-info {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-top: 0.85rem;
-  }
-
-  .project-page--aqua-design .meta-label {
-    font-size: 0.74rem;
-  }
-
-  .project-page--aqua-design .meta-value {
-    font-size: 0.84rem;
-  }
-
-  .project-page--aqua-design .project-meta-info > div {
-    flex: 0 0 auto;
-    min-width: auto;
-    white-space: nowrap;
-  }
-
-  .project-page--aqua-design .project-title {
-    font-size: 2rem;
-  }
-
-  .project-page--aqua-design .project-award-badge {
-    width: 92px;
-  }
-
   .banner-section {
     height: 40vh;
     min-height: min(250px, 50vh);
@@ -250,18 +117,9 @@
 }
 
 @media (max-width: 480px) {
-  .project-page--aqua-design .project-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-  }
-
   .project-page--aqua-design:not(.has-banner) .project-container {
     padding-top: 3.1rem;
     margin-top: 1.85rem;
-  }
-
-  .project-page--aqua-design .project-title {
-    font-size: 1.8rem;
   }
 
   .banner-section {
@@ -365,7 +223,7 @@
   }
 
   .aqua-design-overview__subtitle {
-    font-size: 0.92rem;
+    font-size: 1.3rem;
   }
 
   .aqua-design-overview__media img {

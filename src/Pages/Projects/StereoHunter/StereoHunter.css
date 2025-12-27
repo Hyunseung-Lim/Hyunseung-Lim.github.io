@@ -61,86 +61,6 @@
   transform: translateY(0);
 }
 
-.project-page--stereohunter .project-header {
-  position: relative;
-  text-align: center;
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--border-primary, #e0e0e0);
-}
-
-@media (min-width: 769px) {
-  .project-page--stereohunter .project-header {
-    padding-bottom: 1.5rem;
-  }
-}
-
-.project-page--stereohunter .project-header__fade-block {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.project-page--stereohunter .project-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0 0 1rem 0;
-  color: var(--text-primary, #333333);
-  letter-spacing: -0.02em;
-}
-
-.project-page--stereohunter .project-subtitle {
-  margin: 0 0 1.1rem 0;
-  font-size: 1.08rem;
-  font-weight: 400;
-  color: var(--text-secondary, #666666);
-  letter-spacing: 0.01em;
-  line-height: 1.5;
-}
-
-.project-page--stereohunter .project-meta-info {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 1.5rem;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  text-align: center;
-}
-
-.project-page--stereohunter .project-type-section,
-.project-page--stereohunter .project-period-section {
-  text-align: center;
-}
-
-.project-page--stereohunter .project-awards-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.stereohunter-award {
-  width: 90px;
-  height: auto;
-}
-
-.project-page--stereohunter .meta-label {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-primary, #333333);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.3rem;
-}
-
-.project-page--stereohunter .meta-value {
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--text-secondary, #666666);
-  opacity: 0.8;
-}
 
 .project-page--stereohunter .project-content {
   width: 100%;
@@ -155,13 +75,6 @@
 
 .project-page--stereohunter .project-section:last-of-type {
   margin-bottom: 0;
-}
-
-.project-page--stereohunter .section-title {
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  letter-spacing: 0.02em;
 }
 
 .project-page--stereohunter .section-text {
@@ -186,6 +99,10 @@
   margin-bottom: 0.5rem;
 }
 
+.stereohunter-award {
+  width: 90px;
+}
+
 .project-page--stereohunter .stereohunter-divider {
   width: 100%;
   height: 1px;
@@ -208,22 +125,6 @@
     margin-top: 2.5rem;
   }
 
-  .project-page--stereohunter .project-title {
-    font-size: 2.2rem;
-  }
-
-  .project-page--stereohunter .project-subtitle {
-    font-size: 1rem;
-  }
-
-  .meta-label {
-    font-size: 0.75rem;
-  }
-
-  .meta-value {
-    font-size: 0.85rem;
-  }
-
   .banner-section {
     height: 50vh;
     min-height: 300px;
@@ -240,10 +141,6 @@
     margin-top: 2.25rem;
   }
 
-  .project-page--stereohunter .project-title {
-    font-size: 2rem;
-  }
-
   .banner-section {
     height: 40vh;
     min-height: 250px;
@@ -251,22 +148,17 @@
 }
 
 @media (max-width: 480px) {
-  .project-page--stereohunter .project-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-  }
-
   .project-page--stereohunter:not(.has-banner) .project-container {
     padding-top: 3.1rem;
     margin-top: 1.85rem;
   }
 
-  .project-page--stereohunter .project-title {
-    font-size: 1.8rem;
-  }
-
   .project-page--stereohunter .banner-section {
     height: 35vh;
     min-height: 200px;
+  }
+
+  .stereohunter-award {
+    width: 75px;
   }
 }

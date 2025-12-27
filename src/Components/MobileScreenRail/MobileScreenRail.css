@@ -165,3 +165,9 @@
     padding: 0;
   }
 }
+
+@media (max-width: 480px) {
+  .mobile-screen-rail__heading {
+    font-size: 1.25rem;
+  }
+}

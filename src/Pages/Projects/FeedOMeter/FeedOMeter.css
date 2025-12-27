@@ -146,20 +146,13 @@
 }
 
 .project-page--feed-o-meter .project-section {
-  margin: 0 0 2.5rem 0;
+  margin: 0 0 1.5rem 0;
   line-height: 1.7;
   padding: 0;
 }
 
 .project-page--feed-o-meter .project-section:last-of-type {
   margin-bottom: 0;
-}
-
-.project-page--feed-o-meter .section-title {
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  letter-spacing: 0.02em;
 }
 
 .project-page--feed-o-meter .section-text {
@@ -184,9 +177,12 @@
   margin-bottom: 0.5rem;
 }
 
+.feedometer-ui-section .section-title {
+  margin-bottom: 0.6rem;
+}
+
 .feedometer-ui {
   width: 100vw;
-  margin: 3rem 0;
   position: relative;
   left: 50%;
   right: 50%;
@@ -196,8 +192,6 @@
   flex-direction: column;
   align-items: center;
   background: transparent;
-  padding: 0.5rem 0;
-  gap: 0.5rem;
 }
 
 .feedometer-ui__frame {
@@ -215,13 +209,13 @@
   display: none;
   width: min(1200px, 96vw);
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .feedometer-ui__fallback img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 18px;
 }
 
 .feedometer-ui__note {
@@ -988,6 +982,12 @@
 .dark-mode .feedometer-metric-bars__bar {
   background: transparent;
 }
+.dark-mode .feedometer-metric-bars__bar span {
+  background: #bfdffd;
+}
+.dark-mode .feedometer-metric-bars__item:nth-child(n+4) .feedometer-metric-bars__bar span {
+  background: #483cf4;
+}
 
 .dark-mode .feedometer-chat-send {
   background: #483cf4;
@@ -1063,6 +1063,7 @@
   }
 }
 
+
 @media (max-width: 768px) {
   .project-container {
     padding: 1rem;
@@ -1084,6 +1085,12 @@
 
   .section-text.feedometer-body {
     font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .project-page--feed-o-meter .project-section {
+    margin-bottom: 2.75rem;
   }
 }
 

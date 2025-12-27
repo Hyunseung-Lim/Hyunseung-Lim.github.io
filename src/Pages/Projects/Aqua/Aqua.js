@@ -30,6 +30,9 @@ export const AquaProject = () => {
       iconAlt: 'ACM DL'
     }
   ];
+  const subtitleFirstLine =
+    'Co-Creating Question-and-Answer Style Articles with Large Language Models';
+  const subtitleSecondLine = 'for Research Promotion';
 
   return (
     <div className={`${pageClassName} project-page--aqua`}>
@@ -45,7 +48,12 @@ export const AquaProject = () => {
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
             <h1 className="project-title">{projectData.title}</h1>
-            {projectData.subtitle && <p className="project-subtitle">{projectData.subtitle}</p>}
+            {projectData.subtitle && (
+              <p className="project-subtitle" aria-label={`${subtitleFirstLine} ${subtitleSecondLine}`}>
+                <span className="aqua-subtitle__first-line">{subtitleFirstLine}</span>
+                <span className="aqua-subtitle__second-line">{subtitleSecondLine}</span>
+              </p>
+            )}
           </div>
           <div className="project-meta-info">
             {projectData.period && (

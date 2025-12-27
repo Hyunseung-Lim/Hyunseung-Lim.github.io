@@ -60,102 +60,6 @@
   transform: translateY(0);
 }
 
-@media (min-width: 769px) {
-  .project-page--panorama .project-header {
-    position: relative;
-    text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border-primary, #e0e0e0);
-  }
-}
-
-@media (max-width: 768px) {
-  .project-page--panorama .project-header {
-    position: relative;
-    text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-primary, #e0e0e0);
-  }
-}
-
-.project-page--panorama .project-header__fade-block {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.project-page--panorama .project-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0 0 1rem 0;
-  color: var(--text-primary, #333333);
-  letter-spacing: -0.02em;
-}
-
-.project-page--panorama .project-subtitle {
-  margin: 0 0 1.1rem 0;
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--text-secondary, #666666);
-  letter-spacing: 0.01em;
-  line-height: 1.5;
-}
-
-.project-page--panorama .project-meta-info {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-  width: 100%;
-  text-align: center;
-}
-
-.project-page--panorama .project-type-section,
-.project-page--panorama .project-period-section {
-  text-align: center;
-}
-
-.project-page--panorama .project-awards-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  padding: 0;
-}
-
-.project-page--panorama .project-award-badge {
-  display: block;
-  width: 100px;
-  max-width: 100%;
-  height: auto;
-}
-
-@media (max-width: 640px) {
-  .project-page--panorama .project-award-badge {
-    width: 86px;
-  }
-}
-
-.project-page--panorama .meta-label {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-primary, #333333);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.3rem;
-}
-
-.project-page--panorama .meta-value {
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--text-secondary, #666666);
-  opacity: 0.8;
-}
 
 .project-page--panorama .project-content {
   width: 100%;
@@ -166,13 +70,6 @@
   margin: 0 0 1.6rem 0;
   line-height: 1.7;
   padding: 0;
-}
-
-.project-page--panorama .section-title {
-  font-size: 1.35rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  letter-spacing: 0.02em;
 }
 
 .project-page--panorama .section-text {
@@ -405,7 +302,7 @@
 
 .dataset-panel__layer--mid {
   transform: translate(-4px, -4px);
-  background: transparent;
+  background: #ffffff;
   z-index: 1;
 }
 
@@ -415,6 +312,7 @@
   inset: 0;
   border-radius: inherit;
   transform: translate(-1px, -1px);
+  background: rgba(255, 255, 255, 0.98);
   border: 1px solid rgba(98, 71, 190, 0.22);
   z-index: 2;
 }
@@ -426,6 +324,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  background-color: transparent;
+  border-radius: 12px;
 }
 
 .diagram-dataset .dataset-grid {
@@ -645,7 +545,7 @@
 
 .benchmark-card__layer--mid {
   transform: translate(-4px, -4px);
-  background: rgba(255, 255, 255, 0.55);
+  background: #ffffff;
   z-index: 1;
 }
 
@@ -849,7 +749,7 @@
 }
 
 .dark-mode .benchmark-card__layer--mid {
-  transform: translate(-3.4px, -3px);
+  transform: translate(-4px, -4px);
   background: rgba(34, 20, 58, 0.65);
   border-color: rgba(255, 255, 255, 0.09);
 }
@@ -888,13 +788,6 @@
     margin-top: 2.5rem;
   }
 
-  .project-page--panorama .project-title {
-    font-size: 2.2rem;
-  }
-
-  .project-page--panorama .project-subtitle {
-    font-size: 1rem;
-  }
 }
 
 @media (max-width: 768px) {
@@ -906,25 +799,12 @@
     padding-top: 3.5rem;
     margin-top: 2.25rem;
   }
-
-  .project-page--panorama .project-title {
-    font-size: 2rem;
-  }
 }
 
 @media (max-width: 480px) {
-  .project-page--panorama .project-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-  }
-
   .project-page--panorama:not(.has-banner) .project-container {
     padding-top: 3.1rem;
     margin-top: 1.85rem;
-  }
-
-  .project-page--panorama .project-title {
-    font-size: 1.8rem;
   }
 }
 
