@@ -8,6 +8,7 @@ import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import './FeedOMeter.css';
 import { FeedOMeterUI } from './FeedOMeterUI';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 export const FeedOMeterProject = () => {
   const projectData = PROJECTS['feed-o-meter'];
@@ -26,6 +27,10 @@ export const FeedOMeterProject = () => {
     },
     { type: 'github', href: 'https://github.com/Hyunseung-Lim/Feed-O-Meter' }
   ];
+
+  const { isDark } = useTheme();
+  const baselinePipelineImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'baseline_pipeline_dark.png' : 'baseline_pipeline.png'}`;
+  const interventionPipelineImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'intervention_pipeline_dark.png' : 'intervention_pipeline.png'}`;
 
   return (
     <div className={`${pageClassName} project-page--feed-o-meter`}>
@@ -59,6 +64,13 @@ export const FeedOMeterProject = () => {
           <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
+        <div
+          className="project-divider project-divider--header project-fade-block"
+          role="presentation"
+          aria-hidden="true"
+          ref={fadeInRef}
+        />
+
         <main className="project-content">
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <p className="section-text feedometer-body project-fade-block" ref={fadeInRef}>
@@ -71,6 +83,65 @@ export const FeedOMeterProject = () => {
             </h2>
             <FeedOMeterUI fadeRef={fadeInRef} />
           </section>
+          <section className="project-section project-section__fade feedometer-dr1-section">
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+              DR1: simulate a novice design student
+            </h2>
+            <p className="section-text section-text--small feedometer-dr1-description project-fade-block" ref={fadeInRef}>
+              Our goal was to let users practice providing feedback in scenarios that closely mirror real-life
+              situations while fostering active engagement, rather than the hesitation often seen in traditional
+              environments. To achieve this, we assigned users the role of a mentor and designed scenarios in which they
+              provided feedback on an AI mentee’s design idea.
+            </p>
+            <div className="feedometer-dr1-figure project-fade-block" ref={fadeInRef}>
+              <img
+                src={baselinePipelineImage}
+                alt="Baseline pipeline illustrating how Feed-O-Meter simulates a novice design student"
+                loading="lazy"
+              />
+            </div>
+          </section>
+          <section className="project-section project-section__fade feedometer-dr2-section">
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+              DR2: promote critical reflections on feedback and its effects
+            </h2>
+            <p
+              className="section-text section-text--small feedometer-dr2-description project-fade-block"
+              ref={fadeInRef}
+            >
+              Our system aims not only to provide an environment for practicing feedback but also to help users improve
+              their feedback skills. Instead of prescribing a fixed rubric, we emphasized user autonomy by allowing users
+              observe how their feedback shapes mentee’s ideation process. We designed three components to provide
+              indirect guidance and encourage users to reflect on the impact of their feedback and refine their
+              strategies.
+            </p>
+            <div className="feedometer-dr2-figure project-fade-block" ref={fadeInRef}>
+              <img
+                src={interventionPipelineImage}
+                alt="Intervention pipeline illustrating how Feed-O-Meter promotes critical reflections on feedback and its effects"
+                loading="lazy"
+              />
+            </div>
+          </section>
+          <section className="project-section project-section__fade" ref={fadeInRef}>
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+              Feed-O-Meter Demo
+            </h2>
+            <div className="feedometer-dr2-figure project-fade-block" ref={fadeInRef}>
+              <iframe
+                src="https://www.youtube.com/embed/EsqDqSN2LCI?rel=0"
+                title="Feed-O-Meter demo video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </section>
+          <div
+            className="project-divider project-fade-block"
+            role="presentation"
+            aria-hidden="true"
+            ref={fadeInRef}
+          />
 
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>

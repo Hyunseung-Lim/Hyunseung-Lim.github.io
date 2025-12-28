@@ -70,12 +70,19 @@ export const AquaDesignProject = () => {
           </div>
         </header>
 
+        <div
+          className="project-divider project-divider--header project-fade-block"
+          role="presentation"
+          aria-hidden="true"
+          ref={fadeInRef}
+        />
+
         <main className="project-content">
           <section className="project-section aqua-design-overview">
             <div className="aqua-design-overview__media aqua-design-fade-block" ref={fadeInRef}>
               <img
                 src={overviewImage}
-                alt="Visualization of AQUA asset management interface"
+                alt="Concept image of AQUA"
                 loading="lazy"
               />
             </div>
@@ -98,7 +105,12 @@ export const AquaDesignProject = () => {
                 allowFullScreen
               />
             </div>
-            <div className="aqua-design-divider" role="presentation" aria-hidden="true" />
+            <div
+              className="project-divider project-fade-block"
+              role="presentation"
+              aria-hidden="true"
+              ref={fadeInRef}
+            />
           </section>
 
           <MobileScreenRail

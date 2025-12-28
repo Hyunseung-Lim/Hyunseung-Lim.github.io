@@ -79,6 +79,13 @@ export const DatopiaProject = () => {
           </div>
         </header>
 
+        <div
+          className="project-divider project-divider--header project-fade-block"
+          role="presentation"
+          aria-hidden="true"
+          ref={fadeInRef}
+        />
+
         <main className="project-content">
           <section className="project-section datopia-content">
             <div className="project-description" ref={fadeInRef}>
@@ -105,7 +112,12 @@ export const DatopiaProject = () => {
                 allowFullScreen
               />
             </div>
-            <div className="datopia-divider" role="presentation" aria-hidden="true" />
+            <div
+              className="project-divider project-fade-block"
+              role="presentation"
+              aria-hidden="true"
+              ref={fadeInRef}
+            />
             <section className="datopia-welcome project-fade-block" ref={fadeInRef}>
               <h2 className="section-title datopia-welcome__title">
                 Welcome to Datopia!
@@ -139,7 +151,12 @@ export const DatopiaProject = () => {
               </p>
             </section>
             <div className="datopia-media" ref={fadeInRef}>
-              <div className="datopia-divider" role="presentation" aria-hidden="true" />
+              <div
+                className="project-divider project-fade-block"
+                role="presentation"
+                aria-hidden="true"
+                ref={fadeInRef}
+              />
               <h2 className="section-title datopia-media-title">Exhibition</h2>
               <div className="datopia-figures">
                 {[
@@ -161,7 +178,12 @@ export const DatopiaProject = () => {
                   />
                 ))}
               </div>
-              <div className="datopia-divider" role="presentation" aria-hidden="true" />
+              <div
+                className="project-divider project-fade-block"
+                role="presentation"
+                aria-hidden="true"
+                ref={fadeInRef}
+              />
             </div>
           </section>
         </main>

@@ -94,6 +94,7 @@ export const FeedOMeterUI = ({ fadeRef }) => {
   const resetTimeoutRef = useRef(null);
   const pendingXpRef = useRef(0);
   const isLevelingRef = useRef(false);
+  const isSendingRef = useRef(false);
 
   function finalizeLevelAnimation() {
     isLevelingRef.current = false;
@@ -187,8 +188,10 @@ const randomizeMenteeAvatar = direction => {
 };
 
   const handleSend = () => {
+    if (isSendingRef.current) return;
     const trimmed = chatInput.trim();
     if (!trimmed) return;
+    isSendingRef.current = true;
     const userMessage = { speaker: 'mentor', content: trimmed };
     const menteeReplies = [
       { text: 'Thanks for the feedback!' },
@@ -210,6 +213,12 @@ const randomizeMenteeAvatar = direction => {
     randomizeMetricLevels();
     randomizeMenteeAvatar(selectedReply.direction);
     awardExperience();
+    const releaseSendLock =
+      (typeof window !== 'undefined' && window.requestAnimationFrame) ||
+      ((callback) => window.setTimeout(callback, 0));
+    releaseSendLock(() => {
+      isSendingRef.current = false;
+    });
   };
 
   useEffect(() => {
@@ -235,7 +244,7 @@ const randomizeMenteeAvatar = direction => {
       window.clearTimeout(resetTimeoutRef.current);
     };
   }, []);
-  const menteeAvatarSrc = `${process.env.PUBLIC_URL}/projects/feed-o-meter/student${menteeAvatarKey.row}${menteeAvatarKey.col}.png`;
+  const menteeAvatarSrc = `${process.env.PUBLIC_URL}/projects/feed-o-meter/students/student${menteeAvatarKey.row}${menteeAvatarKey.col}.png`;
   return (
     <section className="feedometer-ui project-fade-block" ref={fadeRef}>
       <div className="feedometer-ui__frame">

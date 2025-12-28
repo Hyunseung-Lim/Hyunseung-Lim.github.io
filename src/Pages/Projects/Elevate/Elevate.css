@@ -1,25 +1,3 @@
-/* Base project layout */
-.project-page--elevate {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg-primary, #ffffff);
-  color: var(--text-primary, #333333);
-  transition:
-    background-color var(--theme-transition-speed) var(--theme-transition-easing),
-    color var(--theme-transition-speed) var(--theme-transition-easing);
-}
-
-.project-page--elevate.has-banner:not(.scrolled-past-banner) .topbar {
-  background: rgba(5, 7, 11, 0.95);
-  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
-}
-
-.project-page--elevate.has-banner.scrolled-past-banner .topbar {
-  background: var(--topbar-bg);
-  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
-}
-
 .project-page--elevate .banner-section {
   position: relative;
   width: 100%;
@@ -55,72 +33,13 @@
   width: 100%;
 }
 
-.project-page--elevate .project-container {
-  flex: 1;
-  max-width: 824px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.project-page--elevate:not(.has-banner) .project-container {
-  padding-top: 4rem;
-  margin-top: 3.5rem;
-}
-
-.project-page--elevate .project-container .fade-in-element {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity var(--animation-transition-speed) var(--animation-transition-easing),
-    transform var(--animation-transition-speed) var(--animation-transition-easing);
-}
-
-.project-page--elevate .project-container .fade-in-element.fade-in-active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .elevate-award {
   width: 90px;
 }
 
 
-.project-page--elevate .project-content {
-  width: 100%;
-  display: block;
-}
-
-.project-page--elevate .project-section {
-  margin: 0 0 2.5rem 0;
-  line-height: 1.7;
-  padding: 0;
-}
-
-.project-page--elevate .project-section:last-of-type {
-  margin-bottom: 0;
-}
-
-.project-page--elevate .section-text {
-  font-size: 1.05rem;
-  color: var(--text-primary);
-  text-align: left;
-}
-
 .project-page--elevate .elevate-body {
-  font-size: 1rem;
   line-height: 1.65;
-}
-
-.project-page--elevate .section-list {
-  padding-left: 1.5rem;
-  margin: 1rem 0;
-  font-size: 1.05rem;
-  color: var(--text-primary);
-}
-
-.project-page--elevate .section-list li {
-  margin-bottom: 0.5rem;
 }
 
 .project-page--elevate .elevate-overview__copy {
@@ -141,13 +60,6 @@
   width: 100%;
   height: 100%;
   border: 0;
-}
-
-.project-page--elevate .elevate-divider {
-  width: 100%;
-  height: 1px;
-  background: var(--border-primary, #e0e0e0);
-  margin-top: 3rem;
 }
 
 .project-page--elevate .elevate-applications-grid {
@@ -172,9 +84,16 @@
 .project-page--elevate .elevate-applications-row-description,
 .project-page--elevate .elevate-application-description {
   margin-top: 1rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text-primary);
+}
+
+.project-page--elevate .elevate-applications-row-description.project-fade-block,
+.project-page--elevate .elevate-application-description.project-fade-block {
+  transform: translateY(8px);
+}
+
+.project-page--elevate .elevate-applications-row-description.project-fade-block.fade-in-element.fade-in-active,
+.project-page--elevate .elevate-application-description.project-fade-block.fade-in-element.fade-in-active {
+  transform: translateY(0);
 }
 
 .project-page--elevate .elevate-applications-row-description {
@@ -318,15 +237,6 @@
 }
 
 @media (max-width: 992px) {
-  .project-page--elevate .project-container {
-    padding: 1.5rem;
-  }
-
-  .project-page--elevate:not(.has-banner) .project-container {
-    padding-top: 3.5rem;
-    margin-top: 2.5rem;
-  }
-
   .project-page--elevate .banner-section {
     height: min(50vh, 100vw);
     max-height: 50vh;
@@ -335,15 +245,6 @@
 }
 
 @media (max-width: 768px) {
-  .project-page--elevate .project-container {
-    padding: 1rem;
-  }
-
-  .project-page--elevate:not(.has-banner) .project-container {
-    padding-top: 3.5rem;
-    margin-top: 2.25rem;
-  }
-
   .project-page--elevate .banner-section {
     height: min(40vh, 100vw);
     min-height: min(250px, 50vh, 100vw);
@@ -351,11 +252,6 @@
 }
 
 @media (max-width: 480px) {
-  .project-page--elevate:not(.has-banner) .project-container {
-    padding-top: 3.1rem;
-    margin-top: 1.85rem;
-  }
-
   .project-page--elevate .banner-section {
     height: min(35vh, 100vw);
     min-height: min(200px, 50vh, 100vw);
@@ -364,4 +260,7 @@
   .elevate-award {
     width: 70px;
   }
+}
+.project-page--elevate .project-divider:not(.project-divider--header) {
+  margin: 3rem 0 0;
 }

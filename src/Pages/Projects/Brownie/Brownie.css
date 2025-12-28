@@ -1,25 +1,4 @@
 /* Base project layout */
-.project-page--brownie {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg-primary, #ffffff);
-  color: var(--text-primary, #333333);
-  transition:
-    background-color var(--theme-transition-speed) var(--theme-transition-easing),
-    color var(--theme-transition-speed) var(--theme-transition-easing);
-}
-
-.project-page--brownie.has-banner:not(.scrolled-past-banner) .topbar {
-  background: transparent;
-  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
-}
-
-.project-page--brownie.has-banner.scrolled-past-banner .topbar {
-  background: var(--topbar-bg);
-  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
-}
-
 .project-page--brownie .banner-section {
   position: relative;
   width: 100%;
@@ -70,69 +49,8 @@
   border: 0;
 }
 
-.project-page--brownie .brownie-divider {
-  width: 100%;
-  height: 1px;
-  background: var(--border-primary, #e0e0e0);
-  margin-top: 3rem;
-}
-
-.project-page--brownie .project-container {
-  flex: 1;
-  max-width: 824px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.project-page--brownie:not(.has-banner) .project-container {
-  padding-top: 4rem;
-  margin-top: 3.5rem;
-}
-
-.project-page--brownie .project-container .fade-in-element {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity var(--animation-transition-speed) var(--animation-transition-easing),
-    transform var(--animation-transition-speed) var(--animation-transition-easing);
-}
-
-.project-page--brownie .project-container .fade-in-element.fade-in-active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-.project-page--brownie .project-content {
-  width: 100%;
-  display: block;
-}
-
-.project-page--brownie .project-section {
-  margin: 0 0 2.5rem 0;
-  line-height: 1.7;
-  padding: 0;
-}
-
-.project-page--brownie .project-section:last-of-type {
-  margin-bottom: 0;
-}
-
-.project-page--brownie .section-text {
-  font-size: 1.05rem;
-  color: var(--text-primary);
-}
-
-.project-page--brownie .section-list {
-  padding-left: 1.5rem;
-  margin: 1rem 0;
-  font-size: 1.05rem;
-  color: var(--text-primary);
-}
-
-.project-page--brownie .section-list li {
-  margin-bottom: 0.5rem;
+.project-page--brownie .project-divider:not(.project-divider--header) {
+  margin: 3rem 0 0;
 }
 
 .dark-mode .project-page--brownie {
@@ -141,15 +59,6 @@
 }
 
 @media (max-width: 992px) {
-  .project-page--brownie .project-container {
-    padding: 1.5rem;
-  }
-
-  .project-page--brownie:not(.has-banner) .project-container {
-    padding-top: 3.5rem;
-    margin-top: 2.5rem;
-  }
-
   .project-page--brownie .banner-section {
     height: min(50vh, 100vw);
     max-height: 50vh;
@@ -158,15 +67,6 @@
 }
 
 @media (max-width: 768px) {
-  .project-page--brownie .project-container {
-    padding: 1rem;
-  }
-
-  .project-page--brownie:not(.has-banner) .project-container {
-    padding-top: 3.5rem;
-    margin-top: 2.25rem;
-  }
-
   .banner-section.brownie-hero {
     height: min(50vh, 100vw);
     max-height: 50vh;
@@ -193,11 +93,6 @@
 }
 
 @media (max-width: 480px) {
-  .project-page--brownie:not(.has-banner) .project-container {
-    padding-top: 3.1rem;
-    margin-top: 1.85rem;
-  }
-
   .banner-section.brownie-hero {
     height: min(50vh, 100vw);
     max-height: 50vh;

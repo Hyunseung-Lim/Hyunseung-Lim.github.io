@@ -55,6 +55,13 @@ export const ProjectTemplate = () => {
           </div>
         </header>
 
+        <div
+          className="project-divider project-divider--header project-fade-block"
+          role="presentation"
+          aria-hidden="true"
+          ref={fadeInRef}
+        />
+
         <main className="project-content">
           <section className="project-section">
             <h2 className="section-title">Overview</h2>

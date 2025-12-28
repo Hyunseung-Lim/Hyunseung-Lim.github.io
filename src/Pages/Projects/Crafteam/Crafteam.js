@@ -58,6 +58,13 @@ export const CrafteamProject = () => {
           <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
+        <div
+          className="project-divider project-divider--header project-fade-block"
+          role="presentation"
+          aria-hidden="true"
+          ref={fadeInRef}
+        />
+
         <main className="project-content">
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <p className="section-text crafteam-body project-fade-block" ref={fadeInRef}>

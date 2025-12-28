@@ -1,27 +1,8 @@
 /* Base project layout */
 .project-page--feed-o-meter {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg-primary, #ffffff);
-  color: var(--text-primary, #333333);
   --feedometer-border-radius: 10px;
   --feedometer-border-color: rgba(24, 30, 56, 0.15);
   --feedometer-border-width: 1px;
-  transition:
-    background-color var(--theme-transition-speed) var(--theme-transition-easing),
-    color var(--theme-transition-speed) var(--theme-transition-easing);
-}
-
-
-.project-page--feed-o-meter.has-banner:not(.scrolled-past-banner) .topbar {
-  background: transparent;
-  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
-}
-
-.project-page--feed-o-meter.has-banner.scrolled-past-banner .topbar {
-  background: var(--topbar-bg);
-  transition: background var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 .project-page--feed-o-meter .banner-section {
@@ -37,46 +18,6 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-}
-
-.project-page--feed-o-meter .project-container {
-  flex: 1;
-  max-width: 824px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.project-page--feed-o-meter:not(.has-banner) .project-container {
-  padding-top: 4rem;
-  margin-top: 3.5rem;
-}
-
-.project-page--feed-o-meter .project-container .fade-in-element {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity var(--animation-transition-speed) var(--animation-transition-easing),
-    transform var(--animation-transition-speed) var(--animation-transition-easing);
-}
-
-.project-page--feed-o-meter .project-container .fade-in-element.fade-in-active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.project-page--feed-o-meter .project-header {
-  position: relative;
-  text-align: center;
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--border-primary, #e0e0e0);
-}
-
-@media (min-width: 769px) {
-  .project-page--feed-o-meter .project-header {
-    padding-bottom: 1.5rem;
-  }
 }
 
 .project-page--feed-o-meter .project-header__fade-block {
@@ -155,13 +96,7 @@
   margin-bottom: 0;
 }
 
-.project-page--feed-o-meter .section-text {
-  font-size: 1.05rem;
-  color: var(--text-primary);
-}
-
 .project-page--feed-o-meter .feedometer-body {
-  font-size: 1rem;
   line-height: 1.65;
   text-align: left;
 }
@@ -169,7 +104,8 @@
 .project-page--feed-o-meter .section-list {
   padding-left: 1.5rem;
   margin: 1rem 0;
-  font-size: 1.05rem;
+  font-size: 1rem;
+  line-height: 1.65;
   color: var(--text-primary);
 }
 
@@ -179,6 +115,68 @@
 
 .feedometer-ui-section .section-title {
   margin-bottom: 0.6rem;
+}
+
+.project-page--feed-o-meter .feedometer-dr1-section .section-title {
+  margin-bottom: 0.85rem;
+  text-align: left;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.project-page--feed-o-meter .feedometer-dr1-description {
+  color: var(--text-secondary, #5d6273);
+  margin: 0.2rem 0 0.75rem;
+}
+
+.project-page--feed-o-meter .feedometer-dr1-figure {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.project-page--feed-o-meter .feedometer-dr1-figure img {
+  display: block;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.project-page--feed-o-meter .feedometer-dr2-section .section-title {
+  margin-bottom: 0.85rem;
+  text-align: left;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+@media (max-width: 480px) {
+  .project-page--feed-o-meter .feedometer-dr1-section .section-title,
+  .project-page--feed-o-meter .feedometer-dr2-section .section-title {
+    font-size: 0.9rem;
+    line-height: 1.1;
+  }
+}
+
+.project-page--feed-o-meter .feedometer-dr2-figure {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.project-page--feed-o-meter .feedometer-dr2-description {
+  color: var(--text-secondary, #5d6273);
+  margin: 0.2rem 0 0.75rem;
+}
+
+.project-page--feed-o-meter .feedometer-dr2-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.project-page--feed-o-meter .feedometer-dr2-figure iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  display: block;
 }
 
 .feedometer-ui {
@@ -1032,15 +1030,6 @@
 }
 
 @media (max-width: 992px) {
-  .project-page--feed-o-meter .project-container {
-    padding: 1.5rem;
-  }
-
-  .project-page--feed-o-meter:not(.has-banner) .project-container {
-    padding-top: 3.5rem;
-    margin-top: 2.5rem;
-  }
-
   .project-page--feed-o-meter .project-title {
     font-size: 2.2rem;
   }
@@ -1065,15 +1054,6 @@
 
 
 @media (max-width: 768px) {
-  .project-container {
-    padding: 1rem;
-  }
-
-  .project-page--feed-o-meter:not(.has-banner) .project-container {
-    padding-top: 3.5rem;
-    margin-top: 2.25rem;
-  }
-
   .project-page--feed-o-meter .project-title {
     font-size: 2rem;
   }
@@ -1083,9 +1063,6 @@
     min-height: 250px;
   }
 
-  .section-text.feedometer-body {
-    font-size: 0.9rem;
-  }
 }
 
 @media (min-width: 769px) {
@@ -1095,16 +1072,6 @@
 }
 
 @media (max-width: 480px) {
-  .project-page--feed-o-meter .project-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-  }
-
-  .project-page--feed-o-meter:not(.has-banner) .project-container {
-    padding-top: 3.1rem;
-    margin-top: 1.85rem;
-  }
-
   .project-page--feed-o-meter .project-title {
     font-size: 1.8rem;
   }

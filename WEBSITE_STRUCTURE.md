@@ -314,75 +314,10 @@ src/Pages/Projects/
 
 > 모든 개별 프로젝트 페이지는 `PROJECTS`(src/Data/projectsMeta.js)에서 메타 정보를 불러와 직접 Topbar/헤더/본문 블록을 구성합니다.
 
-### FadeIn 애니메이션 시스템 ⭐ 중앙 제어
-> **2025-09-25**: fadeIn 애니메이션 시스템 완전 개편 및 중앙 제어 구현
-
-#### 1. **중앙 제어 CSS Variables**
-```css
-/* src/styles/transitions.css에서 전역 관리 */
-:root {
-  --animation-transition-speed: 0.6s;  /* fadeIn 속도 */
-  --animation-transition-easing: ease-out;  /* fadeIn 이징 */
-}
-```
-
-#### 2. **중앙 제어 클래스**
-```css
-.fade-in-element {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity var(--animation-transition-speed) var(--animation-transition-easing),
-    transform var(--animation-transition-speed) var(--animation-transition-easing);
-}
-
-.fade-in-element:not(.fade-in-active) {
-  opacity: 0;
-  transform: translateY(24px);
-}
-```
-
-#### 3. **useFadeInAnimation 사용법**
-- `const fadeInRef = useFadeInAnimation();` 형태로 호출 (threshold 기본값 0.1)
-- `ref={fadeInRef}`를 원하는 요소에 전달하면 뷰포트 진입 시 자동으로 `.fade-in-active`가 부여됨
-
-#### 4. **Fade-in 미동작 시 체크리스트**
-> 자세한 가이드는 `FADEIN_GUIDE.md` 참고
-1. **부모/자식에 ref 중복 여부**: 부모 `.project-section`에 ref가 붙어 있으면 자식 텍스트가 이미 표시된 상태로 렌더될 수 있음. 필요하다면 자식 요소에만 ref 적용.
-2. **CSS 전환 덮어쓰기 확인**: `.project-container *` 등 전역 규칙이 opacity/transform transition을 제거하지 않는지 점검. 필요한 요소에는 명시적으로 transition을 선언.
-3. **초기 상태 설정 여부**: fade 대상 요소의 기본 상태가 `opacity:0`, `transform`으로 숨겨져 있는지 확인. 기본값이 1이면 전환이 체감되지 않음.
-4. **뷰포트 초기 위치**: 페이지 진입 시 이미 화면 안에 있으면 훅이 빠르게 `fade-in-active`를 붙인다. 이때는 자식 요소에 ref를 주거나 한 프레임 지연시키는 방식으로 조정.
-5. **ref 전달 대상**: React Fragment나 커스텀 컴포넌트에 ref를 주면 DOM 노드가 전달되지 않는다. 실제 DOM 요소에 ref가 연결됐는지 확인.
-6. **OS 접근성 설정**: Reduce Motion을 켜면 브라우저가 애니메이션을 최소화할 수도 있음.
-
-#### 5. **페이지별 적용 상태**
-- ✅ **Main / About / Projects / Publications / 개별 프로젝트 페이지**: 전부 `.fade-in-element` 시스템으로 통일
-- ✅ `.animation` 기반 레거시는 완전히 제거됨
-- ✅ 프로젝트 카드, 퍼블리케이션 텍스트 모두 동일한 fade + 24px slide-up 모션 공유
-
-#### 6. **중앙 제어 애니메이션 사양**
-| 항목 | 값 |
-|------|----|
-| 초기 상태 | opacity 0, translateY(24px) |
-| 활성 상태 | opacity 1, translateY(0) |
-| 기본 속도 | `--animation-transition-speed` (0.6s ease-out) |
-
-#### 7. **적용 방법 요약**
-1. `const fadeInRef = useFadeInAnimation();` 선언
-2. `ref={fadeInRef}`만 부여하면 모든 요소가 동일한 타이밍으로 등장
-
-### 애니메이션 시스템 (최신)
-- Intersection Observer 기반으로 엔트리 시점에만 class 토글
-- 초기 viewport 안에 있는 요소는 두 프레임 지연 후 활성화시켜 부드러운 전환 보장
-- 모든 애니메이션 속성은 `src/styles/transitions.css`에서 일괄 관리
-- **폴백 체계**: `useFadeInAnimation`이 Intersection Observer에 등록되면, 스크롤/리사이즈 이벤트에서 뷰포트 안 요소를 재검증하여 누락된 섹션도 강제로 `fade-in-active` 상태로 전환
-- **프로젝트 섹션 등록**: 각 프로젝트 컴포넌트가 필요한 섹션에 직접 `useFadeInAnimation` ref를 연결
-
-### 반응형 설계
-- **4단계 브레이크포인트**: 992px, 768px, 480px
-- **상단바 겹침 방지**: 배너 없는 프로젝트는 자동 padding-top 적용
-- **모바일 최적화**: 배너 높이, 폰트 크기, 여백 조정
-- **Aqua Design 특화**: 모바일에서는 텍스트가 먼저, 이미지가 나중에 나오며 이미지 폭을 75%로 줄여 세로 스크롤 가독성을 확보
+### 스타일 & 애니메이션 가이드
+- 전역 레이아웃, 타이포그래피, 헤더/본문 divider, 페이드인 규칙 등은 `WEBSITE_STYLE.md`에서 관리합니다.
+  - `.project-divider` 및 `.project-divider--header` 사용법, 전역 `.section-text`/`section-text--small` 크기, 헤더 보더 제거 등 최근 작업 내용이 모두 포함되어 있습니다.
+- 페이드인 문제 해결이나 ref 사용 가이드는 `FADEIN_GUIDE.md`를 참고하세요.
 
 ## 향후 수정 시 주의사항
 1. **데이터 추가**: `src/Data/` 폴더의 JSON 파일들 수정 (기존 시스템)
@@ -400,26 +335,6 @@ src/Pages/Projects/
 - **CSS 변수 활용**: 다크/라이트 모드 간 부드러운 전환
 - **공통 스타일 재사용**: `ProjectTemplate.js`와 `components.css`를 통해 레이아웃을 통일하고, 로직은 각 프로젝트가 직접 제어
 - **접근성 고려**: 적절한 alt 텍스트, focus state 제공
-
-## 테마 전환 시스템 (Theme Transition System)
-
-### 중앙 제어 시스템
-모든 테마 전환 애니메이션은 `src/styles/transitions.css`에서 중앙 관리됩니다:
-
-```css
-:root {
-  --theme-transition-speed: 0.3s;        /* 테마 색상 전환 */
-  --animation-transition-speed: 0.6s;    /* 페이드인/아웃 */
-  --hover-transition-speed: 0.2s;        /* 호버 효과 */
-  --layout-transition-speed: 0.3s;       /* 레이아웃 변경 */
-}
-```
-
-### 핵심 설계 원칙
-1. **애니메이션과 색상 전환 분리**: `.fade-in-element`로 제어되는 애니메이션과 일반 텍스트 전환을 분리해 충돌 방지
-2. **전역 텍스트 요소 적용**: 모든 h1-h6, p, span, div, a, li 등에 자동 적용
-3. **!important 우선순위**: 복합 transition에서 색상 전환이 무시되지 않도록 보장
-4. **CSS 변수 일관성**: 하드코딩된 값 대신 CSS 변수 사용으로 중앙 제어
 
 ### 문제 해결 히스토리
 - **Publication 페이지 딜레이**: 과거 `.animation` 클래스 기반 구현에서 발생한 전환 지연을 `.fade-in-element` 시스템으로 해결
@@ -460,4 +375,4 @@ src/Pages/Projects/
    - `mobile-screen-rail__heading`에 모바일 폰트 사이즈(1.25rem)를 추가해 프로젝트별 모바일 캐러셀 제목도 공통 타이포 범위 내에서 유지합니다.
 
 ---
-*최종 업데이트: 2025년 12월 27일*
+*최종 업데이트: 2025년 12월 28일*

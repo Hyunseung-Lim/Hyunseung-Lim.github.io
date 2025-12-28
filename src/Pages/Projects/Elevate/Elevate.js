@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Topbar } from '../../../Components/Topbar/topbar';
 import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
@@ -81,6 +81,13 @@ export const ElevateProject = () => {
   ];
 
   const applicationsGridRef = useRef(null);
+  const handleApplicationsGridRef = useCallback(
+    (node) => {
+      applicationsGridRef.current = node;
+      fadeInRef(node);
+    },
+    [fadeInRef]
+  );
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -180,6 +187,13 @@ export const ElevateProject = () => {
           <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
+        <div
+          className="project-divider project-divider--header project-fade-block"
+          role="presentation"
+          aria-hidden="true"
+          ref={fadeInRef}
+        />
+
         <main className="project-content">
           <section className="project-section elevate-overview">
             <div className="elevate-overview__copy project-fade-block" ref={fadeInRef}>
@@ -202,68 +216,81 @@ export const ElevateProject = () => {
                 allowFullScreen
               />
             </div>
-            <div className="elevate-divider" role="presentation" aria-hidden="true" />
+            <div
+              className="project-divider project-fade-block"
+              role="presentation"
+              aria-hidden="true"
+              ref={fadeInRef}
+            />
           </section>
 
           <section className="project-section elevate-applications">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Applications
             </h2>
-            <div
-              className={`elevate-applications-grid${activeApplication ? ' has-active' : ''}`}
-              ref={applicationsGridRef}
-              style={gridStyle ?? undefined}
-            >
-              {applicationRows.map((row, rowIndex) => {
-                const rowHasActive = row.some((image) => image.name === activeApplication);
-                return (
-                  <div key={`row-${rowIndex}`} className="elevate-applications-row-group">
-                    <div
-                      className={`elevate-applications-row${rowHasActive ? ' has-active' : ''}`}
-                    >
-                      {row.map((image) => {
-                        const isActive = activeApplication === image.name;
-                        return (
-                          <button
-                            type="button"
-                            className={`elevate-applications-grid__item${
-                              isActive ? ' is-active' : ''
-                            }`}
-                            key={image.src}
-                            onClick={() =>
-                              setActiveApplication((current) => (current === image.name ? null : image.name))
-                            }
-                            data-item={image.name}
-                          >
-                            <img
-                              src={image.src}
-                              alt={image.alt}
-                              loading="lazy"
-                              style={image.objectPosition ? { objectPosition: image.objectPosition } : undefined}
-                            />
-                            {image.label && (
-                              <span className="elevate-applications-grid__label">{image.label}</span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
+            <p className="section-text project-fade-block" ref={fadeInRef}>
+              To showcase a wide range of uses of our device, we implemented four distinct applications: three
+              virtual reality applications, and one stand-alone application that makes use of dynamic terrains.
+            </p>
+            <div className="project-fade-block" ref={fadeInRef}>
+              <div
+                className={`elevate-applications-grid${activeApplication ? ' has-active' : ''}`}
+                ref={handleApplicationsGridRef}
+                style={gridStyle ?? undefined}
+              >
+                {applicationRows.map((row, rowIndex) => {
+                  const rowHasActive = row.some((image) => image.name === activeApplication);
+                  return (
+                    <div key={`row-${rowIndex}`} className="elevate-applications-row-group">
+                      <div
+                        className={`elevate-applications-row${rowHasActive ? ' has-active' : ''}`}
+                      >
+                        {row.map((image) => {
+                          const isActive = activeApplication === image.name;
+                          return (
+                            <button
+                              type="button"
+                              className={`elevate-applications-grid__item${
+                                isActive ? ' is-active' : ''
+                              }`}
+                              key={image.src}
+                              onClick={() =>
+                                setActiveApplication((current) => (current === image.name ? null : image.name))
+                              }
+                              data-item={image.name}
+                            >
+                              <img
+                                src={image.src}
+                                alt={image.alt}
+                                loading="lazy"
+                                style={image.objectPosition ? { objectPosition: image.objectPosition } : undefined}
+                              />
+                              {image.label && (
+                                <span className="elevate-applications-grid__label">{image.label}</span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
                     {rowHasActive && (
                       <p
-                        className="elevate-applications-row-description project-fade-block"
+                        key={`row-description-${activeApplication ?? 'none'}`}
+                        className="section-text elevate-applications-row-description project-fade-block"
                         aria-live="polite"
                         ref={fadeInRef}
                       >
                         {activeDescription}
                       </p>
                     )}
-                  </div>
-                );
-              })}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             {activeDescription && (
               <p
-                className="elevate-application-description project-fade-block"
+                key={`active-description-${activeApplication ?? 'none'}`}
+                className="section-text elevate-application-description project-fade-block"
                 aria-live="polite"
                 ref={fadeInRef}
               >

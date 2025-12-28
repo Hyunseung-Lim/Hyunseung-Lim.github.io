@@ -57,14 +57,14 @@ export const BrownieProject = () => {
           </div>
         </header>
 
-        <main className="project-content">
-          <section className="project-section project-section__fade" ref={fadeInRef}>
-            <h2 className="section-title">Overview</h2>
-            <p className="section-text">
-              Brownie explores how AI can help small bakery teams co-design inclusive dessert offerings by blending customer flavor preferences with nutrition constraints and playfulness.
-            </p>
-          </section>
+        <div
+          className="project-divider project-divider--header project-fade-block"
+          role="presentation"
+          aria-hidden="true"
+          ref={fadeInRef}
+        />
 
+        <main className="project-content">
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <div className="brownie-video-frame">
               <iframe
@@ -74,7 +74,12 @@ export const BrownieProject = () => {
                 allowFullScreen
               />
             </div>
-            <div className="brownie-divider" role="presentation" aria-hidden="true" />
+            <div
+              className="project-divider project-fade-block"
+              role="presentation"
+              aria-hidden="true"
+              ref={fadeInRef}
+            />
           </section>
 
         </main>

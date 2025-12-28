@@ -90,6 +90,13 @@ series = {FAccT '25}
           <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
+        <div
+          className="project-divider project-divider--header project-fade-block"
+          role="presentation"
+          aria-hidden="true"
+          ref={fadeInRef}
+        />
+
         <main className="project-content">
           <section className="project-section">
             <p className="section-text project-fade-block stereohunter-body" ref={fadeInRef}>
@@ -101,7 +108,12 @@ series = {FAccT '25}
               responses from LLMs.
             </p>
           </section>
-          <div className="stereohunter-divider" role="presentation" aria-hidden="true" />
+          <div
+            className="project-divider project-fade-block"
+            role="presentation"
+            aria-hidden="true"
+            ref={fadeInRef}
+          />
           <section className="project-section stereohunter-bibtex">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
             <BibtexCard ref={fadeInRef} text={bibtexEntry} className="project-fade-block" />

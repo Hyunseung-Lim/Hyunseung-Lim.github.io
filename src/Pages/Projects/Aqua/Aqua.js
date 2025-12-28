@@ -80,10 +80,17 @@ export const AquaProject = () => {
           <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
 
+        <div
+          className="project-divider project-divider--header project-fade-block"
+          role="presentation"
+          aria-hidden="true"
+          ref={fadeInRef}
+        />
+
         <main className="project-content">
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <p className="section-text aqua-body project-fade-block" ref={fadeInRef}>
-              Research promotion enables researchers to share advanced knowledge with pertinent academic communities. The question-and-answer (QA) style articles are effective for researchers to promote their research by enabling readers to understand research on complex subjects. Recent advances in large language models have opened avenues for supporting researchers in creating QA-style articles for research promotion. However, without the authors’ involvement, these models may only partially capture the researcher’s intention and voice. We developed AQUA, a research probe that enables researchers to co-create QA-style articles with LLMs to promote their research papers.
+              Research promotion enables researchers to share advanced knowledge with pertinent academic communities. Recent advances in large language models have opened avenues for supporting researchers in creating QA-style articles for research promotion. However, without the authors’ involvement, models may only partially capture the researcher’s intention and voice. We developed AQUA, a research probe that enables researchers to co-create QA-style articles with LLMs to promote their research papers.
             </p>
           </section>
 
