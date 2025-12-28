@@ -13,7 +13,9 @@ export const ElevateProject = () => {
   const projectData = PROJECTS.elevate;
   const [scrollRoot, setScrollRoot] = useState(null);
   const [activeApplication, setActiveApplication] = useState(null);
+  const [activeHardware, setActiveHardware] = useState(null);
   const [gridStyle, setGridStyle] = useState(null);
+  const [hardwareGridStyle, setHardwareGridStyle] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
   const desktopBanner =
@@ -70,6 +72,75 @@ export const ElevateProject = () => {
     return rows;
   }, []);
   const activeDescription = activeApplication ? applicationDescriptions[activeApplication] : null;
+  const hardwareImages = [
+    { name: 'hard1', label: 'Overview', objectPosition: '40% center' },
+    { name: 'hard2', label: 'Pin-array', isNonBreaking: true },
+    { name: 'hard3', label: 'Shape Generator' },
+    { name: 'hard4', label: 'Locking System' }
+  ].map((entry, index) => ({
+    ...entry,
+    src: `${process.env.PUBLIC_URL}/projects/elevate/${entry.name}.png`,
+    alt: `Elevate hardware section ${index + 1}`
+  }));
+  const hardwareDetails = {
+    hard1: {
+      description: (
+        <>
+          <strong>Elevate</strong> is mounted on a box-framed structure made from aluminum profiles (120 cm wide × 248 cm
+          deep × 73 cm high). The top of the box (at 73 cm) is the actuated platform, covered with a smooth 15T birch
+          plywood sheet that houses the pins and prevents collisions. In the middle, a layered structure of a 6T acrylic
+          sheet and a 14T iron plate is glued together. Together, these elements form a sturdy platform that supports the
+          weight of an average user.
+        </>
+      ),
+      detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard1-detail.png`,
+      detailAlt: 'Detail view of the Elevate structural enclosure and layered platform.'
+    },
+    hard2: {
+      description: (
+        <>
+          <strong>Pin-array</strong> contains 1,200 wooden pins paired with 14,400 magnets and 1,200 metal plates. Each
+          pin is machined from birch plywood and rated for 150&nbsp;mm of vertical displacement so the surface can morph
+          into varied terrains.
+        </>
+      ),
+      detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard2-detail.png`,
+      detailAlt: 'Close-up of Elevate pin-array construction.'
+    },
+    hard3: {
+      description: (
+        <>
+          <strong>Shape Generator</strong> is the core of the system. It individually pushes or pulls each of the 1,200
+          pins to render different terrains and features. To reduce the number of actuators required for independent
+          height control, we designed a shape generator that moves row by row along a rail beneath the pin platform and
+          simultaneously pushes or pulls all pins in the same row.
+        </>
+      ),
+      detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard3-detail.png`,
+      detailAlt: 'Shape generator module traveling under the Elevate platform.'
+    },
+    hard4: {
+      description: (
+        <>
+          <strong>Locking System</strong> firmly secures the pins at a specific height to form the desired terrain shape
+          and allow users to walk over it. To lock 1,200 pins with a minimal number of motors, we developed a modular
+          locking mechanism composed of four aluminum pipes and two servo motors. By replicating 15 modules, it covers 60
+          columns and all 1,200 pins.
+        </>
+      ),
+      detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard4-detail.png`,
+      detailAlt: 'Locking system module that stabilizes Elevate pins.'
+    }
+  };
+  const hardwareRows = hardwareImages.reduce((rows, item, index) => {
+    if (index % 2 === 0) {
+      rows.push([item]);
+    } else {
+      rows[rows.length - 1].push(item);
+    }
+    return rows;
+  }, []);
+  const activeHardwareDetail = activeHardware ? hardwareDetails[activeHardware] : null;
   const resourceLinks = [
     {
       type: 'paper',
@@ -81,6 +152,7 @@ export const ElevateProject = () => {
   ];
 
   const applicationsGridRef = useRef(null);
+  const hardwareGridRef = useRef(null);
   const handleApplicationsGridRef = useCallback(
     (node) => {
       applicationsGridRef.current = node;
@@ -88,51 +160,80 @@ export const ElevateProject = () => {
     },
     [fadeInRef]
   );
+  const handleHardwareGridRef = useCallback(
+    (node) => {
+      hardwareGridRef.current = node;
+      fadeInRef(node);
+    },
+    [fadeInRef]
+  );
+  const renderActiveHardwareDetail = () => {
+    if (!activeHardwareDetail) return null;
+    return (
+      <>
+        <p className="elevate-hardware-detail__copy">{activeHardwareDetail.description}</p>
+        {activeHardwareDetail.detailImage && (
+          <img
+            src={activeHardwareDetail.detailImage}
+            alt={activeHardwareDetail.detailAlt}
+            className="elevate-hardware-detail__image"
+            loading="lazy"
+          />
+        )}
+      </>
+    );
+  };
 
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
 
-    const calculateTileSize = () => {
-      const gridElement = applicationsGridRef.current;
+    const calculateTileSize = (gridElement, setter) => {
       if (!gridElement) {
+        setter(null);
         return;
       }
       const prefersDesktop = window.matchMedia('(min-width: 769px)').matches;
       if (!prefersDesktop) {
-        setGridStyle(null);
+        setter(null);
         return;
       }
       const styles = window.getComputedStyle(gridElement);
       const gapValue = parseFloat(styles.columnGap || styles.gap || '0') || 0;
       const availableWidth = gridElement.clientWidth - gapValue * 3;
       if (availableWidth <= 0) {
-        setGridStyle(null);
+        setter(null);
         return;
       }
-      setGridStyle({ '--tile-base-size': `${availableWidth / 4}px` });
+      setter({ '--tile-base-size': `${availableWidth / 4}px` });
     };
 
-    calculateTileSize();
+    const recalcAll = () => {
+      calculateTileSize(applicationsGridRef.current, setGridStyle);
+      calculateTileSize(hardwareGridRef.current, setHardwareGridStyle);
+    };
 
-    const resizeObserver =
-      typeof ResizeObserver !== 'undefined'
-        ? new ResizeObserver(() => calculateTileSize())
-        : null;
-    if (resizeObserver) {
-      const gridElement = applicationsGridRef.current;
-      if (gridElement) {
-        resizeObserver.observe(gridElement);
-      }
+    recalcAll();
+
+    const observers = [];
+    if (typeof ResizeObserver !== 'undefined') {
+      const setupObserver = (ref, setter) => {
+        const node = ref.current;
+        if (!node) return;
+        const observer = new ResizeObserver(() => calculateTileSize(ref.current, setter));
+        observer.observe(node);
+        observers.push(observer);
+      };
+      setupObserver(applicationsGridRef, setGridStyle);
+      setupObserver(hardwareGridRef, setHardwareGridStyle);
     }
-    window.addEventListener('resize', calculateTileSize);
+
+    window.addEventListener('resize', recalcAll);
 
     return () => {
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-      }
-      window.removeEventListener('resize', calculateTileSize);
+      observers.forEach((observer) => observer.disconnect());
+      window.removeEventListener('resize', recalcAll);
     };
   }, []);
 
@@ -222,6 +323,81 @@ export const ElevateProject = () => {
               aria-hidden="true"
               ref={fadeInRef}
             />
+          </section>
+
+          <section className="project-section elevate-applications elevate-hardware">
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+              Hardware
+            </h2>
+            <p className="section-text project-fade-block" ref={fadeInRef}>
+              Elevate is made of three components: 1200 pins, a shape generator, and a locking system.
+            </p>
+            <div className="project-fade-block" ref={fadeInRef}>
+              <div
+                className={`elevate-applications-grid${activeHardware ? ' has-active' : ''}`}
+                ref={handleHardwareGridRef}
+                style={hardwareGridStyle ?? undefined}
+              >
+                {hardwareRows.map((row, rowIndex) => {
+                  const rowHasActive = row.some((image) => image.name === activeHardware);
+                  return (
+                    <div key={`hardware-row-${rowIndex}`} className="elevate-applications-row-group">
+                      <div className={`elevate-applications-row${rowHasActive ? ' has-active' : ''}`}>
+                        {row.map((image) => {
+                          const isActive = activeHardware === image.name;
+                          return (
+                            <button
+                              type="button"
+                              className={`elevate-applications-grid__item${isActive ? ' is-active' : ''}`}
+                              key={image.src}
+                              onClick={() =>
+                                setActiveHardware((current) => (current === image.name ? null : image.name))
+                              }
+                              data-item={image.name}
+                            >
+                              <img
+                                src={image.src}
+                                alt={image.alt}
+                                loading="lazy"
+                                style={image.objectPosition ? { objectPosition: image.objectPosition } : undefined}
+                              />
+                              {image.label && (
+                                <span
+                                  className="elevate-applications-grid__label"
+                                  style={image.isNonBreaking ? { whiteSpace: 'nowrap' } : undefined}
+                                >
+                                  {image.label}
+                                </span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      {rowHasActive && activeHardwareDetail && (
+                        <div
+                          key={`hardware-row-description-${activeHardware ?? 'none'}`}
+                          className="elevate-hardware-detail elevate-applications-row-description project-fade-block"
+                          aria-live="polite"
+                          ref={fadeInRef}
+                        >
+                          {renderActiveHardwareDetail()}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            {activeHardwareDetail && (
+              <div
+                key={`hardware-description-${activeHardware ?? 'none'}`}
+                className="elevate-hardware-detail elevate-application-description project-fade-block"
+                aria-live="polite"
+                ref={fadeInRef}
+              >
+                {renderActiveHardwareDetail()}
+              </div>
+            )}
           </section>
 
           <section className="project-section elevate-applications">

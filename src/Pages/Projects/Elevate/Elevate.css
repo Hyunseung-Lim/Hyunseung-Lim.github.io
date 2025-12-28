@@ -81,9 +81,32 @@
   display: contents;
 }
 
-.project-page--elevate .elevate-applications-row-description,
+.project-page--elevate .elevate-applications-row-description {
+  margin: 0 0 1rem;
+}
+
 .project-page--elevate .elevate-application-description {
-  margin-top: 1rem;
+  margin: 1rem 0 1rem;
+}
+
+.project-page--elevate .elevate-hardware-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-page--elevate .elevate-hardware-detail.elevate-applications-row-description {
+  margin-top: 0;
+}
+
+.project-page--elevate .elevate-hardware-detail__copy {
+  margin: 0 0 1rem;
+  text-align: left;
+}
+
+.project-page--elevate .elevate-hardware-detail__image {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
 }
 
 .project-page--elevate .elevate-applications-row-description.project-fade-block,
