@@ -171,7 +171,9 @@ export const ElevateProject = () => {
     if (!activeHardwareDetail) return null;
     return (
       <>
-        <p className="elevate-hardware-detail__copy">{activeHardwareDetail.description}</p>
+        <p className="section-text section-text--small elevate-hardware-detail__copy">
+          {activeHardwareDetail.description}
+        </p>
         {activeHardwareDetail.detailImage && (
           <img
             src={activeHardwareDetail.detailImage}
@@ -299,11 +301,7 @@ export const ElevateProject = () => {
           <section className="project-section elevate-overview">
             <div className="elevate-overview__copy project-fade-block" ref={fadeInRef}>
               <p className="section-text elevate-body">
-                <strong>Elevate</strong> enables users to experience large variations in shapes as well as the finer
-                details of terrains. Current head-mounted displays let people freely explore virtual worlds, which drove
-                researchers to build haptic floors that render elevation changes. However, many previous systems were
-                limited either by tabletop scale or by low resolution. Elevate tackles this by tightly packing 1,200
-                actuated pins into a walkable platform, each pin capable of ten height levels.
+                Current head-mounted displays let users explore virtual worlds by simply walking through them, which has led researchers to create haptic displays that simulate different elevation shapes. However, existing shape-changing floors are limited to tabletop scale or can only display coarse terrains due to a limited number of actuators and low vertical resolution. To address this, we introduce Elevate, a dynamic and walkable pin-array floor that supports both large shape variations and fine-grained terrain details.
               </p>
             </div>
           </section>
@@ -330,7 +328,7 @@ export const ElevateProject = () => {
               Hardware
             </h2>
             <p className="section-text project-fade-block" ref={fadeInRef}>
-              Elevate is made of three components: 1200 pins, a shape generator, and a locking system.
+              <strong>Elevate</strong> enables users to experience large variations in shapes as well as the finer details of terrains. It is made of three components: 1200 pins, a shape generator, and a locking system.
             </p>
             <div className="project-fade-block" ref={fadeInRef}>
               <div
