@@ -7,6 +7,7 @@ import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
+import { StereoHunterUI } from './StereoHunterUI';
 import './StereoHunter.css';
 
 export const StereoHunterProject = () => {
@@ -98,7 +99,7 @@ series = {FAccT '25}
         />
 
         <main className="project-content">
-          <section className="project-section">
+          <section className="project-section project-section__fade">
             <p className="section-text project-fade-block stereohunter-body" ref={fadeInRef}>
               Stereotypical biases in large language models have the potential to result in discriminatory responses,
               posing harm to users and disrupting interactions. While prior research has predominantly focused on assessing
@@ -107,6 +108,12 @@ series = {FAccT '25}
               how individuals identify and perceive stereotypes by observing interactions in which users elicit stereotypical
               responses from LLMs.
             </p>
+          </section>
+          <section className="project-section project-section__fade stereohunter-ui-section" ref={fadeInRef}>
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+              StereoHunter UI
+            </h2>
+            <StereoHunterUI fadeRef={fadeInRef} />
           </section>
           <div
             className="project-divider project-fade-block"

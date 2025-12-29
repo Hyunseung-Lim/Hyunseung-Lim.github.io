@@ -325,7 +325,7 @@ export const ElevateProject = () => {
 
           <section className="project-section elevate-applications elevate-hardware">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
-              Hardware
+              System Implementation
             </h2>
             <p className="section-text project-fade-block" ref={fadeInRef}>
               <strong>Elevate</strong> enables users to experience large variations in shapes as well as the finer details of terrains. It is made of three components: 1200 pins, a shape generator, and a locking system.

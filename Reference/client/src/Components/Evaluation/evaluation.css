@@ -1,0 +1,144 @@
+.evaluation {
+    display:grid;
+    overflow: scroll;
+    overflow-x:hidden; 
+    overflow-y:auto; 
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+}
+
+.evaluationLeft {
+    padding: 20px 50px;
+}
+
+.evaluationRight {
+    padding: 20px 50px;
+}
+
+.evalType {
+    margin-bottom: 20px;
+}
+
+.evalType > .title {
+    margin-bottom: 10px;
+}
+
+.secondaryTitle {
+    margin-top: 2px;
+    color: #888888;
+    font-size: 14px;
+}
+
+.evalVariable {
+    margin-bottom: 30px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.evalVariable > .title {
+    margin-bottom: 10px;
+}
+
+.evalVariable > .buttonHolder {
+    display: flex;
+}
+
+.evalVariable > .buttonHolder > button {
+    flex-grow: 1;
+    width: 90px;
+    border: 0px;
+    border-radius: 5px;
+    height: 30px;
+    font-size: 14px;
+    margin: 0 5px 2px;
+    background-color: #F0F0F0;
+}
+
+.evalVariable > .buttonHolder > button:hover {
+    background-color: #dddddd;
+}
+
+.evalVariable > .buttonHolder > .clickedBtn {
+    border: 0px;
+    border-radius: 5px;
+    height: 30px;
+    margin-bottom: 2px;
+    font-size: 14px;
+    color: white;
+    background-color: #357BFB;
+}
+
+.evalVariable > .buttonHolder > .clickedBtn:hover {
+    background-color: #2768e0;
+}
+
+
+.evalSubmit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.evalSubmit > button {
+    border: 0px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    background-color: #357BFB;
+}
+
+.evalSubmit > button:hover {
+    background-color: #2768e0;
+}
+
+.introductionOfEval {
+    font-size: 18px;
+    margin-bottom: 30px; 
+}
+
+.textDragHolder{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.resetHolder{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+fieldset.likertScale {
+    font-size: 14px;  
+}
+
+fieldset.likertScale .likertIndicator {
+    font-size: 16px;  
+    border: thin solid #357BFB;
+    background-color: #dddddd;
+}
+
+fieldset.likertScale .likertResponse > input:checked + .likertIndicator {
+    background-color: #357BFB;
+}
+
+.dragReset {
+    border: 0px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    background-color: #357BFB;    
+}
+
+.dragReset:hover {
+    background-color: #2768e0;
+}
