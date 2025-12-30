@@ -34,6 +34,16 @@
   margin-bottom: 1.5rem;
 }
 
+.project-page--stereohunter .stereohunter-ui-section .section-title {
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 480px) {
+  .project-page--stereohunter .stereohunter-ui-section .section-title {
+    margin-bottom: 0.7rem;
+  }
+}
+
 .project-page--stereohunter .stereohunter-flow-section {
   text-align: left;
 }
@@ -195,6 +205,11 @@
 
   .project-page--stereohunter .stereohunter-legend-label--short {
     display: inline;
+  }
+
+  .project-page--stereohunter .stereohunter-view-toggle__btn,
+  .project-page--stereohunter .stereohunter-scale-toggle__btn {
+    font-size: 0.68rem;
   }
 }
 

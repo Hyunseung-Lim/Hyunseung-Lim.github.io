@@ -194,7 +194,7 @@ series = {FAccT '25}
           />
           <section className="project-section stereohunter-quantitative" ref={fadeInRef}>
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
-              Quantitative Results
+              Interaction Statistics
             </h2>
             <div className="stereohunter-quantitative__toggles project-fade-block" ref={fadeInRef}>
               <div className="stereohunter-scale-toggle">
