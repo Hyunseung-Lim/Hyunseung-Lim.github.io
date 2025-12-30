@@ -14,7 +14,7 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: none;
-  height: 700px;
+  height: 640px;
   display: flex;
   flex-direction: column;
 }
@@ -80,7 +80,7 @@
 }
 
 .stereohunter-play {
-  padding: 2rem 2.5rem 8rem;
+  padding: 2rem 2.5rem 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -367,7 +367,9 @@
   background: var(--bg-primary, #fff);
   resize: none;
   font-family: inherit;
-  min-height: 90px;
+  min-height: 56px;
+  height: auto;
+  overflow-y: hidden;
 }
 
 .dark-mode .stereohunter-ambiguous textarea {
@@ -647,6 +649,12 @@
   color: #f4f6ff;
 }
 
+.dark-mode .stereohunter-highlight::selection,
+.dark-mode .stereohunter-highlight *::selection {
+  background: #7aa2ff;
+  color: #0f1424;
+}
+
 .stereohunter-highlight__mark {
   background: #357bfb;
   color: #fff;
@@ -655,7 +663,7 @@
 }
 
 .dark-mode .stereohunter-highlight__mark {
-  background: rgba(122, 162, 255, 0.35);
+  background: #7aa2ff;
   color: #101523;
 }
 
@@ -730,6 +738,11 @@
   justify-content: flex-start;
   overflow-y: auto;
   height: 100%;
+  scrollbar-width: none;
+}
+
+.stereohunter-vocabulary__grid::-webkit-scrollbar {
+  display: none;
 }
 
 .stereohunter-vocabulary__chip {

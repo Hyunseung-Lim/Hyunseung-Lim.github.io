@@ -413,6 +413,12 @@
     font-size: 12px;
 }
 
+@media (max-width: 768px) {
+    .footer {
+        height: 80px;
+    }
+}
+
 .title {
     font-size: 28px;
     font-weight: 800;

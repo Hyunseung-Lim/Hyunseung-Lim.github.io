@@ -284,6 +284,6 @@
     width: 70px;
   }
 }
-.project-page--elevate .project-divider:not(.project-divider--header) {
+.project-page--elevate .project-divider:not(.project-divider--header):not(.project-divider--spacer) {
   margin: 3rem 0 0;
 }

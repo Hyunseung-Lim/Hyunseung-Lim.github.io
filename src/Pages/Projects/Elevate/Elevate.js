@@ -301,7 +301,7 @@ export const ElevateProject = () => {
           <section className="project-section elevate-overview">
             <div className="elevate-overview__copy project-fade-block" ref={fadeInRef}>
               <p className="section-text elevate-body">
-                Current head-mounted displays let users explore virtual worlds by simply walking through them, which has led researchers to create haptic displays that simulate different elevation shapes. However, existing shape-changing floors are limited to tabletop scale or can only display coarse terrains due to a limited number of actuators and low vertical resolution. To address this, we introduce Elevate, a dynamic and walkable pin-array floor that supports both large shape variations and fine-grained terrain details.
+                Head-mounted displays let users explore virtual worlds by simply walking through them, which has led researchers to create haptic displays that simulate different elevation shapes. However, existing shape-changing floors are limited to tabletop scale or can only display coarse terrains due to a limited number of actuators and low vertical resolution. To address this, we introduce Elevate, a dynamic and walkable pin-array floor that supports both large shape variations and fine-grained terrain details.
               </p>
             </div>
           </section>
@@ -472,6 +472,13 @@ export const ElevateProject = () => {
               </p>
             )}
           </section>
+
+          <div
+            className="project-divider project-divider--spacer project-fade-block"
+            role="presentation"
+            aria-hidden="true"
+            ref={fadeInRef}
+          />
 
           <section className="project-section">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>

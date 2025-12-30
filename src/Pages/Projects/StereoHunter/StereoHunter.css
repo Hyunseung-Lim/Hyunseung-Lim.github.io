@@ -26,6 +26,442 @@
   margin: 2.75rem 0;
 }
 
+.project-page--stereohunter .project-section.project-section__fade {
+  margin-bottom: 3rem;
+}
+
+.project-page--stereohunter .project-content > .project-section.project-section__fade:first-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.project-page--stereohunter .stereohunter-flow-section {
+  text-align: left;
+}
+
+.project-page--stereohunter .stereohunter-flow-title {
+  text-align: left;
+  margin-bottom: 0.85rem;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.project-page--stereohunter .stereohunter-flow-frame {
+  width: min(900px, 100%);
+  margin: 1rem auto 0;
+  padding: 0;
+}
+
+.project-page--stereohunter .stereohunter-flow-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-page--stereohunter .stereohunter-flow-copy {
+  margin-top: 1rem;
+  color: var(--text-secondary, #4d5162);
+}
+
+.project-page--stereohunter .stereohunter-flow-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.37rem;
+  height: 1.35rem;
+  margin: 0 0.3rem 0 0.1rem;
+  border-radius: 50%;
+  background: #29328e;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.dark-mode .project-page--stereohunter .stereohunter-flow-step {
+  background: #9199e8;
+  color: #0f1424;
+}
+
+@media (max-width: 480px) {
+  .project-page--stereohunter .stereohunter-flow-title {
+    font-size: 0.9rem;
+  }
+
+  .project-page--stereohunter .stereohunter-flow-step {
+    width: 1rem;
+    height: 1rem;
+    margin: 0 0.2rem 0 0;
+    font-size: 0.6rem;
+  }
+}
+
+.project-page--stereohunter .stereohunter-quantitative {
+  margin-bottom: 3rem;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.project-page--stereohunter .stereohunter-view-toggle {
+  display: inline-flex;
+  border: 1px solid rgba(24, 30, 56, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.project-page--stereohunter .stereohunter-view-toggle__btn {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary, #555);
+}
+
+.project-page--stereohunter .stereohunter-view-toggle__btn.is-active {
+  background: rgba(24, 30, 56, 0.1);
+  color: var(--text-primary);
+}
+
+.project-page--stereohunter .stereohunter-scale-toggle {
+  display: inline-flex;
+  border: 1px solid rgba(24, 30, 56, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.project-page--stereohunter .stereohunter-scale-toggle__btn {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary, #555);
+}
+
+.project-page--stereohunter .stereohunter-scale-toggle__btn.is-active {
+  background: rgba(24, 30, 56, 0.08);
+  color: var(--text-primary);
+}
+
+.dark-mode .project-page--stereohunter .stereohunter-view-toggle {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.dark-mode .project-page--stereohunter .stereohunter-view-toggle__btn.is-active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .project-page--stereohunter .stereohunter-scale-toggle {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .project-page--stereohunter .stereohunter-scale-toggle__btn.is-active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 480px) {
+  .project-page--stereohunter .stereohunter-view-toggle__btn,
+  .project-page--stereohunter .stereohunter-scale-toggle__btn {
+    font-size: 0.72rem;
+    padding: 0.32rem 0.65rem;
+  }
+}
+
+.project-page--stereohunter .stereohunter-quantitative__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary, #4d4f5f);
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .project-page--stereohunter .stereohunter-quantitative__legend {
+    font-size: 0.75rem;
+    gap: 0.45rem 0.75rem;
+  }
+
+  .project-page--stereohunter .stereohunter-legend-label--full {
+    display: none;
+  }
+
+  .project-page--stereohunter .stereohunter-legend-label--short {
+    display: inline;
+  }
+}
+
+.project-page--stereohunter .stereohunter-quantitative__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__legend-text {
+  display: inline-flex;
+  gap: 0.15rem;
+}
+
+.stereohunter-legend-label--short {
+  display: none;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__legend-swatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.project-page--stereohunter .stereohunter-quantitative__legend-item.is-stereo .stereohunter-quantitative__legend-swatch {
+  background: #f47c89;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__legend-item.is-neutral .stereohunter-quantitative__legend-swatch {
+  background: #47c4a7;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__legend-item.is-antiStereo .stereohunter-quantitative__legend-swatch {
+  background: #80b7ff;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__legend-item.is-ambiguous .stereohunter-quantitative__legend-swatch {
+  background: #f8c57c;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__legend-item.is-unrelated .stereohunter-quantitative__legend-swatch {
+  background: #bcb6d7;
+}
+
+
+.project-page--stereohunter .stereohunter-quantitative__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-bottom: 0.6rem;
+  position: relative;
+  z-index: 1;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__row:hover,
+.project-page--stereohunter .stereohunter-target-row:hover {
+  z-index: 5;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__row-layout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__row-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  min-width: 60px;
+  flex: 0 0 85px;
+  font-size: 0.78rem;
+  text-align: right;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__meta {
+  font-size: 0.7rem;
+  color: var(--text-secondary, #666a7a);
+  display: block;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .project-page--stereohunter .stereohunter-quantitative__meta {
+    text-align: right;
+  }
+
+  .project-page--stereohunter .stereohunter-quantitative__row-header {
+    flex: 0 0 70px;
+  }
+}
+
+.project-page--stereohunter .stereohunter-quantitative__label {
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-wrapper {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__per-target {
+  max-height: 22rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-right: 0.3rem;
+  scrollbar-width: none;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__per-target::-webkit-scrollbar {
+  display: none;
+}
+
+.project-page--stereohunter .stereohunter-target-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.project-page--stereohunter .stereohunter-target-row__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 120px;
+  flex: 0 0 135px;
+}
+
+.project-page--stereohunter .stereohunter-target-row__names {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.project-page--stereohunter .stereohunter-target-row__name {
+  font-weight: 600;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar {
+  min-width: 0;
+  width: 100%;
+  height: 2.1rem;
+  overflow: visible;
+  display: flex;
+  border-radius: 0.35rem;
+  transition: width 0.35s ease;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar--target {
+  height: 0.85rem;
+  transition: width 0.35s ease;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  overflow: visible;
+  display: flex;
+  position: relative;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+  padding: 0 0.25rem;
+  position: relative;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-inner > .stereohunter-quantitative__bar-segment:first-child {
+  border-top-left-radius: 0.35rem;
+  border-bottom-left-radius: 0.35rem;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-inner > .stereohunter-quantitative__bar-segment:last-child {
+  border-top-right-radius: 0.35rem;
+  border-bottom-right-radius: 0.35rem;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-segment.is-stereo {
+  background: #f47c89;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-segment.is-neutral {
+  background: #47c4a7;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-segment.is-antiStereo {
+  background: #80b7ff;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-segment.is-ambiguous {
+  background: #f8c57c;
+  color: #212230;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-segment.is-unrelated {
+  background: #bcb6d7;
+  color: #212230;
+}
+
+
+.project-page--stereohunter .stereohunter-quantitative__bar-segment::after {
+  content: attr(data-value);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0.35rem);
+  background: rgba(15, 18, 32, 0.9);
+  color: #fff;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.35rem;
+  font-size: 0.68rem;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 15;
+}
+
+.project-page--stereohunter .stereohunter-quantitative__bar-segment:hover::after {
+  opacity: 1;
+  transform: translate(-50%, 0.15rem);
+}
+
+.dark-mode .project-page--stereohunter .stereohunter-quantitative__bar-segment::after {
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f1424;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .project-page--stereohunter .stereohunter-quantitative__row {
+    padding-bottom: 1rem;
+  }
+
+  .project-page--stereohunter .stereohunter-target-row__header {
+    align-self: auto;
+    justify-content: flex-end;
+  }
+}
+
 .dark-mode .project-page--stereohunter {
   background-color: var(--bg-primary);
   color: var(--text-primary);

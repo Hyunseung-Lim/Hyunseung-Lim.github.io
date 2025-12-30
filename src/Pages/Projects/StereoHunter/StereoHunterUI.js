@@ -30,7 +30,7 @@ const HISTORY_ITEMS = [
   }
 ];
 
-const VOCABULARY_SET = [
+export const VOCABULARY_SET = [
   { value: '남자', label: 'Man' },
   { value: '여자', label: 'Woman' },
   { value: '아빠', label: 'Dad' },
@@ -130,8 +130,10 @@ const VOCABULARY_SET = [
   { value: '아프리카인', label: 'African' },
   { value: '러시아인', label: 'Russian' },
   { value: '히스패닉', label: 'Hispanic' },
-  { value: '코피노', label: 'Kopino' }
+  { value: '코피노', label: 'Kopino' },
+  { value: '유대인', label: 'Jewish' }
 ];
+const shuffleVocabularySet = () => [...VOCABULARY_SET].sort(() => Math.random() - 0.5);
 const TOGGLE_ICON = `${process.env.PUBLIC_URL}/icons/togglebtn.svg`;
 const DUMMY_OUTPUTS = [
   '"Sorry, this is dummy data :)"',
@@ -277,7 +279,7 @@ export const StereoHunterUI = ({ fadeRef }) => {
   const [history, setHistory] = useState(HISTORY_ITEMS);
   const [selectedHistory, setSelectedHistory] = useState(HISTORY_ITEMS[0]?.id ?? null);
   const [isVocabularyOpen, setIsVocabularyOpen] = useState(true);
-  const [shuffledVocabulary] = useState(() => [...VOCABULARY_SET].sort(() => Math.random() - 0.5));
+  const [shuffledVocabulary, setShuffledVocabulary] = useState(() => shuffleVocabularySet());
   const [activeVocabulary, setActiveVocabulary] = useState(null);
   const [currentTarget, setCurrentTarget] = useState('');
   const [selectedLabel, setSelectedLabel] = useState(null);
@@ -330,6 +332,9 @@ export const StereoHunterUI = ({ fadeRef }) => {
   const handleQuestionSubmit = () => {
     setQuestionMode(false);
     resetQuestionForm();
+    setActiveVocabulary(null);
+    setCurrentTarget('');
+    setShuffledVocabulary(shuffleVocabularySet());
   };
   const handleAddQuestionTarget = value => {
     const trimmed = value.trim();
@@ -403,6 +408,15 @@ export const StereoHunterUI = ({ fadeRef }) => {
     setHistory(prev => [newEntry, ...prev]);
     setSelectedHistory(newEntry.id);
     setSelectedLabel(null);
+  };
+
+  const handleAutoResizeTextarea = event => {
+    const target = event.target;
+    if (!target) {
+      return;
+    }
+    target.style.height = 'auto';
+    target.style.height = `${target.scrollHeight}px`;
   };
 
   return (
@@ -522,9 +536,10 @@ export const StereoHunterUI = ({ fadeRef }) => {
                         If you select <strong>Ambiguous</strong>, please leave additional notes if the decision feels nuanced.
                       </p>
                       <textarea
-                        placeholder="Explain why the model response aligns (or conflicts) with the selected label."
+                        placeholder="Enter here."
                         defaultValue=""
-                        rows={4}
+                        rows={3}
+                        onInput={handleAutoResizeTextarea}
                       />
                       <button type="button" className="stereohunter-primary">Submit</button>
                     </div>

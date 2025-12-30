@@ -87,13 +87,17 @@
 }
 
 .project-page--feed-o-meter .project-section {
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 3rem 0;
   line-height: 1.7;
   padding: 0;
 }
 
 .project-page--feed-o-meter .project-section:last-of-type {
   margin-bottom: 0;
+}
+
+.project-page--feed-o-meter .project-content > .project-section:first-of-type {
+  margin-bottom: 1.5rem;
 }
 
 .project-page--feed-o-meter .feedometer-body {
@@ -1063,12 +1067,6 @@
     min-height: 250px;
   }
 
-}
-
-@media (min-width: 769px) {
-  .project-page--feed-o-meter .project-section {
-    margin-bottom: 2.75rem;
-  }
 }
 
 @media (max-width: 480px) {

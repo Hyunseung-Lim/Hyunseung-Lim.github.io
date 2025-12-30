@@ -1,0 +1,864 @@
+[
+  {
+    "target": "가수",
+    "stereo": 3,
+    "neutral": 11,
+    "unrelated": 2,
+    "total": 16
+  },
+  {
+    "target": "가정부",
+    "stereo": 4,
+    "neutral": 9,
+    "unrelated": 2,
+    "noStereo": 2,
+    "total": 17
+  },
+  {
+    "target": "간호사",
+    "stereo": 6,
+    "neutral": 11,
+    "ambiguous": 2,
+    "unrelated": 3,
+    "noStereo": 13,
+    "total": 35
+  },
+  {
+    "target": "감독",
+    "neutral": 1,
+    "unrelated": 1,
+    "total": 2
+  },
+  {
+    "target": "개그맨",
+    "stereo": 11,
+    "neutral": 11,
+    "antiStereo": 1,
+    "unrelated": 6,
+    "noStereo": 18,
+    "total": 47
+  },
+  {
+    "target": "건설 노동자",
+    "stereo": 3,
+    "neutral": 16,
+    "antiStereo": 2,
+    "unrelated": 2,
+    "noStereo": 22,
+    "total": 45
+  },
+  {
+    "target": "건축가",
+    "stereo": 1,
+    "neutral": 1,
+    "antiStereo": 1,
+    "total": 3
+  },
+  {
+    "target": "검사",
+    "stereo": 2,
+    "neutral": 1,
+    "unrelated": 2,
+    "noStereo": 5,
+    "total": 10
+  },
+  {
+    "target": "경비원",
+    "stereo": 3,
+    "neutral": 9,
+    "unrelated": 2,
+    "noStereo": 4,
+    "total": 18
+  },
+  {
+    "target": "경제학자",
+    "stereo": 2,
+    "neutral": 2,
+    "noStereo": 8,
+    "total": 12
+  },
+  {
+    "target": "경호원",
+    "stereo": 2,
+    "neutral": 7,
+    "unrelated": 2,
+    "noStereo": 3,
+    "total": 14
+  },
+  {
+    "target": "공무원",
+    "stereo": 5,
+    "neutral": 16,
+    "antiStereo": 2,
+    "unrelated": 3,
+    "noStereo": 4,
+    "total": 30
+  },
+  {
+    "target": "과학자",
+    "stereo": 4,
+    "neutral": 8,
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "unrelated": 4,
+    "noStereo": 2,
+    "total": 20
+  },
+  {
+    "target": "교수",
+    "stereo": 7,
+    "neutral": 18,
+    "antiStereo": 3,
+    "unrelated": 4,
+    "noStereo": 14,
+    "total": 46
+  },
+  {
+    "target": "군인",
+    "stereo": 9,
+    "neutral": 12,
+    "antiStereo": 1,
+    "unrelated": 3,
+    "noStereo": 9,
+    "total": 34
+  },
+  {
+    "target": "기자",
+    "stereo": 3,
+    "neutral": 9,
+    "ambiguous": 1,
+    "noStereo": 2,
+    "total": 15
+  },
+  {
+    "target": "남자",
+    "stereo": 9,
+    "neutral": 11,
+    "ambiguous": 2,
+    "unrelated": 1,
+    "noStereo": 2,
+    "total": 25
+  },
+  {
+    "target": "남자아이",
+    "stereo": 7,
+    "neutral": 18,
+    "antiStereo": 1,
+    "unrelated": 2,
+    "noStereo": 5,
+    "total": 33
+  },
+  {
+    "target": "남자친구",
+    "stereo": 8,
+    "neutral": 12,
+    "antiStereo": 1,
+    "unrelated": 1,
+    "noStereo": 3,
+    "total": 25
+  },
+  {
+    "target": "남편",
+    "stereo": 11,
+    "neutral": 5,
+    "ambiguous": 3,
+    "unrelated": 6,
+    "noStereo": 2,
+    "total": 27
+  },
+  {
+    "target": "남학생",
+    "stereo": 6,
+    "neutral": 8,
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "unrelated": 1,
+    "noStereo": 7,
+    "total": 24
+  },
+  {
+    "target": "농부",
+    "stereo": 4,
+    "neutral": 7,
+    "antiStereo": 1,
+    "unrelated": 3,
+    "noStereo": 12,
+    "total": 27
+  },
+  {
+    "target": "댄서",
+    "stereo": 6,
+    "neutral": 12,
+    "antiStereo": 1,
+    "unrelated": 2,
+    "noStereo": 16,
+    "total": 37
+  },
+  {
+    "target": "동남아인",
+    "stereo": 9,
+    "neutral": 23,
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "unrelated": 6,
+    "noStereo": 26,
+    "total": 66
+  },
+  {
+    "target": "동성애자",
+    "stereo": 12,
+    "neutral": 17,
+    "antiStereo": 4,
+    "ambiguous": 2,
+    "unrelated": 6,
+    "noStereo": 15,
+    "total": 56
+  },
+  {
+    "target": "디자이너",
+    "stereo": 8,
+    "neutral": 6,
+    "unrelated": 3,
+    "noStereo": 12,
+    "total": 29
+  },
+  {
+    "target": "딸",
+    "stereo": 6,
+    "neutral": 29,
+    "unrelated": 1,
+    "noStereo": 2,
+    "total": 38
+  },
+  {
+    "target": "러시아인",
+    "stereo": 4,
+    "neutral": 10,
+    "ambiguous": 1,
+    "unrelated": 4,
+    "noStereo": 7,
+    "total": 26
+  },
+  {
+    "target": "모델",
+    "stereo": 6,
+    "neutral": 12,
+    "antiStereo": 1,
+    "unrelated": 2,
+    "noStereo": 3,
+    "total": 24
+  },
+  {
+    "target": "목수",
+    "stereo": 1,
+    "neutral": 2,
+    "ambiguous": 1,
+    "unrelated": 1,
+    "total": 5
+  },
+  {
+    "target": "미국인",
+    "stereo": 6,
+    "neutral": 17,
+    "antiStereo": 2,
+    "unrelated": 4,
+    "noStereo": 7,
+    "total": 36
+  },
+  {
+    "target": "미용사",
+    "stereo": 2,
+    "neutral": 2,
+    "antiStereo": 2,
+    "ambiguous": 1,
+    "unrelated": 2,
+    "noStereo": 2,
+    "total": 11
+  },
+  {
+    "target": "바텐더",
+    "stereo": 1,
+    "neutral": 5,
+    "unrelated": 1,
+    "noStereo": 4,
+    "total": 11
+  },
+  {
+    "target": "배관공",
+    "stereo": 2,
+    "neutral": 2,
+    "antiStereo": 1,
+    "noStereo": 1,
+    "total": 6
+  },
+  {
+    "target": "배달부",
+    "stereo": 3,
+    "neutral": 21,
+    "unrelated": 5,
+    "noStereo": 2,
+    "total": 31
+  },
+  {
+    "target": "배우",
+    "stereo": 1,
+    "neutral": 4,
+    "unrelated": 2,
+    "noStereo": 1,
+    "total": 8
+  },
+  {
+    "target": "변호사",
+    "stereo": 1,
+    "neutral": 5,
+    "antiStereo": 1,
+    "ambiguous": 2,
+    "noStereo": 6,
+    "total": 15
+  },
+  {
+    "target": "복서",
+    "stereo": 2,
+    "neutral": 6,
+    "antiStereo": 1,
+    "ambiguous": 3,
+    "unrelated": 1,
+    "noStereo": 4,
+    "total": 17
+  },
+  {
+    "target": "부동산 중개인",
+    "stereo": 4,
+    "neutral": 6,
+    "antiStereo": 2,
+    "ambiguous": 1,
+    "unrelated": 2,
+    "noStereo": 5,
+    "total": 20
+  },
+  {
+    "target": "북한인",
+    "stereo": 8,
+    "neutral": 11,
+    "antiStereo": 2,
+    "ambiguous": 2,
+    "unrelated": 1,
+    "noStereo": 23,
+    "total": 47
+  },
+  {
+    "target": "비서",
+    "stereo": 6,
+    "neutral": 10,
+    "ambiguous": 1,
+    "unrelated": 1,
+    "noStereo": 6,
+    "total": 24
+  },
+  {
+    "target": "사서",
+    "stereo": 1,
+    "neutral": 3,
+    "ambiguous": 1,
+    "unrelated": 1,
+    "total": 6
+  },
+  {
+    "target": "사업가",
+    "stereo": 7,
+    "neutral": 12,
+    "unrelated": 1,
+    "noStereo": 6,
+    "total": 26
+  },
+  {
+    "target": "사진가",
+    "neutral": 8,
+    "unrelated": 3,
+    "total": 11
+  },
+  {
+    "target": "선생님",
+    "stereo": 5,
+    "neutral": 18,
+    "antiStereo": 1,
+    "ambiguous": 2,
+    "unrelated": 4,
+    "noStereo": 10,
+    "total": 40
+  },
+  {
+    "target": "셰프",
+    "stereo": 5,
+    "neutral": 9,
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "unrelated": 1,
+    "noStereo": 10,
+    "total": 27
+  },
+  {
+    "target": "소방관",
+    "stereo": 4,
+    "neutral": 8,
+    "ambiguous": 2,
+    "total": 14
+  },
+  {
+    "target": "소프트웨어 개발자",
+    "stereo": 9,
+    "neutral": 26,
+    "ambiguous": 3,
+    "unrelated": 6,
+    "noStereo": 22,
+    "total": 66
+  },
+  {
+    "target": "시인",
+    "stereo": 6,
+    "neutral": 8,
+    "antiStereo": 1,
+    "unrelated": 4,
+    "noStereo": 5,
+    "total": 24
+  },
+  {
+    "target": "심리학자",
+    "stereo": 3,
+    "neutral": 5,
+    "unrelated": 1,
+    "total": 9
+  },
+  {
+    "target": "아내",
+    "stereo": 8,
+    "neutral": 16,
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "unrelated": 5,
+    "noStereo": 20,
+    "total": 51
+  },
+  {
+    "target": "아들",
+    "stereo": 8,
+    "neutral": 7,
+    "unrelated": 5,
+    "noStereo": 19,
+    "total": 39
+  },
+  {
+    "target": "아빠",
+    "stereo": 4,
+    "neutral": 13,
+    "antiStereo": 2,
+    "ambiguous": 2,
+    "unrelated": 1,
+    "noStereo": 9,
+    "total": 31
+  },
+  {
+    "target": "아저씨",
+    "stereo": 5,
+    "neutral": 13,
+    "antiStereo": 2,
+    "ambiguous": 1,
+    "unrelated": 3,
+    "noStereo": 10,
+    "total": 34
+  },
+  {
+    "target": "아줌마",
+    "stereo": 9,
+    "neutral": 20,
+    "antiStereo": 1,
+    "ambiguous": 4,
+    "noStereo": 7,
+    "total": 41
+  },
+  {
+    "target": "아프리카인",
+    "stereo": 8,
+    "neutral": 16,
+    "antiStereo": 2,
+    "ambiguous": 2,
+    "unrelated": 4,
+    "noStereo": 7,
+    "total": 39
+  },
+  {
+    "target": "약사",
+    "stereo": 2,
+    "neutral": 7,
+    "noStereo": 3,
+    "total": 12
+  },
+  {
+    "target": "양성애자",
+    "stereo": 6,
+    "neutral": 7,
+    "antiStereo": 1,
+    "unrelated": 6,
+    "noStereo": 5,
+    "total": 25
+  },
+  {
+    "target": "엄마",
+    "stereo": 7,
+    "neutral": 22,
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "unrelated": 8,
+    "noStereo": 10,
+    "total": 49
+  },
+  {
+    "target": "엔지니어",
+    "stereo": 2,
+    "neutral": 8,
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "unrelated": 3,
+    "noStereo": 14,
+    "total": 29
+  },
+  {
+    "target": "여자",
+    "stereo": 6,
+    "neutral": 15,
+    "unrelated": 2,
+    "noStereo": 17,
+    "total": 40
+  },
+  {
+    "target": "여자아이",
+    "stereo": 9,
+    "neutral": 5,
+    "ambiguous": 2,
+    "unrelated": 1,
+    "noStereo": 15,
+    "total": 32
+  },
+  {
+    "target": "여자친구",
+    "stereo": 6,
+    "neutral": 21,
+    "antiStereo": 1,
+    "unrelated": 2,
+    "noStereo": 12,
+    "total": 42
+  },
+  {
+    "target": "여학생",
+    "stereo": 6,
+    "neutral": 26,
+    "antiStereo": 3,
+    "unrelated": 2,
+    "noStereo": 6,
+    "total": 43
+  },
+  {
+    "target": "연구자",
+    "stereo": 3,
+    "neutral": 7,
+    "antiStereo": 2,
+    "unrelated": 1,
+    "noStereo": 6,
+    "total": 19
+  },
+  {
+    "target": "예술가",
+    "stereo": 4,
+    "neutral": 4,
+    "antiStereo": 2,
+    "ambiguous": 2,
+    "unrelated": 2,
+    "noStereo": 6,
+    "total": 20
+  },
+  {
+    "target": "외교관",
+    "unrelated": 2,
+    "noStereo": 1,
+    "total": 3
+  },
+  {
+    "target": "요리사",
+    "stereo": 2,
+    "neutral": 16,
+    "antiStereo": 1,
+    "noStereo": 14,
+    "total": 33
+  },
+  {
+    "target": "운동선수",
+    "stereo": 6,
+    "neutral": 9,
+    "unrelated": 2,
+    "noStereo": 7,
+    "total": 24
+  },
+  {
+    "target": "유대인",
+    "noStereo": 3,
+    "total": 3
+  },
+  {
+    "target": "유럽인",
+    "stereo": 5,
+    "neutral": 9,
+    "antiStereo": 2,
+    "ambiguous": 2,
+    "unrelated": 2,
+    "noStereo": 13,
+    "total": 33
+  },
+  {
+    "target": "은행원",
+    "stereo": 3,
+    "neutral": 1,
+    "unrelated": 1,
+    "noStereo": 6,
+    "total": 11
+  },
+  {
+    "target": "음악가",
+    "neutral": 2,
+    "ambiguous": 1,
+    "unrelated": 2,
+    "noStereo": 3,
+    "total": 8
+  },
+  {
+    "target": "의사",
+    "stereo": 5,
+    "neutral": 13,
+    "antiStereo": 1,
+    "ambiguous": 2,
+    "unrelated": 6,
+    "noStereo": 20,
+    "total": 47
+  },
+  {
+    "target": "인도인",
+    "stereo": 5,
+    "neutral": 18,
+    "antiStereo": 1,
+    "ambiguous": 2,
+    "unrelated": 3,
+    "noStereo": 28,
+    "total": 57
+  },
+  {
+    "target": "일본인",
+    "stereo": 5,
+    "neutral": 32,
+    "antiStereo": 4,
+    "ambiguous": 3,
+    "unrelated": 10,
+    "noStereo": 16,
+    "total": 70
+  },
+  {
+    "target": "작가",
+    "neutral": 4,
+    "antiStereo": 1,
+    "total": 5
+  },
+  {
+    "target": "작곡가",
+    "stereo": 1,
+    "neutral": 2,
+    "noStereo": 1,
+    "total": 4
+  },
+  {
+    "target": "정비공",
+    "neutral": 5,
+    "antiStereo": 2,
+    "unrelated": 2,
+    "noStereo": 3,
+    "total": 12
+  },
+  {
+    "target": "정치인",
+    "stereo": 11,
+    "neutral": 26,
+    "unrelated": 4,
+    "noStereo": 11,
+    "total": 52
+  },
+  {
+    "target": "제빵사",
+    "neutral": 3,
+    "unrelated": 3,
+    "total": 6
+  },
+  {
+    "target": "조종사",
+    "stereo": 2,
+    "neutral": 4,
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "unrelated": 2,
+    "noStereo": 10,
+    "total": 20
+  },
+  {
+    "target": "종업원",
+    "stereo": 2,
+    "neutral": 6,
+    "unrelated": 2,
+    "total": 10
+  },
+  {
+    "target": "죄수",
+    "stereo": 5,
+    "neutral": 10,
+    "ambiguous": 2,
+    "unrelated": 2,
+    "noStereo": 11,
+    "total": 30
+  },
+  {
+    "target": "중국인",
+    "stereo": 11,
+    "neutral": 45,
+    "antiStereo": 2,
+    "ambiguous": 3,
+    "unrelated": 8,
+    "noStereo": 34,
+    "total": 103
+  },
+  {
+    "target": "중동인",
+    "stereo": 6,
+    "neutral": 16,
+    "antiStereo": 3,
+    "ambiguous": 1,
+    "noStereo": 12,
+    "total": 38
+  },
+  {
+    "target": "청소부",
+    "stereo": 4,
+    "neutral": 14,
+    "antiStereo": 2,
+    "unrelated": 1,
+    "noStereo": 13,
+    "total": 34
+  },
+  {
+    "target": "축구선수",
+    "stereo": 4,
+    "neutral": 18,
+    "ambiguous": 1,
+    "unrelated": 6,
+    "noStereo": 23,
+    "total": 52
+  },
+  {
+    "target": "코피노",
+    "stereo": 3,
+    "neutral": 7,
+    "unrelated": 1,
+    "noStereo": 3,
+    "total": 14
+  },
+  {
+    "target": "탐정",
+    "stereo": 1,
+    "neutral": 2,
+    "unrelated": 1,
+    "noStereo": 1,
+    "total": 5
+  },
+  {
+    "target": "트랜스젠더",
+    "stereo": 36,
+    "neutral": 41,
+    "antiStereo": 2,
+    "ambiguous": 2,
+    "unrelated": 5,
+    "noStereo": 99,
+    "total": 185
+  },
+  {
+    "target": "판매원",
+    "stereo": 1,
+    "neutral": 4,
+    "ambiguous": 1,
+    "unrelated": 1,
+    "noStereo": 3,
+    "total": 10
+  },
+  {
+    "target": "판사",
+    "stereo": 3,
+    "neutral": 2,
+    "antiStereo": 2,
+    "unrelated": 4,
+    "noStereo": 2,
+    "total": 13
+  },
+  {
+    "target": "피아니스트",
+    "stereo": 3,
+    "neutral": 12,
+    "ambiguous": 1,
+    "noStereo": 3,
+    "total": 19
+  },
+  {
+    "target": "한국인",
+    "stereo": 11,
+    "neutral": 10,
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "unrelated": 3,
+    "noStereo": 13,
+    "total": 39
+  },
+  {
+    "target": "할머니",
+    "stereo": 13,
+    "neutral": 14,
+    "ambiguous": 2,
+    "unrelated": 1,
+    "noStereo": 15,
+    "total": 45
+  },
+  {
+    "target": "할아버지",
+    "stereo": 7,
+    "neutral": 5,
+    "antiStereo": 2,
+    "ambiguous": 3,
+    "unrelated": 1,
+    "noStereo": 12,
+    "total": 30
+  },
+  {
+    "target": "화가",
+    "stereo": 2,
+    "neutral": 6,
+    "ambiguous": 3,
+    "noStereo": 3,
+    "total": 14
+  },
+  {
+    "target": "회계사",
+    "antiStereo": 1,
+    "ambiguous": 1,
+    "total": 2
+  },
+  {
+    "target": "히스패닉",
+    "stereo": 3,
+    "neutral": 9,
+    "ambiguous": 1,
+    "unrelated": 1,
+    "noStereo": 10,
+    "total": 24
+  }
+]
