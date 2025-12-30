@@ -19,6 +19,23 @@
   flex-direction: column;
 }
 
+.stereohunter-ui__fallback {
+  display: none;
+  width: min(1200px, 96vw);
+  padding: 0 0.5rem;
+}
+
+.stereohunter-ui__fallback img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-page--stereohunter .stereohunter-ui__frame.is-question-mode {
+  height: auto;
+  min-height: 0;
+}
+
 .dark-mode .project-page--stereohunter .stereohunter-ui__frame {
   background: rgba(18, 20, 29, 0.92);
   border-color: rgba(255, 255, 255, 0.28);
@@ -55,6 +72,11 @@
   grid-template-columns: minmax(0, 1fr) 320px;
   flex: 1;
   min-height: 0;
+  position: relative;
+}
+
+.stereohunter-ui__body.is-question-mode {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .stereohunter-play {
@@ -398,6 +420,272 @@
   background: #2b2b2b;
   color: #7aa2ff;
 }
+
+.stereohunter-play.is-question-mode {
+  align-items: center;
+  padding-bottom: 1.5rem;
+  gap: 1.25rem;
+  overflow: visible;
+  height: auto;
+}
+
+.stereohunter-play.is-question-mode .stereohunter-output-window {
+  width: min(860px, 100%);
+}
+
+.stereohunter-questionnaire {
+  width: min(1020px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.stereohunter-questionnaire__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+  gap: 1.35rem 1.75rem;
+  justify-content: center;
+}
+
+.stereohunter-questionnaire__column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  text-align: left;
+}
+
+.stereohunter-question {
+  border: none;
+  border-radius: 0;
+  padding: 0.2rem 0 0.6rem;
+  background: transparent;
+  box-shadow: none;
+  text-align: left;
+}
+
+.stereohunter-question__label {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary, #111213);
+}
+
+.stereohunter-question__description,
+.stereohunter-question__scale-marker {
+  margin: 0 0 0.65rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary, #5d6273);
+}
+
+.stereohunter-multi-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stereohunter-multi-select__chips {
+  min-height: 48px;
+  border: 1px solid rgba(24, 30, 56, 0.18);
+  border-radius: 12px;
+  padding: 0.35rem 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.dark-mode .stereohunter-multi-select__chips {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.stereohunter-multi-select__chips input {
+  border: none;
+  outline: none;
+  min-width: 140px;
+  font-size: 0.82rem;
+  background: transparent;
+  color: inherit;
+}
+
+.stereohunter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  background: rgba(53, 123, 251, 0.1);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #1b2d5b;
+}
+
+.dark-mode .stereohunter-chip {
+  background: rgba(122, 162, 255, 0.18);
+  color: #cdd9ff;
+}
+
+.stereohunter-chip__remove {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.stereohunter-scale {
+  display: flex;
+  justify-content: center;
+  gap: 0.32rem;
+  text-align: left;
+}
+
+.stereohunter-scale > * {
+  flex: 0 0 95px;
+}
+
+.stereohunter-scale__btn {
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  color: var(--text-secondary, #5d6273);
+  font-size: 0.72rem;
+}
+
+.stereohunter-scale__label {
+  font-size: 0.72rem;
+}
+
+.stereohunter-scale__dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #c3c8da;
+  background: #fff;
+}
+
+.stereohunter-scale__btn.is-active {
+  color: #1d54c6;
+}
+
+.stereohunter-scale__btn.is-active .stereohunter-scale__dot {
+  border-color: #357bfb;
+  background: #357bfb;
+}
+
+.dark-mode .stereohunter-scale__dot {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark-mode .stereohunter-scale__btn.is-active {
+  color: #7aa2ff;
+}
+
+.dark-mode .stereohunter-scale__btn.is-active .stereohunter-scale__dot {
+  background: #7aa2ff;
+  border-color: #7aa2ff;
+}
+
+.stereohunter-choice-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.stereohunter-choice {
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  background: #f0f1f8;
+  color: #1d2032;
+  font-weight: 600;
+  font-size: 0.76rem;
+  cursor: pointer;
+  min-width: 120px;
+  text-align: center;
+}
+
+.stereohunter-choice.is-active {
+  background: #357bfb;
+  color: #fff;
+}
+
+.dark-mode .stereohunter-choice {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f0f2ff;
+}
+
+.dark-mode .stereohunter-choice.is-active {
+  background: #7aa2ff;
+  color: #101523;
+}
+
+.stereohunter-highlight {
+  border: 1px dashed rgba(24, 30, 56, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  font-family: 'Noto Serif KR', 'Noto Serif', serif;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text-primary, #1d2032);
+  background: var(--bg-primary, #ffffff);
+  cursor: text;
+  text-align: left;
+}
+
+.dark-mode .stereohunter-highlight {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.02);
+  color: #f4f6ff;
+}
+
+.stereohunter-highlight__mark {
+  background: #357bfb;
+  color: #fff;
+  border-radius: 3px;
+  padding: 0;
+}
+
+.dark-mode .stereohunter-highlight__mark {
+  background: rgba(122, 162, 255, 0.35);
+  color: #101523;
+}
+
+.stereohunter-questionnaire__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.stereohunter-questionnaire__actions .stereohunter-primary {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 999px;
+}
+
+@media (max-width: 1199px) {
+  .project-page--stereohunter .stereohunter-ui__frame {
+    display: none;
+  }
+
+  .stereohunter-ui__fallback {
+    display: block;
+  }
+
+  .stereohunter-ui__note {
+    display: none;
+  }
+}
+
 .dark-mode .stereohunter-vocabulary__toggle {
   background: #2b2b2b;
   color: #7aa2ff;
@@ -492,11 +780,24 @@
   gap: 0.8rem;
   height: 100%;
   overflow: hidden;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  position: relative;
 }
 
 .dark-mode .stereohunter-history {
   background: #2b2b2b;
   border-color: rgba(255, 255, 255, 0.08);
+}
+
+.stereohunter-history.is-hidden {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  transform: translateX(360px);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .stereohunter-history__title {
@@ -625,8 +926,12 @@
 }
 
 .stereohunter-ui__note {
-  margin-top: 0.75rem;
-  font-size: 0.75rem;
+  width: 100%;
+  max-width: min(1200px, 96vw);
+  margin: 0.75rem auto 0;
+  padding: 0 1rem;
+  text-align: center;
+  font-size: 0.72rem;
   color: var(--text-secondary, #5d6273);
 }
 

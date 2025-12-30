@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './StereoHunterUI.css';
 import { useTheme } from '../../../contexts/ThemeContext';
@@ -133,7 +133,26 @@ const VOCABULARY_SET = [
   { value: '코피노', label: 'Kopino' }
 ];
 const TOGGLE_ICON = `${process.env.PUBLIC_URL}/icons/togglebtn.svg`;
-const DUMMY_OUTPUT = '"Sorry, this is dummy data :)"';
+const DUMMY_OUTPUTS = [
+  '"Sorry, this is dummy data :)"',
+  '"Temporary placeholder response."',
+  '"[target] voice. Placeholder reply."',
+  '"[target] here. Just a placeholder."',
+  '"[target] speaking. Placeholder."',
+  '"Thank you for visiting my website."'
+];
+
+const getDummyResponse = target => {
+  if (!DUMMY_OUTPUTS.length) {
+    return '"Sorry, this is dummy data :)"';
+  }
+  const template = DUMMY_OUTPUTS[Math.floor(Math.random() * DUMMY_OUTPUTS.length)];
+  if (!template.includes('[target]')) {
+    return template;
+  }
+  const replacement = target || 'Target';
+  return template.replace(/\[target\]/gi, replacement);
+};
 
 const CHECKER_OPTIONS = [
   'Stereotype',
@@ -143,6 +162,115 @@ const CHECKER_OPTIONS = [
   'Irrelevant'
 ];
 const KNOWN_LABELS = new Set(CHECKER_OPTIONS);
+const INTENSITY_SCALE = ['Minimal', 'Slight', 'Moderate', 'Strong', 'Very Strong'];
+const FAMILIARITY_SCALE = [
+  'Not familiar',
+  'Slightly familiar',
+  'Moderately familiar',
+  'Quite familiar',
+  'Very familiar'
+];
+const QUESTION_INITIAL_STATE = {
+  targets: [],
+  targetInput: '',
+  intensity: null,
+  belongToGroup: null,
+  familiarity: null,
+  contextInfluence: null,
+  wordsInfluence: null,
+  highlightRanges: []
+};
+
+const mergeHighlightRanges = (ranges, newRange) => {
+  const baseRanges = Array.isArray(ranges) ? ranges : [];
+  if (!newRange || newRange.start >= newRange.end) {
+    return baseRanges;
+  }
+  const identicalIndex = baseRanges.findIndex(
+    range => range.start === newRange.start && range.end === newRange.end
+  );
+  if (identicalIndex !== -1) {
+    return baseRanges.filter((_, index) => index !== identicalIndex);
+  }
+  const normalized = [...baseRanges.map(range => ({ ...range })), { ...newRange }].sort(
+    (a, b) => a.start - b.start
+  );
+  const merged = [];
+  normalized.forEach(range => {
+    if (!merged.length) {
+      merged.push({ ...range });
+      return;
+    }
+    const prev = merged[merged.length - 1];
+    if (range.start <= prev.end) {
+      prev.end = Math.max(prev.end, range.end);
+    } else {
+      merged.push({ ...range });
+    }
+  });
+  return merged;
+};
+
+const renderHighlightedText = (text, ranges) => {
+  if (!text || !ranges?.length) {
+    return text;
+  }
+  const sorted = [...ranges].sort((a, b) => a.start - b.start);
+  const segments = [];
+  let cursor = 0;
+  sorted.forEach((range, index) => {
+    const safeStart = Math.max(0, Math.min(text.length, range.start));
+    const safeEnd = Math.max(safeStart, Math.min(text.length, range.end));
+    if (safeStart > cursor) {
+      segments.push(text.slice(cursor, safeStart));
+    }
+    segments.push(
+      <span className="stereohunter-highlight__mark" key={`highlight-${index}-${safeStart}`}>
+        {text.slice(safeStart, safeEnd)}
+      </span>
+    );
+    cursor = safeEnd;
+  });
+  if (cursor < text.length) {
+    segments.push(text.slice(cursor));
+  }
+  return segments;
+};
+
+const getSelectionRangeWithinNode = (selection, container) => {
+  if (!selection || !container || selection.rangeCount === 0) {
+    return null;
+  }
+  const range = selection.getRangeAt(0);
+  if (!container.contains(range.startContainer) || !container.contains(range.endContainer)) {
+    return null;
+  }
+  const preRange = range.cloneRange();
+  preRange.selectNodeContents(container);
+  preRange.setEnd(range.startContainer, range.startOffset);
+  const start = preRange.toString().length;
+  const selectedText = range.toString();
+  return {
+    start,
+    end: start + selectedText.length
+  };
+};
+const renderFamiliarLabel = label => {
+  const lower = label.toLowerCase();
+  const keywordIndex = lower.indexOf('familiar');
+  if (keywordIndex === -1) {
+    return label;
+  }
+  const prefix = label.slice(0, keywordIndex).trim();
+  const suffix = label.slice(keywordIndex).trim();
+  return (
+    <>
+      {prefix}
+      <br />
+      {suffix}
+    </>
+  );
+};
 
 export const StereoHunterUI = ({ fadeRef }) => {
   const { isDark } = useTheme();
@@ -155,6 +283,9 @@ export const StereoHunterUI = ({ fadeRef }) => {
   const [selectedLabel, setSelectedLabel] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [isSubmitHovered, setIsSubmitHovered] = useState(false);
+  const [questionMode, setQuestionMode] = useState(false);
+  const [questionForm, setQuestionForm] = useState(QUESTION_INITIAL_STATE);
+  const highlightBlockRef = useRef(null);
   const showEvidencePanel =
     selectedLabel === 'Stereotype' || selectedLabel === 'Anti-Stereotype';
   const showRetryPanel =
@@ -186,6 +317,57 @@ export const StereoHunterUI = ({ fadeRef }) => {
   }, [isDark, isSubmitHovered]);
 
   const canSubmit = inputValue.trim().length > 0 && currentTarget;
+  const resetQuestionForm = () => {
+    setQuestionForm({ ...QUESTION_INITIAL_STATE });
+  };
+  const enterQuestionMode = () => {
+    setQuestionForm({
+      ...QUESTION_INITIAL_STATE,
+      targets: selectedEntry?.target ? [selectedEntry.target] : []
+    });
+    setQuestionMode(true);
+  };
+  const handleQuestionSubmit = () => {
+    setQuestionMode(false);
+    resetQuestionForm();
+  };
+  const handleAddQuestionTarget = value => {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      return;
+    }
+    setQuestionForm(prev => {
+      if (prev.targets.includes(trimmed)) {
+        return { ...prev, targetInput: '' };
+      }
+      return {
+        ...prev,
+        targets: [...prev.targets, trimmed],
+        targetInput: ''
+      };
+    });
+  };
+  const handleCaptureHighlight = () => {
+    if (!highlightBlockRef.current) {
+      return;
+    }
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) {
+      return;
+    }
+    const rawSelectedText = selection.toString();
+    if (!rawSelectedText.trim()) {
+      return;
+    }
+    const relativeRange = getSelectionRangeWithinNode(selection, highlightBlockRef.current);
+    if (!relativeRange) {
+      return;
+    }
+    setQuestionForm(prev => ({
+      ...prev,
+      highlightRanges: mergeHighlightRanges(prev.highlightRanges, relativeRange)
+    }));
+  };
 
   const handleSubmitInput = () => {
     const trimmed = inputValue.trim();
@@ -195,7 +377,7 @@ export const StereoHunterUI = ({ fadeRef }) => {
     const newEntry = {
       id: `entry-${Date.now()}`,
       input: trimmed,
-      output: DUMMY_OUTPUT,
+      output: getDummyResponse(currentTarget),
       label: '',
       detail: 'User submission',
       target: currentTarget || ''
@@ -205,53 +387,71 @@ export const StereoHunterUI = ({ fadeRef }) => {
     setInputValue('');
     setSelectedLabel(null);
   };
+  const handleRetryOutput = () => {
+    if (!selectedEntry?.input) {
+      return;
+    }
+    const nextTarget = selectedEntry.target || currentTarget || '';
+    const newEntry = {
+      id: `entry-${Date.now()}`,
+      input: selectedEntry.input,
+      output: getDummyResponse(nextTarget),
+      label: '',
+      detail: 'Retry submission',
+      target: nextTarget
+    };
+    setHistory(prev => [newEntry, ...prev]);
+    setSelectedHistory(newEntry.id);
+    setSelectedLabel(null);
+  };
 
   return (
     <section className="stereohunter-ui project-fade-block" ref={fadeRef}>
-      <div className="stereohunter-ui__frame">
+      <div className={`stereohunter-ui__frame${questionMode ? ' is-question-mode' : ''}`}>
         <header className="stereohunter-ui__navbar">
           <div className="stereohunter-ui__brand">
             <div className="stereohunter-ui__title">StereoHunter</div>
           </div>
         </header>
 
-        <div className="stereohunter-ui__body">
-          <div className="stereohunter-play">
-            <div className="stereohunter-input-window">
-              <div className="stereohunter-input-window__title">
-                <span className={!currentTarget ? 'is-placeholder' : ''}>
-                  {currentTarget
-                    ? `Target: ${currentTarget}`
-                    : 'Please select the target group from the list below.'}
-                </span>
+        <div className={`stereohunter-ui__body${questionMode ? ' is-question-mode' : ''}`}>
+          <div className={`stereohunter-play${questionMode ? ' is-question-mode' : ''}`}>
+            {!questionMode && (
+              <div className="stereohunter-input-window">
+                <div className="stereohunter-input-window__title">
+                  <span className={!currentTarget ? 'is-placeholder' : ''}>
+                    {currentTarget
+                      ? `Target: ${currentTarget}`
+                      : 'Please select the target group from the list below.'}
+                  </span>
+                </div>
+                <div className="stereohunter-input-wrapper">
+                  <input
+                    className="stereohunter-input"
+                    placeholder="Enter the situation."
+                    value={inputValue}
+                    onChange={event => setInputValue(event.target.value)}
+                    onKeyDown={event => {
+                      if (event.key === 'Enter' && canSubmit) {
+                        event.preventDefault();
+                        handleSubmitInput();
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    className="stereohunter-input__submit"
+                    aria-label="Submit situation"
+                    onClick={handleSubmitInput}
+                    onMouseEnter={() => setIsSubmitHovered(true)}
+                    onMouseLeave={() => setIsSubmitHovered(false)}
+                    disabled={!canSubmit}
+                  >
+                    <img src={submitIcon} alt="" />
+                  </button>
+                </div>
               </div>
-              <div className="stereohunter-input-wrapper">
-                <input
-                  className="stereohunter-input"
-                  placeholder="Enter the situation."
-                  value={inputValue}
-                  onChange={event => setInputValue(event.target.value)}
-                  onKeyDown={event => {
-                    if (event.key === 'Enter' && canSubmit) {
-                      event.preventDefault();
-                      handleSubmitInput();
-                    }
-                  }}
-                />
-                <button
-                  type="button"
-                  className="stereohunter-input__submit"
-                  aria-label="Submit situation"
-                  onClick={handleSubmitInput}
-                  onMouseEnter={() => setIsSubmitHovered(true)}
-                  onMouseLeave={() => setIsSubmitHovered(false)}
-                  disabled={!canSubmit}
-                >
-                  <img src={submitIcon} alt="" />
-                </button>
-              </div>
-            </div>
-
+            )}
             <div className="stereohunter-output-window">
               <div className="stereohunter-situation">
                 Input situation: {selectedEntry?.input}
@@ -261,111 +461,311 @@ export const StereoHunterUI = ({ fadeRef }) => {
               </div>
             </div>
 
-            <div className="stereohunter-eval">
-              <div className="stereohunter-checker">
-                {CHECKER_OPTIONS.map(option => (
-                  <button
-                    key={option}
-                    type="button"
-                    className={`stereohunter-checker__btn${
-                      selectedLabel === option ? ' is-active' : ''
-                    }`}
-                    onClick={() => {
-                      setSelectedLabel(prev => {
-                        const next = prev === option ? null : option;
-                        if (selectedHistory) {
-                          setHistory(prevHistory =>
-                            prevHistory.map(entry =>
-                              entry.id === selectedHistory
-                                ? { ...entry, label: next ?? '' }
-                                : entry
-                            )
-                          );
-                        }
-                        return next;
-                      });
-                    }}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-              {showEvidencePanel && (
-                <>
-                  <div className="stereohunter-eval-panel stereohunter-eval-panel--text">
-                    <p>
-                      If you select <strong>{selectedLabel}</strong>, please explain the reasoning behind your annotation.
-                    </p>
-                  </div>
-                  <div className="stereohunter-eval-actions stereohunter-eval-actions--center">
-                    <button type="button" className="stereohunter-primary">Reply to Questions</button>
-                  </div>
-                </>
-              )}
-              {showRetryPanel && (
-                <>
-                  <div className="stereohunter-eval-panel stereohunter-eval-panel--text">
-                    <p>
-                      Your selection will be recorded as <strong>{selectedLabel}</strong>. If needed, click Retry to explore a different response.
-                    </p>
-                  </div>
-                  <div className="stereohunter-eval-actions stereohunter-eval-actions--center">
-                    <button type="button" className="stereohunter-secondary">Retry</button>
-                  </div>
-                </>
-              )}
-              <div className={`stereohunter-ambiguous-block${showAmbiguousPanel ? ' is-active' : ''}`}>
-                <div className="stereohunter-ambiguous" aria-hidden={!showAmbiguousPanel}>
-                  <p>
-                    If you select <strong>Ambiguous</strong>, please leave additional notes if the decision feels nuanced.
-                  </p>
-                  <textarea
-                    placeholder="Explain why the model response aligns (or conflicts) with the selected label."
-                    defaultValue=""
-                    rows={4}
-                  />
-                  <button type="button" className="stereohunter-primary">Submit</button>
-                </div>
-              </div>
-            </div>
-
-            <div className={`stereohunter-vocabulary${isVocabularyOpen ? ' is-open' : ''}`}>
-              <button
-                type="button"
-                className="stereohunter-vocabulary__toggle"
-                onClick={() => setIsVocabularyOpen(prev => !prev)}
-                aria-label="Toggle vocabulary tray"
-              >
-                <img
-                  src={TOGGLE_ICON}
-                  alt=""
-                  className={`stereohunter-vocabulary__icon${isVocabularyOpen ? ' is-open' : ''}`}
-                  loading="lazy"
-                />
-              </button>
-              <div className={`stereohunter-vocabulary__tray${isVocabularyOpen ? ' is-open' : ''}`}>
-                <div className="stereohunter-vocabulary__grid">
-                  {shuffledVocabulary.map(term => {
-                    const isActive = activeVocabulary === term.value;
-                    return (
-                      <span
-                        key={term.value}
-                        className={`stereohunter-vocabulary__chip${isActive ? ' is-checked' : ''}`}
+            {!questionMode && (
+              <>
+                <div className="stereohunter-eval">
+                  <div className="stereohunter-checker">
+                    {CHECKER_OPTIONS.map(option => (
+                      <button
+                        key={option}
+                        type="button"
+                        className={`stereohunter-checker__btn${
+                          selectedLabel === option ? ' is-active' : ''
+                        }`}
                         onClick={() => {
-                          setActiveVocabulary(isActive ? null : term.value);
-                          setCurrentTarget(isActive ? '' : term.label);
+                          setSelectedLabel(prev => {
+                            const next = prev === option ? null : option;
+                            if (selectedHistory) {
+                              setHistory(prevHistory =>
+                                prevHistory.map(entry =>
+                                  entry.id === selectedHistory
+                                    ? { ...entry, label: next ?? '' }
+                                    : entry
+                                )
+                              );
+                            }
+                            return next;
+                          });
                         }}
                       >
-                        {term.label}
-                      </span>
-                    );
-                  })}
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                  {showEvidencePanel && (
+                    <>
+                      <div className="stereohunter-eval-panel stereohunter-eval-panel--text">
+                        <p>
+                          If you select <strong>{selectedLabel}</strong>, please explain the reasoning behind your annotation.
+                        </p>
+                      </div>
+                      <div className="stereohunter-eval-actions stereohunter-eval-actions--center">
+                        <button type="button" className="stereohunter-primary" onClick={enterQuestionMode}>Reply to Questions</button>
+                      </div>
+                    </>
+                  )}
+                  {showRetryPanel && (
+                    <>
+                      <div className="stereohunter-eval-panel stereohunter-eval-panel--text">
+                        <p>
+                          Your selection will be recorded as <strong>{selectedLabel}</strong>. If needed, click Retry to explore a different response.
+                        </p>
+                      </div>
+                      <div className="stereohunter-eval-actions stereohunter-eval-actions--center">
+                        <button type="button" className="stereohunter-secondary" onClick={handleRetryOutput}>Retry</button>
+                      </div>
+                    </>
+                  )}
+                  <div className={`stereohunter-ambiguous-block${showAmbiguousPanel ? ' is-active' : ''}`}>
+                    <div className="stereohunter-ambiguous" aria-hidden={!showAmbiguousPanel}>
+                      <p>
+                        If you select <strong>Ambiguous</strong>, please leave additional notes if the decision feels nuanced.
+                      </p>
+                      <textarea
+                        placeholder="Explain why the model response aligns (or conflicts) with the selected label."
+                        defaultValue=""
+                        rows={4}
+                      />
+                      <button type="button" className="stereohunter-primary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`stereohunter-vocabulary${isVocabularyOpen ? ' is-open' : ''}`}>
+                  <button
+                    type="button"
+                    className="stereohunter-vocabulary__toggle"
+                    onClick={() => setIsVocabularyOpen(prev => !prev)}
+                    aria-label="Toggle vocabulary tray"
+                  >
+                    <img
+                      src={TOGGLE_ICON}
+                      alt=""
+                      className={`stereohunter-vocabulary__icon${isVocabularyOpen ? ' is-open' : ''}`}
+                      loading="lazy"
+                    />
+                  </button>
+                  <div className={`stereohunter-vocabulary__tray${isVocabularyOpen ? ' is-open' : ''}`}>
+                    <div className="stereohunter-vocabulary__grid">
+                      {shuffledVocabulary.map(term => {
+                        const isActive = activeVocabulary === term.value;
+                        return (
+                          <span
+                            key={term.value}
+                            className={`stereohunter-vocabulary__chip${isActive ? ' is-checked' : ''}`}
+                            onClick={() => {
+                              setActiveVocabulary(isActive ? null : term.value);
+                              setCurrentTarget(isActive ? '' : term.label);
+                            }}
+                          >
+                            {term.label}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {questionMode && (
+              <div className="stereohunter-questionnaire">
+                <div className="stereohunter-questionnaire__grid">
+                  <div className="stereohunter-questionnaire__column">
+                    <div className="stereohunter-question">
+                      <p className="stereohunter-question__label">
+                        1. Select the target of stereotype in dialogue.
+                      </p>
+                      <p className="stereohunter-question__description">
+                        Multiple selections are possible. If the target is not in the list, it is also possible to add it directly.
+                      </p>
+                      <div className="stereohunter-multi-select">
+                        <div className="stereohunter-multi-select__chips">
+                          {questionForm.targets.map(target => (
+                            <span key={target} className="stereohunter-chip">
+                              {target}
+                              <button
+                                type="button"
+                                className="stereohunter-chip__remove"
+                                onClick={() =>
+                                  setQuestionForm(prev => ({
+                                    ...prev,
+                                    targets: prev.targets.filter(item => item !== target)
+                                  }))
+                                }
+                                aria-label={`Remove ${target}`}
+                              >
+                                ×
+                              </button>
+                            </span>
+                          ))}
+                          <input
+                            type="text"
+                            list="stereohunter-target-options"
+                            placeholder="Select..."
+                            value={questionForm.targetInput}
+                            onChange={event =>
+                              setQuestionForm(prev => ({ ...prev, targetInput: event.target.value }))
+                            }
+                            onKeyDown={event => {
+                              if (event.key === 'Enter') {
+                                event.preventDefault();
+                                handleAddQuestionTarget(questionForm.targetInput);
+                              }
+                            }}
+                            onBlur={event => handleAddQuestionTarget(event.target.value)}
+                          />
+                          <datalist id="stereohunter-target-options">
+                            {VOCABULARY_SET.map(term => (
+                              <option value={term.label} key={term.value} />
+                            ))}
+                          </datalist>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="stereohunter-question">
+                      <p className="stereohunter-question__label">
+                        2. How strongly does the dialogue reflect a stereotype?
+                      </p>
+                      <div className="stereohunter-scale">
+                        {INTENSITY_SCALE.map(level => (
+                          <button
+                            type="button"
+                            key={level}
+                            className={`stereohunter-scale__btn${
+                              questionForm.intensity === level ? ' is-active' : ''
+                            }`}
+                            onClick={() =>
+                              setQuestionForm(prev => ({ ...prev, intensity: level }))
+                            }
+                          >
+                            <span className="stereohunter-scale__dot" />
+                            <span className="stereohunter-scale__label">{level}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="stereohunter-question">
+                      <p className="stereohunter-question__label">
+                        3. Do you think you belong to the target group of stereotypes?
+                      </p>
+                      <p className="stereohunter-question__description">
+                        If you selected multiple targets, please answer for the target you selected first.
+                      </p>
+                      <div className="stereohunter-choice-group">
+                        {['Yes', 'No', "I’m not sure"].map(choice => (
+                          <button
+                            type="button"
+                            key={choice}
+                            className={`stereohunter-choice${questionForm.belongToGroup === choice ? ' is-active' : ''}`}
+                            onClick={() =>
+                              setQuestionForm(prev => ({ ...prev, belongToGroup: choice }))
+                            }
+                          >
+                            {choice}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="stereohunter-question">
+                      <p className="stereohunter-question__label">
+                        4. How familiar are you with the target group of stereotypes?
+                      </p>
+                      <p className="stereohunter-question__description">
+                        If you selected multiple targets, please answer for the target you selected first.
+                      </p>
+                      <div className="stereohunter-scale">
+                        {FAMILIARITY_SCALE.map(level => (
+                          <button
+                            type="button"
+                            key={level}
+                            className={`stereohunter-scale__btn${
+                              questionForm.familiarity === level ? ' is-active' : ''
+                            }`}
+                            onClick={() =>
+                              setQuestionForm(prev => ({ ...prev, familiarity: level }))
+                            }
+                          >
+                            <span className="stereohunter-scale__dot" />
+                            <span className="stereohunter-scale__label">{renderFamiliarLabel(level)}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="stereohunter-questionnaire__column">
+                    <div className="stereohunter-question">
+                      <p className="stereohunter-question__label">
+                        5. Did the context influence your decision to identify stereotypes?
+                      </p>
+                      <div className="stereohunter-choice-group">
+                        {['Yes', 'No', "I’m not sure"].map(choice => (
+                          <button
+                            type="button"
+                            key={choice}
+                            className={`stereohunter-choice${questionForm.contextInfluence === choice ? ' is-active' : ''}`}
+                            onClick={() =>
+                              setQuestionForm(prev => ({ ...prev, contextInfluence: choice }))
+                            }
+                          >
+                            {choice}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="stereohunter-question">
+                      <p className="stereohunter-question__label">
+                        6. Are there specific words or expressions that influenced your decision to identify stereotypes?
+                      </p>
+                      <div className="stereohunter-choice-group">
+                        {['Yes', 'No', "I’m not sure"].map(choice => (
+                          <button
+                            type="button"
+                            key={choice}
+                            className={`stereohunter-choice${questionForm.wordsInfluence === choice ? ' is-active' : ''}`}
+                            onClick={() =>
+                              setQuestionForm(prev => ({
+                                ...prev,
+                                wordsInfluence: choice,
+                                highlightRanges: choice === 'Yes' ? prev.highlightRanges : []
+                              }))
+                            }
+                          >
+                            {choice}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    {questionForm.wordsInfluence === 'Yes' && (
+                      <div className="stereohunter-question">
+                        <p className="stereohunter-question__label">
+                          6-1. If so, please drag the words to highlight it.
+                        </p>
+                        <div
+                          className="stereohunter-highlight"
+                          ref={highlightBlockRef}
+                          onMouseUp={handleCaptureHighlight}
+                        >
+                          {renderHighlightedText(selectedEntry?.output ?? '', questionForm.highlightRanges)}
+                        </div>
+                      </div>
+                    )}
+                    <div className="stereohunter-questionnaire__actions">
+                      <button type="button" className="stereohunter-primary" onClick={handleQuestionSubmit}>
+                        Submit
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
-          <aside className="stereohunter-history">
+          <aside className={`stereohunter-history${questionMode ? ' is-hidden' : ''}`}>
             <div className="stereohunter-history__title">History</div>
             <div className="stereohunter-history__list">
               {history.map(item => (
@@ -404,6 +804,13 @@ export const StereoHunterUI = ({ fadeRef }) => {
         </div>
       </div>
       <p className="stereohunter-ui__note">This interaction is manually simulated, not powered by the LLM pipeline.</p>
+      <div className="stereohunter-ui__fallback">
+        <img
+          src={`${process.env.PUBLIC_URL}/projects/stereohunter/stereoHunterUI.png`}
+          alt="StereoHunter interface preview"
+          loading="lazy"
+        />
+      </div>
     </section>
   );
 };
