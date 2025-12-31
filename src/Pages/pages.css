@@ -110,19 +110,20 @@
   }
 
   /* 공통 페이지 스타일 */
-  .page {
+.page {
     padding: 100px 50px 50px;
     max-width: 1200px;
     margin: 0 auto;
   }
 
-  .page .title {
+.page .title {
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
     margin-bottom: 50px;
     letter-spacing: 2px;
   }
+
 
   /* Publication 페이지 스타일 */
   .publications {
@@ -183,11 +184,11 @@
 
 
   /* 모바일 반응형 */
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .page {
       padding: 80px 20px 30px;
     }
-    
+
     .page .title {
       font-size: 1.5rem;
     }

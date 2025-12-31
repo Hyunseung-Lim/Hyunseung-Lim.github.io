@@ -87,7 +87,7 @@
 }
 
 .about-tagline {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -218,7 +218,7 @@
 }
 
 .about-name {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin: 0;
     color: var(--text-primary, #1d1f2b);
@@ -265,7 +265,8 @@
 }
 
 .projects {
-    margin-top: 50px;
+    margin-top: 0;
+    margin-bottom: 0;
     width: 100%;
     max-width: 960px;
     margin-left: auto;
@@ -273,23 +274,125 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 20px;
+}
+
+.projects__layout-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+    padding: 0 8px;
 }
 
 .project-tiles {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 0 16px;
+}
+
+.project-tiles--grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
     gap: 24px;
-    width: 100%;
     max-width: 872px;
-    padding: 0 0 16px;
     margin: 0 auto;
 }
+
+.project-tiles--diagram {
+    position: relative;
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        repeat(2, minmax(0, 108px))
+        32px
+        minmax(0, 135px)
+        32px
+        repeat(2, minmax(0, 108px))
+        minmax(0, 1fr);
+    justify-items: center;
+    column-gap: clamp(8px, 1vw, 16px);
+    row-gap: clamp(8px, 1vh, 14px);
+    padding: clamp(32px, 4vh, 56px) clamp(8px, 3vw, 28px);
+    min-height: 320px;
+    grid-auto-rows: minmax(135px, auto);
+    grid-auto-flow: row;
+    width: auto;
+    margin: clamp(60px, 6vh, 80px) auto 0;
+    transition: padding var(--layout-transition-speed) var(--layout-transition-easing);
+}
+
+.projects-diagram-overlay {
+    position: absolute;
+    left: 50%;
+    width: 120%;
+    margin-left: -60%;
+    top: -60px;
+    height: calc(100% + 120px);
+    overflow: visible;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.projects-diagram-overlay__svg {
+    width: 100%;
+    height: 100%;
+    transform-origin: center;
+    display: block;
+}
+
+.projects-diagram-ellipse {
+    fill: none;
+    stroke-width: 1.4;
+    stroke: color-mix(in srgb, var(--border-primary) 80%, #000000 20%);
+}
+
+.dark-mode .projects-diagram-ellipse {
+    stroke: color-mix(in srgb, var(--border-primary) 60%, #ffffff 40%);
+}
+
+.projects-diagram-overlay__label {
+    position: absolute;
+    top: -48px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.projects-diagram-overlay__label-content {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--background-primary);
+    padding: 0.2rem 0.85rem;
+    border-radius: 999px;
+}
+
+
 
 .project-tile {
     flex: 0 1 200px;
     display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: transform var(--layout-transition-speed) var(--layout-transition-easing),
+        opacity var(--layout-transition-speed) var(--layout-transition-easing);
+    will-change: transform;
+}
+
+.project-tile--diagram {
+    justify-content: center;
+    width: 100%;
+    transition:
+        transform var(--layout-transition-speed) var(--layout-transition-easing),
+        opacity var(--layout-transition-speed) var(--layout-transition-easing);
+}
+
+.project-tile--diagram .project-tile__fade-wrapper {
     justify-content: center;
 }
 
@@ -357,6 +460,11 @@
 }
 
 @media (max-width: 768px) {
+    .about-name,
+    .about-tagline {
+        font-size: 1rem;
+    }
+
     .project-tiles {
         gap: 20px;
         padding-bottom: 24px;
@@ -371,14 +479,24 @@
         width: 100%;
     }
 
-    .project-tile__image-container {
-        width: min(140px, 70vw);
-        height: min(140px, 70vw);
-    }
+.project-tile__image-container {
+    width: min(140px, 70vw);
+    height: min(140px, 70vw);
+}
 
     .project-tile__title {
         font-size: 0.95rem;
     }
+}
+
+.project-tile--diagram .project-tile__image-container {
+    width: 104px;
+    height: 104px;
+}
+
+.project-tile--diagram .project-tile__title {
+    font-size: 0.82rem;
+    margin-top: 6px;
 }
 
 .project {
@@ -431,7 +549,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 20px 0;
+    margin: 10px 0;
     align-items: center;
     max-width: 100%;
 }
@@ -583,7 +701,7 @@
 /* Small Tablet view */
 @media (min-width: 769px) and (max-width: 992px) {
     .projects {
-        margin-top: 70px;
+        margin-top: 0;
         width: 660px;
     }
     .project {
@@ -603,10 +721,9 @@
     }
 }
 
-/* Large Tablet view */
 @media (min-width: 993px) and (max-width: 1024px) {
     .projects {
-        margin-top: 70px;
+        margin-top: 0;
         width: 760px;
     }
     .project {
@@ -626,10 +743,16 @@
     }
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+    .project-tiles--grid {
+        width: 648px;
+    }
+}
+
 /* Desktop view */
 @media (min-width: 1025px) {
     .projects {
-        margin-top: 70px;
+        margin-top: 0;
         width: 960px;
     }
     .project {
@@ -647,4 +770,10 @@
     .publication > .info {
         flex-direction: row;
     }
+}
+.projects--diagram {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    width: 100%;
 }

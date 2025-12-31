@@ -327,6 +327,11 @@ src/Pages/Projects/
 - 전역 레이아웃, 타이포그래피, 헤더/본문 divider, 페이드인 규칙 등은 `WEBSITE_STYLE.md`에서 관리합니다.
   - `.project-divider` 및 `.project-divider--header` 사용법, 전역 `.section-text`/`section-text--small` 크기, 헤더 보더 제거 등 최근 작업 내용이 모두 포함되어 있습니다.
 - 페이드인 문제 해결이나 ref 사용 가이드는 `FADEIN_GUIDE.md`를 참고하세요.
+- **Projects Diagram View (2026-01-01)**
+  - 데스크톱에서는 `/projects` 진입 시 `grid → diagram` 순서로 한 번 렌더링해 `useFadeInAnimation`이 정상 동작하도록 했습니다. 이후에는 사용자가 Diagram/Grid 버튼으로 직접 전환할 수 있으며, 모바일(`≤768px`)은 항상 Grid를 유지합니다.
+  - “Design (+HCI)”와 “AI” 라벨은 `projects-diagram-overlay__label-content`에 fade ref를 부여해 아래→위 축으로만 애니메이션 되고, 포지션은 `left:% + translateX(-50%)` 조합으로 CSS에서 처리합니다.
+  - 다이어그램 오버레이(SVG)의 타원 스트로크는 테마별 `color-mix`와 `stroke-width: 1.4px`을 사용해 라이트/다크에서 모두 은은하게 보이도록 조정했습니다.
+  - `.project-tiles--diagram`은 여백·패딩이 조정되어 있으므로 새 아이템을 추가할 때 기존 클래스 규칙을 확인하고 동일 구조를 유지하세요.
 
 ## 향후 수정 시 주의사항
 1. **데이터 추가**: `src/Data/` 폴더의 JSON 파일들 수정 (기존 시스템)

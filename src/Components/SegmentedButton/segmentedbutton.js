@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./segmentedbutton.css";
 
-export const SegmentedControl = ({ name, callback, controlRef, segments }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
+const isDefined = (value) => value !== undefined && value !== null;
+
+export const SegmentedControl = ({ name, callback, controlRef, segments = [], value }) => {
+    const [internalValue, setInternalValue] = useState(() => {
+        if (isDefined(value)) {
+            return value;
+        }
+        return segments[0]?.value ?? null;
+    });
     const [sliderStyle, setSliderStyle] = useState({});
     const buttonRefs = useRef([]);
 
-    const handleSegmentClick = (index, value) => {
-        setActiveIndex(index);
-        updateSliderPosition(index);
-        if (callback) {
-            callback(value);
-        }
-    };
-
-    const updateSliderPosition = (index) => {
+    const updateSliderPosition = useCallback((index) => {
         const button = buttonRefs.current[index];
         if (button) {
             const { offsetLeft, offsetWidth } = button;
@@ -25,27 +24,49 @@ export const SegmentedControl = ({ name, callback, controlRef, segments }) => {
                 left: `${parentPadding}px`
             });
         }
+    }, []);
+
+    const resolvedValue = isDefined(value) ? value : internalValue;
+    const hasSelection = segments.some((segment) => segment.value === resolvedValue);
+    const activeValue = hasSelection ? resolvedValue : (segments[0]?.value ?? null);
+    const activeIndex = Math.max(
+        0,
+        segments.findIndex((segment) => segment.value === activeValue)
+    );
+
+    const handleSegmentClick = (index, segmentValue) => {
+        if (!isDefined(value)) {
+            setInternalValue(segmentValue);
+        }
+        updateSliderPosition(index);
+        if (callback) {
+            callback(segmentValue);
+        }
     };
 
     useEffect(() => {
-        // 초기 슬라이더 위치 설정
-        setTimeout(() => updateSliderPosition(0), 100);
-        
-        if (callback && segments[0]) {
-            callback(segments[0].value);
+        if (!isDefined(value) && internalValue !== activeValue) {
+            setInternalValue(activeValue);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [activeValue, internalValue, value]);
 
     useEffect(() => {
+        const timer = setTimeout(() => updateSliderPosition(activeIndex), 0);
+        return () => clearTimeout(timer);
+    }, [activeIndex, segments, updateSliderPosition]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            return undefined;
+        }
         // 윈도우 리사이즈 시 슬라이더 위치 재조정
         const handleResize = () => {
             updateSliderPosition(activeIndex);
         };
-        
+
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [activeIndex]);
+    }, [activeIndex, updateSliderPosition]);
 
     return (
         <div className="segmented-control" ref={controlRef}>
