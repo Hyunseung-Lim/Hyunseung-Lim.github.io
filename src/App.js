@@ -5,6 +5,7 @@ import { ScrollToTop } from './Components/ScrollToTop';
 
 import { MainPage } from './Pages/MainPage';
 import { ResearchPage } from './Pages/ResearchPage';
+import { About } from './Pages/about';
 import { Publications } from './Pages/publications';
 import { ProjectsPage } from './Pages/ProjectsPage';
 import { DatopiaProject } from './Pages/Projects/Datopia/Datopia';
@@ -25,6 +26,7 @@ function App() {
         <div className="App">
           <Routes>
             <Route path='/' element={<MainPage/>} />
+            <Route path='/about' element={<About/>} />
             <Route path='/research' element={<ResearchPage/>} />
             <Route path='/projects' element={<ProjectsPage/>} />
             <Route path='/projects/datopia' element={<DatopiaProject/>} />

@@ -65,6 +65,27 @@ export const BrownieProject = () => {
         />
 
         <main className="project-content">
+          <section className="project-section brownie-intro">
+            <div className="project-fade-block" ref={fadeInRef}>
+              <p className="section-text">
+                Most cooking recipes we encounter are polished, completed versions. Although they
+                are shaped by many trials and errors, it&apos;s hard to know what those errors were
+                or how they were overcome. As a result, when you follow a finished recipe from the
+                start, you may not know how to handle an unintended outcome. One answer lies in
+                learning from failed cooking, but it&apos;s difficult to keep failing alone until you
+                succeed.
+              </p>
+            </div>
+            <div className="project-fade-block" ref={fadeInRef}>
+              <p className="section-text">
+                Brownie, a community for sharing failed dishes, helps users share their failures,
+                identify the causes, and overcome them together. By seeing others&apos; failed
+                recipes, users can find fun and a sense of kinship, reduce their fear of failure, and
+                become more willing to try new dishes.
+              </p>
+            </div>
+          </section>
+
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <div className="brownie-video-frame">
               <iframe

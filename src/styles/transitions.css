@@ -69,7 +69,7 @@
 
 .fade-in-element:not(.fade-in-active) {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(16px);
 }
 
 .fade-in-element.fade-in-active {
@@ -79,7 +79,7 @@
 
 .project-fade-block {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(16px);
   transition:
     opacity var(--animation-transition-speed) var(--animation-transition-easing),
     transform var(--animation-transition-speed) var(--animation-transition-easing);

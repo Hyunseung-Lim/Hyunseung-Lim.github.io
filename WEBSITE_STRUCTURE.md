@@ -175,6 +175,15 @@ export const PROJECT_ORDER = [
 
 ### 4. 주요 페이지 컴포넌트
 
+#### About 페이지 (`src/Pages/about.js`)
+- **레이아웃**: Topbar → tagline → 사진 → 이름 → 소개 문단 → Footer 순으로 구성된 단일 컬럼.
+- **애니메이션**:
+  - `renderAnimatedText`로 태그라인의 각 글자(× 포함)를 개별 마스크 안에서 왼쪽→오른쪽 슬라이드.
+  - 사진/이름/소개 문단은 `project-fade-block + about-fade`로 0.8s/1.05s/1.3s 디레이된 페이드인 적용(이동량 8px).
+  - 회전하는 × 아이콘은 동일 마스크 안에서 등장 후 2초 간격으로 45° 회전.
+- **스타일 특징**: `.about-page`와 `.about` 클래스로 824px 이하 컨테이너, 중앙 정렬, 타이포크기(태그라인 1.05rem, 이름 1rem, 문단 0.82rem) 정의.
+- **마스크 커스터마이징**: `.about-mask--tagline`과 `.about-tagline__char-wrapper`에서 overflow/높이를 제어해 글자 절반 노출 없이 깔끔한 슬라이드 보장.
+
 #### MainPage (`src/Pages/MainPage.js`)
 - **무한 이미지 캐러셀** (DIS 2024 컨퍼런스 이미지)
 - **페이드인 애니메이션**

@@ -101,6 +101,7 @@
     height: 1rem;
     margin: 0 0.2rem 0 0;
     font-size: 0.6rem;
+    transform: translateY(-0.04rem);
   }
 }
 
@@ -474,6 +475,12 @@
   .project-page--stereohunter .stereohunter-target-row__header {
     align-self: auto;
     justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-page--stereohunter .stereohunter-quantitative__row {
+    padding-bottom: 0;
   }
 }
 

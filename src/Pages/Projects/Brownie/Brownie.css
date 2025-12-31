@@ -34,6 +34,20 @@
   height: 100%;
 }
 
+.project-page--brownie .brownie-intro {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+.project-page--brownie .brownie-intro .section-text {
+  margin: 0;
+}
+
 .project-page--brownie .brownie-video-frame {
   width: 100%;
   aspect-ratio: 16 / 9;
