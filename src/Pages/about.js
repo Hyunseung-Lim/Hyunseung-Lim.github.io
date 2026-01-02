@@ -75,6 +75,127 @@ export const About = () => {
   const firstTagline = renderAnimatedText(TAGLINE_PART_ONE);
   const secondTagline = renderAnimatedText(TAGLINE_PART_TWO);
 
+  useEffect(() => {
+    const node = scrollRoot;
+    if (!node) {
+      return undefined;
+    }
+
+    const sections = Array.from(node.querySelectorAll('.about-section'));
+    if (sections.length === 0) {
+      return undefined;
+    }
+
+    const normalizeDelta = (event) => {
+      if (event.deltaMode === 1) {
+        return event.deltaY * 16;
+      }
+      if (event.deltaMode === 2) {
+        return event.deltaY * window.innerHeight;
+      }
+      return event.deltaY;
+    };
+
+    const ANIMATION_DURATION_MS = 2800;
+    let animationFrame = null;
+    let animationStart = null;
+    let animationFrom = node.scrollTop;
+    let animationTo = node.scrollTop;
+    let currentIndex = 0;
+
+    const cancelAnimation = () => {
+      if (animationFrame !== null) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+      animationStart = null;
+    };
+
+    const updateCurrentIndex = () => {
+      const currentScroll = node.scrollTop;
+      let closestIndex = 0;
+      let smallestDistance = Number.POSITIVE_INFINITY;
+      sections.forEach((section, index) => {
+        const offset = section.offsetTop;
+        const distance = Math.abs(offset - currentScroll);
+        if (distance < smallestDistance) {
+          smallestDistance = distance;
+          closestIndex = index;
+        }
+      });
+      currentIndex = closestIndex;
+    };
+
+    const animateScroll = (timestamp) => {
+      if (animationStart === null) {
+        animationStart = timestamp;
+      }
+      const elapsed = timestamp - animationStart;
+      const progress = Math.min(elapsed / ANIMATION_DURATION_MS, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      const nextScrollTop = animationFrom + (animationTo - animationFrom) * easedProgress;
+      node.scrollTop = nextScrollTop;
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animateScroll);
+      } else {
+        cancelAnimation();
+        animationFrom = node.scrollTop;
+        updateCurrentIndex();
+      }
+    };
+
+    const scrollToSection = (index) => {
+      const targetIndex = Math.max(0, Math.min(index, sections.length - 1));
+      const section = sections[targetIndex];
+      if (!section) {
+        return;
+      }
+      const nextTarget = section.offsetTop;
+      if (Math.abs(nextTarget - node.scrollTop) < 1) {
+        return;
+      }
+      cancelAnimation();
+      animationFrom = node.scrollTop;
+      animationTo = nextTarget;
+      animationFrame = requestAnimationFrame(animateScroll);
+    };
+
+    const handleWheel = (event) => {
+      if (event.ctrlKey) {
+        return;
+      }
+      const normalizedDelta = normalizeDelta(event);
+      if (normalizedDelta === 0) {
+        return;
+      }
+      event.preventDefault();
+      cancelAnimation();
+      updateCurrentIndex();
+      const direction = normalizedDelta > 0 ? 1 : -1;
+      const nextIndex = currentIndex + direction;
+      if (nextIndex < 0 || nextIndex >= sections.length) {
+        return;
+      }
+      currentIndex = nextIndex;
+      scrollToSection(currentIndex);
+    };
+
+    const handleScroll = () => {
+      updateCurrentIndex();
+    };
+
+    updateCurrentIndex();
+    node.addEventListener('wheel', handleWheel, { passive: false });
+    node.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      cancelAnimation();
+      node.removeEventListener('wheel', handleWheel);
+      node.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollRoot]);
+
   return (
     <>
       <Topbar />
@@ -99,18 +220,18 @@ export const About = () => {
               </p>
             </div>
 
-            <div className="about-photo about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.4s' }}>
+            <div className="about-photo about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.5s' }}>
               <img src={'images/photo.png'} alt="Hyunseung Lim" />
             </div>
 
-            <p className="about-name about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.55s' }}>
+            <p className="about-name about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.75s' }}>
               Hyunseung Lim
             </p>
 
             <p
               className="about-description about-fade-block"
               ref={fadeInRef}
-              style={{ '--about-fade-delay': '0.75s' }}
+              style={{ '--about-fade-delay': '1.05s' }}
             >
               Hello! I am a fourth-year PhD candidate in the Department of Industrial Design at KAIST.
               <br />
@@ -128,7 +249,7 @@ export const About = () => {
               .
             </p>
 
-            <div className="about-contact-buttons about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.95s' }}>
+            <div className="about-contact-buttons about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '1.35s' }}>
               {contactButtons.map(({ label, href }) =>
                 href ? (
                   <a
