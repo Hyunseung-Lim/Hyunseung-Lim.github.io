@@ -52,7 +52,6 @@ export const Projects = () => {
   const [scrollContainer, setScrollContainer] = useState(null);
   const [isMobileViewport, setIsMobileViewport] = useState(getIsMobileViewport);
   const [layoutMode, setLayoutMode] = useState('grid');
-  const hasAppliedDesktopDefaultRef = useRef(false);
   const tileRefs = useRef(new Map());
   const tilePositionsRef = useRef(new Map());
   const fadeInRef = useFadeInAnimation({
@@ -62,8 +61,8 @@ export const Projects = () => {
   const { isDark } = useTheme();
   const layoutSegments = useMemo(
     () => [
-      { label: 'Diagram', value: 'diagram' },
-      { label: 'Grid', value: 'grid' }
+      { label: 'Grid', value: 'grid' },
+      { label: 'Diagram', value: 'diagram' }
     ],
     []
   );
@@ -153,19 +152,8 @@ export const Projects = () => {
   }, []);
 
   useLayoutEffect(() => {
-    if (isMobileViewport) {
-      hasAppliedDesktopDefaultRef.current = false;
-      if (layoutMode !== 'grid') {
-        setLayoutMode('grid');
-      }
-      return;
-    }
-
-    if (!hasAppliedDesktopDefaultRef.current) {
-      hasAppliedDesktopDefaultRef.current = true;
-      if (layoutMode !== 'diagram') {
-        setLayoutMode('diagram');
-      }
+    if (isMobileViewport && layoutMode !== 'grid') {
+      setLayoutMode('grid');
     }
   }, [isMobileViewport, layoutMode]);
 

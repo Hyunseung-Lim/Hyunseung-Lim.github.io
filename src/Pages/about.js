@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import '../Components/components.css';
 import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
 import { useTheme } from '../contexts/ThemeContext';
@@ -10,31 +10,67 @@ const TAGLINE_PART_TWO = 'AI Researcher';
 
 const renderAnimatedText = (text) =>
   text.split('').map((char, index) => (
-    <span
-      key={`${text}-${index}`}
-      className="about-tagline__char-wrapper"
-    >
-      <span className="about-tagline__char">
-        {char === ' ' ? '\u00A0' : char}
-      </span>
+    <span key={`${text}-${index}`} className="about-tagline__char-wrapper">
+      <span className="about-tagline__char">{char === ' ' ? '\u00A0' : char}</span>
     </span>
   ));
 
 export const About = () => {
-  const fadeInRef = useFadeInAnimation();
-  const taglineFadeRef = useFadeInAnimation();
+  const [scrollRoot, setScrollRoot] = useState(null);
+  const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const { isDark } = useTheme();
   const crossIconSrc = isDark ? '/icons/x_dark.svg' : '/icons/x.svg';
+
+  const contactButtons = useMemo(
+    () => [
+      { label: 'Mail', href: 'mailto:charlie9807@kaist.ac.kr' },
+      { label: 'Scholar', href: 'https://scholar.google.com/citations?user=3h9XkqYAAAAJ&hl=ko' },
+      { label: 'Linkedin', href: 'https://www.linkedin.com/in/hyunseung-lim-135742282/' },
+      { label: 'CV', href: null }
+    ],
+    []
+  );
+
+  const researchColumns = useMemo(
+    () => [
+      {
+        title: 'AI for Design',
+        body:
+          'I explore how AI can support designers and the design process. Moving beyond generating artifacts, I study how generative AI can support designers’ thinking across various stages of the design process, and I propose new interaction to enable that support.',
+        links: [
+          { label: 'Feed-O-Meter', href: '#/projects/feed-o-meter' },
+          { label: 'CrafTeam', href: '#/projects/crafteam' }
+        ]
+      },
+      {
+        title: 'Design for AI',
+        body:
+          'Grounded in human-centered design, I examine how AI technologies can be developed and used in ways that align with people. I apply design methods to build datasets for improving and evaluating AI, and to support alignment with human needs and values.',
+        links: [
+          { label: 'PANORAMA', href: '#/projects/panorama' },
+          { label: 'StereoHunter', href: '#/projects/stereohunter' }
+        ]
+      }
+    ],
+    []
+  );
+
   const [crossRotation, setCrossRotation] = useState(0);
 
   useEffect(() => {
     setCrossRotation(45);
     const interval = setInterval(() => {
-      setCrossRotation(prev => prev + 45);
+      setCrossRotation((prev) => prev + 45);
     }, 2000);
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    document.body.classList.add('about-scroll-snapping');
+    return () => {
+      document.body.classList.remove('about-scroll-snapping');
+    };
+  }, []);
 
   const firstTagline = renderAnimatedText(TAGLINE_PART_ONE);
   const secondTagline = renderAnimatedText(TAGLINE_PART_TWO);
@@ -42,62 +78,155 @@ export const About = () => {
   return (
     <>
       <Topbar />
-      <main className="about-page">
-        <section className="about">
-          <div className="about-mask about-mask--tagline" ref={taglineFadeRef}>
-            <p className="about-tagline">
-              <span className="about-tagline__line">{firstTagline}</span>
-              <span className="about-tagline__char-wrapper">
-                <span className="about-tagline__char about-tagline__char--icon">
-                  <span
-                    className="about-tagline__icon"
-                    aria-hidden="true"
-                    style={{ transform: `rotate(${crossRotation}deg)` }}
-                  >
-                    <img src={crossIconSrc} alt="" />
+      <main className="about-page" ref={setScrollRoot}>
+        <section className="about-section about-section--hero">
+          <div className="about about-hero">
+            <div className="about-mask about-mask--tagline" ref={fadeInRef}>
+              <p className="about-tagline">
+                <span className="about-tagline__line">{firstTagline}</span>
+                <span className="about-tagline__char-wrapper">
+                  <span className="about-tagline__char about-tagline__char--icon">
+                    <span
+                      className="about-tagline__icon"
+                      aria-hidden="true"
+                      style={{ transform: `rotate(${crossRotation}deg)` }}
+                    >
+                      <img src={crossIconSrc} alt="" />
+                    </span>
                   </span>
                 </span>
-              </span>
-              <span className="about-tagline__line">{secondTagline}</span>
+                <span className="about-tagline__line">{secondTagline}</span>
+              </p>
+            </div>
+
+            <div className="about-photo about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.4s' }}>
+              <img src={'images/photo.png'} alt="Hyunseung Lim" />
+            </div>
+
+            <p className="about-name about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.55s' }}>
+              Hyunseung Lim
             </p>
-          </div>
-          <div
-            className="about-photo project-fade-block about-fade"
-            ref={fadeInRef}
-            style={{ transitionDelay: '0.8s' }}
-          >
-            <img src={'images/photo.jpg'} alt="Hyunseung Lim" />
-          </div>
-          <p
-            className="about-name project-fade-block about-fade"
-            ref={fadeInRef}
-            style={{ transitionDelay: '1.05s' }}
-          >
-            Hyunseung Lim
-          </p>
-          <p
-            className="about-description project-fade-block about-fade"
-            ref={fadeInRef}
-            style={{ transitionDelay: '1.3s' }}
-          >
-            Hello! I am a fourth-year PhD candidate in the Department of Industrial Design at KAIST.
-            <br />
-            I am working with{' '}
-            <a
-              className="about-link"
-              href="https://galaxytourist.notion.site/galaxytourist/Hwajung-Hong-cc10b0291bbe4ca38dbf4882cd687423"
+
+            <p
+              className="about-description about-fade-block"
+              ref={fadeInRef}
+              style={{ '--about-fade-delay': '0.75s' }}
             >
-              Prof. Hwajung Hong
-            </a>{' '}
-            at{' '}
-            <a className="about-link" href="https://dxd-lab.github.io/">
-              DxD Lab
-            </a>
-            .
-          </p>
+              Hello! I am a fourth-year PhD candidate in the Department of Industrial Design at KAIST.
+              <br />
+              I am working with{' '}
+              <a
+                className="about-link"
+                href="https://galaxytourist.notion.site/galaxytourist/Hwajung-Hong-cc10b0291bbe4ca38dbf4882cd687423"
+              >
+                Prof. Hwajung Hong
+              </a>{' '}
+              at{' '}
+              <a className="about-link" href="https://dxd-lab.github.io/">
+                DxD Lab
+              </a>
+              .
+            </p>
+
+            <div className="about-contact-buttons about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.95s' }}>
+              {contactButtons.map(({ label, href }) =>
+                href ? (
+                  <a
+                    key={label}
+                    href={href}
+                    className="about-contact-button"
+                    target={href.startsWith('http') ? '_blank' : undefined}
+                    rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                  >
+                    {label}
+                  </a>
+                ) : (
+                  <button key={label} type="button" className="about-contact-button">
+                    {label}
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section className="about-section about-section--research">
+            <div className="about-research-wrapper">
+              <div className="about-research">
+                <div
+                  className="about-research-intro-block about-fade-block"
+                  ref={fadeInRef}
+                style={{ '--about-fade-delay': '0.25s' }}
+                >
+                <p className="about-research-subheading about-research-subheading--intro">
+                  Research Interest
+                </p>
+                <p className="about-research-intro">
+                  I am a{' '}
+                  <span className="about-hci-text about-hci-text--full">
+                    Human–Computer Interaction (HCI)
+                  </span>
+                  <span className="about-hci-text about-hci-text--compact">HCI</span>{' '}
+                  researcher with an interdisciplinary background in Industrial Design and Computer Science. My
+                  research explores how design and AI can shape and strengthen one another.
+                </p>
+              </div>
+                <div
+                  className="about-research-columns about-fade-block"
+                  ref={fadeInRef}
+                style={{ '--about-fade-delay': '0.4s' }}
+                >
+                  {researchColumns.map((column, index) => {
+                    const baseDelay = 0.5 + index * 0.2;
+                    return (
+                      <div
+                        key={column.title}
+                        className="about-research-column about-fade-block"
+                        ref={fadeInRef}
+                        style={{ '--about-fade-delay': `${baseDelay}s` }}
+                      >
+                      <p
+                        className="about-research-title"
+                        style={{ '--about-fade-delay': `${baseDelay}s` }}
+                      >
+                        {column.title}
+                      </p>
+                      <p
+                        className="about-research-text"
+                        style={{ '--about-fade-delay': `${baseDelay + 0.1}s` }}
+                      >
+                        {column.body}
+                      </p>
+                      <p
+                        className="about-research-subheading"
+                        style={{ '--about-fade-delay': `${baseDelay + 0.2}s` }}
+                      >
+                        Selected Projects
+                      </p>
+                      <div
+                        className="about-contact-buttons about-contact-buttons--inline"
+                        style={{ '--about-fade-delay': `${baseDelay + 0.3}s` }}
+                      >
+                        {column.links.map((link, linkIndex) => (
+                          <a
+                            key={link.label}
+                            href={link.href}
+                            className="about-contact-button"
+                          style={{ '--about-fade-delay': `${baseDelay + 0.35 + linkIndex * 0.05}s` }}
+                          >
+                            {link.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <Footer />
+          </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };

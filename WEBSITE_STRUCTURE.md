@@ -176,26 +176,30 @@ export const PROJECT_ORDER = [
 ### 4. 주요 페이지 컴포넌트
 
 #### About 페이지 (`src/Pages/about.js`)
-- **레이아웃**: Topbar → tagline → 사진 → 이름 → 소개 문단 → Footer 순으로 구성된 단일 컬럼.
+- **레이아웃**: Topbar → 태그라인 마스크 → 사진/이름/소개 → 연락 버튼 → `Research Interest` 섹션(인트로 블록 + 2열 칼럼) → Footer 순서. 각 섹션은 스냅 스크롤(`.about-page`)로 연결된다.
 - **애니메이션**:
-  - `renderAnimatedText`로 태그라인의 각 글자(× 포함)를 개별 마스크 안에서 왼쪽→오른쪽 슬라이드.
-  - 사진/이름/소개 문단은 `project-fade-block + about-fade`로 0.8s/1.05s/1.3s 디레이된 페이드인 적용(이동량 8px).
-  - 회전하는 × 아이콘은 동일 마스크 안에서 등장 후 2초 간격으로 45° 회전.
-- **스타일 특징**: `.about-page`와 `.about` 클래스로 824px 이하 컨테이너, 중앙 정렬, 타이포크기(태그라인 1.05rem, 이름 1rem, 문단 0.82rem) 정의.
-- **마스크 커스터마이징**: `.about-mask--tagline`과 `.about-tagline__char-wrapper`에서 overflow/높이를 제어해 글자 절반 노출 없이 깔끔한 슬라이드 보장.
+  - `renderAnimatedText`로 태그라인 글자를 개별 마스크에서 좌→우 슬라이드 및 회전 아이콘(2초 간격 45° 회전) 노출.
+  - 모든 페이드 요소는 `about-fade-block` 클래스를 공유하며, JS에서는 `style={{ '--about-fade-delay': '0.4s' }}`처럼 커스텀 속성으로 지연시간만 전달해 테마 전환 시 색상 변화가 즉시 일어난다.
+  - 연구 칼럼 내부는 제목→본문→프로젝트 링크 순으로 JS에서 점진적 delay를 적용해 계단식으로 등장한다.
+- **스타일 특징**:
+  - `.about-research-intro-block`으로 서브헤딩과 인트로 문단을 묶어 gap을 독립제어, `.about-research-wrapper`는 footer가 항상 하단에 붙도록 min-height와 flex 정렬을 조정했다.
+  - `.about-research-columns`는 데스크톱에서는 2열, 모바일에서는 컬럼 방향으로 전환하며 gap을 크게 준다.
+  - 폰트 크기: 태그라인 1.2rem, 이름 1.2rem, 본문 0.82rem, 연구 타이틀 1rem 등 `components.css`에서 관리.
+- **마스크 커스터마이징**: `.about-mask--tagline`과 `.about-tagline__char-wrapper`로 overflow/높이를 제어해 글자가 깔끔하게 슬라이드.
 
 #### MainPage (`src/Pages/MainPage.js`)
 - **무한 이미지 캐러셀** (DIS 2024 컨퍼런스 이미지)
 - **페이드인 애니메이션**
 - **반응형 디자인**
 #### Projects 페이지 (`src/Pages/projects.js`)
-- **아이콘 기반 프로젝트 그리드**: `PROJECT_ORDER` 순서(Crafteam → Panorama → Feed-O-Meter → AQUA → Datopia → StereoHunter → Brownie → Elevate → Aqua Design)를 유지
-- **다크/라이트 전용 아이콘 자동 전환** (`ThemeContext` 상태에 따라 세트 교체)
-- **모든 카드**: Datopia, Feed-O-Meter, Crafteam, StereoHunter, Elevate, AQUA, Aqua Design, Brownie, PANORAMA 모두 자체 상세 페이지(`#/projects/...`)로 이동
-- **중앙 페이드인 시스템**: `useFadeInAnimation(0.1)`으로 모든 카드 동일 타이밍의 페이드 인 적용
-- **호버 자산 제어**: `data-hover` 속성과 공통 핸들러로 정리, 필요 시 다크 모드 전용 아이콘 사용
-- **지연 로딩**: 모든 프로젝트 아이콘에 `loading="lazy"` 적용
-- **데이터 소스**: `src/Data/projectsMeta.js`의 `PROJECTS` 맵과 `PROJECT_ORDER` 배열을 참조해 아이콘/링크/메타 정보를 일괄 관리
+- **레이아웃 토글**: 상단 SegmentedControl이 `Grid`(기본) ↔ `Diagram` 모드를 제공. 모바일(`≤768px`)에서는 자동으로 Grid로 되돌린다.
+- **아이콘 기반 프로젝트 그리드**: `PROJECT_ORDER` 순서(Crafteam → Panorama → Feed-O-Meter → AQUA → Datopia → StereoHunter → Brownie → Elevate → Aqua Design)를 유지하며, 각 타일은 상세 페이지 또는 외부 링크로 이동한다.
+- **Diagram 모드**: `DIAGRAM_PLACEMENT`에 정의된 `gridColumn/gridRow` 값으로 9열 다이어그램에 배치하며, `DIAGRAM_VIEWBOX`/`DIAGRAM_ELLIPSES` 값으로 SVG 배경 라벨을 계산한다.
+- **다크/라이트 전용 아이콘 자동 전환**: `useTheme` 상태에 따라 기본/호버 아이콘을 자동 교체.
+- **공통 페이드인 시스템**: `useFadeInAnimation(0.1)`을 타일 wrapper에 연결해 Grid/Diagram 전환 시에도 순차 등장.
+- **호버 자산 제어**: `data-original`/`data-hover` 속성과 `handleMouseEnter/Leave`로 통일된 hover 이미지 전환.
+- **지연 로딩**: 모든 아이콘 이미지에 `loading="lazy"` 적용.
+- **데이터 소스**: `src/Data/projectsMeta.js`의 `PROJECTS` 맵과 `PROJECT_ORDER` 배열이 타일 데이터(아이콘 경로, 라우트, 외부 링크 여부 등)를 공급.
 
 #### Publications 페이지 (`src/Pages/publications.js`)
 - **다중 필터링 시스템**:
