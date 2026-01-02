@@ -97,6 +97,10 @@ export const About = () => {
     };
 
     const ANIMATION_DURATION_MS = 2800;
+    const easingCurve = (t) => {
+      const quickStart = Math.pow(t, 0.42); // stronger boost right away
+      return 1 - Math.pow(1 - quickStart, 2.2); // slightly softer cap to keep mid-speed low
+    };
     let animationFrame = null;
     let animationStart = null;
     let animationFrom = node.scrollTop;
@@ -132,7 +136,7 @@ export const About = () => {
       }
       const elapsed = timestamp - animationStart;
       const progress = Math.min(elapsed / ANIMATION_DURATION_MS, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      const easedProgress = easingCurve(progress);
       const nextScrollTop = animationFrom + (animationTo - animationFrom) * easedProgress;
       node.scrollTop = nextScrollTop;
 
