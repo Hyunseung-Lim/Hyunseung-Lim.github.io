@@ -51,18 +51,21 @@ const handleMouseLeave = (event) => {
 export const Projects = () => {
   const [scrollContainer, setScrollContainer] = useState(null);
   const [isMobileViewport, setIsMobileViewport] = useState(getIsMobileViewport);
-  const [layoutMode, setLayoutMode] = useState('grid');
+  const [layoutMode, setLayoutMode] = useState(() => (getIsMobileViewport() ? 'grid' : 'diagram'));
   const tileRefs = useRef(new Map());
   const tilePositionsRef = useRef(new Map());
   const fadeInRef = useFadeInAnimation({
     threshold: 0.1,
     root: scrollContainer
   });
+  const handleScrollContainerRef = useCallback((node) => {
+    setScrollContainer(node);
+  }, []);
   const { isDark } = useTheme();
   const layoutSegments = useMemo(
     () => [
-      { label: 'Grid', value: 'grid' },
-      { label: 'Diagram', value: 'diagram' }
+      { label: 'Diagram', value: 'diagram' },
+      { label: 'Grid', value: 'grid' }
     ],
     []
   );
@@ -225,14 +228,15 @@ export const Projects = () => {
             />
           </div>
         )}
-        <div className={tilesClassName} ref={setScrollContainer} data-layout-mode={layoutMode}>
-          {shouldUseDiagramLayout && (
+        <div className={tilesClassName} ref={handleScrollContainerRef} data-layout-mode={layoutMode}>
+          {shouldUseDiagramLayout && scrollContainer && (
             <div className="projects-diagram-overlay" aria-hidden="true">
               <svg
                 className="projects-diagram-overlay__svg"
                 viewBox={`0 0 ${DIAGRAM_VIEWBOX.width} ${DIAGRAM_VIEWBOX.height}`}
                 preserveAspectRatio="xMidYMid meet"
                 overflow="visible"
+                ref={fadeInRef}
               >
                 {Object.entries(DIAGRAM_ELLIPSES).map(([key, ellipse]) => (
                   <ellipse

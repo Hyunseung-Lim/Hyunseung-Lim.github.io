@@ -17,6 +17,7 @@ const renderAnimatedText = (text) =>
 
 export const About = () => {
   const [scrollRoot, setScrollRoot] = useState(null);
+  const [showScrollHint, setShowScrollHint] = useState(true);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const { isDark } = useTheme();
   const crossIconSrc = isDark ? '/icons/x_dark.svg' : '/icons/x.svg';
@@ -25,7 +26,7 @@ export const About = () => {
     () => [
       { label: 'Mail', href: 'mailto:charlie9807@kaist.ac.kr' },
       { label: 'Scholar', href: 'https://scholar.google.com/citations?user=3h9XkqYAAAAJ&hl=ko' },
-      { label: 'Linkedin', href: 'https://www.linkedin.com/in/hyunseung-lim-135742282/' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/hyunseung-lim-135742282/' },
       { label: 'CV', href: null }
     ],
     []
@@ -61,7 +62,7 @@ export const About = () => {
     setCrossRotation(45);
     const interval = setInterval(() => {
       setCrossRotation((prev) => prev + 45);
-    }, 2000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -187,9 +188,11 @@ export const About = () => {
 
     const handleScroll = () => {
       updateCurrentIndex();
+      setShowScrollHint(node.scrollTop < 10);
     };
 
     updateCurrentIndex();
+    setShowScrollHint(node.scrollTop < 10);
     node.addEventListener('wheel', handleWheel, { passive: false });
     node.addEventListener('scroll', handleScroll, { passive: true });
 
@@ -209,7 +212,7 @@ export const About = () => {
             <div className="about-mask about-mask--tagline" ref={fadeInRef}>
               <p className="about-tagline">
                 <span className="about-tagline__line">{firstTagline}</span>
-                <span className="about-tagline__char-wrapper">
+                <span className="about-tagline__char-wrapper about-tagline__char-wrapper--icon">
                   <span className="about-tagline__char about-tagline__char--icon">
                     <span
                       className="about-tagline__icon"
@@ -220,7 +223,7 @@ export const About = () => {
                     </span>
                   </span>
                 </span>
-                <span className="about-tagline__line">{secondTagline}</span>
+                <span className="about-tagline__line about-tagline__line--secondary">{secondTagline}</span>
               </p>
             </div>
 
@@ -272,6 +275,28 @@ export const About = () => {
                 )
               )}
             </div>
+            {showScrollHint && (
+              <button
+                className="about-scroll-hint"
+                type="button"
+                onClick={() => {
+                  if (!scrollRoot) {
+                    return;
+                  }
+                  const sections = scrollRoot.querySelectorAll('.about-section');
+                  if (sections.length < 2) {
+                    return;
+                  }
+                  scrollRoot.scrollTo({
+                    top: sections[1].offsetTop,
+                    behavior: 'smooth'
+                  });
+                }}
+                aria-label="Scroll to next section"
+              >
+                <img src="icons/togglebtn.svg" alt="" aria-hidden="true" />
+              </button>
+            )}
           </div>
         </section>
 
@@ -281,7 +306,7 @@ export const About = () => {
                 <div
                   className="about-research-intro-block about-fade-block"
                   ref={fadeInRef}
-                style={{ '--about-fade-delay': '0.25s' }}
+                style={{ '--about-fade-delay': '0.45s' }}
                 >
                 <p className="about-research-subheading about-research-subheading--intro">
                   Research Interest
@@ -299,10 +324,10 @@ export const About = () => {
                 <div
                   className="about-research-columns about-fade-block"
                   ref={fadeInRef}
-                style={{ '--about-fade-delay': '0.4s' }}
+                style={{ '--about-fade-delay': '0.75s' }}
                 >
                   {researchColumns.map((column, index) => {
-                    const baseDelay = 0.5 + index * 0.2;
+                    const baseDelay = 0.8 + index * 0.3;
                     return (
                       <div
                         key={column.title}
@@ -318,26 +343,26 @@ export const About = () => {
                       </p>
                       <p
                         className="about-research-text"
-                        style={{ '--about-fade-delay': `${baseDelay + 0.1}s` }}
+                        style={{ '--about-fade-delay': `${baseDelay + 0.2}s` }}
                       >
                         {column.body}
                       </p>
                       <p
                         className="about-research-subheading"
-                        style={{ '--about-fade-delay': `${baseDelay + 0.2}s` }}
+                        style={{ '--about-fade-delay': `${baseDelay + 0.4}s` }}
                       >
                         Selected Projects
                       </p>
                       <div
                         className="about-contact-buttons about-contact-buttons--inline"
-                        style={{ '--about-fade-delay': `${baseDelay + 0.3}s` }}
+                        style={{ '--about-fade-delay': `${baseDelay + 0.6}s` }}
                       >
                         {column.links.map((link, linkIndex) => (
                           <a
                             key={link.label}
                             href={link.href}
                             className="about-contact-button"
-                          style={{ '--about-fade-delay': `${baseDelay + 0.35 + linkIndex * 0.05}s` }}
+                          style={{ '--about-fade-delay': `${baseDelay + 0.65 + linkIndex * 0.09}s` }}
                           >
                             {link.label}
                           </a>

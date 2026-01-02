@@ -8,8 +8,8 @@ const DEFAULT_LINK_PRESETS = {
   },
   github: {
     label: 'Github',
-    icon: `${process.env.PUBLIC_URL}/icons/github.png`,
-    iconDark: `${process.env.PUBLIC_URL}/icons/github_dark.png`,
+    icon: `${process.env.PUBLIC_URL}/icons/github.svg`,
+    iconDark: `${process.env.PUBLIC_URL}/icons/github_dark.svg`,
     iconAlt: 'GitHub'
   },
   dataset: {
