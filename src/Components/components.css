@@ -395,7 +395,7 @@
     align-items: center;
     gap: 3rem;
     margin: 0 auto;
-    padding-top: 8.5rem;
+    padding-top: 16vh;
 }
 
 .about-research-intro-block {
@@ -478,7 +478,7 @@
     }
 
     .about-research {
-        padding-top: 1rem;
+        padding-top: max(6vh, 1rem);
         gap: 2rem;
     }
 
@@ -517,10 +517,10 @@
         top: 0.01rem;
     }
     .about-research-text {
-        font-size: 0.74rem;
+        font-size: 0.7rem;
     }
     .about-research-intro {
-        font-size: 0.74rem;
+        font-size: 0.7rem;
     }
     .about-research-subheading {
         display: none;
