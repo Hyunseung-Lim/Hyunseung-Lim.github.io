@@ -109,6 +109,13 @@
   margin-bottom: 3rem;
 }
 
+.project-page--stereohunter .stereohunter-interaction-summary {
+  margin: 0 auto 1rem;
+  max-width: 760px;
+  color: var(--text-secondary, #4d5162);
+  text-align: center;
+}
+
 .project-page--stereohunter .stereohunter-quantitative__toggles {
   display: flex;
   flex-wrap: wrap;

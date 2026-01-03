@@ -196,6 +196,13 @@ series = {FAccT '25}
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Interaction Statistics
             </h2>
+            <p
+              className="section-text section-text--small stereohunter-interaction-summary project-fade-block"
+              ref={fadeInRef}
+            >
+              We observed how participants identified stereotypes in LLMs using StereoHunter. Fifty participants entered an
+              average of 57.12 inputs (SD = 41.85, max = 187, min = 10) and produced a total of 1,965 labels.
+            </p>
             <div className="stereohunter-quantitative__toggles project-fade-block" ref={fadeInRef}>
               <div className="stereohunter-scale-toggle">
                 <button

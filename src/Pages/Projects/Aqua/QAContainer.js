@@ -1,6 +1,70 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
+const KEY_FINDINGS_STATS = [
+  {
+    type: 'General question',
+    stats: {
+      buttonClicks: { mean: '4.69', sd: '3.09' },
+      recommended: { mean: '23.50', sd: '15.50' },
+      added: { mean: '6.31', sd: '2.78' },
+      accepted: { mean: '3.00', sd: '2.94' }
+    }
+  },
+  {
+    type: 'Personal question',
+    stats: {
+      buttonClicks: { mean: '2.15', sd: '2.44' },
+      recommended: { mean: '10.80', sd: '12.20' },
+      added: { mean: '1.46', sd: '2.22' },
+      accepted: { mean: '0.38', sd: '0.87' }
+    }
+  },
+  {
+    type: 'Follow-up question',
+    stats: {
+      buttonClicks: { mean: '4.69', sd: '4.85' },
+      recommended: { mean: '14.10', sd: '14.56' },
+      added: { mean: '2.84', sd: '3.41' },
+      accepted: { mean: '0.85', sd: '1.07' }
+    }
+  },
+  {
+    type: 'User-written question',
+    stats: {
+      buttonClicks: null,
+      recommended: null,
+      added: { mean: '6.54', sd: '5.92' },
+      accepted: { mean: '2.61', sd: '2.28' }
+    }
+  }
+];
+
+const renderStatCell = (stat) => {
+  if (!stat) {
+    return '—';
+  }
+  const { mean, sd } = stat;
+  return (
+    <>
+      {mean ? (
+        <>
+          <span className="aqua-qa-table-mean-prefix">M = </span>
+          {mean}
+        </>
+      ) : (
+        '—'
+      )}
+      {sd ? (
+        <>
+          {' '}
+          <span className="aqua-qa-table-sd">(SD = {sd})</span>
+        </>
+      ) : null}
+    </>
+  );
+};
+
 const QA_ITEMS = [
   {
     question: 'What is AQUA?',
@@ -111,6 +175,30 @@ const QA_ITEMS = [
           <span className="aqua-qa-highlight">the LLM did not fully capture each author’s unique intent</span>. Also, authors
           often did not revise the auto-generated answers enough, which tended to lead to more passive participation.
         </p>
+        <div className="aqua-qa-table-wrapper">
+          <table className="aqua-qa-table">
+            <thead>
+              <tr>
+                <th scope="col" aria-label="Question type"></th>
+                <th scope="col" className="aqua-qa-col--clicks">Button clicks</th>
+                <th scope="col">Recommended</th>
+                <th scope="col">Questions added</th>
+                <th scope="col">Accepted</th>
+              </tr>
+            </thead>
+            <tbody>
+              {KEY_FINDINGS_STATS.map((row) => (
+                <tr key={row.type}>
+                  <th scope="row">{row.type}</th>
+                  <td className="aqua-qa-col--clicks">{renderStatCell(row.stats.buttonClicks)}</td>
+                  <td>{renderStatCell(row.stats.recommended)}</td>
+                  <td>{renderStatCell(row.stats.added)}</td>
+                  <td>{renderStatCell(row.stats.accepted)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </>
     )
   },
