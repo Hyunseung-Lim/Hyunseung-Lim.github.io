@@ -866,10 +866,15 @@ export const PanoramaProject = () => {
               Benchmark Tasks
             </h2>
             <p className="section-text section-text--small panorama-subsection__body project-fade-block" ref={fadeInRef}>
-              We divide patent examination into three benchmark tasks that replicate the main steps taken by real-world examiners
-              using the PANORAMA dataset, especially the parsed Non-Final Rejection. Our benchmarks primarily focus on patent
+              We divide patent examination into three benchmark tasks (PAR4PC, PI4PC, NOC4PC) that replicate the main steps taken by
+              real-world examiners using the PANORAMA dataset, especially the parsed Non-Final Rejection. Our benchmarks primarily focus on patent
               examination under §102 (novelty) and §103 (non-obviousness), where patentability is decided by comparing the claim with
               the prior art.
+            </p>
+            <p className="section-text section-text--small panorama-subsection__body project-fade-block" ref={fadeInRef}>
+              We established baseline performance by evaluating 12 LLMs spanning proprietary, open-source, and reasoning models across
+              the benchmark tasks using two prompting strategies: zero-shot and chain-of-thought (CoT). Reasoning models were evaluated
+              only in the CoT setting.
             </p>
             <div className="panorama-benchmark-toggle project-fade-block" ref={fadeInRef}>
               <SegmentedControl

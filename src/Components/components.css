@@ -68,7 +68,8 @@
 }
 
 .about-page {
-    height: 100vh;
+    min-height: var(--app-height, 100vh);
+    height: var(--app-height, 100vh);
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -81,7 +82,7 @@
 
 .about-section {
     width: 100%;
-    min-height: 100vh;
+    min-height: var(--app-height, 100vh);
     padding: 0;
     display: flex;
     align-items: center;

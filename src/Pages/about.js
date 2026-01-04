@@ -37,7 +37,7 @@ export const About = () => {
       {
         title: 'AI for Design',
         body:
-          'I explore how AI can support designers and the design process. Moving beyond generating artifacts, I study how generative AI can support designers’ thinking across various stages of the design process, and I propose new interaction to enable that support.',
+          'I explore how AI can support designers and the design process. Moving beyond generating artifacts, I study how generative AI can support designers’ thinking across various stages of the design process.',
         links: [
           { label: 'Feed-O-Meter', href: '#/projects/feed-o-meter' },
           { label: 'CrafTeam', href: '#/projects/crafteam' }
@@ -46,7 +46,7 @@ export const About = () => {
       {
         title: 'Design for AI',
         body:
-          'Grounded in human-centered design, I examine how AI technologies can be developed and used in ways that align with people. I apply design methods to build datasets for improving and evaluating AI, and to support alignment with human needs and values.',
+          'Grounded in human-centered design, I examine how AI technologies can be developed and used in ways that align with people. I apply design methods to build datasets for improving and evaluating AI.',
         links: [
           { label: 'PANORAMA', href: '#/projects/panorama' },
           { label: 'StereoHunter', href: '#/projects/stereohunter' }
@@ -64,6 +64,17 @@ export const About = () => {
       setCrossRotation((prev) => prev + 45);
     }, 4000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const setAppHeight = () => {
+      const height = window.innerHeight;
+      document.documentElement.style.setProperty('--app-height', `${height}px`);
+    };
+
+    setAppHeight();
+    window.addEventListener('resize', setAppHeight);
+    return () => window.removeEventListener('resize', setAppHeight);
   }, []);
 
   useEffect(() => {

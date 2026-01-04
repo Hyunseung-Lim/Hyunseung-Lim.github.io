@@ -177,6 +177,12 @@
 @media (max-width: 640px) {
   .panorama-table {
     font-size: 0.7rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .panorama-table th,
+  .panorama-table td {
+    font-size: 0.7rem;
   }
 
   .panorama-table colgroup col:nth-child(1) {
@@ -926,6 +932,10 @@
   flex-direction: column;
   gap: 0;
   margin-bottom: 1.5rem;
+}
+
+.panorama-benchmark-tasks .panorama-subsection__body {
+  margin-top: 0;
 }
 
 .panorama-benchmark-toggle {
