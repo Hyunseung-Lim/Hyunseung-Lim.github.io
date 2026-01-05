@@ -3,7 +3,6 @@ import '../Components/components.css';
 import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
 import { useTheme } from '../contexts/ThemeContext';
 import { Topbar } from '../Components/Topbar/topbar';
-import { Footer } from '../Components/Footer/footer';
 
 const TAGLINE_PART_ONE = 'A Design';
 const TAGLINE_PART_TWO = 'AI Researcher';
@@ -393,7 +392,6 @@ export const About = () => {
                 })}
               </div>
             </div>
-            <Footer />
           </div>
         </section>
       </main>
