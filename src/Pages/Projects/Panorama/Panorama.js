@@ -664,7 +664,7 @@ export const PanoramaProject = () => {
               className="section-text section-text--small panorama-diagram-caption project-fade-block"
               ref={fadeInRef}
             >
-              The overall framework of the PANORAMA dataset and benchmark construction. The PANORAMA dataset is constructed
+              The overview of the PANORAMA dataset and benchmark construction. The PANORAMA dataset is constructed
               from documents appearing in patent examination. It comprises patent documents and office actions, such as
               non-final rejections. The benchmark tasks are designed to emulate the sequential nature of the patent
               examination process.

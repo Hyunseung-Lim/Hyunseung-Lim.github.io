@@ -27,7 +27,10 @@ export const About = () => {
       { label: 'Mail', href: 'mailto:charlie9807@kaist.ac.kr' },
       { label: 'Scholar', href: 'https://scholar.google.com/citations?user=3h9XkqYAAAAJ&hl=ko' },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/hyunseung-lim-135742282/' },
-      { label: 'CV', href: null }
+      {
+        label: 'CV',
+        href: 'https://docs.google.com/document/d/1dle6va3bvxmO2E8v3EIhcINzGWvdq5i1l27-Rz4rwsI/edit?usp=sharing'
+      }
     ],
     []
   );
@@ -37,7 +40,8 @@ export const About = () => {
       {
         title: 'AI for Design',
         body:
-          'I explore how AI can support designers and the design process. Moving beyond generating artifacts, I study how generative AI can support designers’ thinking across various stages of the design process.',
+          'I explore how AI can support designers and the design process. Moving beyond generating artifacts, I study how generative AI can support designers’ thinking and decision-making across the design process,',
+        bodyExtra: ' including problem framing, ideation, exploration, and evaluation.',
         links: [
           { label: 'Feed-O-Meter', href: '#/projects/feed-o-meter' },
           { label: 'CrafTeam', href: '#/projects/crafteam' }
@@ -46,7 +50,8 @@ export const About = () => {
       {
         title: 'Design for AI',
         body:
-          'Grounded in human-centered design, I examine how AI technologies can be developed and used in ways that align with people. I apply design methods to build datasets for improving and evaluating AI.',
+          'Grounded in human-centered design, I examine how AI can be developed and used in ways that align with people. I apply design methods to build datasets for improving and evaluating AI systems,',
+        bodyExtra: ' and to investigate the human-centered considerations required for LLMs.',
         links: [
           { label: 'PANORAMA', href: '#/projects/panorama' },
           { label: 'StereoHunter', href: '#/projects/stereohunter' }
@@ -328,8 +333,7 @@ export const About = () => {
                     Human–Computer Interaction (HCI)
                   </span>
                   <span className="about-hci-text about-hci-text--compact">HCI</span>{' '}
-                  researcher with an interdisciplinary background in Industrial Design and Computer Science. My
-                  research explores how design and AI can shape and strengthen one another.
+                  researcher with an interdisciplinary background in Industrial Design and Computer Science. My research explores how design and AI can mutually shape and strengthen one another.
                 </p>
               </div>
                 <div
@@ -357,6 +361,11 @@ export const About = () => {
                         style={{ '--about-fade-delay': `${baseDelay + 0.2}s` }}
                       >
                         {column.body}
+                        {column.bodyExtra && (
+                          <span className="about-research-text__extra about-research-text__extra--hide-mobile">
+                            {column.bodyExtra}
+                          </span>
+                        )}
                       </p>
                       <p
                         className="about-research-subheading"
