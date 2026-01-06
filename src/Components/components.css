@@ -357,6 +357,26 @@
         background-color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
+.about-contact-buttons-hint {
+    font-size: 0.75rem;
+    line-height: 1.25;
+    color: var(--text-secondary, #4a4f63);
+    text-transform: uppercase;
+    margin-top: 0.55rem;
+    text-align: center;
+    min-height: 1rem;
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+    letter-spacing: 0.08em;
+}
+
+.about-contact-buttons-hint--visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
 .about-contact-button:hover {
     color: var(--bg-primary);
     background-color: var(--text-secondary);

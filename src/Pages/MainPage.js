@@ -7,6 +7,8 @@ import { BANNER_IMAGES, CAROUSEL_CONFIG } from '../constants';
 import { PageLoadGuard } from '../Components/PageLoader/PageLoadGuard';
 import './pages.css';
 
+const MAIN_PAGE_GATE_ASSETS = BANNER_IMAGES.slice(0, 2);
+
 export const MainPage = () => {
   useEffect(() => {
     const setAppHeight = () => {
@@ -28,7 +30,7 @@ export const MainPage = () => {
   );
 
   return (
-    <PageLoadGuard assets={BANNER_IMAGES}>
+    <PageLoadGuard assets={MAIN_PAGE_GATE_ASSETS}>
       <div className="mainPage">
         <Topbar />
 

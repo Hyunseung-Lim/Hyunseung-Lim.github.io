@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import '../Components/components.css';
 import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
 import { useTheme } from '../contexts/ThemeContext';
@@ -25,9 +25,11 @@ export const About = () => {
   const [scrollRoot, setScrollRoot] = useState(null);
   const [showScrollHint, setShowScrollHint] = useState(true);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [pendingUpdateTag, setPendingUpdateTag] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const { isDark } = useTheme();
   const crossIconSrc = isDark ? '/icons/x_dark.svg' : '/icons/x.svg';
+  const updateHintTimeoutRef = useRef(null);
 
   const contactButtons = useMemo(
     () => [
@@ -110,6 +112,12 @@ export const About = () => {
     };
   }, []);
 
+  useEffect(() => () => {
+    if (updateHintTimeoutRef.current) {
+      clearTimeout(updateHintTimeoutRef.current);
+    }
+  }, []);
+
   const scrollToSectionIndex = useCallback(
     (index) => {
       if (!scrollRoot) {
@@ -130,6 +138,17 @@ export const About = () => {
 
   const firstTagline = renderAnimatedText(TAGLINE_PART_ONE);
   const secondTagline = renderAnimatedText(TAGLINE_PART_TWO);
+
+  const handleOffRecordTagClick = useCallback((label) => {
+    if (updateHintTimeoutRef.current) {
+      clearTimeout(updateHintTimeoutRef.current);
+    }
+    setPendingUpdateTag(label);
+    updateHintTimeoutRef.current = setTimeout(() => {
+      setPendingUpdateTag(null);
+      updateHintTimeoutRef.current = null;
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     const node = scrollRoot;
@@ -379,16 +398,33 @@ export const About = () => {
                 ref={fadeInRef}
                 style={{ '--about-fade-delay': '0.65s' }}
               >
-                {offRecordTags.map((tag, index) => (
-                  <a
-                    key={tag.label}
-                    href={tag.href}
-                    className="about-contact-button"
-                    style={{ '--about-fade-delay': `${0.75 + index * 0.08}s` }}
-                  >
-                    {tag.label}
-                  </a>
-                ))}
+                {offRecordTags.map((tag, index) => {
+                  const isMovieTag = tag.label === 'MOVIE';
+                  const delayStyle = { '--about-fade-delay': `${0.75 + index * 0.08}s` };
+                  return isMovieTag ? (
+                    <a key={tag.label} href={tag.href} className="about-contact-button" style={delayStyle}>
+                      {tag.label}
+                    </a>
+                  ) : (
+                    <button
+                      key={tag.label}
+                      type="button"
+                      className="about-contact-button"
+                      style={delayStyle}
+                      onClick={() => handleOffRecordTagClick(tag.label)}
+                    >
+                      {tag.label}
+                    </button>
+                  );
+                })}
+              </div>
+              <div
+                className={`about-contact-buttons-hint${
+                  pendingUpdateTag ? ' about-contact-buttons-hint--visible' : ''
+                }`}
+                aria-live="polite"
+              >
+                {pendingUpdateTag ? 'Update Soon' : '\u00A0'}
               </div>
             </div>
           </div>

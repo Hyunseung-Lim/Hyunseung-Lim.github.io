@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Topbar } from '../../../Components/Topbar/topbar';
 import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
@@ -9,6 +9,49 @@ import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import './Elevate.css';
+
+const parseLengthToPx = (value) => {
+  if (!value || value === 'normal') {
+    return null;
+  }
+  const trimmed = value.trim();
+  if (trimmed.endsWith('px')) {
+    const parsed = parseFloat(trimmed);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  if (trimmed.endsWith('rem')) {
+    const remValue = parseFloat(trimmed);
+    if (!Number.isFinite(remValue)) {
+      return null;
+    }
+    const rootFontSize =
+      typeof window !== 'undefined'
+        ? parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16
+        : 16;
+    return remValue * rootFontSize;
+  }
+  const parsed = parseFloat(trimmed);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
+const getGapValue = (styles) => {
+  if (!styles) {
+    return 0;
+  }
+  const sources = [
+    styles.columnGap,
+    styles.gap,
+    styles.rowGap,
+    typeof styles.getPropertyValue === 'function' ? styles.getPropertyValue('--applications-gap') : null
+  ];
+  for (const source of sources) {
+    const pxValue = parseLengthToPx(source);
+    if (typeof pxValue === 'number') {
+      return pxValue;
+    }
+  }
+  return 0;
+};
 
 const ELEVATE_DESKTOP_BANNER = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail.png`;
 const ELEVATE_MOBILE_BANNER = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail_mobile.png`;
@@ -125,12 +168,7 @@ const ELEVATE_PAGE_ASSETS = Array.from(
       ELEVATE_MOBILE_BANNER,
       `${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`,
       `${process.env.PUBLIC_URL}/projects/elevate/chi_logo_dark.png`,
-      `${process.env.PUBLIC_URL}/icons/dl.png`,
-      ...ELEVATE_APPLICATION_IMAGES.map(({ src }) => src),
-      ...ELEVATE_HARDWARE_IMAGES.map(({ src }) => src),
-      ...Object.values(ELEVATE_HARDWARE_DETAILS)
-        .map((detail) => detail.detailImage)
-        .filter(Boolean)
+      `${process.env.PUBLIC_URL}/icons/dl.png`
     ].filter(Boolean)
   )
 );
@@ -192,10 +230,13 @@ export const ElevateProject = () => {
 
   const applicationsGridRef = useRef(null);
   const hardwareGridRef = useRef(null);
+  const [isApplicationsGridMounted, setApplicationsGridMounted] = useState(false);
+  const [isHardwareGridMounted, setHardwareGridMounted] = useState(false);
   const handleApplicationsGridRef = useCallback(
     (node) => {
       applicationsGridRef.current = node;
       fadeInRef(node);
+      setApplicationsGridMounted(Boolean(node));
     },
     [fadeInRef]
   );
@@ -203,9 +244,11 @@ export const ElevateProject = () => {
     (node) => {
       hardwareGridRef.current = node;
       fadeInRef(node);
+      setHardwareGridMounted(Boolean(node));
     },
     [fadeInRef]
   );
+
   const renderActiveHardwareDetail = () => {
     if (!activeHardwareDetail) return null;
     return (
@@ -225,7 +268,7 @@ export const ElevateProject = () => {
     );
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
@@ -241,7 +284,7 @@ export const ElevateProject = () => {
         return;
       }
       const styles = window.getComputedStyle(gridElement);
-      const gapValue = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+      const gapValue = getGapValue(styles);
       const availableWidth = gridElement.clientWidth - gapValue * 3;
       if (availableWidth <= 0) {
         setter(null);
@@ -255,7 +298,22 @@ export const ElevateProject = () => {
       calculateTileSize(hardwareGridRef.current, setHardwareGridStyle);
     };
 
+    const rafIds = [];
+    const timeoutIds = [];
+    const scheduleDeferredRecalc = () => {
+      if (typeof window.requestAnimationFrame === 'function') {
+        const firstId = window.requestAnimationFrame(() => {
+          const secondId = window.requestAnimationFrame(recalcAll);
+          rafIds.push(secondId);
+        });
+        rafIds.push(firstId);
+        return;
+      }
+      timeoutIds.push(window.setTimeout(recalcAll, 0));
+    };
+
     recalcAll();
+    scheduleDeferredRecalc();
 
     const observers = [];
     if (typeof ResizeObserver !== 'undefined') {
@@ -268,6 +326,12 @@ export const ElevateProject = () => {
       };
       setupObserver(applicationsGridRef, setGridStyle);
       setupObserver(hardwareGridRef, setHardwareGridStyle);
+
+      if (scrollRoot) {
+        const containerObserver = new ResizeObserver(() => recalcAll());
+        containerObserver.observe(scrollRoot);
+        observers.push(containerObserver);
+      }
     }
 
     window.addEventListener('resize', recalcAll);
@@ -275,8 +339,10 @@ export const ElevateProject = () => {
     return () => {
       observers.forEach((observer) => observer.disconnect());
       window.removeEventListener('resize', recalcAll);
+      rafIds.forEach((id) => window.cancelAnimationFrame(id));
+      timeoutIds.forEach((id) => window.clearTimeout(id));
     };
-  }, []);
+  }, [isApplicationsGridMounted, isHardwareGridMounted, scrollRoot]);
 
   const loaderMessage = `Loading ${projectData.title}...`;
 

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Topbar } from '../../../Components/Topbar/topbar';
 import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
-import { useTheme } from '../../../contexts/ThemeContext';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { MobileScreenRail } from '../../../Components/MobileScreenRail/MobileScreenRail';
@@ -12,7 +11,6 @@ import './AquaDesign.css';
 const AQUA_DESIGN_ASSETS = Array.from(
   new Set([
     `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail.png`,
-    `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail_dark.png`,
     `${process.env.PUBLIC_URL}/projects/aqua-design/img1.png`,
     `${process.env.PUBLIC_URL}/projects/aqua-design/design_award.svg`,
     ...Array.from({ length: 10 }, (_, index) => `${process.env.PUBLIC_URL}/projects/aqua-design/screen/${index + 1}.png`)
@@ -21,13 +19,10 @@ const AQUA_DESIGN_ASSETS = Array.from(
 
 export const AquaDesignProject = () => {
   const projectData = PROJECTS['aqua-design'];
-  const { isDark } = useTheme();
   const [scrollRoot, setScrollRoot] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
-  const themeMode = projectData.themeMode ?? 'auto';
-  const lightBanner = `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail.png`;
-  const darkBanner = `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail_dark.png`;
-  const bannerImage = isDark ? darkBanner : lightBanner;
+  const themeMode = 'light';
+  const bannerImage = `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail.png`;
   const overviewImage = `${process.env.PUBLIC_URL}/projects/aqua-design/img1.png`;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
 
@@ -96,7 +91,7 @@ export const AquaDesignProject = () => {
             <div className="aqua-design-overview__media aqua-design-fade-block" ref={fadeInRef}>
               <img
                 src={overviewImage}
-                alt="Concept image of AQUA"
+                alt="Concept art of AQUA"
                 loading="lazy"
               />
             </div>
@@ -126,6 +121,84 @@ export const AquaDesignProject = () => {
               ref={fadeInRef}
             />
           </section>
+
+          <section className="project-section aqua-design-key-features">
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+              Key Features
+            </h2>
+            <div className="aqua-design-key-features__items">
+              <div className="aqua-design-key-feature">
+                <h3 className="aqua-design-key-feature__title project-fade-block" ref={fadeInRef}>
+                  Bubble
+                </h3>
+                <p className="aqua-design-key-feature__tagline project-fade-block" ref={fadeInRef}>
+                  Money that's aware of its purpose, a new unit of asset.
+                </p>
+                <div className="aqua-design-key-feature__subsection project-fade-block" ref={fadeInRef}>
+                  <h4>Creating new Bubbles</h4>
+                  <p>
+                    Creating new bubbles requires little to no process at all, since it is not creating an actual bank
+                    account, but one that acts like one.
+                  </p>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/projects/aqua-design/creating_bubble.png`}
+                    alt="Creating bubble interface showing how new bubbles are set up"
+                    className="aqua-design-key-feature__image"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="aqua-design-key-feature__subsection project-fade-block" ref={fadeInRef}>
+                  <h4>Movement of money between Bubbles</h4>
+                  <p>
+                    Transferring to and from Bubbles is also easier than a traditional bank wire.
+                  </p>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/projects/aqua-design/movement_bubble.png`}
+                    alt="Movement of money between bubbles interface"
+                    className="aqua-design-key-feature__image"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="aqua-design-key-feature__subsection project-fade-block" ref={fadeInRef}>
+                  <h4>Similarities with a Traditional Bank Account</h4>
+                  <p>
+                    A Bubble is clearly different from a traditional bank account. However, we assign a virtual account
+                    number to a Bubble, so in interaction with traditional bank accounts, Bubbles can be treated as such,
+                    maintaining backwards compatibility.
+                  </p>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/projects/aqua-design/similar_bubble.png`}
+                    alt="Bubble feature illustrating similarities with traditional accounts"
+                    className="aqua-design-key-feature__image aqua-design-key-feature__image--narrow"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div className="aqua-design-key-feature">
+                <h3 className="aqua-design-key-feature__title project-fade-block" ref={fadeInRef}>
+                  Feed
+                </h3>
+                <p className="aqua-design-key-feature__tagline project-fade-block" ref={fadeInRef}>
+                  Personalized widgets that reflect the user’s intent.
+                </p>
+              </div>
+              <div className="aqua-design-key-feature">
+                <h3 className="aqua-design-key-feature__title project-fade-block" ref={fadeInRef}>
+                  Flow
+                </h3>
+                <p className="aqua-design-key-feature__tagline project-fade-block" ref={fadeInRef}>
+                  A full control over how your money moves.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <div
+            className="project-divider project-fade-block"
+            role="presentation"
+            aria-hidden="true"
+            ref={fadeInRef}
+          />
 
           <MobileScreenRail
             className="project-fade-block aqua-design-mobile-rail"

@@ -1,4 +1,5 @@
 import { OffRecordLayout } from '../OffRecordLayout';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import './movie.css';
 
 const MOVIE_YEARS = [
@@ -76,44 +77,48 @@ const MOVIE_YEARS = [
   }
 ];
 
+const MOVIE_ASSETS = MOVIE_YEARS.flatMap((year) => year.nominees.map((nominee) => nominee.image));
+
 export const MovieOffRecord = () => (
-  <OffRecordLayout
-    pageId="movie"
-    title="MOVIE"
-    subtitle={(
-      <>
-        <a
-          className="movie-subtitle-link"
-          href="https://pedia.watcha.com/ko-KR/users/OkexJPw7rKvdb"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Hyunseung
-        </a>
-        's Movie of the Year
-      </>
-    )}
-    sectionCount={MOVIE_YEARS.length}
-  >
-    {(fadeInRef) =>
-      MOVIE_YEARS.map((year) => (
-        <section className="project-section off-record-movie-section" key={year.year}>
-          <div className="off-record-placeholder-heading project-fade-block" ref={fadeInRef}>
-            <p className="off-record-placeholder-title">{year.label}</p>
-            <p className="off-record-placeholder-year">{year.year}</p>
-          </div>
-          <div className="off-record-movie-row">
-            {year.nominees.map((nominee) => (
-              <article className="off-record-movie-card project-fade-block" ref={fadeInRef} key={nominee.title}>
-                <div className="off-record-movie-poster">
-                  <img src={nominee.image} alt={`${nominee.title} poster`} loading="lazy" />
-                </div>
-                <p className="off-record-movie-title">{nominee.title}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-      ))
-    }
-  </OffRecordLayout>
+  <PageLoadGuard assets={MOVIE_ASSETS} message="Loading movies...">
+    <OffRecordLayout
+      pageId="movie"
+      title="MOVIE"
+      subtitle={(
+        <>
+          <a
+            className="movie-subtitle-link"
+            href="https://pedia.watcha.com/ko-KR/users/OkexJPw7rKvdb"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Hyunseung
+          </a>
+          's Movie of the Year
+        </>
+      )}
+      sectionCount={MOVIE_YEARS.length}
+    >
+      {(fadeInRef) =>
+        MOVIE_YEARS.map((year) => (
+          <section className="project-section off-record-movie-section" key={year.year}>
+            <div className="off-record-placeholder-heading project-fade-block" ref={fadeInRef}>
+              <p className="off-record-placeholder-title">{year.label}</p>
+              <p className="off-record-placeholder-year">{year.year}</p>
+            </div>
+            <div className="off-record-movie-row">
+              {year.nominees.map((nominee) => (
+                <article className="off-record-movie-card project-fade-block" ref={fadeInRef} key={nominee.title}>
+                  <div className="off-record-movie-poster">
+                    <img src={nominee.image} alt={`${nominee.title} poster`} loading="lazy" />
+                  </div>
+                  <p className="off-record-movie-title">{nominee.title}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </OffRecordLayout>
+  </PageLoadGuard>
 );
