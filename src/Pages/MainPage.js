@@ -4,6 +4,7 @@ import { Footer } from '../Components/Footer/footer';
 import { useInfiniteCarousel } from '../hooks/useInfiniteCarousel';
 import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
 import { BANNER_IMAGES, CAROUSEL_CONFIG } from '../constants';
+import { PageLoadGuard } from '../Components/PageLoader/PageLoadGuard';
 import './pages.css';
 
 export const MainPage = () => {
@@ -27,30 +28,32 @@ export const MainPage = () => {
   );
 
   return (
-    <div className="mainPage">
-      <Topbar />
+    <PageLoadGuard assets={BANNER_IMAGES}>
+      <div className="mainPage">
+        <Topbar />
 
-      <div className="banner">
-        <div className="slider-container">
-          <div className="slider" style={sliderStyle}>
-            {extendedImages.map((src, index) => (
-              <div 
-                className="slide" 
-                key={index}
-                style={{ width: `${100 / extendedImages.length}%` }}
-              >
-                <img src={src} alt={`Slide ${index}`} />
-              </div>
-            ))}
+        <div className="banner">
+          <div className="slider-container">
+            <div className="slider" style={sliderStyle}>
+              {extendedImages.map((src, index) => (
+                <div
+                  className="slide"
+                  key={index}
+                  style={{ width: `${100 / extendedImages.length}%` }}
+                >
+                  <img src={src} alt={`Slide ${index}`} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="banner-text">
+            <div ref={fadeInRef}>DIS 2024</div>
+            <div ref={fadeInRef}>Denmark Copenhagen</div>
           </div>
         </div>
-        <div className="banner-text">
-          <div ref={fadeInRef}>DIS 2024</div>
-          <div ref={fadeInRef}>Denmark Copenhagen</div>
-        </div>
-      </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoadGuard>
   );
 };

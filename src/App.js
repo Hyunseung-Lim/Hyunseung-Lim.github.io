@@ -17,6 +17,12 @@ import { BrownieProject } from './Pages/Projects/Brownie/Brownie';
 import { ElevateProject } from './Pages/Projects/Elevate/Elevate';
 import { StereoHunterProject } from './Pages/Projects/StereoHunter/StereoHunter';
 import { PanoramaProject } from './Pages/Projects/Panorama/Panorama';
+import { MovieOffRecord } from './Pages/OffRecords/Movie/movie';
+import { WritingOffRecord } from './Pages/OffRecords/Writing/writing';
+import { FashionOffRecord } from './Pages/OffRecords/Fashion/fashion';
+import { CookOffRecord } from './Pages/OffRecords/Cook/cook';
+import { HipHopOffRecord } from './Pages/OffRecords/HipHop/hiphop';
+import { PenguinOffRecord } from './Pages/OffRecords/Penguin/penguin';
 
 function App() {
   return (
@@ -39,6 +45,12 @@ function App() {
             <Route path='/projects/panorama' element={<PanoramaProject/>} />
             <Route path='/projects/brownie' element={<BrownieProject/>} />
             <Route path='/publications' element={<Publications/>} />
+            <Route path='/off-records/movie' element={<MovieOffRecord />} />
+            <Route path='/off-records/writing' element={<WritingOffRecord />} />
+            <Route path='/off-records/fashion' element={<FashionOffRecord />} />
+            <Route path='/off-records/cook' element={<CookOffRecord />} />
+            <Route path='/off-records/hip-hop' element={<HipHopOffRecord />} />
+            <Route path='/off-records/penguin' element={<PenguinOffRecord />} />
           </Routes>
         </div>
       </Router>

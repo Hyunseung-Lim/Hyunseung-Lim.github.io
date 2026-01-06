@@ -7,8 +7,21 @@ import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import './Aqua.css';
 import { QAContainer } from './QAContainer';
+
+const AQUA_PAGE_ASSETS = Array.from(
+  new Set([
+    `${process.env.PUBLIC_URL}/projects/aqua/dis2024.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua/dis2024_dark.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua/aqua_UI.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua/qagen.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua/qagen_dark.png`,
+    `${process.env.PUBLIC_URL}/icons/dl.png`,
+    `${process.env.PUBLIC_URL}/icons/togglebtn.svg`
+  ])
+);
 
 export const AquaProject = () => {
   const projectData = PROJECTS.aqua;
@@ -34,17 +47,20 @@ export const AquaProject = () => {
     'Co-Creating Question-and-Answer Style Articles with Large Language Models';
   const subtitleSecondLine = 'for Research Promotion';
 
+  const loaderMessage = `Loading ${projectData.title}...`;
+
   return (
-    <div className={`${pageClassName} project-page--aqua`}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
+    <PageLoadGuard assets={AQUA_PAGE_ASSETS} message={loaderMessage}>
+      <div className={`${pageClassName} project-page--aqua`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
-      {bannerImage && (
-        <div className="banner-section">
-          <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-        </div>
-      )}
+        {bannerImage && (
+          <div className="banner-section">
+            <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+          </div>
+        )}
 
-      <div className="project-container" ref={setScrollRoot}>
+        <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
             <h1 className="project-title">{projectData.title}</h1>
@@ -122,9 +138,10 @@ series = {DIS '24}
             />
           </section>
         </main>
-      </div>
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoadGuard>
   );
 };

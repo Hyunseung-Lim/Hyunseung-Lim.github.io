@@ -1,11 +1,18 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import '../Components/components.css';
 import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
 import { useTheme } from '../contexts/ThemeContext';
 import { Topbar } from '../Components/Topbar/topbar';
+import { PageLoadGuard } from '../Components/PageLoader/PageLoadGuard';
 
 const TAGLINE_PART_ONE = 'A Design';
 const TAGLINE_PART_TWO = 'AI Researcher';
+const ABOUT_PAGE_ASSETS = [
+  'images/photo.png',
+  '/icons/x.svg',
+  '/icons/x_dark.svg',
+  '/icons/togglebtn.svg'
+];
 
 const renderAnimatedText = (text) =>
   text.split('').map((char, index) => (
@@ -17,6 +24,7 @@ const renderAnimatedText = (text) =>
 export const About = () => {
   const [scrollRoot, setScrollRoot] = useState(null);
   const [showScrollHint, setShowScrollHint] = useState(true);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const { isDark } = useTheme();
   const crossIconSrc = isDark ? '/icons/x_dark.svg' : '/icons/x.svg';
@@ -41,6 +49,7 @@ export const About = () => {
         body:
           'I explore how AI can support designers and the design process. Moving beyond generating artifacts, I study how generative AI can support designers’ thinking and decision-making across the design process,',
         bodyExtra: ' including problem framing, ideation, exploration, and evaluation.',
+        linksLabel: 'Selected Projects',
         links: [
           { label: 'Feed-O-Meter', href: '#/projects/feed-o-meter' },
           { label: 'CrafTeam', href: '#/projects/crafteam' }
@@ -51,11 +60,24 @@ export const About = () => {
         body:
           'Grounded in human-centered design, I examine how AI can be developed and used in ways that align with people. I apply design methods to build datasets for improving and evaluating AI systems,',
         bodyExtra: ' and to investigate the human-centered considerations required for LLMs.',
+        linksLabel: 'Selected Projects',
         links: [
           { label: 'PANORAMA', href: '#/projects/panorama' },
           { label: 'StereoHunter', href: '#/projects/stereohunter' }
         ]
       }
+    ],
+    []
+  );
+
+  const offRecordTags = useMemo(
+    () => [
+      { label: 'MOVIE', href: '#/off-records/movie' },
+      { label: 'WRITING', href: '#/off-records/writing' },
+      { label: 'FASHION', href: '#/off-records/fashion' },
+      { label: 'COOK', href: '#/off-records/cook' },
+      { label: 'HIP-HOP', href: '#/off-records/hip-hop' },
+      { label: 'PENGUIN', href: '#/off-records/penguin' }
     ],
     []
   );
@@ -88,6 +110,24 @@ export const About = () => {
     };
   }, []);
 
+  const scrollToSectionIndex = useCallback(
+    (index) => {
+      if (!scrollRoot) {
+        return;
+      }
+      const sections = scrollRoot.querySelectorAll('.about-section');
+      if (sections.length <= index) {
+        return;
+      }
+      const target = sections[index];
+      scrollRoot.scrollTo({
+        top: target.offsetTop,
+        behavior: 'smooth'
+      });
+    },
+    [scrollRoot]
+  );
+
   const firstTagline = renderAnimatedText(TAGLINE_PART_ONE);
   const secondTagline = renderAnimatedText(TAGLINE_PART_TWO);
 
@@ -97,41 +137,10 @@ export const About = () => {
       return undefined;
     }
 
-    const sections = Array.from(node.querySelectorAll('.about-section'));
-    if (sections.length === 0) {
-      return undefined;
-    }
-
-    const normalizeDelta = (event) => {
-      if (event.deltaMode === 1) {
-        return event.deltaY * 16;
-      }
-      if (event.deltaMode === 2) {
-        return event.deltaY * window.innerHeight;
-      }
-      return event.deltaY;
-    };
-
-    const ANIMATION_DURATION_MS = 2800;
-    const easingCurve = (t) => {
-      const quickStart = Math.pow(t, 0.42); // stronger boost right away
-      return 1 - Math.pow(1 - quickStart, 2.2); // slightly softer cap to keep mid-speed low
-    };
-    let animationFrame = null;
-    let animationStart = null;
-    let animationFrom = node.scrollTop;
-    let animationTo = node.scrollTop;
-    let currentIndex = 0;
-
-    const cancelAnimation = () => {
-      if (animationFrame !== null) {
-        cancelAnimationFrame(animationFrame);
-        animationFrame = null;
-      }
-      animationStart = null;
-    };
+    const getSections = () => Array.from(node.querySelectorAll('.about-section'));
 
     const updateCurrentIndex = () => {
+      const sections = getSections();
       const currentScroll = node.scrollTop;
       let closestIndex = 0;
       let smallestDistance = Number.POSITIVE_INFINITY;
@@ -143,83 +152,34 @@ export const About = () => {
           closestIndex = index;
         }
       });
-      currentIndex = closestIndex;
+      setCurrentSectionIndex(closestIndex);
     };
 
-    const animateScroll = (timestamp) => {
-      if (animationStart === null) {
-        animationStart = timestamp;
-      }
-      const elapsed = timestamp - animationStart;
-      const progress = Math.min(elapsed / ANIMATION_DURATION_MS, 1);
-      const easedProgress = easingCurve(progress);
-      const nextScrollTop = animationFrom + (animationTo - animationFrom) * easedProgress;
-      node.scrollTop = nextScrollTop;
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animateScroll);
-      } else {
-        cancelAnimation();
-        animationFrom = node.scrollTop;
-        updateCurrentIndex();
-      }
-    };
-
-    const scrollToSection = (index) => {
-      const targetIndex = Math.max(0, Math.min(index, sections.length - 1));
-      const section = sections[targetIndex];
-      if (!section) {
-        return;
-      }
-      const nextTarget = section.offsetTop;
-      if (Math.abs(nextTarget - node.scrollTop) < 1) {
-        return;
-      }
-      cancelAnimation();
-      animationFrom = node.scrollTop;
-      animationTo = nextTarget;
-      animationFrame = requestAnimationFrame(animateScroll);
-    };
-
-    const handleWheel = (event) => {
-      if (event.ctrlKey) {
-        return;
-      }
-      const normalizedDelta = normalizeDelta(event);
-      if (normalizedDelta === 0) {
-        return;
-      }
-      event.preventDefault();
-      cancelAnimation();
-      updateCurrentIndex();
-      const direction = normalizedDelta > 0 ? 1 : -1;
-      const nextIndex = currentIndex + direction;
-      if (nextIndex < 0 || nextIndex >= sections.length) {
-        return;
-      }
-      currentIndex = nextIndex;
-      scrollToSection(currentIndex);
-    };
-
+    let frame = null;
     const handleScroll = () => {
-      updateCurrentIndex();
-      setShowScrollHint(node.scrollTop < 10);
+      if (frame) {
+        cancelAnimationFrame(frame);
+      }
+      frame = requestAnimationFrame(() => {
+        updateCurrentIndex();
+        setShowScrollHint(node.scrollTop < 10);
+      });
     };
 
     updateCurrentIndex();
     setShowScrollHint(node.scrollTop < 10);
-    node.addEventListener('wheel', handleWheel, { passive: false });
     node.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      cancelAnimation();
-      node.removeEventListener('wheel', handleWheel);
+      if (frame) {
+        cancelAnimationFrame(frame);
+      }
       node.removeEventListener('scroll', handleScroll);
     };
   }, [scrollRoot]);
 
   return (
-    <>
+    <PageLoadGuard assets={ABOUT_PAGE_ASSETS}>
       <Topbar />
       <main className="about-page" ref={setScrollRoot}>
         <section className="about-section about-section--hero">
@@ -290,23 +250,11 @@ export const About = () => {
                 )
               )}
             </div>
-            {showScrollHint && (
+            {currentSectionIndex === 0 && showScrollHint && (
               <button
                 className="about-scroll-hint"
                 type="button"
-                onClick={() => {
-                  if (!scrollRoot) {
-                    return;
-                  }
-                  const sections = scrollRoot.querySelectorAll('.about-section');
-                  if (sections.length < 2) {
-                    return;
-                  }
-                  scrollRoot.scrollTo({
-                    top: sections[1].offsetTop,
-                    behavior: 'smooth'
-                  });
-                }}
+                onClick={() => scrollToSectionIndex(1)}
                 aria-label="Scroll to next section"
               >
                 <img src="icons/togglebtn.svg" alt="" aria-hidden="true" />
@@ -342,6 +290,7 @@ export const About = () => {
                 >
                   {researchColumns.map((column, index) => {
                     const baseDelay = 0.8 + index * 0.3;
+                    const linkBaseDelay = baseDelay + 0.4;
                     return (
                       <div
                         key={column.title}
@@ -366,35 +315,85 @@ export const About = () => {
                           </span>
                         )}
                       </p>
-                      <p
-                        className="about-research-subheading"
-                        style={{ '--about-fade-delay': `${baseDelay + 0.4}s` }}
-                      >
-                        Selected Projects
-                      </p>
-                      <div
-                        className="about-contact-buttons about-contact-buttons--inline"
-                        style={{ '--about-fade-delay': `${baseDelay + 0.6}s` }}
-                      >
-                        {column.links.map((link, linkIndex) => (
-                          <a
-                            key={link.label}
-                            href={link.href}
-                            className="about-contact-button"
-                          style={{ '--about-fade-delay': `${baseDelay + 0.65 + linkIndex * 0.09}s` }}
+                      {column.links?.length ? (
+                        <>
+                          <p
+                            className="about-research-subheading"
+                            style={{ '--about-fade-delay': `${linkBaseDelay}s` }}
                           >
-                            {link.label}
-                          </a>
-                        ))}
-                      </div>
+                            {column.linksLabel ?? 'Selected Links'}
+                          </p>
+                          <div
+                            className="about-contact-buttons about-contact-buttons--inline"
+                            style={{ '--about-fade-delay': `${linkBaseDelay + 0.2}s` }}
+                          >
+                            {column.links.map((link, linkIndex) => (
+                              <a
+                                key={link.label}
+                                href={link.href}
+                                className="about-contact-button"
+                              style={{ '--about-fade-delay': `${linkBaseDelay + 0.25 + linkIndex * 0.09}s` }}
+                              >
+                                {link.label}
+                              </a>
+                            ))}
+                          </div>
+                        </>
+                      ) : null}
                     </div>
                   );
                 })}
               </div>
             </div>
+            {currentSectionIndex === 1 && (
+              <button
+                className="about-scroll-hint"
+                type="button"
+                onClick={() => scrollToSectionIndex(2)}
+                aria-label="Scroll to next section"
+              >
+                <img src="icons/togglebtn.svg" alt="" aria-hidden="true" />
+              </button>
+            )}
+          </div>
+        </section>
+
+        <section className="about-section about-section--off-record">
+          <div className="about-off-record-wrapper">
+            <div className="about-off-record">
+              <div
+                className="about-research-intro-block about-fade-block"
+                ref={fadeInRef}
+                style={{ '--about-fade-delay': '0.35s' }}
+              >
+                <p className="about-research-subheading about-research-subheading--intro">Off the Record</p>
+                <p className="about-research-intro about-off-record__warning">
+                  Warning: This section contains personal content.
+                  <br className="about-off-record__mobile-break" />
+                  {' '}
+                  Please do not click!
+                </p>
+              </div>
+              <div
+                className="about-contact-buttons about-contact-buttons--inline about-fade-block"
+                ref={fadeInRef}
+                style={{ '--about-fade-delay': '0.65s' }}
+              >
+                {offRecordTags.map((tag, index) => (
+                  <a
+                    key={tag.label}
+                    href={tag.href}
+                    className="about-contact-button"
+                    style={{ '--about-fade-delay': `${0.75 + index * 0.08}s` }}
+                  >
+                    {tag.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </main>
-    </>
+    </PageLoadGuard>
   );
 };

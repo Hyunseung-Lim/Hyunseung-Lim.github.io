@@ -6,9 +6,10 @@ import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { useTheme } from '../../../contexts/ThemeContext';
-import { PanoramaDiagram } from './diagram';
+import { PanoramaDiagram, PANORAMA_DIAGRAM_ASSETS } from './diagram';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import { SegmentedControl } from '../../../Components/SegmentedButton/segmentedbutton';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import './Panorama.css';
 
 const parseNumericValue = (value) => {
@@ -586,22 +587,39 @@ export const PanoramaProject = () => {
     { type: 'github', href: 'https://github.com/LGAI-Research/PANORAMA' },
     { type: 'dataset', href: 'https://huggingface.co/datasets/LG-AI-Research/PANORAMA' }
   ];
+  const pageAssets = Array.from(
+    new Set(
+      [
+        bannerImage,
+        `${process.env.PUBLIC_URL}/projects/panorama/neurips.png`,
+        `${process.env.PUBLIC_URL}/projects/panorama/neurips_dark.png`,
+        `${process.env.PUBLIC_URL}/projects/panorama/curation.png`,
+        `${process.env.PUBLIC_URL}/icons/github.svg`,
+        `${process.env.PUBLIC_URL}/icons/github_dark.svg`,
+        `${process.env.PUBLIC_URL}/icons/huggingface-color.svg`,
+        ...PANORAMA_DIAGRAM_ASSETS
+      ].filter(Boolean)
+    )
+  );
 
   const totalBenchmarkLeaders = getTotalBenchmarkColumnLeaders(benchmarkResults);
   const par4pcColumnLeaders = getDetailedBenchmarkColumnLeaders(par4pcDetailedResults);
   const pi4pcColumnLeaders = getDetailedBenchmarkColumnLeaders(pi4pcDetailedResults);
   const noc4pcColumnLeaders = getDetailedBenchmarkColumnLeaders(noc4pcDetailedResults, 4, 4);
 
-  return (
-    <div className={`${pageClassName} project-page--panorama`}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
-      {bannerImage && (
-        <div className="banner-section">
-          <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-        </div>
-      )}
+  const loaderMessage = `Loading ${projectData.title}...`;
 
-      <div className="project-container" ref={setScrollRoot}>
+  return (
+    <PageLoadGuard assets={pageAssets} message={loaderMessage}>
+      <div className={`${pageClassName} project-page--panorama`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
+        {bannerImage && (
+          <div className="banner-section">
+            <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+          </div>
+        )}
+
+        <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
             <h1 className="project-title">{projectData.title}</h1>
@@ -1242,9 +1260,10 @@ url={https://arxiv.org/abs/2510.24774},
             />
           </section>
         </main>
-      </div>
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoadGuard>
   );
 };

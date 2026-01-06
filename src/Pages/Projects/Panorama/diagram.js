@@ -21,6 +21,10 @@ const ROLE_ICON_MAP = {
 
 const DOC_ICON = `${process.env.PUBLIC_URL}/projects/panorama/docs.svg`;
 const DOC_ICON_DARK = `${process.env.PUBLIC_URL}/projects/panorama/docs_dark.svg`;
+const ARROW_ICONS = {
+  light: `${process.env.PUBLIC_URL}/projects/panorama/arrow.svg`,
+  dark: `${process.env.PUBLIC_URL}/projects/panorama/arrow_dark.svg`
+};
 
 const DATASET_SECTIONS = [
   {
@@ -131,6 +135,23 @@ const DATASET_ICON_MAP = {
   }
 };
 
+export const PANORAMA_DIAGRAM_ASSETS = Array.from(
+  new Set([
+    ROLE_ICON_MAP.Applicant.light,
+    ROLE_ICON_MAP.Applicant.dark,
+    ROLE_ICON_MAP.Examiner.light,
+    ROLE_ICON_MAP.Examiner.dark,
+    DOC_ICON,
+    DOC_ICON_DARK,
+    DATASET_ICON_MAP.specification.light,
+    DATASET_ICON_MAP.specification.dark,
+    DATASET_ICON_MAP.drawing.light,
+    DATASET_ICON_MAP.drawing.dark,
+    ARROW_ICONS.light,
+    ARROW_ICONS.dark
+  ])
+);
+
 export const PanoramaDiagram = ({ fadeRef, isDark }) => {
   const [hoveredProcess, setHoveredProcess] = useState(null);
   const [hoveredBenchmark, setHoveredBenchmark] = useState(null);
@@ -216,11 +237,7 @@ export const PanoramaDiagram = ({ fadeRef, isDark }) => {
                 </div>
                 {index !== PROCESS_STEPS.length - 1 && (
                   <img
-                    src={
-                      isDark
-                        ? `${process.env.PUBLIC_URL}/projects/panorama/arrow_dark.svg`
-                        : `${process.env.PUBLIC_URL}/projects/panorama/arrow.svg`
-                    }
+                    src={isDark ? ARROW_ICONS.dark : ARROW_ICONS.light}
                     alt=""
                     className="process-flow__arrow"
                     aria-hidden="true"

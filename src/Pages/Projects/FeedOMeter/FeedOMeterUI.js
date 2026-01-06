@@ -66,7 +66,7 @@ const GAUGE_PAIRS = [
 
 const DEFAULT_GAUGE_ANGLES = GAUGE_PAIRS.map(pair => 10 + pair.value * 160);
 
-const assets = {
+export const FEED_O_METER_UI_ASSETS = {
   send: `${process.env.PUBLIC_URL}/projects/feed-o-meter/chatBtn.svg`,
   sendDark: `${process.env.PUBLIC_URL}/projects/feed-o-meter/chatBtn_dark.svg`,
   mentor: `${process.env.PUBLIC_URL}/projects/feed-o-meter/character1.png`,
@@ -75,6 +75,20 @@ const assets = {
   pointer: `${process.env.PUBLIC_URL}/projects/feed-o-meter/pointer.svg`,
   pointerDark: `${process.env.PUBLIC_URL}/projects/feed-o-meter/pointer_dark.svg`
 };
+
+const MENTEE_AVATAR_ASSETS = Array.from({ length: 5 }, (_, row) =>
+  Array.from({ length: 5 }, (_, col) => `${process.env.PUBLIC_URL}/projects/feed-o-meter/students/student${row + 1}${col + 1}.png`)
+).flat();
+
+export const FEED_O_METER_UI_ASSET_PATHS = Array.from(
+  new Set([
+    ...Object.values(FEED_O_METER_UI_ASSETS),
+    `${process.env.PUBLIC_URL}/projects/feed-o-meter/feed-o-meterUI.png`,
+    ...MENTEE_AVATAR_ASSETS
+  ])
+);
+
+const assets = FEED_O_METER_UI_ASSETS;
 
 export const FeedOMeterUI = ({ fadeRef }) => {
   const { isDark } = useTheme();

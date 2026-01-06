@@ -7,8 +7,9 @@ import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import './FeedOMeter.css';
-import { FeedOMeterUI } from './FeedOMeterUI';
+import { FeedOMeterUI, FEED_O_METER_UI_ASSET_PATHS } from './FeedOMeterUI';
 import { useTheme } from '../../../contexts/ThemeContext';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 
 export const FeedOMeterProject = () => {
   const projectData = PROJECTS['feed-o-meter'];
@@ -31,17 +32,34 @@ export const FeedOMeterProject = () => {
   const { isDark } = useTheme();
   const baselinePipelineImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'baseline_pipeline_dark.png' : 'baseline_pipeline.png'}`;
   const interventionPipelineImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'intervention_pipeline_dark.png' : 'intervention_pipeline.png'}`;
+  const pageAssets = Array.from(
+    new Set(
+      [
+        bannerImage,
+        `${process.env.PUBLIC_URL}/icons/elsevier.png`,
+        `${process.env.PUBLIC_URL}/icons/elsevier_dark.png`,
+        `${process.env.PUBLIC_URL}/projects/feed-o-meter/baseline_pipeline.png`,
+        `${process.env.PUBLIC_URL}/projects/feed-o-meter/baseline_pipeline_dark.png`,
+        `${process.env.PUBLIC_URL}/projects/feed-o-meter/intervention_pipeline.png`,
+        `${process.env.PUBLIC_URL}/projects/feed-o-meter/intervention_pipeline_dark.png`,
+        ...FEED_O_METER_UI_ASSET_PATHS
+      ].filter(Boolean)
+    )
+  );
+
+  const loaderMessage = `Loading ${projectData.title}...`;
 
   return (
-    <div className={`${pageClassName} project-page--feed-o-meter`}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
-      {bannerImage && (
-        <div className="banner-section">
-          <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-        </div>
-      )}
+    <PageLoadGuard assets={pageAssets} message={loaderMessage}>
+      <div className={`${pageClassName} project-page--feed-o-meter`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
+        {bannerImage && (
+          <div className="banner-section">
+            <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+          </div>
+        )}
 
-      <div className="project-container" ref={setScrollRoot}>
+        <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
             <h1 className="project-title">{projectData.title}</h1>
@@ -164,9 +182,10 @@ abstract = {Effective feedback, including critique and evaluation, helps designe
             />
           </section>
         </main>
-      </div>
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoadGuard>
   );
 };

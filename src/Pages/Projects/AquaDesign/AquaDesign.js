@@ -6,7 +6,18 @@ import { useTheme } from '../../../contexts/ThemeContext';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { MobileScreenRail } from '../../../Components/MobileScreenRail/MobileScreenRail';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import './AquaDesign.css';
+
+const AQUA_DESIGN_ASSETS = Array.from(
+  new Set([
+    `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail_dark.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua-design/img1.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua-design/design_award.svg`,
+    ...Array.from({ length: 10 }, (_, index) => `${process.env.PUBLIC_URL}/projects/aqua-design/screen/${index + 1}.png`)
+  ])
+);
 
 export const AquaDesignProject = () => {
   const projectData = PROJECTS['aqua-design'];
@@ -20,17 +31,20 @@ export const AquaDesignProject = () => {
   const overviewImage = `${process.env.PUBLIC_URL}/projects/aqua-design/img1.png`;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
 
+  const loaderMessage = `Loading ${projectData.title}...`;
+
   return (
-    <div className={`${pageClassName} project-page--aqua-design`}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
+    <PageLoadGuard assets={AQUA_DESIGN_ASSETS} message={loaderMessage}>
+      <div className={`${pageClassName} project-page--aqua-design`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
-      {bannerImage && (
-        <div className="banner-section">
-          <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-        </div>
-      )}
+        {bannerImage && (
+          <div className="banner-section">
+            <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+          </div>
+        )}
 
-      <div className="project-container" ref={setScrollRoot}>
+        <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <h1 className="project-title aqua-design-fade-block project-fade-block" ref={fadeInRef}>{projectData.title}</h1>
           {projectData.subtitle && (
@@ -127,9 +141,10 @@ export const AquaDesignProject = () => {
             clampToContainer
           />
         </main>
-      </div>
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoadGuard>
   );
 };

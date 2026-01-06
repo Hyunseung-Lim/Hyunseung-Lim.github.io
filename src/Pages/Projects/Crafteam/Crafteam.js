@@ -6,7 +6,15 @@ import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import './Crafteam.css';
+
+const CRAFTEAM_ASSETS = Array.from(
+  new Set([
+    PROJECTS.crafteam?.bannerImage ?? null,
+    `${process.env.PUBLIC_URL}/icons/dl.png`
+  ].filter(Boolean))
+);
 
 export const CrafteamProject = () => {
   const projectData = PROJECTS.crafteam;
@@ -26,16 +34,19 @@ export const CrafteamProject = () => {
     }
   ];
 
-  return (
-    <div className={`${pageClassName} project-page--crafteam`}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
-      {bannerImage && (
-        <div className="banner-section">
-          <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-        </div>
-      )}
+  const loaderMessage = `Loading ${projectData.title}...`;
 
-      <div className="project-container" ref={setScrollRoot}>
+  return (
+    <PageLoadGuard assets={CRAFTEAM_ASSETS} message={loaderMessage}>
+      <div className={`${pageClassName} project-page--crafteam`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
+        {bannerImage && (
+          <div className="banner-section">
+            <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+          </div>
+        )}
+
+        <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
             <h1 className="project-title">{projectData.title}</h1>
@@ -81,9 +92,10 @@ export const CrafteamProject = () => {
             />
           </section>
         </main>
-      </div>
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoadGuard>
   );
 };

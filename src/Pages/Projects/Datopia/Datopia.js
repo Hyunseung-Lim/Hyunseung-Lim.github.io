@@ -5,11 +5,22 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { MobileScreenRail } from '../../../Components/MobileScreenRail/MobileScreenRail';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import './Datopia.css';
 
 const RUN_SEQUENCE = [1, 2, 3];
 const GLIDE_DURATION = 9; // seconds
 const GLIDE_DELAY_STEP = 1.4; // seconds
+const DATOPIA_ASSETS = Array.from(
+  new Set([
+    `${process.env.PUBLIC_URL}/projects/datopia/thumbnail.png`,
+    `${process.env.PUBLIC_URL}/projects/datopia/ddp.png`,
+    `${process.env.PUBLIC_URL}/projects/datopia/datopia_fig1.png`,
+    `${process.env.PUBLIC_URL}/projects/datopia/datopia_fig2.png`,
+    `${process.env.PUBLIC_URL}/projects/datopia/dato2.gif`,
+    ...Array.from({ length: 10 }, (_, index) => `${process.env.PUBLIC_URL}/projects/datopia/screen/${index + 1}.png`)
+  ])
+);
 
 export const DatopiaProject = () => {
   const projectData = PROJECTS['datopia'];
@@ -28,14 +39,17 @@ export const DatopiaProject = () => {
     setCycleId(prev => prev + 1);
   };
 
-  return (
-    <div className={`${pageClassName} project-page--datopia`}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
-      <div className="banner-section">
-        <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-      </div>
+  const loaderMessage = `Loading ${projectData.title}...`;
 
-      <div className="project-container" ref={setScrollRoot}>
+  return (
+    <PageLoadGuard assets={DATOPIA_ASSETS} message={loaderMessage}>
+      <div className={`${pageClassName} project-page--datopia`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
+        <div className="banner-section">
+          <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+        </div>
+
+        <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
             <h1 className="project-title">{projectData.title}</h1>
@@ -189,25 +203,26 @@ export const DatopiaProject = () => {
         </main>
       </div>
 
-      <div className="datopia-animation" key={cycleId}>
-        {Array.from({ length: batchSize }).map((_, index) => (
-          <img
-            key={`${cycleId}-${index}`}
-            src={`${process.env.PUBLIC_URL}/projects/datopia/dato2.gif`}
-            alt="Datopia animation"
-            className="datopia-animation__sprite"
-            style={{
-              animationDelay: `${index * GLIDE_DELAY_STEP}s`,
-              animationDuration: `${GLIDE_DURATION}s`
-            }}
-            onAnimationEnd={
-              index === batchSize - 1 ? handleAnimationCycleEnd : undefined
-            }
-          />
-        ))}
-      </div>
+        <div className="datopia-animation" key={cycleId}>
+          {Array.from({ length: batchSize }).map((_, index) => (
+            <img
+              key={`${cycleId}-${index}`}
+              src={`${process.env.PUBLIC_URL}/projects/datopia/dato2.gif`}
+              alt="Datopia animation"
+              className="datopia-animation__sprite"
+              style={{
+                animationDelay: `${index * GLIDE_DELAY_STEP}s`,
+                animationDuration: `${GLIDE_DURATION}s`
+              }}
+              onAnimationEnd={
+                index === batchSize - 1 ? handleAnimationCycleEnd : undefined
+              }
+            />
+          ))}
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoadGuard>
   );
 };

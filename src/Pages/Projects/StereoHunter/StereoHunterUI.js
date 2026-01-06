@@ -135,6 +135,22 @@ export const VOCABULARY_SET = [
 ];
 const shuffleVocabularySet = () => [...VOCABULARY_SET].sort(() => Math.random() - 0.5);
 const TOGGLE_ICON = `${process.env.PUBLIC_URL}/icons/togglebtn.svg`;
+const ENTER_ICON = {
+  light: `${process.env.PUBLIC_URL}/projects/stereohunter/enter.svg`,
+  lightHover: `${process.env.PUBLIC_URL}/projects/stereohunter/enter_hover.svg`,
+  dark: `${process.env.PUBLIC_URL}/projects/stereohunter/enter_dark.svg`,
+  darkHover: `${process.env.PUBLIC_URL}/projects/stereohunter/enter_dark_hover.svg`
+};
+export const STEREOHUNTER_UI_ASSET_PATHS = Array.from(
+  new Set([
+    TOGGLE_ICON,
+    ENTER_ICON.light,
+    ENTER_ICON.lightHover,
+    ENTER_ICON.dark,
+    ENTER_ICON.darkHover,
+    `${process.env.PUBLIC_URL}/projects/stereohunter/stereoHunterUI.png`
+  ])
+);
 const DUMMY_OUTPUTS = [
   '"Sorry, this is dummy data :)"',
   '"Temporary placeholder response."',
@@ -309,13 +325,9 @@ export const StereoHunterUI = ({ fadeRef }) => {
 
   const submitIcon = useMemo(() => {
     if (isDark) {
-      return isSubmitHovered
-        ? `${process.env.PUBLIC_URL}/projects/stereohunter/enter_dark_hover.svg`
-        : `${process.env.PUBLIC_URL}/projects/stereohunter/enter_dark.svg`;
+      return isSubmitHovered ? ENTER_ICON.darkHover : ENTER_ICON.dark;
     }
-    return isSubmitHovered
-      ? `${process.env.PUBLIC_URL}/projects/stereohunter/enter_hover.svg`
-      : `${process.env.PUBLIC_URL}/projects/stereohunter/enter.svg`;
+    return isSubmitHovered ? ENTER_ICON.lightHover : ENTER_ICON.light;
   }, [isDark, isSubmitHovered]);
 
   const canSubmit = inputValue.trim().length > 0 && currentTarget;

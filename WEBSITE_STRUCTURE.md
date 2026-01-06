@@ -113,6 +113,14 @@ Hyunseung-Lim.github.io/
 - 포인터 드래그, 스크롤 휠, 모멘텀 애니메이션을 지원해 자연스러운 조작감 제공
 - 컨테이너 폭을 계산해 좌우 스페이서를 자동 조정하고, 텍스트/메타데이터 영역을 옵션으로 표시
 
+### 5. 페이지 로딩 가드 (`src/Components/PageLoader/*`)
+- `useAssetPreloader`: 이미지 경로 배열을 받아 Promise 기반으로 선 로딩, 이미 로드된 경로는 Set에 캐싱해 재방문 시 즉시 통과.
+- `PageLoader`: 배경 없이 스피너/문구만 렌더하며 현재 테마(다크/라이트)에 맞춰 색상을 자동 전환.
+- `PageLoadGuard`: `assets`가 모두 로드될 때까지 `PageLoader` 또는 전달된 `fallback`을 표시. `withPageLoader` HOC도 제공.
+- 모든 전역 페이지(Main/About/Projects)와 각 프로젝트 상세 페이지는 Guard로 감싸며 `Loading {프로젝트명}...` 메시지를 사용.
+- Feed-O-Meter, Panorama, StereoHunter처럼 하위 컴포넌트가 많은 이미지를 사용할 경우, `FEED_O_METER_UI_ASSET_PATHS`, `PANORAMA_DIAGRAM_ASSETS`, `STEREOHUNTER_UI_ASSET_PATHS`처럼 export된 상수를 정의해 상위 페이지가 그대로 `assets`에 전달하도록 유지.
+- 새로운 이미지를 추가할 때는 해당 페이지/컴포넌트의 자산 배열에 경로만 추가하면 Guard가 자동으로 인지한다.
+
 ### 5. 데이터 구조
 
 #### 논문 데이터 (`src/Data/publications.json`)
@@ -343,6 +351,7 @@ src/Pages/Projects/
    - `src/Pages/Projects/[ProjectName]/` 폴더 생성
    - 프로젝트 컴포넌트와 스타일 파일 추가
    - `App.js`에 새 라우트 추가
+   - `const PROJECT_ASSETS = [...]` 형태로 배너/아이콘/스크린샷 경로를 정의하고, 루트 컴포넌트를 `<PageLoadGuard assets={PROJECT_ASSETS} message={`Loading ${projectData.title}...`}>`로 감싸 자산이 모두 내려오기 전까지 콘텐츠가 노출되지 않도록 합니다. 하위 컴포넌트가 별도의 이미지를 다룬다면 `FEED_O_METER_UI_ASSET_PATHS`처럼 export된 배열을 만들어 상위 Guard에 포함시키세요.
 3. **배너 이미지**: `public/images/` 폴더에 추가
 4. **테마 설정**: 프로젝트별로 `themeMode` prop으로 테마 강제 설정 가능
 5. **스타일 커스터마이징**: 필요한 경우에만 각 프로젝트 폴더에 CSS를 추가 (기본 섹션 스타일은 `src/Components/components.css`에서 제공)

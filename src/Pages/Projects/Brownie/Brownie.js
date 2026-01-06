@@ -5,35 +5,45 @@ import './Brownie.css';
 import { Topbar } from '../../../Components/Topbar/topbar';
 import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
+
+const BROWNIE_DESKTOP_BANNER = `${process.env.PUBLIC_URL}/projects/brownie/thumbnail.png`;
+const BROWNIE_MOBILE_BANNER = `${process.env.PUBLIC_URL}/projects/brownie/thumbnail_mobile.png`;
+const BROWNIE_ASSETS = Array.from(
+  new Set([BROWNIE_DESKTOP_BANNER, BROWNIE_MOBILE_BANNER].filter(Boolean))
+);
+const BROWNIE_CONCEPT_VIDEO_URL = 'https://www.youtube.com/embed/3SPt_vbqIFs?rel=0';
 
 export const BrownieProject = () => {
   const projectData = PROJECTS.brownie;
   const [scrollRoot, setScrollRoot] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const desktopBanner = `${process.env.PUBLIC_URL}/projects/brownie/thumbnail.png`;
-  const mobileBanner = `${process.env.PUBLIC_URL}/projects/brownie/thumbnail_mobile.png`;
-  const conceptVideoUrl = 'https://www.youtube.com/embed/3SPt_vbqIFs?rel=0';
+  const desktopBanner = BROWNIE_DESKTOP_BANNER;
+  const mobileBanner = BROWNIE_MOBILE_BANNER;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(desktopBanner, themeMode);
 
+  const loaderMessage = `Loading ${projectData.title}...`;
+
   return (
-    <div className={`${pageClassName} project-page--brownie`}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
+    <PageLoadGuard assets={BROWNIE_ASSETS} message={loaderMessage}>
+      <div className={`${pageClassName} project-page--brownie`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
-      {desktopBanner && (
-        <div className="banner-section brownie-banner">
-          <picture>
-            <source media="(max-width: 640px)" srcSet={mobileBanner} />
-            <img
-              src={desktopBanner}
-              alt={`${projectData.title} banner`}
-              className="banner-image brownie-banner-image"
-            />
-          </picture>
-        </div>
-      )}
+        {desktopBanner && (
+          <div className="banner-section brownie-banner">
+            <picture>
+              <source media="(max-width: 640px)" srcSet={mobileBanner} />
+              <img
+                src={desktopBanner}
+                alt={`${projectData.title} banner`}
+                className="banner-image brownie-banner-image"
+              />
+            </picture>
+          </div>
+        )}
 
-      <div className="project-container" ref={setScrollRoot}>
+        <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
             <h1 className="project-title">{projectData.title}</h1>
@@ -89,7 +99,7 @@ export const BrownieProject = () => {
           <section className="project-section project-section__fade" ref={fadeInRef}>
             <div className="brownie-video-frame">
               <iframe
-                src={conceptVideoUrl}
+                src={BROWNIE_CONCEPT_VIDEO_URL}
                 title="Brownie concept walkthrough"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
@@ -104,8 +114,9 @@ export const BrownieProject = () => {
           </section>
 
         </main>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </PageLoadGuard>
   );
 };

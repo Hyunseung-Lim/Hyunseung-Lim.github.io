@@ -91,12 +91,14 @@
 }
 
 .about-section--hero,
-.about-section--research {
+.about-section--research,
+.about-section--off-record {
     background: transparent;
     padding-bottom: 0;
 }
 
-.about-section--research {
+.about-section--research,
+.about-section--off-record {
     align-items: center;
     justify-content: center;
 }
@@ -324,6 +326,16 @@
     margin-top: 0.45rem;
 }
 
+.about-off-record .about-contact-buttons {
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    justify-content: center;
+}
+
+.about-off-record__mobile-break {
+    display: none;
+}
+
 .about-contact-button {
     font: inherit;
     font-size: 0.78rem;
@@ -375,7 +387,8 @@
     text-decoration: underline;
 }
 
-.about-research-wrapper {
+.about-research-wrapper,
+.about-off-record-wrapper {
     width: min(100%, 820px);
     min-height: calc(var(--app-height, 100vh) - (60px + 2.5rem));
     display: flex;
@@ -385,13 +398,22 @@
     gap: 0.75rem;
 }
 
-.about-research {
+.about-research,
+.about-off-record {
     width: min(100%, 780px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
     margin: 0 auto;
+}
+
+.about-research {
+    gap: 3rem;
+}
+
+.about-off-record {
+    gap: 0.5rem;
+    width: min(100%, 640px);
 }
 
 .about-research-intro-block {
@@ -472,13 +494,19 @@
 }
 
 @media (max-width: 768px) {
-    .about-section--research {
+    .about-section--research,
+    .about-section--off-record {
         padding-bottom: 0;
     }
 
     .about-research {
         padding-top: max(4vh, 1rem);
         gap: 2rem;
+    }
+
+    .about-off-record {
+        padding-top: max(3vh, 0.75rem);
+        gap: 0.5rem;
     }
 
     .about-photo {
@@ -536,8 +564,27 @@
     .about-contact-button {
         font-size: 0.72rem;
     }
-    .about-section--research {
+    .about-section--research,
+    .about-section--off-record {
         padding-bottom: 0;
+    }
+
+    .about-off-record .about-contact-buttons {
+        gap: 0.4rem;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .about-off-record .about-contact-button {
+        width: 100%;
+    }
+
+    .about-off-record__warning {
+        text-align: center;
+    }
+
+    .about-off-record__mobile-break {
+        display: block;
     }
 
     .about-research-columns {

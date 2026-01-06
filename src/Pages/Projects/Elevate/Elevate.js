@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Topbar } from '../../../Components/Topbar/topbar';
 import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
@@ -7,7 +7,133 @@ import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import './Elevate.css';
+
+const ELEVATE_DESKTOP_BANNER = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail.png`;
+const ELEVATE_MOBILE_BANNER = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail_mobile.png`;
+const ELEVATE_INSTALLATION_VIDEO_URL = 'https://www.youtube.com/embed/QvuVQ68uf-w?rel=0';
+const ELEVATE_APPLICATION_IMAGES = [
+  { name: 'app1', label: 'Landscape' },
+  { name: 'app2', objectPosition: '100% center', label: 'Stairs' },
+  { name: 'app3', objectPosition: '70% center', label: 'Stepping stones' },
+  { name: 'app4', objectPosition: '30% center', label: 'Golf' }
+].map((entry, index) => ({
+  ...entry,
+  src: `${process.env.PUBLIC_URL}/projects/elevate/${entry.name}.png`,
+  alt: `Elevate application ${index + 1}`
+}));
+const ELEVATE_APPLICATION_DESCRIPTIONS = {
+  app1: (
+    <>
+      <strong>Landscape</strong> application renders a terrain that is mapped to the background of the VR space,
+      allowing users to immerse themselves in a variety of landscapes.
+    </>
+  ),
+  app2: (
+    <>
+      <strong>Stairs</strong> application allows users to build a variety of staircases in a VR environment by adjusting
+      parameters and choosing from different stair configurations.
+    </>
+  ),
+  app3: (
+    <>
+      <strong>Stepping Stone</strong> application creates an interactive experience with a dynamic terrain that
+      reconfigures over time. Users interact by grabbing and throwing stones off a cliff.
+    </>
+  ),
+  app4: (
+    <>
+      Beyond VR, <strong>Golf</strong> application demonstrates a real-world mini-golf experience, where the floor
+      creates a dynamic terrain for a physical golf ball to roll on.
+    </>
+  )
+};
+const ELEVATE_HARDWARE_IMAGES = [
+  { name: 'hard1', label: 'Overview', objectPosition: '40% center' },
+  { name: 'hard2', label: 'Pin-array', isNonBreaking: true },
+  { name: 'hard3', label: 'Shape Generator' },
+  { name: 'hard4', label: 'Locking System' }
+].map((entry, index) => ({
+  ...entry,
+  src: `${process.env.PUBLIC_URL}/projects/elevate/${entry.name}.png`,
+  alt: `Elevate hardware section ${index + 1}`
+}));
+const ELEVATE_HARDWARE_DETAILS = {
+  hard1: {
+    description: (
+      <>
+        <strong>Elevate</strong> is mounted on a box-framed structure made from aluminum profiles (120 cm wide × 248 cm
+        deep × 73 cm high). The top of the box (at 73 cm) is the actuated platform, covered with a smooth 15T birch
+        plywood sheet that houses the pins and prevents collisions. In the middle, a layered structure of a 6T acrylic
+        sheet and a 14T iron plate is glued together. Together, these elements form a sturdy platform that supports the
+        weight of an average user.
+      </>
+    ),
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard1-detail.png`,
+    detailAlt: 'Detail view of the Elevate structural enclosure and layered platform.'
+  },
+  hard2: {
+    description: (
+      <>
+        <strong>Pin-array</strong> contains 1,200 wooden pins paired with 14,400 magnets and 1,200 metal plates. Each
+        pin is machined from birch plywood and rated for 150&nbsp;mm of vertical displacement so the surface can morph
+        into varied terrains.
+      </>
+    ),
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard2-detail.png`,
+    detailAlt: 'Close-up of Elevate pin-array construction.'
+  },
+  hard3: {
+    description: (
+      <>
+        <strong>Shape Generator</strong> is the core of the system. It individually pushes or pulls each of the 1,200
+        pins to render different terrains and features. To reduce the number of actuators required for independent
+        height control, we designed a shape generator that moves row by row along a rail beneath the pin platform and
+        simultaneously pushes or pulls all pins in the same row.
+      </>
+    ),
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard3-detail.png`,
+    detailAlt: 'Shape generator module traveling under the Elevate platform.'
+  },
+  hard4: {
+    description: (
+      <>
+        <strong>Locking System</strong> firmly secures the pins at a specific height to form the desired terrain shape
+        and allow users to walk over it. To lock 1,200 pins with a minimal number of motors, we developed a modular
+        locking mechanism composed of four aluminum pipes and two servo motors. By replicating 15 modules, it covers 60
+        columns and all 1,200 pins.
+      </>
+    ),
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard4-detail.png`,
+    detailAlt: 'Locking system module that stabilizes Elevate pins.'
+  }
+};
+const ELEVATE_RESOURCE_LINKS = [
+  {
+    type: 'paper',
+    href: 'https://doi.org/10.1145/3411764.3445454',
+    icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
+    iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
+    iconAlt: 'ACM DL'
+  }
+];
+const ELEVATE_PAGE_ASSETS = Array.from(
+  new Set(
+    [
+      ELEVATE_DESKTOP_BANNER,
+      ELEVATE_MOBILE_BANNER,
+      `${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`,
+      `${process.env.PUBLIC_URL}/projects/elevate/chi_logo_dark.png`,
+      `${process.env.PUBLIC_URL}/icons/dl.png`,
+      ...ELEVATE_APPLICATION_IMAGES.map(({ src }) => src),
+      ...ELEVATE_HARDWARE_IMAGES.map(({ src }) => src),
+      ...Object.values(ELEVATE_HARDWARE_DETAILS)
+        .map((detail) => detail.detailImage)
+        .filter(Boolean)
+    ].filter(Boolean)
+  )
+);
 
 export const ElevateProject = () => {
   const projectData = PROJECTS.elevate;
@@ -18,138 +144,51 @@ export const ElevateProject = () => {
   const [hardwareGridStyle, setHardwareGridStyle] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const desktopBanner =
-    projectData.bannerImage ?? `${process.env.PUBLIC_URL}/projects/elevate/thumbnail.png`;
-  const mobileBanner = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail_mobile.png`;
-  const installationVideoUrl = 'https://www.youtube.com/embed/QvuVQ68uf-w?rel=0';
+  const desktopBanner = projectData.bannerImage ?? ELEVATE_DESKTOP_BANNER;
+  const mobileBanner = ELEVATE_MOBILE_BANNER;
+  const installationVideoUrl = ELEVATE_INSTALLATION_VIDEO_URL;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(desktopBanner, themeMode);
   const { isDark } = useTheme();
   const awardBadgeSrc = isDark
     ? `${process.env.PUBLIC_URL}/projects/elevate/chi_logo_dark.png`
     : `${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`;
-  const applicationImages = [
-    { name: 'app1', label: 'Landscape' },
-    { name: 'app2', objectPosition: '100% center', label: 'Stairs' },
-    { name: 'app3', objectPosition: '70% center', label: 'Stepping stones' },
-    { name: 'app4', objectPosition: '30% center', label: 'Golf' }
-  ].map((entry, index) => ({
-    ...entry,
-    src: `${process.env.PUBLIC_URL}/projects/elevate/${entry.name}.png`,
-    alt: `Elevate application ${index + 1}`
-  }));
-  const applicationDescriptions = {
-    app1: (
-      <>
-        <strong>Landscape</strong> application renders a terrain that is mapped to the background of the VR space,
-        allowing users to immerse themselves in a variety of landscapes.
-      </>
-    ),
-    app2: (
-      <>
-        <strong>Stairs</strong> application allows users to build a variety of staircases in a VR environment by adjusting
-        parameters and choosing from different stair configurations.
-      </>
-    ),
-    app3: (
-      <>
-        <strong>Stepping Stone</strong> application creates an interactive experience with a dynamic terrain that
-        reconfigures over time. Users interact by grabbing and throwing stones off a cliff.
-      </>
-    ),
-    app4: (
-      <>
-        Beyond VR, <strong>Golf</strong> application demonstrates a real-world mini-golf experience, where the floor
-        creates a dynamic terrain for a physical golf ball to roll on.
-      </>
-    )
-  };
-  const applicationRows = applicationImages.reduce((rows, item, index) => {
-    if (index % 2 === 0) {
-      rows.push([item]);
-    } else {
-      rows[rows.length - 1].push(item);
-    }
-    return rows;
-  }, []);
+  const applicationImages = ELEVATE_APPLICATION_IMAGES;
+  const applicationDescriptions = ELEVATE_APPLICATION_DESCRIPTIONS;
+  const applicationRows = useMemo(() => {
+    return applicationImages.reduce((rows, item, index) => {
+      if (index % 2 === 0) {
+        rows.push([item]);
+      } else {
+        rows[rows.length - 1].push(item);
+      }
+      return rows;
+    }, []);
+  }, [applicationImages]);
   const activeDescription = activeApplication ? applicationDescriptions[activeApplication] : null;
-  const hardwareImages = [
-    { name: 'hard1', label: 'Overview', objectPosition: '40% center' },
-    { name: 'hard2', label: 'Pin-array', isNonBreaking: true },
-    { name: 'hard3', label: 'Shape Generator' },
-    { name: 'hard4', label: 'Locking System' }
-  ].map((entry, index) => ({
-    ...entry,
-    src: `${process.env.PUBLIC_URL}/projects/elevate/${entry.name}.png`,
-    alt: `Elevate hardware section ${index + 1}`
-  }));
-  const hardwareDetails = {
-    hard1: {
-      description: (
-        <>
-          <strong>Elevate</strong> is mounted on a box-framed structure made from aluminum profiles (120 cm wide × 248 cm
-          deep × 73 cm high). The top of the box (at 73 cm) is the actuated platform, covered with a smooth 15T birch
-          plywood sheet that houses the pins and prevents collisions. In the middle, a layered structure of a 6T acrylic
-          sheet and a 14T iron plate is glued together. Together, these elements form a sturdy platform that supports the
-          weight of an average user.
-        </>
-      ),
-      detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard1-detail.png`,
-      detailAlt: 'Detail view of the Elevate structural enclosure and layered platform.'
-    },
-    hard2: {
-      description: (
-        <>
-          <strong>Pin-array</strong> contains 1,200 wooden pins paired with 14,400 magnets and 1,200 metal plates. Each
-          pin is machined from birch plywood and rated for 150&nbsp;mm of vertical displacement so the surface can morph
-          into varied terrains.
-        </>
-      ),
-      detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard2-detail.png`,
-      detailAlt: 'Close-up of Elevate pin-array construction.'
-    },
-    hard3: {
-      description: (
-        <>
-          <strong>Shape Generator</strong> is the core of the system. It individually pushes or pulls each of the 1,200
-          pins to render different terrains and features. To reduce the number of actuators required for independent
-          height control, we designed a shape generator that moves row by row along a rail beneath the pin platform and
-          simultaneously pushes or pulls all pins in the same row.
-        </>
-      ),
-      detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard3-detail.png`,
-      detailAlt: 'Shape generator module traveling under the Elevate platform.'
-    },
-    hard4: {
-      description: (
-        <>
-          <strong>Locking System</strong> firmly secures the pins at a specific height to form the desired terrain shape
-          and allow users to walk over it. To lock 1,200 pins with a minimal number of motors, we developed a modular
-          locking mechanism composed of four aluminum pipes and two servo motors. By replicating 15 modules, it covers 60
-          columns and all 1,200 pins.
-        </>
-      ),
-      detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard4-detail.png`,
-      detailAlt: 'Locking system module that stabilizes Elevate pins.'
-    }
-  };
-  const hardwareRows = hardwareImages.reduce((rows, item, index) => {
-    if (index % 2 === 0) {
-      rows.push([item]);
-    } else {
-      rows[rows.length - 1].push(item);
-    }
-    return rows;
-  }, []);
+  const hardwareImages = ELEVATE_HARDWARE_IMAGES;
+  const hardwareDetails = ELEVATE_HARDWARE_DETAILS;
+  const hardwareRows = useMemo(() => {
+    return hardwareImages.reduce((rows, item, index) => {
+      if (index % 2 === 0) {
+        rows.push([item]);
+      } else {
+        rows[rows.length - 1].push(item);
+      }
+      return rows;
+    }, []);
+  }, [hardwareImages]);
   const activeHardwareDetail = activeHardware ? hardwareDetails[activeHardware] : null;
-  const resourceLinks = [
-    {
-      type: 'paper',
-      href: 'https://doi.org/10.1145/3411764.3445454',
-      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconAlt: 'ACM DL'
+  const resourceLinks = ELEVATE_RESOURCE_LINKS;
+  const pageAssets = useMemo(() => {
+    const assets = new Set(ELEVATE_PAGE_ASSETS);
+    if (desktopBanner) {
+      assets.add(desktopBanner);
     }
-  ];
+    if (mobileBanner) {
+      assets.add(mobileBanner);
+    }
+    return Array.from(assets);
+  }, [desktopBanner, mobileBanner]);
 
   const applicationsGridRef = useRef(null);
   const hardwareGridRef = useRef(null);
@@ -239,23 +278,26 @@ export const ElevateProject = () => {
     };
   }, []);
 
-  return (
-    <div className={`${pageClassName} project-page--elevate`}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
-      {desktopBanner && (
-        <div className="banner-section elevate-banner">
-          <picture>
-            <source media="(max-width: 640px)" srcSet={mobileBanner} />
-            <img
-              src={desktopBanner}
-              alt={`${projectData.title} banner`}
-              className="banner-image elevate-banner-image"
-            />
-          </picture>
-        </div>
-      )}
+  const loaderMessage = `Loading ${projectData.title}...`;
 
-      <div className="project-container" ref={setScrollRoot}>
+  return (
+    <PageLoadGuard assets={pageAssets} message={loaderMessage}>
+      <div className={`${pageClassName} project-page--elevate`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
+        {desktopBanner && (
+          <div className="banner-section elevate-banner">
+            <picture>
+              <source media="(max-width: 640px)" srcSet={mobileBanner} />
+              <img
+                src={desktopBanner}
+                alt={`${projectData.title} banner`}
+                className="banner-image elevate-banner-image"
+              />
+            </picture>
+          </div>
+        )}
+
+        <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <h1 className="project-title project-fade-block" ref={fadeInRef}>
             {projectData.title}
@@ -507,9 +549,10 @@ series = {CHI '21}
             />
           </section>
         </main>
-      </div>
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoadGuard>
   );
 };

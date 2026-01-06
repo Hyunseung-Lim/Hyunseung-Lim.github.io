@@ -7,8 +7,9 @@ import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
-import { StereoHunterUI, VOCABULARY_SET } from './StereoHunterUI';
+import { StereoHunterUI, VOCABULARY_SET, STEREOHUNTER_UI_ASSET_PATHS } from './StereoHunterUI';
 import labelCounts from '../../../Data/stereohunter_label_counts.json';
+import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import './StereoHunter.css';
 
 const DISTRIBUTION_KEYS = [
@@ -81,6 +82,21 @@ export const StereoHunterProject = () => {
     },
     { type: 'github', href: 'https://github.com/Hyunseung-Lim/stereoHunter' }
   ];
+  const pageAssets = Array.from(
+    new Set(
+      [
+        bannerImage,
+        `${process.env.PUBLIC_URL}/projects/stereohunter/facct.png`,
+        `${process.env.PUBLIC_URL}/projects/stereohunter/facct_dark.png`,
+        `${process.env.PUBLIC_URL}/projects/stereohunter/flow.png`,
+        `${process.env.PUBLIC_URL}/projects/stereohunter/flow_dark.png`,
+        `${process.env.PUBLIC_URL}/icons/dl.png`,
+        `${process.env.PUBLIC_URL}/icons/github.svg`,
+        `${process.env.PUBLIC_URL}/icons/github_dark.svg`,
+        ...STEREOHUNTER_UI_ASSET_PATHS
+      ].filter(Boolean)
+    )
+  );
   const bibtexEntry = `@inproceedings{10.1145/3715275.3732207,
 author = {Lim, Hyunseung and Choi, Dasom and Hong, Hwajung},
 title = {How Do Users Identify and Perceive Stereotypes? Understanding User Perspectives on Stereotypical Biases in Large Language Models},
@@ -99,16 +115,19 @@ location = {Athens, Greece},
 series = {FAccT '25}
 }`;
 
-  return (
-    <div className={`${pageClassName} project-page--stereohunter`}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
-      {bannerImage && (
-        <div className="banner-section">
-          <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-        </div>
-      )}
+  const loaderMessage = `Loading ${projectData.title}...`;
 
-      <div className="project-container" ref={setScrollRoot}>
+  return (
+    <PageLoadGuard assets={pageAssets} message={loaderMessage}>
+      <div className={`${pageClassName} project-page--stereohunter`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
+        {bannerImage && (
+          <div className="banner-section">
+            <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+          </div>
+        )}
+
+        <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
           <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
             <h1 className="project-title">{projectData.title}</h1>
@@ -374,9 +393,10 @@ series = {FAccT '25}
             <BibtexCard ref={fadeInRef} text={bibtexEntry} className="project-fade-block" />
           </section>
         </main>
-      </div>
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageLoadGuard>
   );
 };
