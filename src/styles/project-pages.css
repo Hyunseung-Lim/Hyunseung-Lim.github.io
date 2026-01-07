@@ -274,3 +274,9 @@
     font-size: 0.74rem;
   }
 }
+.project-page .section-subtitle {
+  font-weight: 600;
+  color: var(--text-primary, #1f1f1f);
+  font-size: 1.35rem;
+  line-height: 1.3;
+}

@@ -121,16 +121,54 @@
   margin-bottom: 0.6rem;
 }
 
-.project-page--feed-o-meter .feedometer-dr1-section .section-title {
-  margin-bottom: 0.85rem;
-  text-align: left;
+.project-page--feed-o-meter .section-title {
   font-size: 1.35rem;
   line-height: 1.3;
 }
 
-.project-page--feed-o-meter .feedometer-dr1-description {
-  color: var(--text-secondary, #5d6273);
-  margin: 0.2rem 0 0.75rem;
+.project-page--feed-o-meter .feedometer-dr1-section .section-title,
+.project-page--feed-o-meter .feedometer-dr2-section .section-title {
+  margin-bottom: 0.85rem;
+  text-align: left;
+}
+
+.project-page--feed-o-meter .feedometer-dr1-persona {
+  display: grid;
+  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: center;
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 900px;
+}
+
+.project-page--feed-o-meter .feedometer-dr1-persona__media img {
+  width: 50%;
+  border-radius: 12px;
+  display: block;
+  margin: 0 0 0 auto;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transform: translateY(-12%);
+}
+
+.project-page--feed-o-meter .feedometer-dr1-persona__media {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.project-page--feed-o-meter .feedometer-dr1-persona__details {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-primary, #1f1f1f);
+  text-align: left;
+}
+
+.project-page--feed-o-meter .feedometer-dr1-persona__details p {
+  margin: 0.15rem 0;
 }
 
 .project-page--feed-o-meter .feedometer-dr1-figure {
@@ -148,8 +186,6 @@
 .project-page--feed-o-meter .feedometer-dr2-section .section-title {
   margin-bottom: 0.85rem;
   text-align: left;
-  font-size: 1.35rem;
-  line-height: 1.3;
 }
 
 @media (max-width: 480px) {
@@ -157,6 +193,36 @@
   .project-page--feed-o-meter .feedometer-dr2-section .section-title {
     font-size: 0.9rem;
     line-height: 1.1;
+  }
+
+  .project-page--feed-o-meter .feedometer-dr1-persona {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .project-page--feed-o-meter .feedometer-dr1-persona__media img {
+    margin: 0 auto;
+    width: 42%;
+  }
+
+  .project-page--feed-o-meter .feedometer-dr1-persona__details {
+    font-size: 0.74rem;
+    text-align: center;
+  }
+
+  .project-page--feed-o-meter .feedometer-dr1-persona__media {
+    justify-content: center;
+  }
+
+  .project-page--feed-o-meter .feedometer-dr1-persona__media img {
+    transform: translateY(0);
+  }
+
+  .project-page--feed-o-meter .feedometer-dr1-caption,
+  .project-page--feed-o-meter .feedometer-dr2-caption {
+    display: none;
   }
 }
 
@@ -176,11 +242,333 @@
   height: auto;
 }
 
+.project-page--feed-o-meter .feedometer-dr1-caption,
+.project-page--feed-o-meter .feedometer-dr2-caption {
+  margin: 0.75rem auto 0;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  max-width: 880px;
+  color: var(--text-secondary, #5d6273);
+  text-align: left;
+}
+
 .project-page--feed-o-meter .feedometer-dr2-figure iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
   display: block;
+}
+
+.project-page--feed-o-meter .feedometer-study-figure {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.project-page--feed-o-meter .feedometer-study-figure img {
+  width: 100%;
+  max-width: 960px;
+  display: block;
+  margin: 0 auto;
+}
+
+.project-page--feed-o-meter .feedometer-study-description {
+  margin: 0.85rem auto 0;
+  max-width: 840px;
+  color: var(--text-secondary, #4a4f62);
+  line-height: 1.6;
+}
+
+.project-page--feed-o-meter .feedometer-categorization-table-wrapper,
+.project-page--feed-o-meter .feedometer-evaluation-table-wrapper {
+  margin: 0.85rem auto 0;
+  max-width: 960px;
+  overflow-x: auto;
+}
+
+.project-page--feed-o-meter .feedometer-categorization-table,
+.project-page--feed-o-meter .feedometer-evaluation-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid rgba(24, 30, 56, 0.75);
+  border-bottom: 2px solid rgba(24, 30, 56, 0.75);
+}
+
+.project-page--feed-o-meter .feedometer-categorization-table {
+  font-size: 0.72rem;
+}
+
+.project-page--feed-o-meter .feedometer-evaluation-table {
+  font-size: 0.72rem;
+}
+
+.project-page--feed-o-meter .feedometer-categorization-caption {
+  margin: 0.5rem auto 0;
+  max-width: 960px;
+  font-size: 0.7rem;
+  color: var(--text-secondary, #4a4f62);
+  text-align: left;
+}
+
+.dark-mode .project-page--feed-o-meter .feedometer-categorization-table,
+.dark-mode .project-page--feed-o-meter .feedometer-evaluation-table {
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.project-page--feed-o-meter .feedometer-categorization-table th,
+.project-page--feed-o-meter .feedometer-categorization-table td,
+.project-page--feed-o-meter .feedometer-evaluation-table th,
+.project-page--feed-o-meter .feedometer-evaluation-table td {
+  border: 1px solid rgba(24, 30, 56, 0.25);
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+  background: transparent;
+}
+
+.dark-mode .project-page--feed-o-meter .feedometer-categorization-table th,
+.dark-mode .project-page--feed-o-meter .feedometer-categorization-table td,
+.dark-mode .project-page--feed-o-meter .feedometer-evaluation-table th,
+.dark-mode .project-page--feed-o-meter .feedometer-evaluation-table td {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.project-page--feed-o-meter .feedometer-categorization-table th,
+.project-page--feed-o-meter .feedometer-evaluation-table th {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.project-page--feed-o-meter .feedometer-categorization-table th:first-child,
+.project-page--feed-o-meter .feedometer-categorization-table td:first-child,
+.project-page--feed-o-meter .feedometer-evaluation-table th:first-child,
+.project-page--feed-o-meter .feedometer-evaluation-table td:first-child {
+  border-left: 0;
+}
+
+.project-page--feed-o-meter .feedometer-categorization-table th:last-child,
+.project-page--feed-o-meter .feedometer-categorization-table td:last-child,
+.project-page--feed-o-meter .feedometer-evaluation-table th:last-child,
+.project-page--feed-o-meter .feedometer-evaluation-table td:last-child {
+  border-right: 0;
+}
+
+.project-page--feed-o-meter .feedometer-categorization-table tr:last-child td,
+.project-page--feed-o-meter .feedometer-evaluation-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.project-page--feed-o-meter .feedometer-categorization__category,
+.project-page--feed-o-meter .feedometer-categorization__subcategory,
+.project-page--feed-o-meter .feedometer-table__type,
+.project-page--feed-o-meter .feedometer-table__category {
+  text-align: center;
+  font-weight: 600;
+  width: 12%;
+  vertical-align: middle;
+}
+
+.project-page--feed-o-meter .feedometer-categorization__subcategory,
+.project-page--feed-o-meter .feedometer-table__category {
+  font-style: italic;
+}
+
+.project-page--feed-o-meter .feedometer-table__criteria,
+.project-page--feed-o-meter .feedometer-categorization__description {
+  font-weight: 600;
+  width: 26%;
+}
+
+.project-page--feed-o-meter .feedometer-categorization__example,
+.project-page--feed-o-meter .feedometer-table__description {
+  color: var(--text-secondary, #4a4f62);
+  width: 34%;
+}
+
+@media (max-width: 768px) {
+  .project-page--feed-o-meter .feedometer-categorization-table,
+  .project-page--feed-o-meter .feedometer-evaluation-table {
+    font-size: 0.74rem;
+  }
+
+  .project-page--feed-o-meter .feedometer-categorization-table th,
+  .project-page--feed-o-meter .feedometer-categorization-table td,
+  .project-page--feed-o-meter .feedometer-evaluation-table th,
+  .project-page--feed-o-meter .feedometer-evaluation-table td {
+    padding: 0.45rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-page--feed-o-meter .feedometer-categorization__description-heading,
+  .project-page--feed-o-meter .feedometer-categorization__description,
+  .project-page--feed-o-meter .feedometer-categorization__example-heading,
+  .project-page--feed-o-meter .feedometer-categorization__example {
+    display: none;
+  }
+
+  .project-page--feed-o-meter .feedometer-categorization-caption {
+    display: none;
+  }
+
+  .project-page--feed-o-meter .feedometer-categorization__subcategory {
+    border-right: 0 !important;
+  }
+
+  .project-page--feed-o-meter .feedometer-table__description-heading,
+  .project-page--feed-o-meter .feedometer-table__description {
+    display: none;
+  }
+
+  .project-page--feed-o-meter .feedometer-table__criteria-heading,
+  .project-page--feed-o-meter .feedometer-table__criteria {
+    border-right: 0 !important;
+  }
+}
+
+.project-page--feed-o-meter .feedometer-findings-chart {
+  margin: 0.6rem auto 0;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.project-page--feed-o-meter .feedometer-findings-legend {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary, #4a4f62);
+}
+
+.project-page--feed-o-meter .legend-swatch {
+  display: inline-flex;
+  width: 16px;
+  height: 10px;
+  border-radius: 999px;
+  margin-right: 0.35rem;
+}
+
+.project-page--feed-o-meter .legend-swatch--feed {
+  background: #2c54f2;
+}
+
+.project-page--feed-o-meter .legend-swatch--baseline {
+  background: #a4d8ff;
+}
+
+.project-page--feed-o-meter .feedometer-findings-block h4 {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary, #3b405a);
+}
+
+.project-page--feed-o-meter .feedometer-findings-group {
+  margin-bottom: 1rem;
+}
+
+.project-page--feed-o-meter .feedometer-findings-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.project-page--feed-o-meter .feedometer-findings-metric {
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--text-primary, #1f1f1f);
+}
+
+.project-page--feed-o-meter .feedometer-findings-significance {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #5a5e70);
+}
+
+.project-page--feed-o-meter .feedometer-findings-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.2rem;
+}
+
+.project-page--feed-o-meter .feedometer-findings-bar-track {
+  width: 100%;
+  height: 18px;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-page--feed-o-meter .feedometer-findings-bar {
+  height: 100%;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  transition: width 0.3s ease;
+}
+
+.project-page--feed-o-meter .feedometer-findings-bar--feed {
+  background: #2c54f2;
+}
+
+.project-page--feed-o-meter .feedometer-findings-bar--baseline {
+  background: #a4d8ff;
+}
+
+.project-page--feed-o-meter .feedometer-findings-bar span {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .project-page--feed-o-meter .feedometer-findings-label-row {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.25rem;
+  }
+
+  .project-page--feed-o-meter .feedometer-findings-metric {
+    font-size: 0.76rem;
+  }
+
+  .project-page--feed-o-meter .feedometer-findings-significance {
+    font-size: 0.76rem;
+  }
+
+  .project-page--feed-o-meter .feedometer-findings-bar-track {
+    height: 12px;
+  }
+
+  .project-page--feed-o-meter .feedometer-findings-bar {
+    height: 10px;
+  }
+
+  .project-page--feed-o-meter .feedometer-findings-bar.feedometer-findings-bar--feed,
+  .project-page--feed-o-meter .feedometer-findings-bar.feedometer-findings-bar--feed {
+    height: 12px;
+  }
+}
+
+.project-page--feed-o-meter .feedometer-findings-divider {
+  border-top: 1px dashed rgba(24, 30, 56, 0.25);
+  margin: 0.5rem 0;
+}
+
+.project-page--feed-o-meter .feedometer-findings-list {
+  max-width: 860px;
+  margin: 0.25rem auto 0;
+  color: var(--text-secondary, #4a4f62);
+}
+
+.project-page--feed-o-meter .feedometer-findings-list li {
+  margin-bottom: 0.85rem;
+  line-height: 1.6;
 }
 
 .feedometer-ui {
@@ -1078,4 +1466,8 @@
     height: 35vh;
     min-height: 200px;
   }
+}
+.project-page--feed-o-meter .feedometer-study-subsection {
+  text-align: left;
+  margin-bottom: 3rem;
 }
