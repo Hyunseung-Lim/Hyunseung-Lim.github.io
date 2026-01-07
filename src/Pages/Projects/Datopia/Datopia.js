@@ -192,12 +192,6 @@ export const DatopiaProject = () => {
                   />
                 ))}
               </div>
-              <div
-                className="project-divider project-fade-block"
-                role="presentation"
-                aria-hidden="true"
-                ref={fadeInRef}
-              />
             </div>
           </section>
         </main>

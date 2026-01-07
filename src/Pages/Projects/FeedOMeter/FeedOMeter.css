@@ -117,12 +117,25 @@
   margin-bottom: 0.5rem;
 }
 
-.feedometer-ui-section .section-title {
+.project-page--feed-o-meter .feedometer-ui-section .section-title {
   margin-bottom: 0.6rem;
 }
 
 .project-page--feed-o-meter .section-title {
+  font-size: 1.65rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.project-page--feed-o-meter .feedometer-dr1-section .section-title,
+.project-page--feed-o-meter .feedometer-dr2-section .section-title {
   font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.project-page--feed-o-meter .section-subtitle {
+  font-size: 1.35rem;
+  font-weight: 600;
   line-height: 1.3;
 }
 
@@ -188,6 +201,10 @@
   text-align: left;
 }
 
+.project-page--feed-o-meter .feedometer-study-subtitle {
+  transition: font-size 0.2s ease;
+}
+
 @media (max-width: 480px) {
   .project-page--feed-o-meter .feedometer-dr1-section .section-title,
   .project-page--feed-o-meter .feedometer-dr2-section .section-title {
@@ -224,6 +241,11 @@
   .project-page--feed-o-meter .feedometer-dr2-caption {
     display: none;
   }
+
+  .project-page--feed-o-meter .section-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.1;
+  }
 }
 
 .project-page--feed-o-meter .feedometer-dr2-figure {
@@ -255,6 +277,22 @@
 .project-page--feed-o-meter .feedometer-dr2-figure iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
+  border: 0;
+  display: block;
+}
+
+.project-page--feed-o-meter .feedometer-video-frame {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: transparent;
+  aspect-ratio: 16 / 9;
+}
+
+.project-page--feed-o-meter .feedometer-video-frame iframe {
+  width: 100%;
+  height: 100%;
   border: 0;
   display: block;
 }
@@ -373,10 +411,15 @@
   font-style: italic;
 }
 
-.project-page--feed-o-meter .feedometer-table__criteria,
-.project-page--feed-o-meter .feedometer-categorization__description {
+.project-page--feed-o-meter .feedometer-table__criteria {
   font-weight: 600;
   width: 26%;
+}
+
+.project-page--feed-o-meter .feedometer-categorization__description {
+  width: 26%;
+  font-weight: 400;
+  color: var(--text-primary, #1f1f1f);
 }
 
 .project-page--feed-o-meter .feedometer-categorization__example,
@@ -385,17 +428,23 @@
   width: 34%;
 }
 
+.project-page--feed-o-meter .feedometer-categorization__count {
+  font-size: 0.82em;
+  color: var(--text-secondary, #5a5e70);
+  display: inline-block;
+}
+
 @media (max-width: 768px) {
   .project-page--feed-o-meter .feedometer-categorization-table,
   .project-page--feed-o-meter .feedometer-evaluation-table {
-    font-size: 0.74rem;
+    font-size: 0.68rem;
   }
 
   .project-page--feed-o-meter .feedometer-categorization-table th,
   .project-page--feed-o-meter .feedometer-categorization-table td,
   .project-page--feed-o-meter .feedometer-evaluation-table th,
   .project-page--feed-o-meter .feedometer-evaluation-table td {
-    padding: 0.45rem 0.5rem;
+    padding: 0.35rem 0.4rem;
   }
 }
 
@@ -411,8 +460,26 @@
     display: none;
   }
 
+  .project-page--feed-o-meter .feedometer-categorization__category {
+    width: 40%;
+  }
+
+  .project-page--feed-o-meter .feedometer-categorization__subcategory {
+    width: 60%;
+  }
+
   .project-page--feed-o-meter .feedometer-categorization__subcategory {
     border-right: 0 !important;
+    border-right-width: 0 !important;
+    border-right-color: transparent !important;
+    border-inline-end: 0 !important;
+  }
+
+  .project-page--feed-o-meter .feedometer-categorization-table th:nth-child(2),
+  .project-page--feed-o-meter .feedometer-categorization-table td:nth-child(2) {
+    border-right: 0 !important;
+    border-right-width: 0 !important;
+    border-inline-end: 0 !important;
   }
 
   .project-page--feed-o-meter .feedometer-table__description-heading,

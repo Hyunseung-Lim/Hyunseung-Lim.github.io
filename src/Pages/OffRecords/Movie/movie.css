@@ -29,6 +29,11 @@
   margin-bottom: 0;
 }
 
+.project-page--offrecord-movie .off-record-placeholder-heading {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
 .project-page--offrecord-movie .project-header__fade-block {
   gap: 0;
 }
@@ -86,7 +91,16 @@
   }
 
   .project-page--offrecord-movie .off-record-movie-title {
+    font-size: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .project-page--offrecord-movie .off-record-placeholder-heading {
     font-size: 0.85rem;
-    line-height: 1.2;
+  }
+
+  .project-page--offrecord-movie .off-record-placeholder-title,
+  .project-page--offrecord-movie .off-record-placeholder-year {
+    font-size: 1rem;
   }
 }

@@ -29,11 +29,30 @@ export const FeedOMeterProject = () => {
     { type: 'github', href: 'https://github.com/Hyunseung-Lim/Feed-O-Meter' }
   ];
 
+  const renderLabelWithCounts = (label) => {
+    if (typeof label !== 'string') {
+      return label;
+    }
+    const match = label.match(/^(.*?)(\s*\(.*\))$/);
+    if (!match) {
+      return label;
+    }
+    const [, mainText, countText] = match;
+    return (
+      <>
+        {mainText.trim()}
+        <br />
+        <span className="feedometer-categorization__count">{countText.trim()}</span>
+      </>
+    );
+  };
+
   const { isDark } = useTheme();
   const baselinePipelineImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'baseline_pipeline_dark.png' : 'baseline_pipeline.png'}`;
   const interventionPipelineImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'intervention_pipeline_dark.png' : 'intervention_pipeline.png'}`;
   const dr1PersonaImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/students/student33.png`;
   const studyProcedureImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'study_procedure_dark.png' : 'study_procedure.png'}`;
+  const studyProcedureMobileImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'study_procedure_dark_mobile.png' : 'study_procedure_mobile.png'}`;
   const sentenceLevelFindings = [
     { metric: 'Timeliness', feedScore: 4.7, baselineScore: 4.8, significance: 'p = 0.3108 (n.s.)' },
     { metric: 'Goal Relevance', feedScore: 4.7, baselineScore: 4.9, significance: 'p = 0.1453 (n.s.)' },
@@ -368,9 +387,9 @@ export const FeedOMeterProject = () => {
             <FeedOMeterUI fadeRef={fadeInRef} />
           </section>
           <section className="project-section project-section__fade feedometer-dr1-section">
-            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+            <h3 className="section-title project-fade-block" ref={fadeInRef}>
               DR1: simulate a novice design student
-            </h2>
+            </h3>
             <p className="section-text section-text--small feedometer-dr1-description project-fade-block" ref={fadeInRef}>
               Our goal was to let users practice providing feedback in scenarios that closely mirror real-life
               situations while fostering active engagement, rather than the hesitation often seen in traditional
@@ -403,9 +422,9 @@ export const FeedOMeterProject = () => {
             </div>
           </section>
           <section className="project-section project-section__fade feedometer-dr2-section">
-            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+            <h3 className="section-title project-fade-block" ref={fadeInRef}>
               DR2: promote critical reflections on feedback and its effects
-            </h2>
+            </h3>
             <p
               className="section-text section-text--small feedometer-dr2-description project-fade-block"
               ref={fadeInRef}
@@ -431,7 +450,7 @@ export const FeedOMeterProject = () => {
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Feed-O-Meter Demo
             </h2>
-            <div className="feedometer-dr2-figure project-fade-block" ref={fadeInRef}>
+            <div className="feedometer-video-frame project-fade-block" ref={fadeInRef}>
               <iframe
                 src="https://www.youtube.com/embed/EsqDqSN2LCI?rel=0"
                 title="Feed-O-Meter demo video"
@@ -452,13 +471,16 @@ export const FeedOMeterProject = () => {
               User Study
             </h2>
             <div className="feedometer-study-subsection">
-              <h3 className="section-subtitle project-fade-block" ref={fadeInRef}>Study Procedure</h3>
+              <h3 className="section-subtitle feedometer-study-subtitle project-fade-block" ref={fadeInRef}>Study Procedure</h3>
               <div className="feedometer-study-figure project-fade-block" ref={fadeInRef}>
-                <img
-                  src={studyProcedureImage}
-                  alt="Study procedure steps for Feed-O-Meter user study"
-                  loading="lazy"
-                />
+                <picture>
+                  <source srcSet={studyProcedureMobileImage} media="(max-width: 600px)" />
+                  <img
+                    src={studyProcedureImage}
+                    alt="Study procedure steps for Feed-O-Meter user study"
+                    loading="lazy"
+                  />
+                </picture>
               </div>
               <p className="section-text section-text--small feedometer-study-description project-fade-block" ref={fadeInRef}>
                 We conducted a within-subject study with two conditions: (1) a baseline condition and (2) the Feed-O-Meter condition. In the baseline condition, participants used a version of Feed-O-Meter without the Feedback Reflection Interface (FRI), meaning that the feedback evaluation was not displayed, and Alex did not ask counter-questions. In the Feed-O-Meter condition, all features of Feed-O-Meter were activated.
@@ -480,6 +502,12 @@ export const FeedOMeterProject = () => {
               </div>
             </div>
           </section>
+          <div
+            className="project-divider project-fade-block"
+            role="presentation"
+            aria-hidden="true"
+            ref={fadeInRef}
+          />
           <section className="project-section project-section__fade feedometer-results-section" ref={fadeInRef}>
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Findings
@@ -504,10 +532,12 @@ export const FeedOMeterProject = () => {
                         <tr key={`${category}-${name}`}>
                           {index === 0 && (
                             <td rowSpan={subcategories.length} className="feedometer-categorization__category">
-                              {category}
+                              {renderLabelWithCounts(category)}
                             </td>
                           )}
-                          <td className="feedometer-categorization__subcategory">{name}</td>
+                          <td className="feedometer-categorization__subcategory">
+                            {renderLabelWithCounts(name)}
+                          </td>
                           <td className="feedometer-categorization__description">{description}</td>
                           <td className="feedometer-categorization__example">
                             {Array.isArray(example)

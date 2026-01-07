@@ -11,7 +11,8 @@ const ABOUT_PAGE_ASSETS = [
   'images/photo.png',
   '/icons/x.svg',
   '/icons/x_dark.svg',
-  '/icons/togglebtn.svg'
+  '/icons/togglebtn.svg',
+  '/icons/togglebtn_dark.svg'
 ];
 
 const renderAnimatedText = (text) =>
@@ -29,6 +30,7 @@ export const About = () => {
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const { isDark } = useTheme();
   const crossIconSrc = isDark ? '/icons/x_dark.svg' : '/icons/x.svg';
+  const toggleIconSrc = isDark ? '/icons/togglebtn_dark.svg' : '/icons/togglebtn.svg';
   const updateHintTimeoutRef = useRef(null);
 
   const contactButtons = useMemo(
@@ -276,7 +278,7 @@ export const About = () => {
                 onClick={() => scrollToSectionIndex(1)}
                 aria-label="Scroll to next section"
               >
-                <img src="icons/togglebtn.svg" alt="" aria-hidden="true" />
+                <img src={toggleIconSrc} alt="" aria-hidden="true" />
               </button>
             )}
           </div>
@@ -371,7 +373,7 @@ export const About = () => {
                 onClick={() => scrollToSectionIndex(2)}
                 aria-label="Scroll to next section"
               >
-                <img src="icons/togglebtn.svg" alt="" aria-hidden="true" />
+                <img src={toggleIconSrc} alt="" aria-hidden="true" />
               </button>
             )}
           </div>
