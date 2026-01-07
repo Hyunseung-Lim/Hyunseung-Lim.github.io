@@ -13,9 +13,22 @@ const AQUA_DESIGN_ASSETS = Array.from(
     `${process.env.PUBLIC_URL}/projects/aqua-design/thumbnail.png`,
     `${process.env.PUBLIC_URL}/projects/aqua-design/img1.png`,
     `${process.env.PUBLIC_URL}/projects/aqua-design/design_award.svg`,
+    `${process.env.PUBLIC_URL}/projects/aqua-design/trigger_by_date.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua-design/trigger_by_category.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua-design/trigger_by_external_app.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua-design/trigger_by_flow.png`,
+    `${process.env.PUBLIC_URL}/projects/aqua-design/trigger_by_transfer.png`,
     ...Array.from({ length: 10 }, (_, index) => `${process.env.PUBLIC_URL}/projects/aqua-design/screen/${index + 1}.png`)
   ])
 );
+
+const FLOW_TRIGGERS = [
+  { key: 'date', title: 'Trigger by Date', image: 'trigger_by_date.png' },
+  { key: 'category', title: 'Trigger by Category', image: 'trigger_by_category.png' },
+  { key: 'external-app', title: 'Trigger by External App', image: 'trigger_by_external_app.png' },
+  { key: 'flow', title: 'Trigger by Flow', image: 'trigger_by_flow.png' },
+  { key: 'transfer', title: 'Trigger by Transfer', image: 'trigger_by_transfer.png' }
+];
 
 export const AquaDesignProject = () => {
   const projectData = PROJECTS['aqua-design'];
@@ -41,7 +54,15 @@ export const AquaDesignProject = () => {
 
         <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">
-          <h1 className="project-title aqua-design-fade-block project-fade-block" ref={fadeInRef}>{projectData.title}</h1>
+          <div className="project-title-row aqua-design-fade-block project-fade-block" ref={fadeInRef}>
+            <h1 className="project-title project-title--sr-only">{projectData.title}</h1>
+            <img
+              src={`${process.env.PUBLIC_URL}/projects/aqua-design/logo.png`}
+              alt={`${projectData.title} logo`}
+              className="project-title-logo"
+              loading="lazy"
+            />
+          </div>
           {projectData.subtitle && (
             <p className="project-subtitle aqua-design-fade-block project-fade-block" ref={fadeInRef}>
               {projectData.subtitle}
@@ -129,10 +150,10 @@ export const AquaDesignProject = () => {
             <div className="aqua-design-key-features__items">
               <div className="aqua-design-key-feature">
                 <h3 className="aqua-design-key-feature__title project-fade-block" ref={fadeInRef}>
-                  Bubble
+                  Bubble: A New Unit of Asset
                 </h3>
-                <p className="aqua-design-key-feature__tagline project-fade-block" ref={fadeInRef}>
-                  Money that's aware of its purpose, a new unit of asset.
+                <p className="project-fade-block aqua-design-key-feature__intro" ref={fadeInRef}>
+                  A bubble replaces a bank account. Multiple bubbles exist in a single account, but each bubble can act like one, able to send and receive money to other accounts.
                 </p>
                 <div className="aqua-design-key-feature__subsection project-fade-block" ref={fadeInRef}>
                   <h4>Creating new Bubbles</h4>
@@ -176,19 +197,115 @@ export const AquaDesignProject = () => {
               </div>
               <div className="aqua-design-key-feature">
                 <h3 className="aqua-design-key-feature__title project-fade-block" ref={fadeInRef}>
-                  Feed
+                  Feed: Widgets That Reflect the User's Intent
                 </h3>
-                <p className="aqua-design-key-feature__tagline project-fade-block" ref={fadeInRef}>
-                  Personalized widgets that reflect the user’s intent.
+                <p className="project-fade-block aqua-design-key-feature__intro" ref={fadeInRef}>
+                  A single Bubble can be used in different ways, depending on what intent the user has on how they plan to utilize them.
                 </p>
+                <div className="aqua-design-key-feature__subsection">
+                  <div className="project-fade-block" ref={fadeInRef}>
+                    <h4>Personalized Widget</h4>
+                    <p>
+                      A feed of personalized widgets provide insightful information and suggestions to the users based on the expenditure trend of the Bubble.
+                    </p>
+                  </div>
+                  <div className="project-fade-block" ref={fadeInRef}>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/projects/aqua-design/personal_feed.png`}
+                      alt="Personalized feed widgets providing Bubble insights"
+                      className="aqua-design-key-feature__image"
+                      loading="lazy"
+                    />
+                  </div>
+                  <p className="project-fade-block" ref={fadeInRef}>
+                    Some users might be more interested in at what places they spent the most, and others in how much they spent in the last week in their Coffee &amp; Drinks Bubble.
+                  </p>
+                </div>
+                <div className="aqua-design-key-feature__subsection project-fade-block" ref={fadeInRef}>
+                  <h4>Recommendations</h4>
+                  <p>
+                    Not only can users find and use appropriate widgets themselves, but also AQUA can recommend users widgets accordingly by analyzing and learning user behaviour.
+                  </p>
+                </div>
+                <div className="aqua-design-key-feature__subsection aqua-design-key-feature__subsection--recommendation project-fade-block" ref={fadeInRef}>
+                  <div className="aqua-design-key-feature__recommendation">
+                    <div className="aqua-design-key-feature__recommendation-text">
+                      <p>
+                        AQUA analyzes and learns each Bubble's usage patterns. Using that information, it suggests widgets that better help the user's intentions.
+                      </p>
+                      <p>
+                        For example, a Travel Widget that becomes a piggy bank bubble before a trip, and becomes the main expenditure bubble during.
+                      </p>
+                    </div>
+                    <div className="aqua-design-key-feature__recommendation-media">
+                      <img
+                        src={`${process.env.PUBLIC_URL}/projects/aqua-design/recommendation.png`}
+                        alt="Widget recommendation interface highlighting Bubble insights"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="aqua-design-key-feature__subsection aqua-design-key-feature__subsection--management project-fade-block" ref={fadeInRef}>
+                  <div className="aqua-design-key-feature__management">
+                    <div className="aqua-design-key-feature__management-media">
+                      <img
+                        src={`${process.env.PUBLIC_URL}/projects/aqua-design/management.png`}
+                        alt="Proactive widget suggestions for asset management"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="aqua-design-key-feature__management-text">
+                      <p>
+                        AQUA proactively suggests widgets that help asset management.
+                      </p>
+                      <p>
+                        For example, if AQUA notices a cash surplus, it recommends various savings or investment options.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="aqua-design-key-feature">
                 <h3 className="aqua-design-key-feature__title project-fade-block" ref={fadeInRef}>
-                  Flow
+                  Flow: A Full Control Over How Your Money Moves
                 </h3>
-                <p className="aqua-design-key-feature__tagline project-fade-block" ref={fadeInRef}>
-                  A full control over how your money moves.
+                <p className="project-fade-block aqua-design-key-feature__intro" ref={fadeInRef}>
+                  AQUA lets users create Flows to and from Bubbles. Flow is a feature that controls the cash flow in the user's account.
                 </p>
+                <p className="project-fade-block aqua-design-key-feature__intro" ref={fadeInRef}>
+                  Users can connect a Bubble to a certain kind of expenditure, controlling their income and evolving the concept of automatic payments and direct debits. They create transfers through a variety of triggers.
+                </p>
+                <div className="project-fade-block" ref={fadeInRef}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/projects/aqua-design/flow_example.png`}
+                    alt="Flow examples illustrating automated transfers"
+                    className="aqua-design-key-feature__image"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="aqua-design-key-feature__subsection project-fade-block" ref={fadeInRef}>
+                  <h4>Triggers</h4>
+                  <p>
+                    Flow consists of a trigger and its associated actions. In users' minds, money doesn't move only on certain dates. Flows let users control their money with various triggers.
+                  </p>
+                </div>
+                <div className="aqua-design-flow-triggers">
+                  {FLOW_TRIGGERS.map((trigger) => (
+                    <div className="aqua-design-flow-trigger project-fade-block" ref={fadeInRef} key={trigger.key}>
+                      <div className="aqua-design-flow-trigger__media">
+                        <img
+                          src={`${process.env.PUBLIC_URL}/projects/aqua-design/${trigger.image}`}
+                          alt={trigger.title}
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="aqua-design-flow-trigger__text">
+                        <p>{trigger.title}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
