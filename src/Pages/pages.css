@@ -6,10 +6,25 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    position: relative;
+    --banner-text-offset: 48px;
+    --banner-available-height: clamp(
+      220px,
+      calc(var(--app-height, 100vh) - var(--topbar-height, 60px) - var(--footer-height, 150px) - var(--banner-text-offset, 48px)),
+      620px
+    );
+  }
+  
+  .mainPage > .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 0;
   }
   
   /* banner 영역: Topbar와 Footer를 제외한 나머지 영역을 중앙 정렬 */
-  .banner {
+.banner {
     flex: 1;
     position: relative;
     display: flex;
@@ -20,9 +35,10 @@
   }
   
   /* 슬라이더 컨테이너: 화면 중앙에 위치하며 폭 50% */
-  .slider-container {
-    margin-top: 200px;
-    width: 55%;
+.slider-container {
+    width: min(55%, 920px, calc(var(--banner-available-height) * 16 / 9));
+    max-width: calc(var(--banner-available-height) * 16 / 9);
+    max-height: var(--banner-available-height);
     overflow: hidden;
     position: relative;
     aspect-ratio: 16/9;
@@ -31,18 +47,14 @@
   
   /* Medium screens - larger banner */
   @media (min-width: 769px) {
-    .slider-container {
-      width: 55%;
-    }
     .banner-text {
-      width: 55%;
+      width: min(55%, 920px, calc(var(--banner-available-height) * 16 / 9));
     }
   }
 
   @media (max-width: 768px) {
     .slider-container {
       width: calc(100% - 40px);
-      margin-top: 120px;
       margin-left: 20px;
       margin-right: 20px;
     }
@@ -69,10 +81,10 @@
     object-fit: cover;
   }
   
-  .banner-text {
+.banner-text {
     display: flex;
     margin-top: 4px;
-    width: 55%;
+    width: min(55%, 920px, calc(var(--banner-available-height) * 16 / 9));
     justify-content: space-between;
     font-size: 0.8rem;
   }

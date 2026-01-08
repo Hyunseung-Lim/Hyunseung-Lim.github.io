@@ -514,53 +514,6 @@ export const FeedOMeterProject = () => {
             </h2>
             <div className="feedometer-study-subsection">
               <h3 className="section-subtitle project-fade-block" ref={fadeInRef}>
-                Categorization of User Feedback
-              </h3>
-              <div className="feedometer-categorization-table-wrapper project-fade-block" ref={fadeInRef}>
-                <table className="feedometer-categorization-table">
-                  <thead>
-                    <tr>
-                      <th>Category</th>
-                      <th>Sub-Category</th>
-                      <th className="feedometer-categorization__description-heading">Description</th>
-                      <th className="feedometer-categorization__example-heading">Example</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {feedbackCategorizationData.map(({ category, subcategories }) =>
-                      subcategories.map(({ name, description, example }, index) => (
-                        <tr key={`${category}-${name}`}>
-                          {index === 0 && (
-                            <td rowSpan={subcategories.length} className="feedometer-categorization__category">
-                              {renderLabelWithCounts(category)}
-                            </td>
-                          )}
-                          <td className="feedometer-categorization__subcategory">
-                            {renderLabelWithCounts(name)}
-                          </td>
-                          <td className="feedometer-categorization__description">{description}</td>
-                          <td className="feedometer-categorization__example">
-                            {Array.isArray(example)
-                              ? example.map((line, lineIndex) => (
-                                  <span key={`${name}-${lineIndex}`}>
-                                    {line}
-                                    {lineIndex !== example.length - 1 && <br />}
-                                  </span>
-                                ))
-                              : example}
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-                <p className="feedometer-categorization-caption">
-                  Categorization of user feedback at the sentence level. Six predefined categories have 15 subcategories, each with associated descriptions and examples. The number of feedback instances belonging to the Feed-O-Meter condition is indicated by F, and those in the Baseline condition are indicated by B.
-                </p>
-              </div>
-            </div>
-            <div className="feedometer-study-subsection">
-              <h3 className="section-subtitle project-fade-block" ref={fadeInRef}>
                 Feedback Evaluation Results
               </h3>
               <div className="feedometer-findings-chart">
@@ -635,6 +588,53 @@ export const FeedOMeterProject = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+            <div className="feedometer-study-subsection">
+              <h3 className="section-subtitle project-fade-block" ref={fadeInRef}>
+                Categorization of User Feedback
+              </h3>
+              <div className="feedometer-categorization-table-wrapper project-fade-block" ref={fadeInRef}>
+                <table className="feedometer-categorization-table">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Sub-Category</th>
+                      <th className="feedometer-categorization__description-heading">Description</th>
+                      <th className="feedometer-categorization__example-heading">Example</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {feedbackCategorizationData.map(({ category, subcategories }) =>
+                      subcategories.map(({ name, description, example }, index) => (
+                        <tr key={`${category}-${name}`}>
+                          {index === 0 && (
+                            <td rowSpan={subcategories.length} className="feedometer-categorization__category">
+                              {renderLabelWithCounts(category)}
+                            </td>
+                          )}
+                          <td className="feedometer-categorization__subcategory">
+                            {renderLabelWithCounts(name)}
+                          </td>
+                          <td className="feedometer-categorization__description">{description}</td>
+                          <td className="feedometer-categorization__example">
+                            {Array.isArray(example)
+                              ? example.map((line, lineIndex) => (
+                                  <span key={`${name}-${lineIndex}`}>
+                                    {line}
+                                    {lineIndex !== example.length - 1 && <br />}
+                                  </span>
+                                ))
+                              : example}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+                <p className="feedometer-categorization-caption">
+                  Categorization of user feedback at the sentence level. Six predefined categories have 15 subcategories, each with associated descriptions and examples. The number of feedback instances belonging to the Feed-O-Meter condition is indicated by F, and those in the Baseline condition are indicated by B.
+                </p>
               </div>
             </div>
           </section>

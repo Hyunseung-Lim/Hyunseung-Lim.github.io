@@ -413,19 +413,23 @@
 
 .project-page--feed-o-meter .feedometer-table__criteria {
   font-weight: 600;
-  width: 26%;
+  width: 14%;
 }
 
 .project-page--feed-o-meter .feedometer-categorization__description {
-  width: 26%;
+  width: 32%;
   font-weight: 400;
   color: var(--text-primary, #1f1f1f);
 }
 
-.project-page--feed-o-meter .feedometer-categorization__example,
-.project-page--feed-o-meter .feedometer-table__description {
+.project-page--feed-o-meter .feedometer-categorization__example {
   color: var(--text-secondary, #4a4f62);
   width: 34%;
+}
+
+.project-page--feed-o-meter .feedometer-table__description {
+  color: var(--text-secondary, #4a4f62);
+  width: 40%;
 }
 
 .project-page--feed-o-meter .feedometer-categorization__count {
