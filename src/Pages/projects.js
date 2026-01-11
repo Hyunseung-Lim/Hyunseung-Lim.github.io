@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../Components/components.css';
 import './pages.css';
 import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
@@ -94,6 +95,14 @@ export const Projects = () => {
     const { iconSrc, hoverSrc } = resolveProjectMedia(project);
     const linkTarget = project.href;
     const isExternal = Boolean(project.external);
+    const LinkComponent = isExternal ? 'a' : Link;
+    const linkProps = isExternal
+      ? {
+          href: linkTarget,
+          target: '_blank',
+          rel: 'noopener noreferrer'
+        }
+      : { to: linkTarget };
     const placement = DIAGRAM_PLACEMENT[project.id];
     const diagramStyle =
       isDiagramLayout && placement
@@ -115,11 +124,9 @@ export const Projects = () => {
         ref={(node) => assignTileRef(project.id, node)}
       >
         <div className="project-tile__fade-wrapper" ref={fadeInRef}>
-          <a
-            href={linkTarget}
+          <LinkComponent
+            {...linkProps}
             className="project-tile__link"
-            target={isExternal ? '_blank' : undefined}
-            rel={isExternal ? 'noopener noreferrer' : undefined}
           >
             <div className="project-tile__image-container">
               <img
@@ -136,7 +143,7 @@ export const Projects = () => {
             <p className="project-tile__title">
               {project.title}
             </p>
-          </a>
+          </LinkComponent>
         </div>
       </div>
     );

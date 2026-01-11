@@ -19,9 +19,1673 @@
   text-align: left;
 }
 
+.project-page--crafteam .crafteam-ui {
+  margin-top: 1rem;
+  border: 1px solid rgba(40, 48, 78, 0.12);
+  border-radius: 24px;
+  padding: 1.75rem;
+  background: transparent;
+}
+
+.crafteam-ui__start {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: center;
+  align-items: center;
+}
+
+.crafteam-complete {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-items: center;
+  text-align: center;
+  padding: 1.25rem 1rem;
+}
+
+.crafteam-complete__text {
+  max-width: 420px;
+  color: #5b5f73;
+  margin: 0;
+}
+
+.crafteam-complete__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.crafteam-ui__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #68708f;
+  margin: 0 0 0.35rem;
+}
+
+.crafteam-button {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  padding: 0.85rem 1.75rem;
+  background: #f5f5f5;
+  color: #1f1f1f;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.crafteam-button:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.crafteam-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.crafteam-button--outline {
+  background: #fff;
+  color: #2b2f3c;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.75rem 1.6rem;
+}
+
+.crafteam-button--outline:hover {
+  background: #fff;
+  box-shadow: none;
+}
+
+.crafteam-button--outline:disabled {
+  opacity: 0.5;
+  color: rgba(43, 47, 60, 0.6);
+}
+
+.crafteam-button--ghost {
+  margin-top: 0.5rem;
+  align-self: stretch;
+  border: none;
+  background: #1a1c29;
+  color: #fff;
+  padding: 0.75rem 1.4rem;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.crafteam-button--ghost:disabled {
+  background: rgba(26, 28, 41, 0.4);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.crafteam-link {
+  background: transparent;
+  border: none;
+  color: #2b7fff;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.crafteam-ui__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.crafteam-stepper {
+  display: flex;
+  width: 100%;
+  gap: 0;
+  margin-bottom: 0;
+}
+
+.crafteam-stepper__step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 0 0.4rem;
+}
+
+.crafteam-stepper__step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: calc(50% + 17px);
+  width: calc(100% - 34px);
+  height: 2px;
+  background: rgba(32, 37, 66, 0.25);
+  z-index: 0;
+}
+
+.crafteam-stepper__dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(32, 37, 66, 0.3);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: rgba(32, 37, 66, 0.7);
+  z-index: 1;
+}
+
+.crafteam-stepper__label {
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  color: #4a4e73;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: pre-line;
+}
+
+.crafteam-stepper__step.is-current .crafteam-stepper__dot {
+  background: linear-gradient(135deg, #5c6cf2, #2b7fff);
+  border: none;
+  box-shadow: none;
+  color: #fff;
+}
+
+.crafteam-stepper__step.is-current .crafteam-stepper__label {
+  color: #2b7fff;
+}
+
+.dark-mode .crafteam-stepper__step:not(:last-child)::after {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .crafteam-stepper__dot {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(15, 18, 33, 0.9);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.dark-mode .crafteam-stepper__step.is-done .crafteam-stepper__dot,
+.dark-mode .crafteam-stepper__step.is-current .crafteam-stepper__dot {
+  color: #fff;
+}
+
+.dark-mode .crafteam-stepper__step.is-current .crafteam-stepper__dot {
+  border: none;
+  box-shadow: none;
+}
+
+.dark-mode .crafteam-stepper__step.is-done::after {
+  background: #7c8cff;
+}
+
+.dark-mode .crafteam-stepper__step.is-current .crafteam-stepper__label {
+  color: #dfe3ff;
+}
+
+.crafteam-step-panel {
+  border: 1px solid rgba(40, 48, 78, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.crafteam-step-panel__actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  align-items: center;
+}
+
+.crafteam-step__intro h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  text-align: left;
+}
+
+.crafteam-step__intro p {
+  margin: 0 0 0.35rem;
+  color: #5b5f73;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.crafteam-size-grid,
+.crafteam-basic-grid,
+.crafteam-structure-grid,
+.crafteam-role-grid,
+.crafteam-shared-grid,
+.crafteam-review-grid {
+  display: grid;
+  gap: 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.crafteam-size-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.crafteam-basic-grid {
+  grid-template-columns: 1fr;
+}
+
+.crafteam-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.crafteam-field label {
+  font-weight: 600;
+  color: #282e4b;
+}
+
+.crafteam-field__hint {
+  font-size: 0.85rem;
+  color: #5f6584;
+  margin: 0;
+}
+
+.crafteam-field-group {
+  margin-top: 1.25rem;
+}
+
+.crafteam-field-group > label {
+  display: block;
+  font-weight: 600;
+  color: #282e4b;
+}
+
+.crafteam-field-group > p {
+  margin: 0.25rem 0 0;
+  color: #5f6584;
+  font-size: 0.9rem;
+}
+
+.crafteam-composition-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 0.85rem;
+}
+
+.crafteam-composition-option {
+  border: 1px solid rgba(40, 48, 78, 0.15);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.crafteam-composition-option.is-selected {
+  border-color: #4d63ff;
+  background: rgba(77, 99, 255, 0.08);
+}
+
+.crafteam-composition-option__headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #1c1f33;
+}
+
+.crafteam-composition-option__icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(77, 99, 255, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crafteam-composition-option__icon.is-selected {
+  background: #4d63ff;
+  border-color: #4d63ff;
+}
+
+.crafteam-composition-option p {
+  margin: 0.4rem 0 0;
+  color: #5c6078;
+  font-size: 0.85rem;
+}
+
+.crafteam-team-preview {
+  margin-top: 1.5rem;
+  border: 1px solid rgba(40, 48, 78, 0.12);
+  border-radius: 16px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.crafteam-team-preview__header h4 {
+  margin: 0 0 0.85rem;
+}
+
+.crafteam-team-preview__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.crafteam-team-preview__chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 1rem;
+  border-radius: 12px;
+  background: transparent;
+  font-size: 0.9rem;
+  color: #1d2035;
+}
+
+.crafteam-team-preview__chip-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  background: #2b7fff;
+  color: #fff;
+}
+
+.crafteam-team-preview__chip.is-human .crafteam-team-preview__chip-avatar {
+  background: #00c850;
+}
+
+.crafteam-team-preview__chip-label {
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.crafteam-team-preview__chip-subtext {
+  font-size: 0.7rem;
+  color: #5b5f73;
+  text-align: center;
+}
+
+.crafteam-relations-preview {
+  border: 1px solid rgba(43, 47, 67, 0.15);
+  border-radius: 16px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+.crafteam-relations-preview__toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  font-weight: 600;
+  background: rgba(83, 105, 255, 0.08);
+  border: none;
+  cursor: pointer;
+  color: #2b7fff;
+}
+
+.crafteam-relations-preview__title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.crafteam-relations-preview__body {
+  padding: 1rem;
+  background: rgba(248, 249, 255, 0.9);
+  font-size: 0.9rem;
+  color: #1e2244;
+}
+
+.crafteam-relations-preview__body--graph {
+  padding: 0.5rem;
+}
+
+.crafteam-relations-preview__body ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.crafteam-relations-preview__body li {
+  margin-bottom: 0.35rem;
+}
+
+.crafteam-relations-preview__label {
+  color: #6c71a5;
+  font-size: 0.85em;
+}
+
+.crafteam-instruction-card {
+  display: flex;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  margin-top: 0.75rem;
+  border-radius: 12px;
+  border: 1px dashed rgba(67, 94, 197, 0.35);
+  background: rgba(83, 105, 255, 0.08);
+  align-items: flex-start;
+}
+
+.crafteam-instruction-card__icon {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.crafteam-instruction-card__title {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #2b3185;
+  font-weight: 700;
+}
+
+.crafteam-instruction-card__text {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  color: #2b2f47;
+}
+
+.dark-mode .crafteam-instruction-card {
+  border-color: rgba(125, 138, 255, 0.4);
+  background: rgba(82, 96, 185, 0.2);
+}
+
+.dark-mode .crafteam-instruction-card__title {
+  color: #dfe3ff;
+}
+
+.dark-mode .crafteam-instruction-card__text {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.crafteam-toggle-icon {
+  width: 18px;
+  height: 10px;
+  display: inline-block;
+  background: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.crafteam-toggle-icon.is-open {
+  transform: rotate(180deg);
+}
+
+.crafteam-member-config {
+  border: 1px solid rgba(43, 47, 67, 0.12);
+  border-radius: 20px;
+  padding: 1.25rem;
+  background: #fff;
+}
+
+.crafteam-member-config__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #1c1f33;
+}
+
+.crafteam-member-config__header p {
+  margin: 0;
+}
+
+.crafteam-member-config__count {
+  font-size: 0.9rem;
+  color: #6a708f;
+}
+
+.crafteam-member-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  align-items: flex-start;
+}
+
+.crafteam-member-tab {
+  border: 1px solid rgba(43, 47, 67, 0.15);
+  border-radius: 14px;
+  padding: 0.6rem 0.9rem;
+  background: #fafbff;
+  text-align: left;
+  flex: 0 0 calc((100% - 1.5rem) / 3);
+  max-width: calc((100% - 1.5rem) / 3);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.crafteam-member-tab.is-active {
+  border-color: #4d63ff;
+  box-shadow: none;
+}
+
+.crafteam-member-tab.is-complete {
+  background: rgba(69, 213, 164, 0.12);
+  border-color: rgba(69, 213, 164, 0.6);
+}
+
+.crafteam-member-tab__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #2b7fff;
+  color: #fff;
+  font-weight: 700;
+  margin-right: 0;
+}
+
+.crafteam-member-tab__label {
+  display: block;
+  font-weight: 600;
+  color: #1b1f39;
+  line-height: 1.1;
+}
+
+.crafteam-member-tab__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+
+.crafteam-member-tab__status {
+  display: block;
+  font-size: 0.72rem;
+  color: #6e7391;
+}
+
+.crafteam-member-panel {
+  border: 1px solid rgba(43, 47, 67, 0.12);
+  border-radius: 20px;
+  padding: 1.5rem;
+  background: transparent;
+}
+
+.crafteam-member-panel__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+.crafteam-member-panel__summary-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5c6cf2, #2b7fff);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.dark-mode .crafteam-member-panel__summary-avatar {
+  background: linear-gradient(135deg, #4d63ff, #5c6cf2);
+  color: #fff;
+}
+
+.crafteam-member-panel__summary h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1f2140;
+  text-align: left;
+}
+
+.dark-mode .crafteam-member-panel__summary h4 {
+  color: var(--text-primary);
+}
+
+.crafteam-member-panel__summary p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #5c6078;
+}
+
+.crafteam-member-panel__tabs {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0 0 1.25rem;
+  border-bottom: 1px solid rgba(43, 47, 67, 0.12);
+  padding-bottom: 0.15rem;
+}
+
+.crafteam-member-panel__tab {
+  border: none;
+  background: transparent;
+  padding: 0.2rem 0;
+  font-weight: 600;
+  color: rgba(36, 38, 61, 0.65);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.crafteam-member-panel__tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.2rem;
+  width: 100%;
+  height: 2px;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.crafteam-member-panel__tab.is-active {
+  color: #1b1f39;
+}
+
+.crafteam-member-panel__tab.is-active::after {
+  background: #2b7fff;
+}
+
+.crafteam-member-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.crafteam-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.85rem;
+}
+
+.crafteam-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: #2c3254;
+  text-align: left;
+}
+
+.crafteam-form-field input,
+.crafteam-form-field select {
+  border: 1px solid rgba(43, 47, 67, 0.15);
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.crafteam-member-skills {
+  border: 1px solid rgba(43, 47, 67, 0.12);
+  border-radius: 12px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.crafteam-member-skills__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.crafteam-member-skills__header small {
+  font-weight: 400;
+  color: #626681;
+  font-size: 0.85rem;
+}
+
+.crafteam-skill-pills {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.crafteam-skill-button {
+  border: 1px solid rgba(43, 47, 67, 0.2);
+  border-radius: 6px;
+  padding: 0.4rem 0.9rem;
+  background: transparent;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.crafteam-skill-button.is-active {
+  background: #2b7fff;
+  color: #fff;
+  border-color: #2b7fff;
+}
+
+@media (max-width: 768px) {
+  .crafteam-member-tab {
+    width: 100%;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}
+
+.crafteam-skill-add {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.crafteam-selected-skills {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.crafteam-selected-skill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid rgba(43, 47, 67, 0.2);
+  border-radius: 8px;
+  background: rgba(244, 245, 251, 0.8);
+  padding: 0.3rem 0.65rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+  color: #1f2140;
+}
+
+.crafteam-selected-skill__remove {
+  font-weight: 700;
+  color: #5a5f7a;
+  line-height: 1;
+}
+
+.crafteam-skill-add input {
+  flex: 1;
+  border: 1px solid rgba(43, 47, 67, 0.2);
+  border-radius: 10px;
+  padding: 0.5rem 0.7rem;
+}
+
+.crafteam-skill-add button {
+  border-radius: 10px;
+  border: 1px solid rgba(43, 47, 67, 0.2);
+  padding: 0.5rem 0.9rem;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.crafteam-existing-library {
+  border: 1px solid rgba(43, 47, 67, 0.12);
+  border-radius: 12px;
+  background: transparent;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.crafteam-existing-library__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.crafteam-existing-card {
+  border: 2px solid rgba(43, 47, 67, 0.1);
+  border-radius: 14px;
+  padding: 0.75rem;
+  background: #fafbff;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.crafteam-existing-card.is-selected {
+  border-color: #2b7fff;
+  background: rgba(43, 127, 255, 0.12);
+}
+
+.crafteam-existing-card.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.crafteam-existing-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7b9dff, #4050c7);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.crafteam-existing-card__body h5 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #14172c;
+}
+
+.crafteam-existing-card__body p,
+.crafteam-existing-card__body span {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6d728f;
+}
+
+.crafteam-existing-card__badge {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 0.7rem;
+  color: #a33a3a;
+}
+
+.crafteam-member-panel__actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.crafteam-role-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.crafteam-role-card--simple {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(43, 47, 67, 0.12);
+  padding: 1rem;
+}
+
+.crafteam-role-card__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.crafteam-role-card__avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5c7dff, #2b7fff);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crafteam-role-card__avatar.is-human {
+  background: linear-gradient(135deg, #0cc177, #00c850);
+}
+
+.crafteam-role-card__summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.crafteam-role-card__summary-title {
+  font-weight: 600;
+  color: #1d2035;
+  font-size: 0.92rem;
+  text-align: left;
+}
+
+.dark-mode .crafteam-role-card__summary-title {
+  color: var(--text-primary);
+}
+.crafteam-role-card__summary-status {
+  font-size: 0.78rem;
+  color: #5e627d;
+}
+
+.crafteam-role-grid-simple {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.crafteam-role-button {
+  border: 1px solid rgba(43, 47, 67, 0.18);
+  border-radius: 12px;
+  padding: 0.65rem 0.8rem;
+  background: #f4f5fb;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.crafteam-role-button.is-active {
+  border-color: #2b7fff;
+  background: rgba(43, 127, 255, 0.12);
+  color: #1b2a40;
+}
+
+.crafteam-role-alert {
+  margin-top: 0.75rem;
+  padding: 0.8rem;
+  border-radius: 10px;
+  background: rgba(227, 83, 83, 0.12);
+  color: #9c2f2f;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.crafteam-step--basic {
+  text-align: left;
+}
+
+.crafteam-card {
+  border: 1px solid rgba(40, 48, 78, 0.12);
+  border-radius: 14px;
+  padding: 1rem;
+  background: rgba(248, 249, 254, 0.9);
+}
+
+.crafteam-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  font-size: 0.9rem;
+  color: #5a5f7a;
+}
+
+.crafteam-card__header strong {
+  color: #1c1f33;
+}
+
+.crafteam-card--summary ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0;
+  color: #4a4e68;
+}
+
+.crafteam-input,
+.crafteam-card textarea {
+  width: 100%;
+  border: 1px solid rgba(40, 48, 78, 0.18);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.crafteam-shared-panel textarea {
+  border-radius: 8px;
+  border: 1px solid rgba(32, 34, 51, 0.18);
+  resize: none;
+  min-height: 10rem;
+  padding: 0.75rem;
+}
+
+.dark-mode .crafteam-shared-panel textarea {
+  background: rgba(16, 19, 35, 0.9);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.crafteam-topic-pills,
+.crafteam-value-pills,
+.crafteam-snippets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+.crafteam-pill,
+.crafteam-chip,
+.crafteam-snippets button {
+  border: 1px solid rgba(40, 48, 78, 0.18);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  background: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.crafteam-pill.is-active,
+.crafteam-chip.is-active {
+  background: #2b7fff;
+  color: #fff;
+  border-color: #2b7fff;
+}
+
+.crafteam-size-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: #5a5f73;
+}
+
+.crafteam-relationship-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 1.25rem 0;
+}
+
+.crafteam-relationship-card {
+  border: 1px solid rgba(40, 48, 78, 0.12);
+  border-radius: 16px;
+  padding: 1rem;
+  background: rgba(243, 245, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.crafteam-relationship-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.crafteam-relationship-card__icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.crafteam-relationship-card h4 {
+  margin: 0;
+  color: #435ec5;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.crafteam-relationship-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #435ec5;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.crafteam-relationship-card p {
+  margin: 0 0 0.45rem;
+  color: #435ec5;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.crafteam-relationship-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.crafteam-relationship-button-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.crafteam-relationship-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(40, 48, 78, 0.2);
+  background: #fff;
+  padding: 0.5rem 1.25rem;
+  color: #1e2251;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 0 0.75rem;
+}
+
+.crafteam-relationship-button:hover {
+  border-color: #4d63ff;
+}
+
+.crafteam-relationship-button.is-active {
+  border-color: #2b7fff;
+  color: #2b7fff;
+}
+
+.crafteam-relationship-type-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.crafteam-relationship-type-button {
+  border: 1px solid rgba(43, 47, 67, 0.25);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  background: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  color: #1c1f33;
+}
+
+.crafteam-relationship-type-button:hover {
+  transform: none;
+  border-color: #2b7fff;
+}
+
+.crafteam-relationship-type-button.is-selected {
+  background: #2b7fff;
+  border-color: #2b7fff;
+  color: #fff;
+}
+
+.crafteam-relationship-status-text {
+  font-size: 0.8rem;
+  color: #435ec5;
+  margin: 0 0 0.5rem;
+}
+
+.crafteam-relationship-canvas {
+  margin-top: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.crafteam-relationship-canvas svg {
+  width: 100%;
+  height: 420px;
+}
+
+.crafteam-relationship-canvas--readonly {
+  pointer-events: none;
+  background: transparent;
+}
+
+.crafteam-relationship-line {
+  stroke: #2b2f43;
+  stroke-width: 1.4;
+  fill: none;
+  cursor: pointer;
+  stroke-linecap: round;
+}
+
+.crafteam-relationship-line--superior {
+  stroke: #4c506a;
+}
+
+.crafteam-relationship-line--peer {
+  stroke-dasharray: 4 4;
+  stroke: #6a6f8d;
+}
+
+.crafteam-relationship-line--draft {
+  stroke: rgba(67, 94, 197, 0.6);
+  stroke-dasharray: 5 5;
+  pointer-events: none;
+}
+
+.crafteam-relationship-line__label {
+  fill: #4c506a;
+  font-size: 0.9rem;
+  text-anchor: middle;
+}
+
+.crafteam-relationship-edge__remove {
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.crafteam-relationship-edge:hover .crafteam-relationship-edge__remove {
+  opacity: 1;
+}
+
+.crafteam-relationship-edge__remove circle {
+  fill: #ffe6e6;
+  stroke: none;
+}
+
+.crafteam-relationship-edge__remove text {
+  fill: #c44949;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.crafteam-relationship-node-group {
+  cursor: grab;
+}
+
+.crafteam-relationship-node-ring {
+  fill: #fdfdff;
+  stroke: #c7cee8;
+  stroke-width: 1.6;
+  transition: stroke 0.2s ease, fill 0.2s ease;
+}
+
+.crafteam-relationship-node-ring.is-human {
+  stroke: #00c850;
+}
+
+.crafteam-relationship-node-ring.is-active {
+  stroke: #4d63ff;
+}
+
+.crafteam-relationship-node-core {
+  fill: #2b7fff;
+  transition: fill 0.2s ease;
+}
+
+.crafteam-relationship-node-core.is-human {
+  fill: #00c850;
+}
+
+.crafteam-relationship-node__initial {
+  fill: #1f2141;
+  font-size: 0.68rem;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.crafteam-relationship-node__label,
+.crafteam-relationship-node__sublabel {
+  fill: #4b4f66;
+  font-size: 0.82rem;
+  text-anchor: middle;
+}
+
+.crafteam-relationship-node__label {
+  font-weight: 600;
+}
+
+.crafteam-relationship-node__sublabel {
+  font-size: 0.8rem;
+  fill: #7a7f98;
+}
+
+.crafteam-role-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.crafteam-role-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.crafteam-role-card__header h4 {
+  margin: 0;
+}
+
+.crafteam-role-card__header span {
+  font-size: 0.8rem;
+  color: #626681;
+}
+
+.crafteam-role-card__badge {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(43, 127, 255, 0.12);
+  color: #1b2a40;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.crafteam-role-card p {
+  font-size: 0.85rem;
+  color: #4d526c;
+}
+
+.crafteam-role-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.6rem 0;
+}
+
+.crafteam-capacity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: #4a4e66;
+}
+
+.crafteam-capacity__bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(29, 43, 116, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.crafteam-capacity__bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #6a7cfd, #2b7fff);
+}
+
 .dark-mode .project-page--crafteam {
   background-color: var(--bg-primary);
   color: var(--text-primary);
+}
+
+.dark-mode .project-page--crafteam .crafteam-ui {
+  background: rgba(19, 22, 36, 0.9);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.dark-mode .crafteam-card,
+.dark-mode .crafteam-structure-card,
+.dark-mode .crafteam-step-panel {
+  background: rgba(12, 15, 27, 0.8);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.dark-mode .crafteam-pill,
+.dark-mode .crafteam-chip,
+.dark-mode .crafteam-composition-option,
+.dark-mode .crafteam-snippets button,
+.dark-mode .crafteam-input,
+.dark-mode .crafteam-card textarea {
+  background: rgba(20, 24, 39, 0.9);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark-mode .crafteam-existing-library {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .crafteam-existing-card {
+  background: rgba(20, 24, 39, 0.9);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+}
+
+.dark-mode .crafteam-existing-card.is-selected {
+  background: rgba(77, 99, 255, 0.18);
+  border-color: rgba(77, 99, 255, 0.8);
+}
+
+.dark-mode .crafteam-complete__text {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.dark-mode .crafteam-composition-option.is-selected {
+  background: rgba(77, 99, 255, 0.18);
+  box-shadow: none;
+}
+
+.dark-mode .crafteam-composition-option__headline,
+.dark-mode .crafteam-composition-option p {
+  color: var(--text-primary);
+}
+
+.dark-mode .crafteam-team-preview {
+  background: rgba(15, 18, 33, 0.9);
+}
+
+.dark-mode .crafteam-field label,
+.dark-mode .crafteam-field-group > label,
+.dark-mode .crafteam-team-preview__chip-label {
+  color: var(--text-primary);
+}
+
+.dark-mode .crafteam-field__hint,
+.dark-mode .crafteam-field-group > p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-mode .crafteam-team-preview__chip {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.dark-mode .crafteam-relationship-card {
+  background: rgba(13, 16, 31, 0.8);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-mode .crafteam-relationship-button {
+  background: rgba(19, 22, 36, 0.9);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.dark-mode .crafteam-relationship-button.is-active {
+  border-color: #7c8cff;
+  color: #d5d9ff;
+}
+
+.dark-mode .crafteam-relationship-type-button {
+  background: rgba(26, 30, 48, 0.9);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.dark-mode .crafteam-relationship-type-button.is-selected {
+  background: #7c8cff;
+  color: #0b0f25;
+  border-color: #7c8cff;
+}
+
+.dark-mode .crafteam-relationship-status-text {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.dark-mode .crafteam-relationship-canvas {
+  background: transparent;
+  border-color: transparent;
+}
+
+.dark-mode .crafteam-relationship-canvas--readonly {
+  background: transparent;
+}
+
+.dark-mode .crafteam-relationship-line {
+  stroke: rgba(255, 255, 255, 0.7);
+}
+
+.dark-mode .crafteam-relationship-line--peer {
+  stroke: rgba(255, 255, 255, 0.45);
+}
+
+.dark-mode .crafteam-relationship-line--draft {
+  stroke: rgba(111, 130, 255, 0.8);
+}
+
+.dark-mode .crafteam-relationship-line__label,
+.dark-mode .crafteam-relationship-node__label,
+.dark-mode .crafteam-relationship-node__sublabel {
+  fill: rgba(255, 255, 255, 0.78);
+}
+
+.dark-mode .crafteam-relations-preview {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark-mode .crafteam-relations-preview__toggle {
+  background: rgba(67, 94, 197, 0.2);
+  color: #cdd2ff;
+}
+
+.dark-mode .crafteam-relations-preview__body {
+  background: rgba(18, 22, 41, 0.9);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.dark-mode .crafteam-member-config,
+.dark-mode .crafteam-member-panel {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .crafteam-member-tab {
+  background: rgba(28, 34, 56, 0.85);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dark-mode .crafteam-member-tab__status {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.dark-mode .crafteam-button--ghost {
+  background: #f4f5fb;
+  color: #121320;
+}
+
+.dark-mode .crafteam-form-field input,
+.dark-mode .crafteam-form-field select,
+.dark-mode .crafteam-skill-add input {
+  background: rgba(16, 19, 35, 0.9);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .crafteam-form-field span {
+  color: var(--text-primary);
+}
+
+.dark-mode .crafteam-member-skills {
+  background: rgba(12, 15, 30, 0.95);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.dark-mode .crafteam-skill-button {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.dark-mode .crafteam-selected-skill {
+  background: rgba(18, 23, 43, 0.6);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dark-mode .crafteam-selected-skill__remove {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-mode .crafteam-existing-card {
+  background: rgba(14, 16, 31, 0.95);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dark-mode .crafteam-existing-card__body p,
+.dark-mode .crafteam-existing-card__body span {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.dark-mode .crafteam-role-card--simple {
+  background: rgba(14, 17, 31, 0.92);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-mode .crafteam-role-button {
+  background: rgba(19, 23, 40, 0.9);
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.dark-mode .crafteam-role-button.is-active {
+  background: rgba(77, 99, 255, 0.15);
+  border-color: #7c8cff;
+  color: #dce0ff;
+}
+
+.dark-mode .crafteam-role-alert {
+  background: rgba(180, 68, 68, 0.18);
+  color: #ff9d9d;
+}
+
+.dark-mode .crafteam-member-panel__tab {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-mode .crafteam-member-panel__tab.is-active {
+  color: #fff;
+}
+
+.dark-mode .crafteam-member-panel__tab.is-active::after {
+  background: #4d63ff;
+}
+
+.dark-mode .crafteam-member-panel__tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .crafteam-relationship-edge__remove circle {
+  fill: rgba(255, 255, 255, 0.12);
+}
+
+.dark-mode .crafteam-relationship-edge__remove text {
+  fill: #ff8c8c;
+}
+
+.dark-mode .crafteam-relationship-node-ring {
+  fill: rgba(14, 18, 33, 0.95);
+  stroke: rgba(255, 255, 255, 0.4);
+}
+
+.dark-mode .crafteam-relationship-node-ring.is-human {
+  stroke: #2fe992;
+}
+
+.dark-mode .crafteam-relationship-node-ring.is-active {
+  stroke: #7c8cff;
+}
+
+.dark-mode .crafteam-relationship-node-core {
+  fill: #4d63ff;
+}
+
+.dark-mode .crafteam-relationship-node-core.is-human {
+  fill: #0fd17a;
+}
+
+.dark-mode .crafteam-relationship-node__initial {
+  fill: rgba(255, 255, 255, 0.92);
+}
+
+.dark-mode .crafteam-network {
+  background: rgba(7, 9, 19, 0.8);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .crafteam-card--score {
+  background: linear-gradient(180deg, #4c5de6, #0e1126);
 }
 
 @media (max-width: 992px) {
@@ -43,4 +1707,110 @@
     height: 35vh;
     min-height: 200px;
   }
+}
+@media (max-width: 600px) {
+  .crafteam-step-panel {
+    padding: 1rem;
+  }
+
+  .crafteam-step-panel__actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .crafteam-stepper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .crafteam-stepper__step {
+    width: 100%;
+  }
+
+  .crafteam-stepper__step:not(:last-child)::after {
+    display: none;
+  }
+}
+.crafteam-step--shared--single .crafteam-step__intro {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.crafteam-step--shared--single .crafteam-step__intro h3,
+.crafteam-step--shared--single .crafteam-step__intro p {
+  text-align: left;
+}
+
+.crafteam-shared-panel {
+  border: 1px solid rgba(43, 47, 67, 0.12);
+  border-radius: 18px;
+  padding: 1.5rem;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.crafteam-shared-panel__intro {
+  background: rgba(243, 245, 255, 0.85);
+  border-radius: 12px;
+  padding: 1rem;
+  color: #435ec5;
+  text-align: left;
+}
+
+.crafteam-shared-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+}
+
+.crafteam-shared-panel__icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.crafteam-shared-panel__header h4 {
+  margin: 0;
+  color: #435ec5;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.crafteam-shared-panel__intro p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #435ec5;
+}
+
+.crafteam-value-pills--shared {
+  margin-top: 0.5rem;
+}
+
+.crafteam-shared-panel textarea::placeholder {
+  color: rgba(32, 34, 51, 0.45);
+}
+
+.dark-mode .crafteam-shared-panel textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.crafteam-member-tab__avatar.is-human {
+  background: #00c850;
+}
+.dark-mode .crafteam-member-tab__label {
+  color: var(--text-primary);
+}
+.dark-mode .crafteam-shared-panel {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark-mode .crafteam-shared-panel__intro {
+  background: rgba(32, 36, 58, 0.85);
+  color: var(--text-primary);
+}
+
+.dark-mode .crafteam-shared-panel__intro p {
+  color: var(--text-primary);
 }

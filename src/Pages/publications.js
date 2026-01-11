@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../Components/components.css';
 import './pages.css';
 import { SegmentedControl } from '../Components/SegmentedButton/segmentedbutton';
@@ -9,12 +10,12 @@ import publicationData from '../Data/publications.json';
 import personLinks from '../Data/personLinks.json';
 
 const PROJECT_WEB_ROUTES = {
-    'PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination': '#/projects/panorama',
-    'Feed-O-Meter: Investigating AI-Generated Mentee Personas as Interactive Agents for Scaffolding Design Feedback Practice': '#/projects/feed-o-meter',
-    'How Do Users Identify and Perceive Stereotypes? Understanding User Perspectives on Stereotypical Biases in Large Language Models': '#/projects/stereohunter',
-    'Co-Creating Question-and-Answer Style Articles with Large Language Models for Research Promotion': '#/projects/aqua',
-    'Elevate: A Walkable Pin-Array for Large Shape-Changing Terrains': '#/projects/elevate',
-    'Elevate: a large-scale walkable pin-array display': '#/projects/elevate'
+    'PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination': '/projects/panorama',
+    'Feed-O-Meter: Investigating AI-Generated Mentee Personas as Interactive Agents for Scaffolding Design Feedback Practice': '/projects/feed-o-meter',
+    'How Do Users Identify and Perceive Stereotypes? Understanding User Perspectives on Stereotypical Biases in Large Language Models': '/projects/stereohunter',
+    'Co-Creating Question-and-Answer Style Articles with Large Language Models for Research Promotion': '/projects/aqua',
+    'Elevate: A Walkable Pin-Array for Large Shape-Changing Terrains': '/projects/elevate',
+    'Elevate: a large-scale walkable pin-array display': '/projects/elevate'
 };
 
 export const Publications = (props) => {
@@ -247,21 +248,32 @@ export const Publications = (props) => {
                                                         const linkEntries = [];
                                                         const addLink = ({ key, href, label, newTab = true, primary = false }) => {
                                                             if (!href) return;
-                                                            const props = {};
-                                                            if (newTab) {
-                                                                props.target = '_blank';
-                                                                props.rel = 'noopener noreferrer';
-                                                            }
                                                             const classNames = ['venue-link'];
                                                             if (primary) classNames.push('venue-link--primary');
-                                                            linkEntries.push({
-                                                                key,
-                                                                primary,
-                                                                element: (
+                                                            const isInternal = !newTab && href.startsWith('/');
+                                                            let element;
+                                                            if (isInternal) {
+                                                                element = (
+                                                                    <Link key={key} to={href} className={classNames.join(' ')}>
+                                                                        {label}
+                                                                    </Link>
+                                                                );
+                                                            } else {
+                                                                const props = {};
+                                                                if (newTab) {
+                                                                    props.target = '_blank';
+                                                                    props.rel = 'noopener noreferrer';
+                                                                }
+                                                                element = (
                                                                     <a key={key} href={href} className={classNames.join(' ')} {...props}>
                                                                         {label}
                                                                     </a>
-                                                                )
+                                                                );
+                                                            }
+                                                            linkEntries.push({
+                                                                key,
+                                                                primary,
+                                                                element
                                                             });
                                                         };
 

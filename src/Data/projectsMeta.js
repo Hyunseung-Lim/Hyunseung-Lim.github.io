@@ -8,7 +8,7 @@ export const PROJECTS = {
     hoverIcon: '/projects/datopia/icon_hover.gif',
     iconDark: null,
     hoverIconDark: null,
-    href: '#/projects/datopia',
+    href: '/projects/datopia',
     external: false,
     themeMode: 'dark'
   },
@@ -22,7 +22,7 @@ export const PROJECTS = {
     hoverIcon: '/projects/feed-o-meter/icon_hover.gif',
     iconDark: '/projects/feed-o-meter/icon_dark.png',
     hoverIconDark: '/projects/feed-o-meter/icon_hover_dark.gif',
-    href: '#/projects/feed-o-meter',
+    href: '/projects/feed-o-meter',
     external: false
   },
   elevate: {
@@ -35,7 +35,7 @@ export const PROJECTS = {
     hoverIcon: '/projects/elevate/icon_hover.gif',
     iconDark: '/projects/elevate/icon_dark.png',
     hoverIconDark: '/projects/elevate/icon_hover_dark.gif',
-    href: '#/projects/elevate',
+    href: '/projects/elevate',
     external: false
   },
   stereohunter: {
@@ -48,7 +48,7 @@ export const PROJECTS = {
     hoverIcon: '/projects/stereohunter/icon_hover.gif',
     iconDark: '/projects/stereohunter/icon_dark.png',
     hoverIconDark: '/projects/stereohunter/icon_hover_dark.gif',
-    href: '#/projects/stereohunter',
+    href: '/projects/stereohunter',
     external: false
   },
   crafteam: {
@@ -61,7 +61,7 @@ export const PROJECTS = {
     hoverIcon: '/projects/crafteam/icon_hover.gif',
     iconDark: '/projects/crafteam/icon_dark.png',
     hoverIconDark: '/projects/crafteam/icon_hover_dark.gif',
-    href: '#/projects/crafteam',
+    href: '/projects/crafteam',
     external: false
   },
   aqua: {
@@ -74,7 +74,7 @@ export const PROJECTS = {
     hoverIcon: '/projects/aqua/icon_hover.gif',
     iconDark: '/projects/aqua/icon_dark.png',
     hoverIconDark: '/projects/aqua/icon_hover_dark.gif',
-    href: '#/projects/aqua',
+    href: '/projects/aqua',
     external: false
   },
   'aqua-design': {
@@ -87,7 +87,7 @@ export const PROJECTS = {
     hoverIcon: '/projects/aqua-design/icon_hover.gif',
     iconDark: null,
     hoverIconDark: null,
-    href: '#/projects/aqua-design',
+    href: '/projects/aqua-design',
     external: false
   },
   brownie: {
@@ -100,7 +100,7 @@ export const PROJECTS = {
     hoverIcon: '/projects/brownie/icon_hover.gif',
     iconDark: '/projects/brownie/icon_dark.png',
     hoverIconDark: '/projects/brownie/icon_hover_dark.gif',
-    href: '#/projects/brownie',
+    href: '/projects/brownie',
     external: false
   },
   panorama: {
@@ -113,7 +113,7 @@ export const PROJECTS = {
     hoverIcon: '/projects/panorama/icon_hover.gif',
     iconDark: '/projects/panorama/icon_dark.png',
     hoverIconDark: '/projects/panorama/icon_hover_dark.gif',
-    href: '#/projects/panorama',
+    href: '/projects/panorama',
     external: false
   }
 };

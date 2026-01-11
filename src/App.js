@@ -1,4 +1,4 @@
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ScrollToTop } from './Components/ScrollToTop';
@@ -27,7 +27,7 @@ import { PenguinOffRecord } from './Pages/OffRecords/Penguin/penguin';
 function App() {
   return (
     <ThemeProvider>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL || '/'}>
         <ScrollToTop />
         <div className="App">
           <Routes>

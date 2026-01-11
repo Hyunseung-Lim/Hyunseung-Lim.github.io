@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../Components/components.css';
 import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
 import { useTheme } from '../contexts/ThemeContext';
@@ -55,8 +56,8 @@ export const About = () => {
         bodyExtra: ' including problem framing, ideation, exploration, and evaluation.',
         linksLabel: 'Selected Projects',
         links: [
-          { label: 'Feed-O-Meter', href: '#/projects/feed-o-meter' },
-          { label: 'CrafTeam', href: '#/projects/crafteam' }
+          { label: 'Feed-O-Meter', href: '/projects/feed-o-meter' },
+          { label: 'CrafTeam', href: '/projects/crafteam' }
         ]
       },
       {
@@ -66,8 +67,8 @@ export const About = () => {
         bodyExtra: ' and to investigate the human-centered considerations required for LLMs.',
         linksLabel: 'Selected Projects',
         links: [
-          { label: 'PANORAMA', href: '#/projects/panorama' },
-          { label: 'StereoHunter', href: '#/projects/stereohunter' }
+          { label: 'PANORAMA', href: '/projects/panorama' },
+          { label: 'StereoHunter', href: '/projects/stereohunter' }
         ]
       }
     ],
@@ -76,12 +77,12 @@ export const About = () => {
 
   const offRecordTags = useMemo(
     () => [
-      { label: 'MOVIE', href: '#/off-records/movie' },
-      { label: 'WRITING', href: '#/off-records/writing' },
-      { label: 'FASHION', href: '#/off-records/fashion' },
-      { label: 'COOK', href: '#/off-records/cook' },
-      { label: 'HIP-HOP', href: '#/off-records/hip-hop' },
-      { label: 'PENGUIN', href: '#/off-records/penguin' }
+      { label: 'MOVIE', href: '/off-records/movie' },
+      { label: 'WRITING', href: '/off-records/writing' },
+      { label: 'FASHION', href: '/off-records/fashion' },
+      { label: 'COOK', href: '/off-records/cook' },
+      { label: 'HIP-HOP', href: '/off-records/hip-hop' },
+      { label: 'PENGUIN', href: '/off-records/penguin' }
     ],
     []
   );
@@ -348,16 +349,31 @@ export const About = () => {
                             className="about-contact-buttons about-contact-buttons--inline"
                             style={{ '--about-fade-delay': `${linkBaseDelay + 0.2}s` }}
                           >
-                            {column.links.map((link, linkIndex) => (
-                              <a
-                                key={link.label}
-                                href={link.href}
-                                className="about-contact-button"
-                              style={{ '--about-fade-delay': `${linkBaseDelay + 0.25 + linkIndex * 0.09}s` }}
-                              >
-                                {link.label}
-                              </a>
-                            ))}
+                            {column.links.map((link, linkIndex) => {
+                              const delayStyle = { '--about-fade-delay': `${linkBaseDelay + 0.25 + linkIndex * 0.09}s` };
+                              if (link.href?.startsWith('/')) {
+                                return (
+                                  <Link
+                                    key={link.label}
+                                    to={link.href}
+                                    className="about-contact-button"
+                                    style={delayStyle}
+                                  >
+                                    {link.label}
+                                  </Link>
+                                );
+                              }
+                              return (
+                                <a
+                                  key={link.label}
+                                  href={link.href}
+                                  className="about-contact-button"
+                                  style={delayStyle}
+                                >
+                                  {link.label}
+                                </a>
+                              );
+                            })}
                           </div>
                         </>
                       ) : null}
@@ -404,9 +420,9 @@ export const About = () => {
                   const isMovieTag = tag.label === 'MOVIE';
                   const delayStyle = { '--about-fade-delay': `${0.75 + index * 0.08}s` };
                   return isMovieTag ? (
-                    <a key={tag.label} href={tag.href} className="about-contact-button" style={delayStyle}>
+                    <Link key={tag.label} to={tag.href} className="about-contact-button" style={delayStyle}>
                       {tag.label}
-                    </a>
+                    </Link>
                   ) : (
                     <button
                       key={tag.label}
