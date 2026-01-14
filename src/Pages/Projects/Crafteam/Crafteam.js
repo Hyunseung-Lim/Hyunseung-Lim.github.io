@@ -7,8 +7,9 @@ import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
-import './Crafteam.css';
 import { CrafteamUI } from './CrafteamUI';
+import { CrafteamTeamStructure } from './CrafteamTeamStructure';
+import './Crafteam.css';
 
 const CRAFTEAM_ASSETS = Array.from(
   new Set([
@@ -78,20 +79,34 @@ export const CrafteamProject = () => {
         />
 
         <main className="project-content">
-          <section className="project-section project-section__fade crafteam-overview" ref={fadeInRef}>
+          <section className="project-section project-section__fade crafteam-overview">
             <p className="section-text crafteam-body project-fade-block" ref={fadeInRef}>
               Team-based collaboration is a cornerstone of modern creative work. Recent advances in generative AI open possibilities for humans to collaborate with multiple AI agents in distinct roles to address complex creative workflows. Yet, how to form Human–Multi-Agent Teams (HMATs) is underexplored, especially given that inter-agent interactions increase complexity and the risk of unexpected behaviors. In this exploratory study, we aim to understand how to form HMATs for creative work using CrafTeam, a technology probe that allows users to form and collaborate with their teams.
             </p>
           </section>
 
-          <section className="project-section project-section__fade crafteam-team-ui-section" ref={fadeInRef}>
+          <section className="project-section project-section__fade crafteam-team-ui-section">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Team Formation UI
             </h2>
             <CrafteamUI fadeRef={fadeInRef} />
           </section>
 
-          <section className="project-section project-section__fade" ref={fadeInRef}>
+          <div
+            className="project-divider project-fade-block"
+            role="presentation"
+            aria-hidden="true"
+            ref={fadeInRef}
+          />
+
+          <section className="project-section project-section__fade crafteam-findings">
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+              Team Formation in the User Study
+            </h2>
+            <CrafteamTeamStructure fadeRef={fadeInRef} />
+          </section>
+
+          <section className="project-section project-section__fade">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
             <BibtexCard
               ref={fadeInRef}

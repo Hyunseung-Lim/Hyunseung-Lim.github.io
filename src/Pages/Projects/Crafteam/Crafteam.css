@@ -1200,6 +1200,232 @@
   border-color: #4d63ff;
 }
 
+.crafteam-team-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.crafteam-team-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.crafteam-team-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(37, 45, 78, 0.12);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.crafteam-team-card.fade-in-element {
+  transform: translateY(2px);
+}
+
+.crafteam-team-card.fade-in-element.fade-in-active {
+  transform: translateY(0);
+}
+
+.crafteam-team-card__header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.crafteam-team-card__title-row {
+  width: 100%;
+}
+
+.crafteam-team-card__title {
+  margin: 0;
+  font-size: 1rem;
+  color: #0d1231;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.crafteam-team-card__title-team {
+  font-weight: 500;
+  color: rgba(21, 28, 58, 0.7);
+}
+
+.crafteam-team-card__topic {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(23, 32, 62, 0.9);
+  line-height: 1.5;
+  text-align: left;
+}
+
+.crafteam-team-card__topic-label {
+  font-weight: 700;
+  color: rgba(14, 21, 44, 0.8);
+}
+
+.crafteam-team-graph {
+  width: 100%;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid rgba(46, 52, 91, 0.12);
+  background: linear-gradient(180deg, rgba(250, 251, 255, 0.9), rgba(244, 246, 255, 0.9));
+  padding: 0.5rem 0.3rem;
+  box-sizing: border-box;
+}
+
+.crafteam-team-graph__edge {
+  stroke: rgba(86, 98, 133, 0.35);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.crafteam-team-graph__edge--supervisor {
+  stroke: rgba(89, 108, 255, 0.85);
+}
+
+.crafteam-team-graph__edge--peer {
+  stroke-dasharray: 4 4;
+}
+
+.crafteam-team-graph__node {
+  text-anchor: middle;
+  transition: transform 0.2s ease;
+}
+
+.crafteam-team-graph__node-circle {
+  stroke: none;
+}
+
+.crafteam-team-graph__node-circle--owner {
+  fill: #0dba9e;
+}
+
+.crafteam-team-graph__node-circle--agent {
+  fill: #7a8cff;
+}
+
+.crafteam-team-graph__node-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  fill: rgba(11, 21, 51, 0.85);
+}
+
+.crafteam-team-card__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+  border-radius: 14px;
+}
+
+.crafteam-team-card__stat {
+  text-align: center;
+}
+
+.crafteam-team-card__stat-value {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #5c6bff;
+}
+
+.crafteam-team-card__stat-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(15, 22, 52, 0.65);
+}
+
+.dark-mode .crafteam-team-card {
+  background: rgba(13, 18, 38, 0.9);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.dark-mode .crafteam-team-card__eyebrow {
+  color: rgba(227, 233, 255, 0.5);
+}
+
+.dark-mode .crafteam-team-card__title {
+  color: #f8f9ff;
+}
+
+.dark-mode .crafteam-team-card__title-team {
+  color: rgba(224, 230, 255, 0.75);
+}
+
+.dark-mode .crafteam-team-card__topic {
+  color: rgba(240, 242, 255, 0.9);
+}
+
+.dark-mode .crafteam-team-graph {
+  background: rgba(10, 15, 32, 0.8);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark-mode .crafteam-team-graph__edge {
+  stroke: rgba(255, 255, 255, 0.18);
+}
+
+.dark-mode .crafteam-team-graph__edge--supervisor {
+  stroke: rgba(115, 130, 255, 0.95);
+}
+
+.dark-mode .crafteam-team-graph__node-circle--owner {
+  fill: #33deb9;
+}
+
+.dark-mode .crafteam-team-graph__node-circle--agent {
+  fill: #6e7dff;
+}
+
+.dark-mode .crafteam-team-graph__node-label {
+  fill: rgba(237, 239, 255, 0.9);
+}
+
+.dark-mode .crafteam-team-card__stat-label {
+  color: rgba(226, 231, 255, 0.6);
+}
+
+@media (max-width: 1024px) {
+  .crafteam-team-row {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .crafteam-team-row {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    scroll-snap-type: x proximity;
+  }
+
+  .crafteam-team-card {
+    min-width: 240px;
+    scroll-snap-align: start;
+  }
+
+  .crafteam-team-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .crafteam-team-row {
+    scrollbar-width: none;
+  }
+}
+
 .crafteam-relationship-button.is-active {
   border-color: #2b7fff;
   color: #2b7fff;
