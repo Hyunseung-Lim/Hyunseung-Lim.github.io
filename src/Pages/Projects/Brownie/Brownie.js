@@ -6,11 +6,16 @@ import { Topbar } from '../../../Components/Topbar/topbar';
 import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
+import { MobileScreenRail } from '../../../Components/MobileScreenRail/MobileScreenRail';
 
 const BROWNIE_DESKTOP_BANNER = `${process.env.PUBLIC_URL}/projects/brownie/thumbnail.png`;
 const BROWNIE_MOBILE_BANNER = `${process.env.PUBLIC_URL}/projects/brownie/thumbnail_mobile.png`;
+const BROWNIE_SCREEN_IMAGES = Array.from(
+  { length: 7 },
+  (_, index) => `${process.env.PUBLIC_URL}/projects/brownie/screen/${index + 1}.png`
+);
 const BROWNIE_ASSETS = Array.from(
-  new Set([BROWNIE_DESKTOP_BANNER, BROWNIE_MOBILE_BANNER].filter(Boolean))
+  new Set([...BROWNIE_SCREEN_IMAGES, BROWNIE_DESKTOP_BANNER, BROWNIE_MOBILE_BANNER].filter(Boolean))
 );
 const BROWNIE_CONCEPT_VIDEO_URL = 'https://www.youtube.com/embed/3SPt_vbqIFs?rel=0';
 
@@ -111,6 +116,74 @@ export const BrownieProject = () => {
               aria-hidden="true"
               ref={fadeInRef}
             />
+          </section>
+
+          <section className="project-section brownie-design-overview project-fade-block" ref={fadeInRef}>
+            <h2 className="section-title">Why Brownie?</h2>
+            <p className="section-text">
+              Brownies are said to have been created by accident. In the United States, a woman reportedly forgot to add
+              baking powder while trying to make a chocolate cake. As a result, the cake didn’t rise. Thinking it would be
+              wasteful to throw it away, she shared it with her neighbors, and many people enjoyed its chewy texture. This
+              shows how a &quot;failed&quot; attempt can sometimes lead to a new recipe. Brownie, a community for sharing cooking
+              failures, enables people to share unsuccessful dishes with others and overcome them together.
+            </p>
+          </section>
+
+          <section className="project-section brownie-design-overview project-fade-block" ref={fadeInRef}>
+            <h2 className="section-title">Design of Brownie</h2>
+            <p className="section-text">
+              Brownie is designed to feel more like social media, making it easy to browse other people’s cooking recipes
+              through your feed while linking multiple attempts of the same dish so you can quickly see how everyone has
+              progressed over time. It also helps users archive and manage their own recipes—by recording each cooking
+              session, they can improve their skills and visually track their growth through the app’s various graphs.
+            </p>
+          </section>
+
+          <div
+            className="project-divider project-fade-block"
+            role="presentation"
+            aria-hidden="true"
+            ref={fadeInRef}
+          />
+
+          <MobileScreenRail
+            className="project-fade-block brownie-mobile-rail"
+            sectionRef={fadeInRef}
+            heading="Mobile Screens"
+            screens={BROWNIE_SCREEN_IMAGES.map((image, index) => ({
+              image,
+              alt: `Brownie mobile screen ${index + 1}`
+            }))}
+            cardWidth="clamp(240px, 28vw, 340px)"
+            gap={28}
+            showMetadata={false}
+            clampToContainer
+          />
+
+          <div
+            className="project-divider project-fade-block"
+            role="presentation"
+            aria-hidden="true"
+            ref={fadeInRef}
+          />
+
+          <section className="project-section brownie-user-study project-fade-block" ref={fadeInRef}>
+            <h2 className="section-title">User Study</h2>
+            <p className="section-text">
+              A user test was conducted to evaluate usability and to verify whether Brownie helps improve users&apos;
+              cooking skills. Six participants took part (mean age: 23), and they reported cooking an average of twice per
+              week. Each participant completed 2–3 sessions in total. During the test, participants made Spanish omelets
+              and posted their recipes in the app. They also spent time reviewing other users recipes and communicating via
+              the feed before and after cooking.
+            </p>
+            <div className="brownie-video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/VTdQv7znX3w?si=cWltKdm89KN8mvDN"
+                title="Brownie user study highlights"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
           </section>
 
         </main>

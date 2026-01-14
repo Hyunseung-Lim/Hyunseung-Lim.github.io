@@ -3,7 +3,7 @@ import { Topbar } from '../Components/Topbar/topbar';
 import { Footer } from '../Components/Footer/footer';
 import { useInfiniteCarousel } from '../hooks/useInfiniteCarousel';
 import { useFadeInAnimation } from '../hooks/useFadeInAnimation';
-import { BANNER_IMAGES, CAROUSEL_CONFIG } from '../constants';
+import { BANNER_EVENTS, BANNER_IMAGES, CAROUSEL_CONFIG } from '../constants';
 import { PageLoadGuard } from '../Components/PageLoader/PageLoadGuard';
 import './pages.css';
 
@@ -23,11 +23,19 @@ export const MainPage = () => {
   }, []);
 
   const fadeInRef = useFadeInAnimation();
-  const { extendedImages, sliderStyle } = useInfiniteCarousel(
+  const { extendedImages, sliderStyle, currentIndex } = useInfiniteCarousel(
     BANNER_IMAGES,
     CAROUSEL_CONFIG.AUTO_SLIDE_INTERVAL,
     CAROUSEL_CONFIG.TRANSITION_DURATION
   );
+  const slidesWithMeta = extendedImages.map((src) => {
+    const event = BANNER_EVENTS.find((bannerEvent) => bannerEvent.slides.includes(src));
+    return {
+      src,
+      event
+    };
+  });
+  const currentEvent = slidesWithMeta[currentIndex]?.event || BANNER_EVENTS[0];
 
   return (
     <PageLoadGuard assets={MAIN_PAGE_GATE_ASSETS}>
@@ -37,20 +45,20 @@ export const MainPage = () => {
         <div className="banner">
           <div className="slider-container">
             <div className="slider" style={sliderStyle}>
-              {extendedImages.map((src, index) => (
+              {slidesWithMeta.map(({ src, event }, index) => (
                 <div
                   className="slide"
                   key={index}
                   style={{ width: `${100 / extendedImages.length}%` }}
                 >
-                  <img src={src} alt={`Slide ${index}`} />
+                  <img src={src} alt={`${event?.title || 'Slide'} ${index + 1}`} />
                 </div>
               ))}
             </div>
           </div>
           <div className="banner-text">
-            <div ref={fadeInRef}>DIS 2024</div>
-            <div ref={fadeInRef}>Denmark Copenhagen</div>
+            <div ref={fadeInRef}>{currentEvent?.title}</div>
+            <div ref={fadeInRef}>{currentEvent?.location}</div>
           </div>
         </div>
 

@@ -34,15 +34,15 @@
     overflow: hidden;
   }
   
-  /* 슬라이더 컨테이너: 화면 중앙에 위치하며 폭 50% */
+  /* 슬라이더 컨테이너: 화면 중앙에 위치하며 원본 비율 유지 */
 .slider-container {
-    width: min(55%, 920px, calc(var(--banner-available-height) * 16 / 9));
-    max-width: calc(var(--banner-available-height) * 16 / 9);
-    max-height: var(--banner-available-height);
+    width: min(70vw, 960px);
+    max-width: calc(100% - 40px);
+    margin: 0 auto;
     overflow: hidden;
     position: relative;
-    aspect-ratio: 16/9;
     background-color: transparent;
+    aspect-ratio: 1080 / 566;
   }
   
   /* Medium screens - larger banner */
@@ -55,8 +55,6 @@
   @media (max-width: 768px) {
     .slider-container {
       width: calc(100% - 40px);
-      margin-left: 20px;
-      margin-right: 20px;
     }
   }
   
@@ -84,7 +82,7 @@
 .banner-text {
     display: flex;
     margin-top: 4px;
-    width: min(55%, 920px, calc(var(--banner-available-height) * 16 / 9));
+    width: min(70vw, 960px);
     justify-content: space-between;
     font-size: 0.8rem;
   }
@@ -102,8 +100,6 @@
   @media (max-width: 768px) {
     .banner-text {
       width: calc(100% - 40px);
-      margin-left: 20px;
-      margin-right: 20px;
     }
   }
 

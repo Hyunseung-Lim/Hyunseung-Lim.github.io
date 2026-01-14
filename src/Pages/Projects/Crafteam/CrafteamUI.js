@@ -283,7 +283,7 @@ const createMemberRoster = (size, previousMembers = []) => {
   const newRoster = [
     {
       ...buildMember(HUMAN_FACILITATOR),
-      roles: ROLE_LIBRARY.slice(0, 2)
+      roles: []
     }
   ];
 
@@ -1425,13 +1425,14 @@ export const CrafteamUI = ({ fadeRef }) => {
                               placeholder="e.g., decisions without data."
                             />
                           </label>
-                          <button
-                            type="button"
-                            className="crafteam-button crafteam-button--ghost"
-                            onClick={() => handleSaveMemberProfile(currentMember.id)}
-                          >
-                            Save
-                          </button>
+                      <button
+                        type="button"
+                        className="crafteam-button crafteam-button--ghost"
+                        onClick={() => handleSaveMemberProfile(currentMember.id)}
+                        disabled={!currentProfile.name.trim()}
+                      >
+                        Save
+                      </button>
                         </div>
                       )}
                   <div className="crafteam-member-panel__actions">
@@ -1445,7 +1446,7 @@ export const CrafteamUI = ({ fadeRef }) => {
                         </button>
                     <button
                       type="button"
-                      className="crafteam-button"
+                      className="crafteam-button crafteam-button--outline"
                           onClick={() => handleMemberNavigation(1)}
                           disabled={activeMemberIndex === orderedMembers.length - 1}
                         >

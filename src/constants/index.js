@@ -3,15 +3,22 @@ export const CAROUSEL_CONFIG = {
   TRANSITION_DURATION: 1000
 };
 
-export const BANNER_IMAGES = [
-  `${process.env.PUBLIC_URL}/images/banner/dis2024/img1.jpg`,
-  `${process.env.PUBLIC_URL}/images/banner/dis2024/img2.jpg`,
-  `${process.env.PUBLIC_URL}/images/banner/dis2024/img3.jpg`,
-  `${process.env.PUBLIC_URL}/images/banner/dis2024/img4.jpg`,
-  `${process.env.PUBLIC_URL}/images/banner/dis2024/img5.jpg`,
-  `${process.env.PUBLIC_URL}/images/banner/dis2024/img6.jpg`,
-  `${process.env.PUBLIC_URL}/images/banner/dis2024/img7.jpg`
+export const BANNER_EVENTS = [
+  {
+    id: 'dis2024',
+    title: 'DIS 2024',
+    location: 'Denmark, Copenhagen',
+    slides: Array.from({ length: 7 }, (_, index) => `${process.env.PUBLIC_URL}/images/banner/dis2024/img${index + 1}.jpg`)
+  },
+  {
+    id: 'facct2025',
+    title: 'FAccT 2025',
+    location: 'Greece, Athens',
+    slides: Array.from({ length: 6 }, (_, index) => `${process.env.PUBLIC_URL}/images/banner/facct2025/img${index + 1}.png`)
+  }
 ];
+
+export const BANNER_IMAGES = BANNER_EVENTS.flatMap(event => event.slides);
 
 export const NAVIGATION_LINKS = [
   { href: '#about', text: 'About Me' },

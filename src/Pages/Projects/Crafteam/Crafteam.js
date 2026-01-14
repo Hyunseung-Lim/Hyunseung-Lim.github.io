@@ -78,13 +78,13 @@ export const CrafteamProject = () => {
         />
 
         <main className="project-content">
-          <section className="project-section project-section__fade" ref={fadeInRef}>
+          <section className="project-section project-section__fade crafteam-overview" ref={fadeInRef}>
             <p className="section-text crafteam-body project-fade-block" ref={fadeInRef}>
               Team-based collaboration is a cornerstone of modern creative work. Recent advances in generative AI open possibilities for humans to collaborate with multiple AI agents in distinct roles to address complex creative workflows. Yet, how to form Human–Multi-Agent Teams (HMATs) is underexplored, especially given that inter-agent interactions increase complexity and the risk of unexpected behaviors. In this exploratory study, we aim to understand how to form HMATs for creative work using CrafTeam, a technology probe that allows users to form and collaborate with their teams.
             </p>
           </section>
 
-          <section className="project-section project-section__fade" ref={fadeInRef}>
+          <section className="project-section project-section__fade crafteam-team-ui-section" ref={fadeInRef}>
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Team Formation UI
             </h2>

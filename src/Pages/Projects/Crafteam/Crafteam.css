@@ -110,6 +110,11 @@
   padding: 0.75rem 1.4rem;
   text-align: center;
   border-radius: 12px;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.crafteam-button--ghost:hover:not(:disabled) {
+  background: #2f3da8;
 }
 
 .crafteam-button--ghost:disabled {
@@ -727,6 +732,10 @@
   background: #fff;
 }
 
+.crafteam-form-field select {
+  padding-right: 2.3rem;
+}
+
 .crafteam-member-skills {
   border: 1px solid rgba(43, 47, 67, 0.12);
   border-radius: 12px;
@@ -823,6 +832,13 @@
   background: #fff;
   font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.crafteam-skill-add button:hover:not(:disabled) {
+  background: #2b7fff;
+  border-color: #2b7fff;
+  color: #fff;
 }
 
 .crafteam-existing-library {
@@ -901,6 +917,22 @@
   display: flex;
   justify-content: space-between;
   gap: 0.75rem;
+}
+
+.crafteam-member-panel__actions .crafteam-button {
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.crafteam-member-panel__actions .crafteam-button:not(:disabled):hover {
+  background: rgba(43, 127, 255, 0.08);
+  color: #1f2b4c;
+  border-color: rgba(43, 127, 255, 0.5);
+}
+
+.crafteam-member-panel__actions .crafteam-button--outline:not(:disabled):hover {
+  background: rgba(43, 127, 255, 0.08);
+  color: #1f2b4c;
+  border-color: rgba(43, 127, 255, 0.5);
 }
 
 .crafteam-role-list {
@@ -1560,8 +1592,12 @@
 }
 
 .dark-mode .crafteam-button--ghost {
-  background: #f4f5fb;
-  color: #121320;
+  background: #1c2142;
+  color: #f5f6ff;
+}
+
+.dark-mode .crafteam-button--ghost:hover:not(:disabled) {
+  background: #4f5aff;
 }
 
 .dark-mode .crafteam-form-field input,
@@ -1574,6 +1610,18 @@
 
 .dark-mode .crafteam-form-field span {
   color: var(--text-primary);
+}
+
+.dark-mode .crafteam-skill-add button {
+  background: rgba(20, 24, 39, 0.95);
+  color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .crafteam-skill-add button:hover:not(:disabled) {
+  background: #7c8cff;
+  border-color: #7c8cff;
+  color: #0b0f25;
 }
 
 .dark-mode .crafteam-member-skills {
@@ -1644,6 +1692,18 @@
 
 .dark-mode .crafteam-member-panel__tabs {
   border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .crafteam-member-panel__actions .crafteam-button:not(:disabled):hover {
+  background: #5967ff;
+  color: #fff;
+  border-color: transparent;
+}
+
+.dark-mode .crafteam-member-panel__actions .crafteam-button--outline:not(:disabled):hover {
+  background: rgba(124, 140, 255, 0.2);
+  color: #fff;
+  border-color: rgba(124, 140, 255, 0.45);
 }
 
 .dark-mode .crafteam-relationship-edge__remove circle {
@@ -1813,4 +1873,15 @@
 
 .dark-mode .crafteam-shared-panel__intro p {
   color: var(--text-primary);
+}
+.project-page--crafteam .project-section h2.section-title {
+  margin: 0 0 0.75rem;
+}
+
+.project-page--crafteam .crafteam-overview {
+  margin-bottom: 2rem;
+}
+
+.project-page--crafteam .crafteam-team-ui-section {
+  margin-bottom: 2rem;
 }
