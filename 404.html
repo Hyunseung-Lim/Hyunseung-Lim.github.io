@@ -2,30 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="This is Hyunseung Lim's webpage"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XSWQTMMF2"></script>
+    <meta http-equiv="refresh" content="0; url=/" />
+    <title>Redirecting…</title>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-4XSWQTMMF2');
+      (function () {
+        try {
+          var path = window.location.pathname + window.location.search + window.location.hash;
+          window.sessionStorage.setItem('spa-redirect-path', path);
+        } catch (error) {
+          /* sessionStorage might be unavailable */
+        }
+        window.location.replace('/');
+      })();
     </script>
-    <title>Hyunseung Lim</title>
   </head>
   <body>
-    <noscript></noscript>
-    <div id="root"></div>
+    <noscript>
+      Redirecting… If you are not redirected automatically, please <a href="/">visit the homepage</a>.
+    </noscript>
   </body>
 </html>
