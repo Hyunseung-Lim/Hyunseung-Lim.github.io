@@ -106,6 +106,13 @@ export const CrafteamProject = () => {
             <CrafteamTeamStructure fadeRef={fadeInRef} />
           </section>
 
+          <div
+            className="project-divider project-fade-block"
+            role="presentation"
+            aria-hidden="true"
+            ref={fadeInRef}
+          />
+
           <section className="project-section project-section__fade">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
             <BibtexCard

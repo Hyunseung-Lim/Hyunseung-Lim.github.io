@@ -1367,6 +1367,10 @@
   color: rgba(240, 242, 255, 0.9);
 }
 
+.dark-mode .crafteam-team-card__topic-label {
+  color: rgba(234, 238, 255, 0.95);
+}
+
 .dark-mode .crafteam-team-graph {
   background: rgba(10, 15, 32, 0.8);
   border-color: rgba(255, 255, 255, 0.08);
@@ -1423,6 +1427,12 @@
 
   .crafteam-team-row {
     scrollbar-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-page--crafteam .crafteam-findings .section-title {
+    font-size: 1.05rem;
   }
 }
 
@@ -2110,4 +2120,10 @@
 
 .project-page--crafteam .crafteam-team-ui-section {
   margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .project-page--crafteam .crafteam-team-ui-section {
+    display: none;
+  }
 }
