@@ -154,7 +154,6 @@
   .publications .info,
   .publications .title,
   .publications .authors,
-  .publications .awards,
   .publications .venue-links {
     opacity: 0;
     transform: translateY(10px);
@@ -171,7 +170,6 @@
   .publications .info.fade-in-active,
   .publications .title.fade-in-active,
   .publications .authors.fade-in-active,
-  .publications .awards.fade-in-active,
   .publications .venue-links.fade-in-active {
     opacity: 1;
     transform: translateY(0);
@@ -183,7 +181,6 @@
   .publications .info *,
   .publications .title *,
   .publications .authors *,
-  .publications .awards *,
   .publications .venue-links * {
     color: var(--text-primary);
     transition: color var(--theme-transition-speed) var(--theme-transition-easing);

@@ -38,7 +38,7 @@ export const About = () => {
     () => [
       { label: 'Mail', href: 'mailto:charlie9807@kaist.ac.kr' },
       { label: 'Scholar', href: 'https://scholar.google.com/citations?user=3h9XkqYAAAAJ&hl=ko' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/hyunseung-lim-135742282/' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/hyunseunglim/' },
       {
         label: 'CV',
         href: 'https://docs.google.com/document/d/1dle6va3bvxmO2E8v3EIhcINzGWvdq5i1l27-Rz4rwsI/edit?usp=sharing'

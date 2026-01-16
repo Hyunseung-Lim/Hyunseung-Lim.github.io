@@ -985,19 +985,11 @@
     font-weight: bold;
 }
 
-.publication > .awards {
-    display: inline-block;
-    text-align: left;
-    margin-bottom: 8px;
-}
-
-.publication > .awards > .award {
-    color: var(--accent-color);
-    font-weight: 700;
-    margin-right: 14px;
-}
-
 .publication .venue-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
     font-size: 13px;
     line-height: 1.4;
     margin: 0;
@@ -1006,26 +998,40 @@
 }
 
 .publication .venue-links > .venue-text {
-    font-weight: bold;
+    font-weight: 700;
     color: var(--text-secondary);
+    margin-right: 0.1rem;
 }
 
-.publication .venue-links > .venue-text + a {
-    margin-left: 6px;
+.publication .venue-links > .award {
+    font-weight: 600;
+    color: #000;
+    background: rgb(255, 243, 131);
+    padding: 0.2rem 0.6rem 0.15rem;
+    border-radius: 999px;
+    font-size: 11px;
+    line-height: 1.2;
 }
 
-.publication .venue-links > a,
+.dark-mode .publication .venue-links > .award {
+    background: #4a4220;
+    color: rgb(255, 243, 131);
+}
+
+
 .publication .venue-links > .separator {
     color: gray;
+    margin: 0 0.15rem;
 }
 
-.publication .venue-links > a {
+.publication .venue-links > .venue-link {
+    color: gray;
     text-decoration: none;
     font-weight: normal;
     transition: color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
-.publication .venue-links > a:hover {
+.publication .venue-links > .venue-link:hover {
     color: darkgray;
 }
 

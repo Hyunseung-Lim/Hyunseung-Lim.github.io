@@ -14,6 +14,7 @@ const PROJECT_WEB_ROUTES = {
     'Feed-O-Meter: Investigating AI-Generated Mentee Personas as Interactive Agents for Scaffolding Design Feedback Practice': '/projects/feed-o-meter',
     'How Do Users Identify and Perceive Stereotypes? Understanding User Perspectives on Stereotypical Biases in Large Language Models': '/projects/stereohunter',
     'Co-Creating Question-and-Answer Style Articles with Large Language Models for Research Promotion': '/projects/aqua',
+    'Understanding Human–Multi-Agent Team Formation for Creative Work': '/projects/crafteam',
     'Elevate: A Walkable Pin-Array for Large Shape-Changing Terrains': '/projects/elevate',
     'Elevate: a large-scale walkable pin-array display': '/projects/elevate'
 };
@@ -244,6 +245,9 @@ export const Publications = (props) => {
                                                 </div>
                                                 <div ref={fadeInRef} className="venue-links">
                                                     <span className="venue-text">{publication.venue}</span>
+                                                    {publication.award && (
+                                                        <span className="award">{publication.award}</span>
+                                                    )}
                                                     {(() => {
                                                         const linkEntries = [];
                                                         const addLink = ({ key, href, label, newTab = true, primary = false }) => {
@@ -302,11 +306,6 @@ export const Publications = (props) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {publication.award && (
-                                            <div ref={fadeInRef} className="awards">
-                                                <span className="award">{publication.award}</span>
-                                            </div>
-                                        )}
                                     </div>
                                 )}
                             </div>
