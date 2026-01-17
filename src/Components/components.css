@@ -989,7 +989,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.2rem;
     font-size: 13px;
     line-height: 1.4;
     margin: 0;
@@ -1011,6 +1011,8 @@
     border-radius: 999px;
     font-size: 11px;
     line-height: 1.2;
+    margin-left: 0.1rem;
+    margin-right: 0.2rem;
 }
 
 .dark-mode .publication .venue-links > .award {
@@ -1029,6 +1031,10 @@
     text-decoration: none;
     font-weight: normal;
     transition: color var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.publication .venue-links > .venue-link--primary {
+    margin-left: 0.2rem;
 }
 
 .publication .venue-links > .venue-link:hover {
