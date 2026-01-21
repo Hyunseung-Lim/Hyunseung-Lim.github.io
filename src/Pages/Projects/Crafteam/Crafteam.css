@@ -2118,6 +2118,32 @@
   margin-bottom: 2rem;
 }
 
+.project-page--crafteam .crafteam-overview-media {
+  margin-bottom: 2.5rem;
+}
+
+.crafteam-overview-image-wrapper {
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.crafteam-overview-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.crafteam-overview-caption {
+  margin-top: 1rem;
+  color: #4a4f6c;
+}
+
+.dark-mode .crafteam-overview-caption {
+  color: rgba(231, 235, 255, 0.85);
+}
+
 .project-page--crafteam .crafteam-team-ui-section {
   margin-bottom: 2rem;
 }

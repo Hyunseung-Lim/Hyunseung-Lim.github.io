@@ -9,12 +9,15 @@ import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
 import { CrafteamUI } from './CrafteamUI';
 import { CrafteamTeamStructure } from './CrafteamTeamStructure';
+import { useTheme } from '../../../contexts/ThemeContext';
 import './Crafteam.css';
 
 const CRAFTEAM_ASSETS = Array.from(
   new Set([
     PROJECTS.crafteam?.bannerImage ?? null,
-    `${process.env.PUBLIC_URL}/icons/dl.png`
+    `${process.env.PUBLIC_URL}/projects/crafteam/chi_logo.png`,
+    `${process.env.PUBLIC_URL}/projects/crafteam/overview.png`,
+    `${process.env.PUBLIC_URL}/projects/crafteam/overview_dark.png`
   ].filter(Boolean))
 );
 
@@ -25,14 +28,15 @@ export const CrafteamProject = () => {
   const themeMode = projectData.themeMode ?? 'auto';
   const bannerImage = projectData.bannerImage ?? null;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const { isDark } = useTheme();
+  const overviewImageSrc = isDark
+    ? `${process.env.PUBLIC_URL}/projects/crafteam/overview_dark.png`
+    : `${process.env.PUBLIC_URL}/projects/crafteam/overview.png`;
   const resourceLinks = [
     {
       type: 'paper',
-      href: projectData.paperLink ?? '#',
-      label: 'Paper (Coming Soon)',
-      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconAlt: 'ACM DL'
+      href: projectData.paperLink ?? 'https://arxiv.org/abs/2601.13865',
+      label: 'Paper'
     }
   ];
 
@@ -67,6 +71,14 @@ export const CrafteamProject = () => {
                 <div className="meta-value">{projectData.projectType}</div>
               </div>
             )}
+            <div className="project-awards-section project-header__fade-block project-fade-block" ref={fadeInRef}>
+              <img
+                src={`${process.env.PUBLIC_URL}/projects/crafteam/chi_logo.png`}
+                alt="CHI 2026 Logo"
+                className="project-award-badge"
+                loading="lazy"
+              />
+            </div>
           </div>
           <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
         </header>
@@ -82,6 +94,31 @@ export const CrafteamProject = () => {
           <section className="project-section project-section__fade crafteam-overview">
             <p className="section-text crafteam-body project-fade-block" ref={fadeInRef}>
               Team-based collaboration is a cornerstone of modern creative work. Recent advances in generative AI open possibilities for humans to collaborate with multiple AI agents in distinct roles to address complex creative workflows. Yet, how to form Human–Multi-Agent Teams (HMATs) is underexplored, especially given that inter-agent interactions increase complexity and the risk of unexpected behaviors. In this exploratory study, we aim to understand how to form HMATs for creative work using CrafTeam, a technology probe that allows users to form and collaborate with their teams.
+            </p>
+          </section>
+
+          <section className="project-section project-section__fade crafteam-overview-media">
+            <h2 className="section-title project-fade-block" ref={fadeInRef}>
+              CrafTeam Overview
+            </h2>
+            <div className="crafteam-overview-image-wrapper project-fade-block" ref={fadeInRef}>
+              <img
+                src={overviewImageSrc}
+                alt="Overview of the CrafTeam system"
+                className="crafteam-overview-image"
+                loading="lazy"
+              />
+            </div>
+            <p className="section-text section-text--small crafteam-overview-caption project-fade-block" ref={fadeInRef}>
+              CrafTeam is a web application that enables users to form their own HMATs and engage in
+              team-based ideation sessions. To make this process accessible even to non-developers,
+              CrafTeam lets users configure only the core dimensions of team formation, while the system
+              automatically constructs complete HMATs based on the users&rsquo; settings. In particular, users
+              can directly configure five dimensions of team formation&mdash;team size, structure, role
+              allocation, member composition, and shared mental models. We implemented three key steps as
+              iterative cycles: (i) forming their own HMATs, (ii) ideating with their teams, (iii) reflecting
+              on the ideation session, and then reforming their team based on insights gained from the
+              reflection.
             </p>
           </section>
 

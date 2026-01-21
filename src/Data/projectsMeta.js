@@ -55,7 +55,7 @@ export const PROJECTS = {
     id: 'crafteam',
     title: 'CrafTeam',
     subtitle: 'Understanding Human–Multi-Agent Team Formation for Creative Work',
-    period: '2025.01-',
+    period: '2025.01-2026.04',
     projectType: 'Research',
     icon: '/projects/crafteam/icon.png',
     hoverIcon: '/projects/crafteam/icon_hover.gif',

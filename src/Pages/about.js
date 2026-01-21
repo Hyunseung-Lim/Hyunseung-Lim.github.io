@@ -52,7 +52,7 @@ export const About = () => {
       {
         title: 'AI for Design',
         body:
-          'I explore how AI can support designers and the design process. Moving beyond generating artifacts, I study how generative AI can support designers’ thinking and decision-making across the design process,',
+          'I explore how AI can support designers and the design process. Moving beyond generating artifacts, I study how generative AI can support designers’ thinking and decision-making across the design stages,',
         bodyExtra: ' including problem framing, ideation, exploration, and evaluation.',
         linksLabel: 'Selected Projects',
         links: [

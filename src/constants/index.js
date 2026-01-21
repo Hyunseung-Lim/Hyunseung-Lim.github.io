@@ -7,13 +7,13 @@ export const BANNER_EVENTS = [
   {
     id: 'dis2024',
     title: 'DIS 2024',
-    location: 'Denmark, Copenhagen',
+    location: 'Copenhagen, Denmark',
     slides: Array.from({ length: 7 }, (_, index) => `${process.env.PUBLIC_URL}/images/banner/dis2024/img${index + 1}.jpg`)
   },
   {
     id: 'facct2025',
     title: 'FAccT 2025',
-    location: 'Greece, Athens',
+    location: 'Athens, Greece',
     slides: Array.from({ length: 6 }, (_, index) => `${process.env.PUBLIC_URL}/images/banner/facct2025/img${index + 1}.png`)
   }
 ];

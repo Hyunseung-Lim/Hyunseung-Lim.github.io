@@ -21,8 +21,8 @@
     "year": 2026,
     "field": ["hai", "llm", "creativity"],
     "type": "conference",
-    "pdf": "",
-    "doi": "",
+    "pdf": "hyuseung_chi_2026.pdf",
+    "doi": "https://arxiv.org/abs/2601.13865",
     "bibtex": "",
     "recording": "",
     "video": ""
@@ -91,9 +91,9 @@
     "year": 2025,
     "field": ["llm"],
     "type": "conference",
-    "pdf": "",
-    "doi": "",
-    "bibtex": "",
+    "pdf": "hyunseung_neurips_2025.pdf",
+    "doi": "https://arxiv.org/abs/2510.24774",
+    "bibtex": "hyunseung_neurips_2025.bib",
     "recording": "",
     "video": ""
   },
