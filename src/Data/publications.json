@@ -21,9 +21,9 @@
     "year": 2026,
     "field": ["hai", "llm", "creativity"],
     "type": "conference",
-    "pdf": "hyuseung_chi_2026.pdf",
+    "pdf": "hyunseung_chi_2026.pdf",
     "doi": "https://arxiv.org/abs/2601.13865",
-    "bibtex": "",
+    "bibtex": "hyunseung_chi_2026.bib",
     "recording": "",
     "video": ""
   },
