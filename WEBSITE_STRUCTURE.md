@@ -71,6 +71,7 @@ Hyunseung-Lim.github.io/
   - `PROJECTS[id]`는 `title`, `subtitle`, `period`, `projectType`, 아이콘 경로, 라우팅 정보, `themeMode` 등을 포함합니다.
   - `PROJECT_ORDER` 배열 순서대로 Projects 페이지에서 타일을 렌더링합니다.
 - `publications.json` + `personLinks.json`: Publications 페이지 필터와 저자 링크에 사용됩니다.
+  - `field` 태그는 `hai`, `creativity`, `learning`, `ethics`, `others` 등으로 통일되어 있으며 과거의 `llm` 태그는 전부 `hai`에 병합되었습니다.
 
 ## 페이지 설명
 - **MainPage**: DIS 2024 배너 캐러셀(`useInfiniteCarousel`)과 Topbar/Footer만으로 구성. 초기 두 장을 `PageLoadGuard`로 미리 불러옵니다.
@@ -83,6 +84,9 @@ Hyunseung-Lim.github.io/
   - `project-page--{slug}` 클래스와 전역 `project-pages.css` 규칙을 이용해 레이아웃·타이포그래피를 통일합니다.
   - 필요 시 개별 CSS에서 배너/커스텀 컴포넌트만 정의합니다.
 - **Publications**: 필터(분야/타입/First Author) + 연도 그룹 + Fade-in. 저자명은 `personLinks`를 바탕으로 자동 링크 처리.
+  - 모바일 필드 토글은 `All / HAI / Creativity / Others`로, 데스크톱에서는 `All / HAI / Creativity / Learning / AI Ethics / Others`를 제공합니다.
+  - 타입 토글은 모바일에서 `All / First Author / Full Paper / Others`, 데스크톱에서 `All / First Author / Conference / Journal / Poster / Workshop` 구성입니다.
+  - 데이터는 `useMemo` 기반 필터링으로 실시간 계산하며, LLM 관련 연구는 모두 HAI 필터 결과에 포함됩니다.
 - **About/Research**: 기존 섹션 레이아웃과 애니메이션을 유지하며, 공통 `Topbar`/`Footer`를 재사용합니다.
 - **Off-record**: `OffRecordLayout`이 프로젝트 상세 페이지와 동일한 프레임을 재활용하며, 섹션 콘텐츠만 각 주제별 파일에서 정의합니다.
 

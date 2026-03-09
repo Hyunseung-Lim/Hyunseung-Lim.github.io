@@ -208,13 +208,16 @@ export const useFadeInAnimation = (config = {}) => {
       }
 
       pendingElementsRef.current.add(node);
+      const normalizedRoot = normalizeRootForObserver(resolvedRoot);
 
       if (observerRef.current) {
         observerRef.current.observe(node);
+        if (isElementVisibleWithinRoot(node, normalizedRoot)) {
+          scheduleActivation(node);
+        }
         return;
       }
 
-      const normalizedRoot = normalizeRootForObserver(resolvedRoot);
       if (isElementVisibleWithinRoot(node, normalizedRoot)) {
         scheduleActivation(node);
       }

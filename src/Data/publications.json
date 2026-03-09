@@ -19,7 +19,10 @@
     "venue": "CHI 2026 (to appear)",
     "award": "",
     "year": 2026,
-    "field": ["hai", "llm", "creativity"],
+    "field": [
+      "hai",
+      "creativity"
+    ],
     "type": "conference",
     "pdf": "hyunseung_chi_2026.pdf",
     "doi": "https://arxiv.org/abs/2601.13865",
@@ -33,7 +36,10 @@
     "venue": "CHI 2026 (to appear)",
     "award": "",
     "year": 2026,
-    "field": ["hai", "llm", "learning"],
+    "field": [
+      "hai",
+      "learning"
+    ],
     "type": "conference",
     "pdf": "junho_chi_2026.pdf",
     "doi": "https://arxiv.org/abs/2512.05506",
@@ -47,11 +53,14 @@
     "venue": "CHI 2026 (to appear)",
     "award": "",
     "year": 2026,
-    "field": ["hai","llm","ethics"],
+    "field": [
+      "hai",
+      "ethics"
+    ],
     "type": "conference",
-    "pdf": "",
-    "doi": "",
-    "bibtex": "",
+    "pdf": "sieun_chi_2026.pdf",
+    "doi": "https://arxiv.org/abs/2602.19124",
+    "bibtex": "sieun_chi_2026.bib",
     "recording": "",
     "video": ""
   },
@@ -61,7 +70,11 @@
     "venue": "IJHCS",
     "award": "",
     "year": 2026,
-    "field": ["llm", "hai", "creativity", "learning"],
+    "field": [
+      "hai",
+      "creativity",
+      "learning"
+    ],
     "type": "journal",
     "pdf": "hyunseung_ijhcs_2026.pdf",
     "doi": "https://www.sciencedirect.com/science/article/pii/S1071581925002447",
@@ -75,7 +88,9 @@
     "venue": "IJHCS",
     "award": "",
     "year": 2026,
-    "field": ["llm", "hai"],
+    "field": [
+      "hai"
+    ],
     "type": "journal",
     "pdf": "donggun_ijhcs_2026.pdf",
     "doi": "https://www.sciencedirect.com/science/article/pii/S1071581925002496",
@@ -89,7 +104,9 @@
     "venue": "NeurIPS 2025 Datasets and Benchmarks Track",
     "award": "",
     "year": 2025,
-    "field": ["llm"],
+    "field": [
+      "hai"
+    ],
     "type": "conference",
     "pdf": "hyunseung_neurips_2025.pdf",
     "doi": "https://arxiv.org/abs/2510.24774",
@@ -103,7 +120,9 @@
     "venue": "EMNLP 2025 Main Conference",
     "award": "🏆 SAC Highlights",
     "year": 2025,
-    "field": ["llm"],
+    "field": [
+      "hai"
+    ],
     "type": "conference",
     "pdf": "hyungyu_emnlp_2025.pdf",
     "doi": "https://aclanthology.org/2025.emnlp-main.1805/",
@@ -117,7 +136,10 @@
     "venue": "EMNLP 2025 Findings",
     "award": "",
     "year": 2025,
-    "field": ["llm", "ethics"],
+    "field": [
+      "hai",
+      "ethics"
+    ],
     "type": "conference",
     "pdf": "juhyun_emnlp_2025.pdf",
     "doi": "https://aclanthology.org/2025.findings-emnlp.1043/",
@@ -131,7 +153,9 @@
     "venue": "UIST 2025 Posters",
     "award": "",
     "year": 2025,
-    "field": ["ethics"],
+    "field": [
+      "ethics"
+    ],
     "type": "poster",
     "pdf": "hyewon_uist_2025.pdf",
     "doi": "https://dl.acm.org/doi/10.1145/3746058.3758404",
@@ -145,7 +169,10 @@
     "venue": "ACL (Industry) 2025",
     "award": "",
     "year": 2025,
-    "field": ["hai", "llm", "learning"],
+    "field": [
+      "hai",
+      "learning"
+    ],
     "type": "conference",
     "pdf": "sunjun_acl_2025.pdf",
     "doi": "https://aclanthology.org/2025.acl-industry.60/",
@@ -160,13 +187,16 @@
     "venue": "FAccT 2025",
     "award": "",
     "year": 2025,
-    "field": ["hai", "llm", "ethics"],
+    "field": [
+      "hai",
+      "ethics"
+    ],
     "type": "conference",
     "pdf": "hyunseung_facct_2025.pdf",
     "doi": "https://doi.org/10.1145/3715275.3732207",
     "bibtex": "hyunseung_facct_2025.bib",
     "recording": "",
-    "video": ""    
+    "video": ""
   },
   {
     "title": "Between Assistance and Reliance: Assessing the Fine Line in AI Dependence",
@@ -174,7 +204,9 @@
     "venue": "BigComp 2025 Workshop for Multi-Modal AI Safety Benchmark (MMAISB)",
     "award": "",
     "year": 2025,
-    "field": ["ethics"],
+    "field": [
+      "ethics"
+    ],
     "type": "workshop",
     "pdf": "",
     "doi": "",
@@ -188,7 +220,10 @@
     "author": "Hyunseung Lim, Dasom Choi, Hwajung Hong",
     "venue": "CSCW Poster 2024",
     "year": 2024,
-    "field": ["hai", "llm", "creativity"],
+    "field": [
+      "hai",
+      "creativity"
+    ],
     "type": "poster",
     "pdf": "hyunseung_cscw_2024.pdf",
     "doi": "https://dl.acm.org/doi/abs/10.1145/3678884.3681912",
@@ -201,7 +236,9 @@
     "author": "Chowon Kang, Yoonseo Choi, Yongjae Sohn, Hyunseung Lim, Hwajung Hong",
     "venue": "CSCW 2024",
     "year": 2024,
-    "field": ["others"],
+    "field": [
+      "others"
+    ],
     "type": "journal",
     "pdf": "chowon_cscw_2024.pdf",
     "doi": "https://dl.acm.org/doi/10.1145/3687025",
@@ -214,7 +251,10 @@
     "author": "Hyunseung Lim, Ji Yong Cho, Taewan Kim, Jeongeon Park, Hyungyu Shin, Seulgi Choi, Sunghyun Park, Kyungjae Lee, Juho Kim, Moontae Lee, Hwajung Hong",
     "venue": "DIS 2024",
     "year": 2024,
-    "field": ["hai", "llm", "creativity"],
+    "field": [
+      "hai",
+      "creativity"
+    ],
     "type": "conference",
     "pdf": "hyunseung_dis_2024.pdf",
     "doi": "https://dl.acm.org/doi/abs/10.1145/3643834.3660705",
@@ -227,7 +267,10 @@
     "author": "Jieun Han, Haneul Yoo, Junho Myung, Minsun Kim, Hyunseung Lim, Yoonsu Kim, Tak Yeon Lee, Hwajung Hong, Juho Kim, So-Yeon Ahn, Alice Oh",
     "venue": "EMNLP 2024 Workshop on Customizable NLP (CustomNLP4U)",
     "year": 2024,
-    "field": ["llm", "learning"],
+    "field": [
+      "hai",
+      "learning"
+    ],
     "type": "workshop",
     "pdf": "jieun_emnlp_2024.pdf",
     "doi": "https://aclanthology.org/2024.customnlp4u-1.21/",
@@ -241,7 +284,10 @@
     "author": "Minsun Kim, SeonGyeom Kim, Suyoun Lee, Yoosang Yoon, Junho Myung, Haneul Yoo, Hyunseung Lim, Jieun Han, Yoonsu Kim, So-Yeon Ahn, Juho Kim, Alice Oh, Hwajung Hong, Tak Yeon Lee",
     "venue": "EMNLP 2024 Workshop on Customizable NLP (CustomNLP4U)",
     "year": 2024,
-    "field": ["llm", "learning"],
+    "field": [
+      "hai",
+      "learning"
+    ],
     "type": "workshop",
     "pdf": "minsun_emnlp_2024.pdf",
     "doi": "https://arxiv.org/abs/2410.15025",
@@ -255,25 +301,15 @@
     "author": "Hyungyu Shin, Seulgi Choi, Ji Yong Cho, Sahar Admoni, Hyunseung Lim, Taewan Kim, Hwajung Hong, Moontae Lee, Juho Kim",
     "venue": "CHI 2024 Workshop on Human-centered Evaluation and Auditing of Language Models (HEAL@CHI'24)",
     "year": 2024,
-    "field": ["llm", "creativity"],
+    "field": [
+      "hai",
+      "creativity"
+    ],
     "type": "workshop",
     "pdf": "hyungyu_chi_2024.pdf",
     "doi": "",
-    "link":"https://heal-workshop.github.io/chi2024.html",
+    "link": "https://heal-workshop.github.io/chi2024.html",
     "bibtex": "",
-    "recording": "",
-    "video": ""
-  },
-  {
-    "title": "Designing prompt analytics dashboards to analyze student-chatgpt interactions in efl writing",
-    "author": "Minsun Kim, SeonGyeom Kim, Suyoun Lee, Yoosang Yoon, Junho Myung, Haneul Yoo, Hyunseung Lim, Jieun Han, Yoonsu Kim, So-Yeon Ahn, Juho Kim, Alice Oh, Hwajung Hong, Tak Yeon Lee",
-    "venue": "arXiv",
-    "year": 2024,
-    "field": ["hai", "llm", "learning"],
-    "type": "preprint",
-    "pdf": "minsun_arxiv_2024.pdf",
-    "doi": "https://arxiv.org/abs/2405.19691",
-    "bibtex": "minsun_arxiv_2024.bib",
     "recording": "",
     "video": ""
   },
@@ -282,7 +318,10 @@
     "author": "Jieun Han, Haneul Yoo, Yoonsu Kim, Junho Myung, Minsun Kim, Hyunseung Lim, Juho Kim, Tak Yeon Lee, Hwajung Hong, So-Yeon Ahn, Alice Oh",
     "venue": "L@S WIP 2023",
     "year": 2023,
-    "field": ["hai", "llm", "learning"],
+    "field": [
+      "hai",
+      "learning"
+    ],
     "type": "poster",
     "pdf": "jieun_l@s_2023.pdf",
     "doi": "https://dl.acm.org/doi/10.1145/3573051.3596200",
@@ -295,7 +334,9 @@
     "author": "Dasom Choi, Sung-In Kim, Sunok Lee, Hyunseung Lim, Hee Jeong Yoo, Hwajung Hong",
     "venue": "CHI 2023",
     "year": 2023,
-    "field": ["others"],
+    "field": [
+      "others"
+    ],
     "type": "conference",
     "pdf": "dasom_chi_2023.pdf",
     "doi": "https://dl.acm.org/doi/10.1145/3544548.3581341",
@@ -308,7 +349,9 @@
     "author": "Kwangyoung Lee, Hyunseung Lim, Sooyeon Ahn, Taewan Kim, Hwajung Hong",
     "venue": "BigComp 2023 Workshop",
     "year": 2023,
-    "field": ["others"],
+    "field": [
+      "others"
+    ],
     "type": "workshop",
     "pdf": "kwangyoung_bigcomp_2023.pdf",
     "doi": "https://ieeexplore.ieee.org/abstract/document/10066645",
@@ -321,7 +364,9 @@
     "author": "Seungwoo Je, Kongpyung Moon, Hyunseung Lim, Shan-Yuan Teng, Jas Brooks, Pedro Lopes, Andrea Bianchi",
     "venue": "Interactions",
     "year": 2022,
-    "field": ["others"],
+    "field": [
+      "others"
+    ],
     "type": "",
     "pdf": "seungwoo_interaction_2022.pdf",
     "doi": "https://dl.acm.org/doi/10.1145/3514207",
@@ -335,7 +380,9 @@
     "venue": "CHI 2021",
     "award": "",
     "year": 2021,
-    "field": ["others"],
+    "field": [
+      "others"
+    ],
     "type": "conference",
     "pdf": "seungwoo_chi_2021.pdf",
     "doi": "https://dl.acm.org/doi/abs/10.1145/3411764.3445454",

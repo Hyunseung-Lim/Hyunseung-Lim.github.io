@@ -30,11 +30,10 @@ export const Publications = (props) => {
     const typeControlRef = useRef();
     const allRef1 = useRef();
     const haiRef1 = useRef();
-    const llmRef1 = useRef();
     const othersRef1 = useRef();
+    const creativityRefMobile = useRef();
     const allRef2 = useRef();
     const haiRef2 = useRef();
-    const llmRef2 = useRef();
     const creativityRef = useRef();
     const learningRef = useRef();
     const ethicsRef = useRef();
@@ -49,7 +48,6 @@ export const Publications = (props) => {
     const journalRef = useRef();
     const posterRef = useRef();
     const workshopRef = useRef();
-    const preprintRef = useRef();
     
 
     useEffect(() => {
@@ -158,7 +156,7 @@ export const Publications = (props) => {
             filteredData = filteredData.filter(pub => 
                 pub.field && (
                     pub.field.includes(fieldValue) ||
-                    (fieldValue === "others_field" && !pub.field.includes("hai") && !pub.field.includes("llm"))
+                    (fieldValue === "others_field" && !pub.field.includes("hai"))
                 )
             );
         }
@@ -199,12 +197,11 @@ export const Publications = (props) => {
                             segments={isMobile ? [
                                 {label: "All", value: "all", ref: allRef1},
                                 {label: "HAI", value: "hai", ref: haiRef1},
-                                {label: "LLM", value: "llm", ref: llmRef1},
+                                {label: "Creativity", value: "creativity", ref: creativityRefMobile},
                                 {label: "Others", value: "others_field", ref: othersRef1}
                             ] : [
                                 {label: "All", value: "all", ref: allRef2},
                                 {label: "HAI", value: "hai", ref: haiRef2},
-                                {label: "LLM", value: "llm", ref: llmRef2},
                                 {label: "Creativity", value: "creativity", ref: creativityRef},
                                 {label: "Learning", value: "learning", ref: learningRef},
                                 {label: "AI Ethics", value: "ethics", ref: ethicsRef},
@@ -226,8 +223,7 @@ export const Publications = (props) => {
                                 {label: "Conference", value: "conference", ref: conferenceRef},
                                 {label: "Journal", value: "journal", ref: journalRef},
                                 {label: "Poster", value: "poster", ref: posterRef},
-                                {label: "Workshop", value: "workshop", ref: workshopRef},
-                                {label: "Preprint", value: "preprint", ref: preprintRef}
+                                {label: "Workshop", value: "workshop", ref: workshopRef}
                             ]}
                         />                    
                     </div>
