@@ -35,8 +35,10 @@ export const CrafteamProject = () => {
   const resourceLinks = [
     {
       type: 'paper',
-      href: projectData.paperLink ?? 'https://arxiv.org/abs/2601.13865',
-      label: 'Paper'
+      href: projectData.paperLink ?? 'https://dl.acm.org/doi/full/10.1145/3772318.3791166',
+      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconAlt: 'ACM DL'
     }
   ];
 
@@ -162,7 +164,7 @@ export const CrafteamProject = () => {
   eprint={2601.13865},
   archivePrefix={arXiv},
   primaryClass={cs.HC},
-  url={https://arxiv.org/abs/2601.13865}
+  url={https://dl.acm.org/doi/full/10.1145/3772318.3791166}
 }`}
             />
           </section>

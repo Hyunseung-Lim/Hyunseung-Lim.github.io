@@ -30,7 +30,7 @@
   {
     "title": "Understanding Human–Multi-Agent Team Formation for Creative Work",
     "author": "Hyunseung Lim, Dasom Choi, Sooyohn Nam, Bogoan Kim, Hwajung Hong",
-    "venue": "CHI 2026 (to appear)",
+    "venue": "CHI 2026",
     "award": "",
     "year": 2026,
     "field": [
@@ -39,7 +39,7 @@
     ],
     "type": "conference",
     "pdf": "hyunseung_chi_2026.pdf",
-    "doi": "https://arxiv.org/abs/2601.13865",
+    "doi": "https://dl.acm.org/doi/10.1145/3772318.3791166",
     "bibtex": "hyunseung_chi_2026.bib",
     "recording": "",
     "video": ""
@@ -47,7 +47,7 @@
   {
     "title": "When Scaffolding Breaks: Investigating Student Interaction with LLM-Based Writing Support in Real-Time K-12 EFL Classrooms",
     "author": "Junho Myung, Hyunseung Lim, Hana Oh, Hyoungwook Jin, Nayeon Kang, So-Yeon Ahn, Hwajung Hong, Alice Oh, Juho Kim",
-    "venue": "CHI 2026 (to appear)",
+    "venue": "CHI 2026",
     "award": "🏆 Best Paper",
     "year": 2026,
     "field": [
@@ -64,7 +64,7 @@
   {
     "title": "Dark and Bright Side of Participatory Red-Teaming with Targets of Stereotyping for Eliciting Harmful Behaviors from Large Language Models",
     "author": "Sieun Kim, Yeeun Jo, Sungmin Na, Hyunseung Lim, Eunchae Lee, Yu Min Choi, Soohyun Cho, Hwajung Hong",
-    "venue": "CHI 2026 (to appear)",
+    "venue": "CHI 2026",
     "award": "🏆 Honorable Mention",
     "year": 2026,
     "field": [
@@ -115,7 +115,7 @@
   {
     "title": "PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination",
     "author": "Hyunseung Lim, Sooyohn Nam, Sungmin Na, Ji Yong Cho, June Yong Yang, Hyungyu Shin, Yoonjoo Lee, Juho Kim, Moontae Lee, Hwajung Hong",
-    "venue": "NeurIPS 2025 Datasets and Benchmarks Track",
+    "venue": "NeurIPS 2025",
     "award": "",
     "year": 2025,
     "field": [
@@ -232,7 +232,7 @@
   {
     "title": "Identify Design Problems Through Questioning: Exploring Role-playing Interactions with Large Language Models to Foster Design Questioning Skills",
     "author": "Hyunseung Lim, Dasom Choi, Hwajung Hong",
-    "venue": "CSCW Poster 2024",
+    "venue": "CSCW 2024 Posters",
     "year": 2024,
     "field": [
       "hai",
@@ -330,7 +330,7 @@
   {
     "title": "RECIPE: How to Integrate ChatGPT into EFL Writing Education",
     "author": "Jieun Han, Haneul Yoo, Yoonsu Kim, Junho Myung, Minsun Kim, Hyunseung Lim, Juho Kim, Tak Yeon Lee, Hwajung Hong, So-Yeon Ahn, Alice Oh",
-    "venue": "L@S WIP 2023",
+    "venue": "L@S 2023 WIP",
     "year": 2023,
     "field": [
       "hai",
