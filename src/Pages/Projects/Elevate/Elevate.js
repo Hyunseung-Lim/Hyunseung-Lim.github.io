@@ -152,15 +152,6 @@ const ELEVATE_HARDWARE_DETAILS = {
     detailAlt: 'Locking system module that stabilizes Elevate pins.'
   }
 };
-const ELEVATE_RESOURCE_LINKS = [
-  {
-    type: 'paper',
-    href: 'https://doi.org/10.1145/3411764.3445454',
-    icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
-    iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
-    iconAlt: 'ACM DL'
-  }
-];
 const ELEVATE_PAGE_ASSETS = Array.from(
   new Set(
     [
@@ -216,7 +207,15 @@ export const ElevateProject = () => {
     }, []);
   }, [hardwareImages]);
   const activeHardwareDetail = activeHardware ? hardwareDetails[activeHardware] : null;
-  const resourceLinks = ELEVATE_RESOURCE_LINKS;
+  const resourceLinks = [
+    {
+      type: 'paper',
+      href: 'https://doi.org/10.1145/3411764.3445454',
+      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
+      iconAlt: 'ACM DL'
+    }
+  ];
   const pageAssets = useMemo(() => {
     const assets = new Set(ELEVATE_PAGE_ASSETS);
     if (desktopBanner) {
