@@ -583,7 +583,7 @@ export const PanoramaProject = () => {
     }
   ];
   const resourceLinks = [
-    { type: 'paper', href: 'https://arxiv.org/abs/2510.24774' },
+    { type: 'paper', href: 'https://proceedings.neurips.cc/paper_files/paper/2025/hash/4aab82c8d6b77c0b6b010145c1bfcdd3-Abstract-Datasets_and_Benchmarks_Track.html' },
     { type: 'github', href: 'https://github.com/LGAI-Research/PANORAMA' },
     { type: 'dataset', href: 'https://huggingface.co/datasets/LG-AI-Research/PANORAMA' }
   ];
@@ -1248,14 +1248,16 @@ export const PanoramaProject = () => {
             <BibtexCard
               ref={fadeInRef}
               className="project-fade-block"
-              text={`@misc{lim2025panoramadatasetbenchmarkscapturing,
-title={PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination},
-author={Hyunseung Lim and Sooyohn Nam and Sungmin Na and Ji Yong Cho and June Yong Yang and Hyungyu Shin and Yoonjoo Lee and Juho Kim and Moontae Lee and Hwajung Hong},
-year={2025},
-eprint={2510.24774},
-archivePrefix={arXiv},
-primaryClass={cs.CY},
-url={https://arxiv.org/abs/2510.24774},
+              text={`@inproceedings{NEURIPS2025_4aab82c8,
+ author = {Lim, Hyunseung and Nam, Sooyohn and Na, Sungmin and Cho, Ji Yong and Yang, June Yong and Shin, Hyungyu and Lee, Yoonjoo and Kim, Juho and Lee, Moontae and Hong, Hwajung},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {D. Belgrave and C. Zhang and H. Lin and L. Montoya and R. Pascanu and P. Koniusz and M. Ghassemi and N. Chen},
+ pages = {},
+ publisher = {Curran Associates, Inc.},
+ title = {PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2025/file/4aab82c8d6b77c0b6b010145c1bfcdd3-Paper-Datasets_and_Benchmarks_Track.pdf},
+ volume = {38},
+ year = {2025}
 }`}
             />
           </section>
