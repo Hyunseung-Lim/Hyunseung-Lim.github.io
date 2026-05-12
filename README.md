@@ -1,39 +1,9 @@
-# webpagetemplate
+# Hyunseung Lim
 
-## Mobile Screen Rail Component
-Use `MobileScreenRail` to embed horizontally scrollable mobile mockups (ideal for project pages).
+Personal website of Hyunseung Lim, a fourth-year PhD candidate in Industrial Design at KAIST, working with Prof. Hwajung Hong at DxD Lab. His research explores how design and AI can mutually shape and strengthen one another — spanning AI for Design and Design for AI.
 
-```jsx
-import { MobileScreenRail } from './Components/MobileScreenRail/MobileScreenRail';
+[hyunseung-lim.github.io](https://hyunseung-lim.github.io)
 
-const screens = [
-  {
-    lead: 'Design System',
-    title: 'Balance focus time',
-    body: 'Daily check-ins and adaptive prompts summarize the AI co-creation workflow.',
-    image: `${process.env.PUBLIC_URL}/projects/my-project/mobile_1.png`
-  },
-  {
-    lead: 'Research log',
-    title: 'Capture sketches instantly',
-    body: 'Every iteration is saved as a card to share in studio critiques.',
-    image: `${process.env.PUBLIC_URL}/projects/my-project/mobile_2.png`
-  }
-];
+---
 
-<MobileScreenRail
-  heading="Prototype Screens"
-  description="Swipe to explore the flows we tested with participants."
-  screens={screens}
-  cardWidth="clamp(240px, 28vw, 360px)"
-  cardHeight="auto"
-/>
-```
-
-Props:
-- `screens`: array of `{ lead?, title?, body?, image (required), alt? }`
-- `heading`, `description`: optional intro copy
-- `cardWidth`, `cardHeight`: number (px) or CSS length string to control card size (`cardHeight` defaults to `auto` so images keep their native ratio)
-- `gap`: spacing between cards (px)
-- `showMetadata`: hide the text blocks when you only want the visual screens
-- `clampToContainer`: align the first/last cards with the surrounding layout and prevent overscroll
+**About** · **Projects** · **Publications**
