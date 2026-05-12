@@ -27,6 +27,23 @@
     "recording": "",
     "video": ""
   },
+    {
+    "title": "Student-ChatGPT Interaction Visible: Designing a Teacher Dashboard for EFL Writing Education",
+    "author": "Minsun Kim, SeonGyeom Kim, Suyoun Lee, Yoosang Yoon, Junho Myung, Haneul Yoo, Hyunseung Lim, Jieun Han, Yoonsu Kim, So-Yeon Ahn, Juho Kim, Alice Oh, Hwajung Hong, Tak Yeon Lee",
+    "venue": "LAK 2026 Poster",
+    "year": 2026,
+    "field": [
+      "hai",
+      "learning"
+    ],
+    "type": "poster",
+    "pdf": "minsun_emnlp_2024.pdf",
+    "doi": "https://arxiv.org/abs/2410.15025",
+    "link": "https://www.solaresearch.org/events/lak/lak26/accepted-papers/",
+    "bibtex": "minsun_emnlp_2024.bib",
+    "recording": "",
+    "video": ""
+  },
   {
     "title": "Understanding Human–Multi-Agent Team Formation for Creative Work",
     "author": "Hyunseung Lim, Dasom Choi, Sooyohn Nam, Bogoan Kim, Hwajung Hong",
@@ -290,23 +307,6 @@
     "doi": "https://aclanthology.org/2024.customnlp4u-1.21/",
     "link": "https://customnlp4u-24.github.io/",
     "bibtex": "jieun_emnlp_2024.bib",
-    "recording": "",
-    "video": ""
-  },
-  {
-    "title": "LLM-Driven Learning Analytics Dashboard for Teachers in EFL Writing Education",
-    "author": "Minsun Kim, SeonGyeom Kim, Suyoun Lee, Yoosang Yoon, Junho Myung, Haneul Yoo, Hyunseung Lim, Jieun Han, Yoonsu Kim, So-Yeon Ahn, Juho Kim, Alice Oh, Hwajung Hong, Tak Yeon Lee",
-    "venue": "EMNLP 2024 Workshop on Customizable NLP (CustomNLP4U)",
-    "year": 2024,
-    "field": [
-      "hai",
-      "learning"
-    ],
-    "type": "workshop",
-    "pdf": "minsun_emnlp_2024.pdf",
-    "doi": "https://arxiv.org/abs/2410.15025",
-    "link": "https://customnlp4u-24.github.io/",
-    "bibtex": "minsun_emnlp_2024.bib",
     "recording": "",
     "video": ""
   },
