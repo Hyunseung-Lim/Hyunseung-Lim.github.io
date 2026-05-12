@@ -43,3 +43,8 @@ pids
 # Coverage directory used by tools like istanbul
 coverage/
 node_modules
+
+#md
+FADEIN_GUIDE.md
+WEBSITE_STRUCTURE.md
+WEBSITE_STYLE.md
