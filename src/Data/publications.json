@@ -30,14 +30,14 @@
   {
     "title": "MindStock: Investigating How Principle-Anchored Feedback Supports Self-Reflection in Mobile Investment",
     "author": "Sooyohn Nam, Yeohyun Jung, Kyuwon Cho, Hyunseung Lim, Hwajung Hong",
-    "venue": "DIS 2026 (to appear)",
+    "venue": "DIS 2026",
     "award": "",
     "year": 2026,
     "field": ["others"],
     "type": "conference",
-    "pdf": "",
-    "doi": "",
-    "bibtex": "",
+    "pdf": "sooyohn_dis_2026.pdf",
+    "doi": "https://dl.acm.org/doi/full/10.1145/3800645.3812925",
+    "bibtex": "sooyohn_dis_2026.bib",
     "recording": "",
     "video": ""
   },
@@ -146,7 +146,7 @@
   {
     "title": "PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination",
     "author": "Hyunseung Lim, Sooyohn Nam, Sungmin Na, Ji Yong Cho, June Yong Yang, Hyungyu Shin, Yoonjoo Lee, Juho Kim, Moontae Lee, Hwajung Hong",
-    "venue": "NeurIPS 2025",
+    "venue": "NeurIPS 2025 Datasets and Benchmarks Track",
     "award": "",
     "year": 2025,
     "field": [
@@ -162,7 +162,7 @@
   {
     "title": "Mind the Blind Spots: A Focus-Level Evaluation Framework for LLM Reviews",
     "author": "Hyungyu Shin, Jingyu Tang, Yoonjoo Lee, Nayoung Kim, Hyunseung Lim, Ji Yong Cho, Hwajung Hong, Moontae Lee, Juho Kim",
-    "venue": "EMNLP 2025 Main Conference",
+    "venue": "EMNLP 2025",
     "award": "🏆 SAC Highlight",
     "year": 2025,
     "field": [
@@ -211,7 +211,7 @@
   {
     "title": "A Large-Scale Real-World Evaluation of an LLM-Based Virtual Teaching Assistant",
     "author": "Sunjun Kweon, Sooyohn Nam, Hyunseung Lim, Hwajung Hong, Edward Choi",
-    "venue": "ACL (Industry) 2025",
+    "venue": "ACL 2025 Industry Track",
     "award": "",
     "year": 2025,
     "field": [
@@ -310,7 +310,7 @@
   {
     "title": "LLM-as-a-tutor in EFL Writing Education: Focusing on Evaluation of Student-LLM Interaction",
     "author": "Jieun Han, Haneul Yoo, Junho Myung, Minsun Kim, Hyunseung Lim, Yoonsu Kim, Tak Yeon Lee, Hwajung Hong, Juho Kim, So-Yeon Ahn, Alice Oh",
-    "venue": "EMNLP 2024 Workshop on Customizable NLP (CustomNLP4U)",
+    "venue": "CustomNLP4U",
     "year": 2024,
     "field": [
       "hai",
@@ -327,7 +327,7 @@
   {
     "title": "Towards an evaluation of LLM-generated inspiration by developing and validating inspiration scale",
     "author": "Hyungyu Shin, Seulgi Choi, Ji Yong Cho, Sahar Admoni, Hyunseung Lim, Taewan Kim, Hwajung Hong, Moontae Lee, Juho Kim",
-    "venue": "CHI 2024 Workshop on Human-centered Evaluation and Auditing of Language Models (HEAL@CHI'24)",
+    "venue": "HEAL@CHI'24",
     "year": 2024,
     "field": [
       "hai",
