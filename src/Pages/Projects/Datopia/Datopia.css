@@ -35,25 +35,10 @@
   color: var(--text-primary);
 }
 
-@media (max-width: 992px) {
-  .banner-section {
-    height: min(50vh, 100vw);
-    max-height: 50vh;
-    min-height: min(300px, 50vh);
-  }
-}
-
 @media (max-width: 768px) {
   .project-page--datopia .banner-section {
     height: 40vh;
     min-height: min(250px, 50vh);
-  }
-}
-
-@media (max-width: 480px) {
-  .banner-section {
-    height: 35vh;
-    min-height: min(200px, 50vh);
   }
 }
 

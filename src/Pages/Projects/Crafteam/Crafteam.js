@@ -14,7 +14,6 @@ import './Crafteam.css';
 
 const CRAFTEAM_ASSETS = Array.from(
   new Set([
-    PROJECTS.crafteam?.bannerImage ?? null,
     `${process.env.PUBLIC_URL}/projects/crafteam/chi_logo.png`,
     `${process.env.PUBLIC_URL}/projects/crafteam/overview.png`,
     `${process.env.PUBLIC_URL}/projects/crafteam/overview_dark.png`
@@ -26,8 +25,7 @@ export const CrafteamProject = () => {
   const [scrollRoot, setScrollRoot] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const bannerImage = projectData.bannerImage ?? null;
-  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(null, themeMode);
   const { isDark } = useTheme();
   const overviewImageSrc = isDark
     ? `${process.env.PUBLIC_URL}/projects/crafteam/overview_dark.png`
@@ -48,11 +46,6 @@ export const CrafteamProject = () => {
     <PageLoadGuard assets={CRAFTEAM_ASSETS} message={loaderMessage}>
       <div className={`${pageClassName} project-page--crafteam`}>
         <Topbar hideThemeToggle={shouldHideThemeToggle} />
-        {bannerImage && (
-          <div className="banner-section">
-            <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-          </div>
-        )}
 
         <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">

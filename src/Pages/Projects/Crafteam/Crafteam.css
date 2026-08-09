@@ -1,19 +1,4 @@
 /* Base project layout */
-.project-page--crafteam .banner-section {
-  position: relative;
-  width: 100%;
-  height: min(60vh, 100vw);
-  min-height: min(400px, 100vw);
-  overflow: hidden;
-}
-
-.project-page--crafteam .banner-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
 .project-page--crafteam .crafteam-body {
   line-height: 1.65;
   text-align: left;
@@ -1984,26 +1969,6 @@
   background: linear-gradient(180deg, #4c5de6, #0e1126);
 }
 
-@media (max-width: 992px) {
-  .banner-section {
-    height: 50vh;
-    min-height: 300px;
-  }
-}
-
-@media (max-width: 768px) {
-  .banner-section {
-    height: 40vh;
-    min-height: 250px;
-  }
-}
-
-@media (max-width: 480px) {
-  .project-page--crafteam .banner-section {
-    height: 35vh;
-    min-height: 200px;
-  }
-}
 @media (max-width: 600px) {
   .crafteam-step-panel {
     padding: 1rem;

@@ -1,18 +1,3 @@
-.project-page--panorama .banner-section {
-  position: relative;
-  width: 100%;
-  height: min(60vh, 100vw);
-  min-height: min(400px, 100vw);
-  overflow: hidden;
-}
-
-.project-page--panorama .banner-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
 .project-page--panorama .project-section {
   margin: 0 0 1.6rem 0;
 }

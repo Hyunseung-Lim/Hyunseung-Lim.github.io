@@ -5,21 +5,6 @@
   --feedometer-border-width: 1px;
 }
 
-.project-page--feed-o-meter .banner-section {
-  position: relative;
-  width: 100%;
-  height: min(60vh, 100vw);
-  min-height: min(400px, 100vw);
-  overflow: hidden;
-}
-
-.project-page--feed-o-meter .banner-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
 .project-page--feed-o-meter .project-header__fade-block {
   display: flex;
   flex-direction: column;
@@ -1508,11 +1493,6 @@
   .meta-value {
     font-size: 0.85rem;
   }
-
-  .banner-section {
-    height: 50vh;
-    min-height: 300px;
-  }
 }
 
 
@@ -1520,22 +1500,11 @@
   .project-page--feed-o-meter .project-title {
     font-size: 2rem;
   }
-
-  .project-page--feed-o-meter .banner-section {
-    height: 40vh;
-    min-height: 250px;
-  }
-
 }
 
 @media (max-width: 480px) {
   .project-page--feed-o-meter .project-title {
     font-size: 1.8rem;
-  }
-
-  .project-page--feed-o-meter .banner-section {
-    height: 35vh;
-    min-height: 200px;
   }
 }
 .project-page--feed-o-meter .feedometer-study-subsection {

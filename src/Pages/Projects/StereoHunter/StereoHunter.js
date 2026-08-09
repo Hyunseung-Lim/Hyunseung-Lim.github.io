@@ -32,8 +32,7 @@ export const StereoHunterProject = () => {
   const [scrollRoot, setScrollRoot] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const bannerImage = projectData.bannerImage ?? null;
-  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(null, themeMode);
   const { isDark } = useTheme();
   const facctLogo = `${process.env.PUBLIC_URL}/projects/stereohunter/${isDark ? 'facct_dark.png' : 'facct.png'}`;
   const flowImage = `${process.env.PUBLIC_URL}/projects/stereohunter/${isDark ? 'flow_dark.png' : 'flow.png'}`;
@@ -85,7 +84,6 @@ export const StereoHunterProject = () => {
   const pageAssets = Array.from(
     new Set(
       [
-        bannerImage,
         `${process.env.PUBLIC_URL}/projects/stereohunter/facct.png`,
         `${process.env.PUBLIC_URL}/projects/stereohunter/facct_dark.png`,
         `${process.env.PUBLIC_URL}/projects/stereohunter/flow.png`,
@@ -121,11 +119,6 @@ series = {FAccT '25}
     <PageLoadGuard assets={pageAssets} message={loaderMessage}>
       <div className={`${pageClassName} project-page--stereohunter`}>
         <Topbar hideThemeToggle={shouldHideThemeToggle} />
-        {bannerImage && (
-          <div className="banner-section">
-            <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-          </div>
-        )}
 
         <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">

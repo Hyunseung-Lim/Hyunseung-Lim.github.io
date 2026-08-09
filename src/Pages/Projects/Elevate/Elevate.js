@@ -173,7 +173,7 @@ export const ElevateProject = () => {
   const [hardwareGridStyle, setHardwareGridStyle] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const desktopBanner = projectData.bannerImage ?? ELEVATE_DESKTOP_BANNER;
+  const desktopBanner = ELEVATE_DESKTOP_BANNER;
   const mobileBanner = ELEVATE_MOBILE_BANNER;
   const installationVideoUrl = ELEVATE_INSTALLATION_VIDEO_URL;
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(desktopBanner, themeMode);

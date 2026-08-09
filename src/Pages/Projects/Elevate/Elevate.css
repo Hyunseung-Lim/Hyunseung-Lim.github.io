@@ -211,6 +211,9 @@
   }
 
   .project-page--elevate .elevate-applications-row {
+    /* Hoisted so the expanded-tile size is never nested as calc() > min() > calc() > var():
+       postcss-calc 8.x fails to lex that shape and warns during the production build. */
+    --applications-active-size: min(100%, calc(var(--mobile-tile-size) * 15 / 8));
     display: flex;
     gap: var(--applications-gap);
     width: 100%;
@@ -223,13 +226,13 @@
   }
 
   .project-page--elevate .elevate-applications-row.has-active .elevate-applications-grid__item.is-active {
-    flex: 0 0 min(100%, calc(var(--mobile-tile-size) * 15 / 8));
-    width: min(100%, calc(var(--mobile-tile-size) * 15 / 8));
+    flex: 0 0 var(--applications-active-size);
+    width: var(--applications-active-size);
   }
 
   .project-page--elevate .elevate-applications-row.has-active .elevate-applications-grid__item:not(.is-active) {
-    flex: 0 0 calc((100% - min(calc(var(--mobile-tile-size) * 15 / 8), 100%)) - var(--applications-gap));
-    width: calc((100% - min(calc(var(--mobile-tile-size) * 15 / 8), 100%)) - var(--applications-gap));
+    flex: 0 0 calc(100% - var(--applications-active-size) - var(--applications-gap));
+    width: calc(100% - var(--applications-active-size) - var(--applications-gap));
   }
 
   .project-page--elevate .elevate-applications-row-description {

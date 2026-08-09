@@ -9,6 +9,11 @@ import { Footer } from '../Components/Footer/footer';
 import publicationData from '../Data/publications.json';
 import personLinks from '../Data/personLinks.json';
 
+// Field values exposed as their own toggle on mobile; "Others" is everything else.
+const MOBILE_FIELD_VALUES = ['hai', 'creativity'];
+
+const isArxivLink = (href) => /(^|\/\/|\.)arxiv\.org(\/|$)/i.test(href);
+
 const PROJECT_WEB_ROUTES = {
     'PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination': '/projects/panorama',
     'Feed-O-Meter: Investigating AI-Generated Mentee Personas as Interactive Agents for Scaffolding Design Feedback Practice': '/projects/feed-o-meter',
@@ -153,12 +158,14 @@ export const Publications = (props) => {
         let filteredData = publicationData.filter(pub => pub.title && pub.year > 0);
 
         if (fieldValue !== "all") {
-            filteredData = filteredData.filter(pub => 
-                pub.field && (
-                    pub.field.includes(fieldValue) ||
-                    (fieldValue === "others_field" && !pub.field.includes("hai"))
-                )
-            );
+            filteredData = filteredData.filter(pub => {
+                if (!pub.field) return false;
+                // Mobile "Others": everything outside the HAI / Creativity toggles
+                if (fieldValue === "others_field") {
+                    return MOBILE_FIELD_VALUES.every(field => !pub.field.includes(field));
+                }
+                return pub.field.includes(fieldValue);
+            });
         }
 
         if (typeValue !== "all") {
@@ -282,7 +289,11 @@ export const Publications = (props) => {
                                                             addLink({ key: 'project-web', href: projectRoute, label: 'WEB', newTab: false, primary: true });
                                                         }
                                                         if (publication.pdf) addLink({ key: 'pdf', href: `/PDF/${publication.pdf}`, label: 'PDF', primary: true });
-                                                        if (publication.doi) addLink({ key: 'doi', href: publication.doi, label: 'DOI' });
+                                                        if (publication.doi) addLink({
+                                                            key: 'doi',
+                                                            href: publication.doi,
+                                                            label: isArxivLink(publication.doi) ? 'arXiv' : 'DOI'
+                                                        });
                                                         if (publication.link) addLink({ key: 'link', href: publication.link, label: 'LINK' });
                                                         if (publication.recording) addLink({ key: 'recording', href: publication.recording, label: 'REC' });
                                                         if (publication.video) addLink({ key: 'video', href: publication.video, label: 'VID' });

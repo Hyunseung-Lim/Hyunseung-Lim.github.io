@@ -28,8 +28,7 @@ export const AquaProject = () => {
   const [scrollRoot, setScrollRoot] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const bannerImage = projectData.bannerImage ?? null;
-  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(bannerImage, themeMode);
+  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(null, themeMode);
   const { isDark } = useTheme();
   const awardBadgeSrc = isDark
     ? `${process.env.PUBLIC_URL}/projects/aqua/dis2024_dark.png`
@@ -53,12 +52,6 @@ export const AquaProject = () => {
     <PageLoadGuard assets={AQUA_PAGE_ASSETS} message={loaderMessage}>
       <div className={`${pageClassName} project-page--aqua`}>
         <Topbar hideThemeToggle={shouldHideThemeToggle} />
-
-        {bannerImage && (
-          <div className="banner-section">
-            <img src={bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
-          </div>
-        )}
 
         <div className="project-container" ref={setScrollRoot}>
         <header className="project-header">

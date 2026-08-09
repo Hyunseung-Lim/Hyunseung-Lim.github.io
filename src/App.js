@@ -4,7 +4,6 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { ScrollToTop } from './Components/ScrollToTop';
 
 import { MainPage } from './Pages/MainPage';
-import { ResearchPage } from './Pages/ResearchPage';
 import { About } from './Pages/about';
 import { Publications } from './Pages/publications';
 import { ProjectsPage } from './Pages/ProjectsPage';
@@ -33,7 +32,6 @@ function App() {
           <Routes>
             <Route path='/' element={<MainPage/>} />
             <Route path='/about' element={<About/>} />
-            <Route path='/research' element={<ResearchPage/>} />
             <Route path='/projects' element={<ProjectsPage/>} />
             <Route path='/projects/datopia' element={<DatopiaProject/>} />
             <Route path='/projects/feed-o-meter' element={<FeedOMeterProject/>} />

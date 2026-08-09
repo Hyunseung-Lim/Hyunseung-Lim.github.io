@@ -14,15 +14,31 @@
     "video": ""
   },
   {
+    "title": "Investigating Social Bias in Narrative Image Generation",
+    "author": "Junyeong Park, Sowon Min, Euna Jang, Soobin Kim, Jiho Jin, Hyunseung Lim, Gahyeon Bae, Hwajung Hong",
+    "venue": "GenAI4World@COLM2026",
+    "award": "",
+    "year": 2026,
+    "field": ["hai", "ethics"],
+    "type": "workshop",
+    "pdf": "junyeong_colm_2026.pdf",
+    "doi": "https://arxiv.org/abs/2608.01780",
+    "link": "https://sites.google.com/view/genai4world/",
+    "bibtex": "junyeong_colm_2026.bib",
+    "recording": "",
+    "video": ""
+  },
+  {
     "title": "Toward User-Orchestrated Human–Multi-Agent Teams for Co-Creation",
     "author": "Hyunseung Lim, Hwajung Hong",
-    "venue": "GenAICreativity@ICML2026 (to appear)",
+    "venue": "GenAICreativity@ICML2026",
     "award": "",
     "year": 2026,
     "field": ["hai", "creativity"],
     "type": "workshop",
-    "pdf": "",
+    "pdf": "hyunseung_icml_2026.pdf",
     "doi": "",
+    "link": "https://genaicreativity.org/icml2026/",
     "bibtex": "",
     "recording": "",
     "video": ""
@@ -51,10 +67,10 @@
       "learning"
     ],
     "type": "poster",
-    "pdf": "minsun_emnlp_2024.pdf",
+    "pdf": "minsun_lak_2026.pdf",
     "doi": "https://arxiv.org/abs/2410.15025",
     "link": "https://www.solaresearch.org/events/lak/lak26/accepted-papers/",
-    "bibtex": "minsun_emnlp_2024.bib",
+    "bibtex": "minsun_lak_2026.bib",
     "recording": "",
     "video": ""
   },
@@ -310,7 +326,7 @@
   {
     "title": "LLM-as-a-tutor in EFL Writing Education: Focusing on Evaluation of Student-LLM Interaction",
     "author": "Jieun Han, Haneul Yoo, Junho Myung, Minsun Kim, Hyunseung Lim, Yoonsu Kim, Tak Yeon Lee, Hwajung Hong, Juho Kim, So-Yeon Ahn, Alice Oh",
-    "venue": "CustomNLP4U",
+    "venue": "CustomNLP4U@EMNLP2024",
     "year": 2024,
     "field": [
       "hai",
