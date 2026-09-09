@@ -76,6 +76,7 @@
   },
   {
     "title": "Understanding Human–Multi-Agent Team Formation for Creative Work",
+    "project": "/projects/crafteam",
     "author": "Hyunseung Lim, Dasom Choi, Sooyohn Nam, Bogoan Kim, Hwajung Hong",
     "venue": "CHI 2026",
     "award": "",
@@ -127,6 +128,7 @@
   },
   {
     "title": "Feed-O-Meter: Investigating AI-Generated Mentee Personas as Interactive Agents for Scaffolding Design Feedback Practice",
+    "project": "/projects/feed-o-meter",
     "author": "Hyunseung Lim, Dasom Choi, DaEun Choi, Sooyohn Nam, Hwajung Hong",
     "venue": "IJHCS",
     "award": "",
@@ -161,6 +163,7 @@
   },
   {
     "title": "PANORAMA: A Dataset and Benchmarks Capturing Decision Trails and Rationales in Patent Examination",
+    "project": "/projects/panorama",
     "author": "Hyunseung Lim, Sooyohn Nam, Sungmin Na, Ji Yong Cho, June Yong Yang, Hyungyu Shin, Yoonjoo Lee, Juho Kim, Moontae Lee, Hwajung Hong",
     "venue": "NeurIPS 2025 Datasets and Benchmarks Track",
     "award": "",
@@ -244,6 +247,7 @@
   },
   {
     "title": "How Do Users Identify and Perceive Stereotypes? Understanding User Perspectives on Stereotypical Biases in Large Language Models",
+    "project": "/projects/stereohunter",
     "author": "Hyunseung Lim, Dasom Choi, Hwajung Hong",
     "venue": "FAccT 2025",
     "award": "",
@@ -309,6 +313,7 @@
   },
   {
     "title": "Co-Creating Question-and-Answer Style Articles with Large Language Models for Research Promotion",
+    "project": "/projects/aqua",
     "author": "Hyunseung Lim, Ji Yong Cho, Taewan Kim, Jeongeon Park, Hyungyu Shin, Seulgi Choi, Sunghyun Park, Kyungjae Lee, Juho Kim, Moontae Lee, Hwajung Hong",
     "venue": "DIS 2024",
     "year": 2024,
@@ -405,6 +410,7 @@
   },
   {
     "title": "Elevate: a large-scale walkable pin-array display",
+    "project": "/projects/elevate",
     "author": "Seungwoo Je, Kongpyung Moon, Hyunseung Lim, Shan-Yuan Teng, Jas Brooks, Pedro Lopes, Andrea Bianchi",
     "venue": "Interactions",
     "year": 2022,
@@ -420,6 +426,7 @@
   },
   {
     "title": "Elevate: A Walkable Pin-Array for Large Shape-Changing Terrains",
+    "project": "/projects/elevate",
     "author": "Seungwoo Je, Hyunseung Lim, Kongpyung Moon, Shan-Yuan Teng, Jas Brooks, Pedro Lopes, Andrea Bianchi",
     "venue": "CHI 2021",
     "award": "",

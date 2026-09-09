@@ -5,6 +5,8 @@
  * 입력: src/Data/publications.json (+ public/bib/*.bib, public/PDF/*.pdf)
  * 출력(모두 build/ 아래, 저장소에는 커밋되지 않음):
  *   build/papers/<slug>.html        논문별 랜딩 페이지 (citation_* 메타 태그 포함)
+ *   build/projects/<name>/index.html 프로젝트 페이지가 있는 논문은 그 경로가 랜딩 페이지가 됨
+ *                                   (빌드된 index.html + citation_* 메타 + 프리렌더 본문, React가 로드되면 대체)
  *   build/publications/index.html  /publications 를 200으로 응답시키는 정적 목록 (React가 로드되면 대체됨)
  *   build/sitemap.xml               홈 · 목록 · 랜딩 페이지 · PDF 전체
  *
@@ -213,10 +215,37 @@ function buildRecords(pubs) {
       abstract,
       bibtexRaw: bib?.raw || '',
       bibtexFile: bib ? pub.bibtex : '',
+      project: pub.project ? String(pub.project).replace(/\/+$/, '') : '',
+      projectPrimary: pub.projectPrimary === true,
+      landing: 'paper',
       pageUrl: `${SITE_URL}/papers/${slug}.html`,
     });
   });
+  assignProjectLandings(records);
   return records;
+}
+
+// 프로젝트 페이지가 있는 논문은 /projects/<name>/ 을 랜딩 페이지로 쓴다.
+// 여러 논문이 한 프로젝트를 공유하면 대표 논문 하나만(projectPrimary → conference → journal → 첫 항목).
+function assignProjectLandings(records) {
+  const byProject = new Map();
+  for (const r of records) {
+    if (!r.project) continue;
+    if (!/^\/projects\/[a-z0-9-]+$/.test(r.project)) { warn(`project 경로 형식 오류 (예: /projects/crafteam): ${r.project}`); continue; }
+    if (!byProject.has(r.project)) byProject.set(r.project, []);
+    byProject.get(r.project).push(r);
+  }
+  for (const [route, group] of byProject) {
+    const primary = group.find((r) => r.projectPrimary)
+      || group.find((r) => r.type === 'conference')
+      || group.find((r) => r.type === 'journal')
+      || group[0];
+    primary.landing = 'project';
+    primary.pageUrl = `${SITE_URL}${route}/`;
+    if (group.length > 1) {
+      warn(`${route} 를 ${group.length}편이 공유 → 대표: "${primary.title}" (나머지는 /papers/ 에 생성)`);
+    }
+  }
 }
 
 // ---------------------------------------------------------------- templates
@@ -245,7 +274,7 @@ footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:v
 footer a{color:inherit}
 `.trim();
 
-function renderPaperPage(r) {
+function citationMeta(r) {
   const meta = [];
   const tag = (name, content) => { if (content) meta.push(`<meta name="${name}" content="${escapeHtml(content)}">`); };
 
@@ -263,11 +292,16 @@ function renderPaperPage(r) {
   tag('citation_pdf_url', r.pdfUrl);
   tag('citation_abstract_html_url', r.pageUrl);
   tag('citation_language', 'en');
+  return meta.join('\n');
+}
 
-  const description = r.abstract
+function describe(r) {
+  return r.abstract
     ? r.abstract.slice(0, 300).replace(/\s+\S*$/, '') + (r.abstract.length > 300 ? '…' : '')
     : `${r.authors.join(', ')}. ${r.venueFull}${r.year ? `, ${r.year}` : ''}.`;
+}
 
+function paperLinks(r, { includeProject = true } = {}) {
   const links = [];
   if (r.pdfUrl) links.push(`<a class="primary" href="${escapeHtml(r.pdfUrl)}">PDF</a>`);
   if (r.doi) links.push(`<a href="https://doi.org/${escapeHtml(r.doi)}" rel="noopener">DOI</a>`);
@@ -278,11 +312,21 @@ function renderPaperPage(r) {
   if (r.link) links.push(`<a href="${escapeHtml(r.link)}" rel="noopener">Website</a>`);
   if (r.video) links.push(`<a href="${escapeHtml(r.video)}" rel="noopener">Video</a>`);
   if (r.recording) links.push(`<a href="${escapeHtml(r.recording)}" rel="noopener">Recording</a>`);
+  if (includeProject && r.project) links.push(`<a href="${escapeHtml(r.project)}/">Project page</a>`);
   if (r.bibtexRaw) links.push(`<a href="#bibtex">BibTeX</a>`);
+  return links;
+}
 
-  const venueLine = [escapeHtml(r.venueFull), r.year].filter(Boolean).join(', ')
+function venueLine(r) {
+  return [escapeHtml(r.venueFull), r.year].filter(Boolean).join(', ')
     + (r.venueShort && r.venueShort !== r.venueFull ? ` <span class="muted">(${escapeHtml(r.venueShort)})</span>` : '')
     + (r.award ? `<span class="award">${escapeHtml(r.award)}</span>` : '');
+}
+
+function renderPaperPage(r) {
+  const links = paperLinks(r);
+  const description = describe(r);
+  const venueLineHtml = venueLine(r);
 
   return `<!doctype html>
 <html lang="en">
@@ -293,7 +337,7 @@ function renderPaperPage(r) {
 <meta name="description" content="${escapeHtml(description)}">
 <link rel="canonical" href="${escapeHtml(r.pageUrl)}">
 <link rel="icon" href="/favicon.ico">
-${meta.join('\n')}
+${citationMeta(r)}
 ${FONT_LINKS}
 <style>${PAPER_CSS}</style>
 </head>
@@ -302,7 +346,7 @@ ${FONT_LINKS}
 <nav><a href="/">${escapeHtml(SITE_NAME)}</a><a href="/publications/">Publications</a></nav>
 <h1>${escapeHtml(r.title)}</h1>
 <p class="authors">${r.authors.map(escapeHtml).join(', ')}</p>
-<p class="venue">${venueLine}</p>
+<p class="venue">${venueLineHtml}</p>
 <p class="links">${links.join('')}</p>
 ${r.abstract ? `<h2>Abstract</h2>\n<p class="abstract">${escapeHtml(r.abstract)}</p>` : ''}
 ${r.bibtexRaw ? `<h2 id="bibtex">BibTeX</h2>\n<pre>${escapeHtml(r.bibtexRaw)}</pre>` : ''}
@@ -311,6 +355,29 @@ ${r.bibtexRaw ? `<h2 id="bibtex">BibTeX</h2>\n<pre>${escapeHtml(r.bibtexRaw)}</p
 </body>
 </html>
 `;
+}
+
+// 프로젝트 페이지용: 빌드된 index.html 에 citation 메타 + 프리렌더 본문을 주입. React 로드 후 실제 프로젝트 페이지로 교체됨.
+function renderProjectPage(r, indexHtml) {
+  if (!indexHtml.includes('<div id="root"></div>')) {
+    throw new Error('build/index.html 에서 <div id="root"></div> 를 찾지 못했습니다.');
+  }
+  const links = paperLinks(r, { includeProject: false }).filter((l) => !l.includes('#bibtex'));
+  const body = `<div class="prerender">
+<style>${LIST_CSS}</style>
+<nav><a href="/">${escapeHtml(SITE_NAME)}</a><a href="/publications/">Publications</a></nav>
+<h1>${escapeHtml(r.title)}</h1>
+<div class="a">${r.authors.map(escapeHtml).join(', ')}</div>
+<div class="v">${venueLine(r)}</div>
+<div class="l">${links.join('')}</div>
+${r.abstract ? `<h2>Abstract</h2>\n<p>${escapeHtml(r.abstract)}</p>` : ''}
+</div>`;
+  const head = `<link rel="canonical" href="${escapeHtml(r.pageUrl)}">\n${citationMeta(r)}`;
+  return indexHtml
+    .replace('<div id="root"></div>', `<div id="root">${body}</div>`)
+    .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(r.title)}</title>`)
+    .replace(/<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${escapeHtml(describe(r))}"/>`)
+    .replace('</head>', `${head}</head>`);
 }
 
 const LIST_CSS = `
@@ -334,7 +401,7 @@ function renderListMarkup(records) {
       if (r.doi) links.push(`<a href="https://doi.org/${escapeHtml(r.doi)}" rel="noopener">DOI</a>`);
       else if (r.externalUrl) links.push(`<a href="${escapeHtml(r.externalUrl)}" rel="noopener">${escapeHtml(r.externalLabel)}</a>`);
       return `<li>
-<a class="t" href="/papers/${r.slug}.html">${escapeHtml(r.title)}</a>
+<a class="t" href="${escapeHtml(r.pageUrl.replace(SITE_URL, ''))}">${escapeHtml(r.title)}</a>
 <div class="a">${r.authors.map(escapeHtml).join(', ')}</div>
 <div class="v">${escapeHtml(r.venueShort || r.venueFull)}${r.award ? ` · ${escapeHtml(r.award)}` : ''}</div>
 <div class="l">${links.join('')}</div>
@@ -386,17 +453,30 @@ function main() {
   const pubs = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   const records = buildRecords(pubs);
 
+  const indexHtml = fs.readFileSync(BUILD_INDEX, 'utf8');
+
   fs.rmSync(OUT_PAPERS_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_PAPERS_DIR, { recursive: true });
-  for (const r of records) fs.writeFileSync(path.join(OUT_PAPERS_DIR, `${r.slug}.html`), renderPaperPage(r));
+  const projectPages = [];
+  for (const r of records) {
+    if (r.landing === 'project') {
+      const out = path.join(BUILD_DIR, r.project.replace(/^\//, ''), 'index.html');
+      fs.mkdirSync(path.dirname(out), { recursive: true });
+      fs.writeFileSync(out, renderProjectPage(r, indexHtml));
+      projectPages.push(path.relative(BUILD_DIR, out));
+    } else {
+      fs.writeFileSync(path.join(OUT_PAPERS_DIR, `${r.slug}.html`), renderPaperPage(r));
+    }
+  }
 
   fs.mkdirSync(path.dirname(OUT_LIST), { recursive: true });
-  fs.writeFileSync(OUT_LIST, renderListPage(records, fs.readFileSync(BUILD_INDEX, 'utf8')));
+  fs.writeFileSync(OUT_LIST, renderListPage(records, indexHtml));
   fs.writeFileSync(OUT_SITEMAP, renderSitemap(records));
 
   const withPdf = records.filter((r) => r.pdfUrl).length;
   const withAbs = records.filter((r) => r.abstract).length;
-  console.log(`[scholar-pages] ${records.length} landing pages → build/papers/ (PDF ${withPdf}, abstract ${withAbs})`);
+  console.log(`[scholar-pages] ${records.length} landing pages: ${records.length - projectPages.length} → build/papers/, ${projectPages.length} → project pages (PDF ${withPdf}, abstract ${withAbs})`);
+  for (const pp of projectPages) console.log(`[scholar-pages]   ${pp}`);
   console.log(`[scholar-pages] build/publications/index.html, build/sitemap.xml 생성`);
   for (const w of warnings) console.warn(`[scholar-pages] 경고: ${w}`);
 }
