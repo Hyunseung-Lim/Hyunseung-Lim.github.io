@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LLM-as-a-tutor in EFL Writing Education: Focusing on Evaluation of Student-LLM Interaction</title>
+<meta name="description" content="In the context of English as a Foreign Language (EFL) writing education, LLM-as-a-tutor can assist students by providing real-time feedback on their essays. However, challenges arise in assessing LLM-as-a-tutor due to differing standards between educational and general use cases. To bridge this…">
+<link rel="canonical" href="https://hyunseunglim.com/papers/jieun_emnlp_2024.html">
+<link rel="icon" href="/favicon.ico">
+<meta name="citation_title" content="LLM-as-a-tutor in EFL Writing Education: Focusing on Evaluation of Student-LLM Interaction">
+<meta name="citation_author" content="Jieun Han">
+<meta name="citation_author" content="Haneul Yoo">
+<meta name="citation_author" content="Junho Myung">
+<meta name="citation_author" content="Minsun Kim">
+<meta name="citation_author" content="Hyunseung Lim">
+<meta name="citation_author" content="Yoonsu Kim">
+<meta name="citation_author" content="Tak Yeon Lee">
+<meta name="citation_author" content="Hwajung Hong">
+<meta name="citation_author" content="Juho Kim">
+<meta name="citation_author" content="So-Yeon Ahn">
+<meta name="citation_author" content="Alice Oh">
+<meta name="citation_publication_date" content="2024">
+<meta name="citation_conference_title" content="Proceedings of the 1st Workshop on Customizable NLP: Progress and Challenges in Customizing NLP for a Domain, Application, Group, or Individual (CustomNLP4U)">
+<meta name="citation_firstpage" content="284">
+<meta name="citation_lastpage" content="293">
+<meta name="citation_publisher" content="Association for Computational Linguistics">
+<meta name="citation_doi" content="10.18653/v1/2024.customnlp4u-1.21">
+<meta name="citation_pdf_url" content="https://hyunseunglim.com/PDF/jieun_emnlp_2024.pdf">
+<meta name="citation_abstract_html_url" content="https://hyunseunglim.com/papers/jieun_emnlp_2024.html">
+<meta name="citation_language" content="en">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>:root{color-scheme:light dark;--fg:#111;--muted:#6b6b6b;--bg:#fff;--line:#e4e4e4;--chip:#f3f3f3}
+@media (prefers-color-scheme:dark){:root{--fg:#ececec;--muted:#9a9a9a;--bg:#111;--line:#2e2e2e;--chip:#1c1c1c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+main{max-width:760px;margin:0 auto;padding:40px 24px 80px}
+nav{font-size:14px}
+nav a{color:var(--muted);text-decoration:none}
+nav a+a{margin-left:16px}
+nav a:hover{color:var(--fg)}
+h1{font-size:26px;line-height:1.35;font-weight:600;margin:28px 0 14px}
+.authors{font-size:16px;margin:0 0 6px}
+.venue{color:var(--muted);margin:0 0 22px;font-size:15px}
+.muted{color:var(--muted)}
+.award{display:inline-block;margin-left:8px;padding:1px 8px;border:1px solid var(--line);border-radius:999px;font-size:12px}
+.links{margin:0 0 8px}
+.links a{display:inline-block;margin:0 8px 8px 0;padding:7px 14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--fg);font-size:14px;font-weight:500}
+.links a.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin:40px 0 10px}
+.abstract{font-size:15.5px;text-align:justify}
+pre{background:var(--chip);padding:16px;border-radius:10px;overflow-x:auto;font-size:12.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word;margin:0}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+footer a{color:inherit}</style>
+</head>
+<body>
+<main>
+<nav><a href="/">Hyunseung Lim</a><a href="/publications/">Publications</a></nav>
+<h1>LLM-as-a-tutor in EFL Writing Education: Focusing on Evaluation of Student-LLM Interaction</h1>
+<p class="authors">Jieun Han, Haneul Yoo, Junho Myung, Minsun Kim, Hyunseung Lim, Yoonsu Kim, Tak Yeon Lee, Hwajung Hong, Juho Kim, So-Yeon Ahn, Alice Oh</p>
+<p class="venue">Proceedings of the 1st Workshop on Customizable NLP: Progress and Challenges in Customizing NLP for a Domain, Application, Group, or Individual (CustomNLP4U), 2024 <span class="muted">(CustomNLP4U@EMNLP2024)</span></p>
+<p class="links"><a class="primary" href="https://hyunseunglim.com/PDF/jieun_emnlp_2024.pdf">PDF</a><a href="https://doi.org/10.18653/v1/2024.customnlp4u-1.21" rel="noopener">DOI</a><a href="https://customnlp4u-24.github.io/" rel="noopener">Website</a><a href="#bibtex">BibTeX</a></p>
+<h2>Abstract</h2>
+<p class="abstract">In the context of English as a Foreign Language (EFL) writing education, LLM-as-a-tutor can assist students by providing real-time feedback on their essays. However, challenges arise in assessing LLM-as-a-tutor due to differing standards between educational and general use cases. To bridge this gap, we integrate pedagogical principles to assess student-LLM interaction. First, we explore how LLMs can function as English tutors, providing effective essay feedback tailored to students. Second, we propose three criteria to evaluate LLM-as-a-tutor specifically designed for EFL writing education, emphasizing pedagogical aspects. In this process, EFL experts evaluate the feedback from LLM-as-a-tutor regarding (1) quality and (2) characteristics. On the other hand, EFL learners assess their (3) learning outcomes from interaction with LLM-as-a-tutor. This approach lays the groundwork for developing LLMs-as-a-tutor tailored to the needs of EFL learners, advancing the effectiveness of writing education in this context.</p>
+<h2 id="bibtex">BibTeX</h2>
+<pre>@inproceedings{han-etal-2024-llm,
+    title = &quot;{LLM}-as-a-tutor in {EFL} Writing Education: Focusing on Evaluation of Student-{LLM} Interaction&quot;,
+    author = &quot;Han, Jieun  and
+      Yoo, Haneul  and
+      Myung, Junho  and
+      Kim, Minsun  and
+      Lim, Hyunseung  and
+      Kim, Yoonsu  and
+      Lee, Tak Yeon  and
+      Hong, Hwajung  and
+      Kim, Juho  and
+      Ahn, So-Yeon  and
+      Oh, Alice&quot;,
+    editor = &quot;Kumar, Sachin  and
+      Balachandran, Vidhisha  and
+      Park, Chan Young  and
+      Shi, Weijia  and
+      Hayati, Shirley Anugrah  and
+      Tsvetkov, Yulia  and
+      Smith, Noah  and
+      Hajishirzi, Hannaneh  and
+      Kang, Dongyeop  and
+      Jurgens, David&quot;,
+    booktitle = &quot;Proceedings of the 1st Workshop on Customizable NLP: Progress and Challenges in Customizing NLP for a Domain, Application, Group, or Individual (CustomNLP4U)&quot;,
+    month = nov,
+    year = &quot;2024&quot;,
+    address = &quot;Miami, Florida, USA&quot;,
+    publisher = &quot;Association for Computational Linguistics&quot;,
+    url = &quot;https://aclanthology.org/2024.customnlp4u-1.21/&quot;,
+    doi = &quot;10.18653/v1/2024.customnlp4u-1.21&quot;,
+    pages = &quot;284--293&quot;,
+    abstract = &quot;In the context of English as a Foreign Language (EFL) writing education, LLM-as-a-tutor can assist students by providing real-time feedback on their essays. However, challenges arise in assessing LLM-as-a-tutor due to differing standards between educational and general use cases. To bridge this gap, we integrate pedagogical principles to assess student-LLM interaction. First, we explore how LLMs can function as English tutors, providing effective essay feedback tailored to students. Second, we propose three criteria to evaluate LLM-as-a-tutor specifically designed for EFL writing education, emphasizing pedagogical aspects. In this process, EFL experts evaluate the feedback from LLM-as-a-tutor regarding (1) quality and (2) characteristics. On the other hand, EFL learners assess their (3) learning outcomes from interaction with LLM-as-a-tutor. This approach lays the groundwork for developing LLMs-as-a-tutor tailored to the needs of EFL learners, advancing the effectiveness of writing education in this context.&quot;
+}</pre>
+<footer>© 2026 Hyunseung Lim · <a href="/publications/">All publications</a></footer>
+</main>
+</body>
+</html>
