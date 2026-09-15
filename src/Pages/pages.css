@@ -71,14 +71,6 @@
     align-items: center;
   }
   
-  /* 이미지: 슬라이드에 맞게 조정 */
-  .slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
 .banner-text {
     display: flex;
     margin-top: 4px;
@@ -89,9 +81,7 @@
 
   /* 메인페이지 요소들의 통일된 색상 및 전환 */
   .banner-text,
-  .banner-text *,
-  .footer,
-  .footer * {
+  .banner-text * {
     color: var(--text-primary);
     transition: color var(--theme-transition-speed) var(--theme-transition-easing);
   }
@@ -124,58 +114,7 @@
     margin: 0 auto;
   }
 
-.page .title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 50px;
-    letter-spacing: 2px;
-  }
-
-
-  /* Publication 페이지 스타일 */
-  .publications {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .year {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 40px 0 20px;
-    color: var(--text-secondary);
-    border-bottom: 2px solid var(--border-primary);
-    padding-bottom: 10px;
-  }
-
-
-  /* Publication 항목별 fadeIn 애니메이션 - 통합 최적화 */
-  .publications .year,
-  .publications .info,
-  .publications .title,
-  .publications .authors,
-  .publications .venue-links {
-    opacity: 0;
-    transform: translateY(10px);
-    transition:
-      opacity var(--animation-transition-speed) var(--animation-transition-easing),
-      transform var(--animation-transition-speed) var(--animation-transition-easing),
-      color var(--theme-transition-speed) var(--theme-transition-easing);
-    will-change: opacity, transform;
-    color: var(--text-primary);
-  }
-
-  /* 애니메이션 활성화 시 표시 */
-  .publications .year.fade-in-active,
-  .publications .info.fade-in-active,
-  .publications .title.fade-in-active,
-  .publications .authors.fade-in-active,
-  .publications .venue-links.fade-in-active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Publication 자식 요소들의 색상 전환 */
+  /* Publication 페이지: 레이아웃/타이포는 components.css 의 .publications 블록, 페이드는 전역 .fade-in-element 시스템이 담당 */
   .publications .venue-links .venue-text,
   .publications .year *,
   .publications .info *,
@@ -186,20 +125,10 @@
     transition: color var(--theme-transition-speed) var(--theme-transition-easing);
   }
 
-
-
   /* 모바일 반응형 */
 @media (max-width: 768px) {
     .page {
       padding: 80px 20px 30px;
-    }
-
-    .page .title {
-      font-size: 1.5rem;
-    }
-    
-    .year {
-      font-size: 1.2rem;
     }
 
     .publication .venue-links {

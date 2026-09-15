@@ -4,21 +4,22 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
-import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
-import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
+import {
+  ProjectHeader,
+  ProjectDivider,
+  ProjectBibtexSection,
+  collectProjectAssets
+} from '../../../Components/ProjectPage';
 import { CrafteamUI } from './CrafteamUI';
 import { CrafteamTeamStructure } from './CrafteamTeamStructure';
 import { useTheme } from '../../../contexts/ThemeContext';
 import './Crafteam.css';
 
-const CRAFTEAM_ASSETS = Array.from(
-  new Set([
-    `${process.env.PUBLIC_URL}/projects/crafteam/chi_logo.png`,
-    `${process.env.PUBLIC_URL}/projects/crafteam/overview.png`,
-    `${process.env.PUBLIC_URL}/projects/crafteam/overview_dark.png`
-  ].filter(Boolean))
-);
+const CRAFTEAM_ASSETS = collectProjectAssets(PROJECTS.crafteam, [
+  '/projects/crafteam/overview.png',
+  '/projects/crafteam/overview_dark.png'
+]);
 
 export const CrafteamProject = () => {
   const projectData = PROJECTS.crafteam;
@@ -30,16 +31,6 @@ export const CrafteamProject = () => {
   const overviewImageSrc = isDark
     ? `${process.env.PUBLIC_URL}/projects/crafteam/overview_dark.png`
     : `${process.env.PUBLIC_URL}/projects/crafteam/overview.png`;
-  const resourceLinks = [
-    {
-      type: 'paper',
-      href: projectData.paperLink ?? 'https://dl.acm.org/doi/full/10.1145/3772318.3791166',
-      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconAlt: 'ACM DL'
-    }
-  ];
-
   const loaderMessage = `Loading ${projectData.title}...`;
 
   return (
@@ -48,59 +39,24 @@ export const CrafteamProject = () => {
         <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
         <div className="project-container" ref={setScrollRoot}>
-        <header className="project-header">
-          <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
-            <h1 className="project-title">{projectData.title}</h1>
-            {projectData.subtitle && <p className="project-subtitle">{projectData.subtitle}</p>}
-          </div>
-          <div className="project-meta-info">
-            {projectData.period && (
-              <div className="project-period-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Period</div>
-                <div className="meta-value">{projectData.period}</div>
-              </div>
-            )}
-            {projectData.projectType && (
-              <div className="project-type-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Project Type</div>
-                <div className="meta-value">{projectData.projectType}</div>
-              </div>
-            )}
-            <div className="project-awards-section project-header__fade-block project-fade-block" ref={fadeInRef}>
-              <img
-                src={`${process.env.PUBLIC_URL}/projects/crafteam/chi_logo.png`}
-                alt="CHI 2026 Logo"
-                className="project-award-badge"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
-        </header>
-
-        <div
-          className="project-divider project-divider--header project-fade-block"
-          role="presentation"
-          aria-hidden="true"
-          ref={fadeInRef}
-        />
+        <ProjectHeader project={projectData} fadeRef={fadeInRef} />
 
         <main className="project-content">
-          <section className="project-section project-section__fade crafteam-overview">
-            <p className="section-text crafteam-body project-fade-block" ref={fadeInRef}>
+          <section className="project-section project-section--intro">
+            <p className="section-text project-fade-block" ref={fadeInRef}>
               Team-based collaboration is a cornerstone of modern creative work. Recent advances in generative AI open possibilities for humans to collaborate with multiple AI agents in distinct roles to address complex creative workflows. Yet, how to form Human–Multi-Agent Teams (HMATs) is underexplored, especially given that inter-agent interactions increase complexity and the risk of unexpected behaviors. In this exploratory study, we aim to understand how to form HMATs for creative work using CrafTeam, a technology probe that allows users to form and collaborate with their teams.
             </p>
           </section>
 
-          <section className="project-section project-section__fade crafteam-overview-media">
+          <section className="project-section crafteam-overview-media">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               CrafTeam Overview
             </h2>
-            <div className="crafteam-overview-image-wrapper project-fade-block" ref={fadeInRef}>
+            <div className="crafteam-overview-image-wrapper project-figure project-fade-block" ref={fadeInRef}>
               <img
                 src={overviewImageSrc}
                 alt="Overview of the CrafTeam system"
-                className="crafteam-overview-image"
+                className="crafteam-overview-image img-fluid"
                 loading="lazy"
               />
             </div>
@@ -109,7 +65,7 @@ export const CrafteamProject = () => {
               team-based ideation sessions. To make this process accessible even to non-developers,
               CrafTeam lets users configure only the core dimensions of team formation, while the system
               automatically constructs complete HMATs based on the users&rsquo; settings. In particular, users
-              can directly configure five dimensions of team formation&mdash;team size, structure, role
+              can directly configure five dimensions of team formation: team size, structure, role
               allocation, member composition, and shared mental models. We implemented three key steps as
               iterative cycles: (i) forming their own HMATs, (ii) ideating with their teams, (iii) reflecting
               on the ideation session, and then reforming their team based on insights gained from the
@@ -117,40 +73,25 @@ export const CrafteamProject = () => {
             </p>
           </section>
 
-          <section className="project-section project-section__fade crafteam-team-ui-section">
+          <section className="project-section crafteam-team-ui-section">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Team Formation UI
             </h2>
             <CrafteamUI fadeRef={fadeInRef} />
           </section>
 
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
+          <ProjectDivider fadeRef={fadeInRef} />
 
-          <section className="project-section project-section__fade crafteam-findings">
+          <section className="project-section crafteam-findings">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Team Formation in the User Study
             </h2>
             <CrafteamTeamStructure fadeRef={fadeInRef} />
           </section>
 
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
-
-          <section className="project-section project-section__fade">
-            <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
-            <BibtexCard
-              ref={fadeInRef}
-              className="project-fade-block"
-              text={`@inproceedings{10.1145/3772318.3791166,
+          <ProjectBibtexSection
+            fadeRef={fadeInRef}
+            text={`@inproceedings{10.1145/3772318.3791166,
 author = {Lim, Hyunseung and Choi, Dasom and Nam, Sooyohn and Kim, Bogoan and Hong, Hwajung},
 title = {Understanding Human–Multi-Agent Team Formation for Creative Work},
 year = {2026},
@@ -168,8 +109,7 @@ location = {
 },
 series = {CHI '26}
 }`}
-            />
-          </section>
+          />
         </main>
         </div>
 

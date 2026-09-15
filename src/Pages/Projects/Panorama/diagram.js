@@ -126,7 +126,7 @@ const BENCHMARK_TASKS = [
 
 const DATASET_ICON_MAP = {
   specification: {
-    light: `${process.env.PUBLIC_URL}/projects/panorama/spec_light.svg`,
+    light: `${process.env.PUBLIC_URL}/projects/panorama/spec.svg`,
     dark: `${process.env.PUBLIC_URL}/projects/panorama/spec_dark.svg`
   },
   drawing: {

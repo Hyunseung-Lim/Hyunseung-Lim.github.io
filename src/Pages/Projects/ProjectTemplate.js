@@ -1,88 +1,97 @@
 import { useState } from 'react';
 import { Topbar } from '../../Components/Topbar/topbar';
 import { Footer } from '../../Components/Footer/footer';
+import { PageLoadGuard } from '../../Components/PageLoader/PageLoadGuard';
 import { useFadeInAnimation } from '../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../hooks/useProjectPageFrame';
+import {
+  ProjectHeader,
+  ProjectBanner,
+  ProjectDivider,
+  ProjectVideoFrame,
+  ProjectBibtexSection,
+  collectProjectAssets
+} from '../../Components/ProjectPage';
 
 /**
  * Reference component used as a starting template when creating new project pages.
- * Duplicate this file into a new folder and adjust the metadata/content to match the project.
+ *
+ * 1. Add the project to src/Data/projectsMeta.js (title, subtitle, period, projectType,
+ *    badge, links, banner, themeMode ...). The shared header/banner read everything from there.
+ * 2. Duplicate this file into src/Pages/Projects/{Name}/{Name}.js and replace `projectData`
+ *    with `PROJECTS['{id}']`.
+ * 3. List page-specific images in PAGE_ASSETS (root-relative paths under public/).
+ * 4. Keep the frame below as-is; only the contents of <main> are page-specific.
  */
-export const ProjectTemplate = () => {
-  const projectData = {
-    title: 'Project Title',
-    subtitle: 'One sentence subtitle describing the project',
-    period: '2025',
-    projectType: 'Research',
-    bannerImage: null,
-    themeMode: 'auto'
-  };
+const projectData = {
+  id: 'template',
+  title: 'Project Title',
+  subtitle: 'One sentence subtitle describing the project',
+  period: '2025',
+  projectType: 'Research',
+  themeMode: 'auto',
+  // banner: '/projects/template/banner.webp',
+  // bannerMobile: '/projects/template/banner_mobile.webp',
+  // badge: { src: '/projects/template/badge.png', srcDark: '/projects/template/badge_dark.png', alt: 'Venue 2026' },
+  // links: [{ type: 'paper', publisher: 'acm', href: 'https://doi.org/...' }, { type: 'github', href: '...' }]
+};
 
+const PAGE_ASSETS = collectProjectAssets(projectData, [
+  // '/projects/template/overview.png'
+]);
+
+export const ProjectTemplate = () => {
   const [scrollRoot, setScrollRoot] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(
-    projectData.bannerImage,
-    projectData.themeMode
+    projectData.banner ?? null,
+    projectData.themeMode ?? 'auto'
   );
 
   return (
-    <div className={pageClassName}>
-      <Topbar hideThemeToggle={shouldHideThemeToggle} />
+    <PageLoadGuard assets={PAGE_ASSETS} message={`Loading ${projectData.title}...`}>
+      <div className={`${pageClassName} project-page--${projectData.id}`}>
+        <Topbar hideThemeToggle={shouldHideThemeToggle} />
+        <ProjectBanner project={projectData} />
 
-      {projectData.bannerImage && (
-        <div className="banner-section">
-          <img src={projectData.bannerImage} alt={`${projectData.title} banner`} className="banner-image" />
+        <div className="project-container" ref={setScrollRoot}>
+          <ProjectHeader project={projectData} fadeRef={fadeInRef} />
+
+          <main className="project-content">
+            <section className="project-section project-section--intro">
+              <p className="section-text project-fade-block" ref={fadeInRef}>
+                Describe the project goals, context, and outcomes. This block should provide a succinct narrative
+                that introduces visitors to the project.
+              </p>
+            </section>
+
+            <section className="project-section">
+              <h2 className="section-title project-fade-block" ref={fadeInRef}>
+                Highlights
+              </h2>
+              <ul className="section-list project-fade-block" ref={fadeInRef}>
+                <li>Key highlight or contribution.</li>
+                <li>Another milestone, study, or insight.</li>
+                <li>Optional third bullet.</li>
+              </ul>
+            </section>
+
+            <section className="project-section">
+              <ProjectVideoFrame
+                src="https://www.youtube.com/embed/VIDEO_ID"
+                title={`${projectData.title} walkthrough`}
+                fadeRef={fadeInRef}
+              />
+            </section>
+
+            <ProjectDivider fadeRef={fadeInRef} />
+
+            <ProjectBibtexSection fadeRef={fadeInRef} text={`@inproceedings{key,\n  title = {...}\n}`} />
+          </main>
         </div>
-      )}
 
-      <div className="project-container" ref={setScrollRoot}>
-        <header className="project-header">
-          <h1 className="project-title project-fade-block" ref={fadeInRef}>{projectData.title}</h1>
-          {projectData.subtitle && <p className="project-subtitle project-fade-block" ref={fadeInRef}>{projectData.subtitle}</p>}
-          <div className="project-meta-info">
-            {projectData.period && (
-              <div className="project-period-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Period</div>
-                <div className="meta-value">{projectData.period}</div>
-              </div>
-            )}
-            {projectData.projectType && (
-              <div className="project-type-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Project Type</div>
-                <div className="meta-value">{projectData.projectType}</div>
-              </div>
-            )}
-          </div>
-        </header>
-
-        <div
-          className="project-divider project-divider--header project-fade-block"
-          role="presentation"
-          aria-hidden="true"
-          ref={fadeInRef}
-        />
-
-        <main className="project-content">
-          <section className="project-section">
-            <h2 className="section-title">Overview</h2>
-            <p className="section-text" ref={fadeInRef}>
-              Describe the project goals, context, and outcomes. This block should provide a succinct narrative
-              that introduces visitors to the project.
-            </p>
-          </section>
-
-          <section className="project-section">
-            <h2 className="section-title">Highlights</h2>
-            <ul className="section-list" ref={fadeInRef}>
-              <li>Key highlight or contribution.</li>
-              <li>Another milestone, study, or insight.</li>
-              <li>Optional third bullet.</li>
-            </ul>
-          </section>
-        </main>
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
+    </PageLoadGuard>
   );
 };

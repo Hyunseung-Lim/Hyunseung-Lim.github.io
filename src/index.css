@@ -31,6 +31,17 @@
 
   --topbar-height: 60px;
   --footer-height: 150px;
+
+  /* Layout tokens (single source for every page) */
+  --content-width: 824px;         /* project pages, publications, projects grid */
+  --content-width-narrow: 640px;  /* about hero column */
+  --radius-frame: 16px;           /* video frames, figures, demo UI frames */
+  --radius-inner: 12px;           /* nested panels / images inside a frame */
+  --radius-pill: 999px;
+
+  /* Data tables (.project-table): row rule / header rule */
+  --table-line: rgba(0, 0, 0, 0.18);
+  --table-line-strong: rgba(0, 0, 0, 0.6);
 }
 
 body.dark-mode {
@@ -61,6 +72,9 @@ body.dark-mode {
   --segmented-text-hover: var(--text-secondary);
   --segmented-text-active: var(--text-primary);
   --segmented-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+
+  --table-line: rgba(255, 255, 255, 0.22);
+  --table-line-strong: rgba(255, 255, 255, 0.65);
 }
 
 html {

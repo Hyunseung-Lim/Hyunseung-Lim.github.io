@@ -106,7 +106,7 @@
 .about-hero,
 .about {
     width: 100%;
-    max-width: 640px;
+    max-width: var(--content-width-narrow);
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -135,11 +135,6 @@
     top: 0.1rem;
 }
 
-.about-tagline__icon img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
 
 .about-tagline__line {
     display: inline-flex;
@@ -388,18 +383,9 @@
     outline-offset: 2px;
 }
 
+/* Fade itself comes from the shared .fade-in-element system; about only adds staggered delays. */
 .about-fade-block {
-    opacity: 0;
-    transform: translateY(8px);
-    transition:
-        opacity 0.65s var(--animation-transition-easing),
-        transform 0.65s var(--animation-transition-easing);
     transition-delay: var(--about-fade-delay, 0s);
-}
-
-.about-fade-block.fade-in-element.fade-in-active {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .about-description a {
@@ -624,7 +610,7 @@
     margin-top: 0;
     margin-bottom: 0;
     width: 100%;
-    max-width: 960px;
+    max-width: var(--content-width);
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -653,8 +639,169 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 24px;
-    max-width: 872px;
+    max-width: var(--content-width);
     margin: 0 auto;
+}
+
+/* List layout: icon on the left, name / type · period / summary on the right.
+   Type sizes mirror the project-page hierarchy (card title 1.1rem, label 0.8rem uppercase, supporting text 0.9rem). */
+.project-tiles--list {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 0 16px;
+}
+
+/* .project-tile.* doubles the specificity so the later .project-tile grid sizing (25% columns) does not win. */
+.project-tile.project-tile--list {
+    flex: none;
+    width: 100%;
+    max-width: none;
+    justify-content: stretch;
+}
+
+.project-tile.project-tile--list .project-tile__fade-wrapper {
+    display: block;
+    width: 100%;
+}
+
+.project-list-item__link {
+    display: flex;
+    align-items: stretch;
+    gap: 80px;
+    padding: 20px 4px;
+    border-bottom: 1px solid var(--border-primary);
+    text-decoration: none;
+    color: inherit;
+    text-align: left;
+    transition: border-color var(--theme-transition-speed) var(--theme-transition-easing);
+}
+
+.project-tile.project-tile--list:last-child .project-list-item__link {
+    border-bottom: 0;
+}
+
+/* Thumbnail sits on the right (order: 2); text block on the left. */
+.project-list-item__media {
+    order: 2;
+    flex: 0 0 300px;
+    width: 300px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    background: var(--bg-tertiary);
+}
+
+.project-list-item__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* fallback when a project has no list thumbnail: show the icon centered instead */
+.project-list-item__media--icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.project-list-item__media--icon img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+
+.project-list-item__body {
+    order: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Venue keeps its own casing (NeurIPS, FAccT) next to the uppercase type label. */
+.project-list-item__venue {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+}
+
+.project-list-item__title {
+    margin: 0 0 6px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--text-primary);
+}
+
+.project-list-item__meta {
+    margin: 0 0 8px;
+    font-size: 0.64rem;
+    line-height: 1;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+}
+
+.project-list-item__period {
+    margin: 0;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+}
+
+.project-list-item__summary {
+    margin: 0 0 10px;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+}
+
+/* "Read →" cue pinned to the bottom of the text column, level with the thumbnail's bottom edge. */
+.project-list-item__read {
+    margin-top: auto;
+    padding-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+}
+
+/* Arrow: 1 SVG unit = 1px. On hover the tail stays put, the shaft stretches and the head advances 5px. */
+.project-list-item__arrow {
+    display: block;
+    width: 28px;
+    height: 12px;
+    margin-top: -1px; /* optical centre against the uppercase READ */
+    overflow: visible;
+}
+
+.project-list-item__arrow-shaft {
+    transform-origin: 1px 6px;
+    transition: transform 0.25s ease;
+}
+
+.project-list-item__arrow-head {
+    transition: transform 0.25s ease;
+}
+
+.project-list-item__link:hover .project-list-item__arrow-shaft,
+.project-list-item__link:focus-visible .project-list-item__arrow-shaft {
+    transform: scaleX(1.263); /* 19px -> 24px */
+}
+
+.project-list-item__link:hover .project-list-item__arrow-head,
+.project-list-item__link:focus-visible .project-list-item__arrow-head {
+    transform: translateX(5px);
 }
 
 .project-tiles--diagram {
@@ -730,7 +877,8 @@
 
 
 .project-tile {
-    flex: 0 1 200px;
+    flex: 0 1 calc(25% - 18px);
+    max-width: calc(25% - 18px);
     display: flex;
     justify-content: center;
     position: relative;
@@ -756,16 +904,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    opacity: 0;
-    transform: translateY(16px);
-    transition:
-        opacity var(--animation-transition-speed) var(--animation-transition-easing),
-        transform var(--animation-transition-speed) var(--animation-transition-easing);
-}
-
-.project-tile__fade-wrapper.fade-in-active {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .project-tile__link {
@@ -855,57 +993,21 @@
     margin-top: 6px;
 }
 
-.project {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 30px;
-}
-
-.project > img {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.project > .projectcontents {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-}
-
-.project > .projectcontents > .title {
-    display: inline;
-    font-size: 24px;
-    margin-bottom: 8px;
-}
-
-.project > .projectcontents > .title > .year {
-    font-weight: 400;
-}
-
-.project > .projectcontents > .authors {
-    font-style: italic;
-    margin-bottom: 12px;
-}
-
-.project > .projectcontents > .authors > .authorholder > .highlight_person {
-    font-weight: 600;
-}
-
+/* Starts flush with .page's top padding so the filter toggles sit at the same height as the Projects layout toggle. */
 .publications {
-    margin-top: 50px;
     width: 100%;
+    max-width: var(--content-width);
+    margin: 16px auto 0; /* matches the Projects toggle's top edge (126px) */
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0 20px 20px;
 }
 
 .publications .selection {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 10px 0;
+    margin: 0 0 10px;
     align-items: center;
     max-width: 100%;
 }
@@ -914,7 +1016,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin: 30px 0 15px;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     border-bottom: 2px solid var(--border-primary);
     padding-bottom: 8px;
     text-align: left;
@@ -935,7 +1037,7 @@
 .publication > .info {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
 }
 
@@ -947,6 +1049,7 @@
 }
 
 .publication > .info > .maininfo > .title {
+    width: 100%;
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 6px;
@@ -1048,6 +1151,8 @@
     justify-content: center;
     align-items: center;
     font-size: 12px;
+    color: var(--text-primary);
+    transition: color var(--theme-transition-speed) var(--theme-transition-easing);
 }
 
 .about-page .footer {
@@ -1060,91 +1165,12 @@
         font-size: 10px;
     }
 
+    .publication > .info {
+        flex-direction: column;
+    }
+
     .publication > .info > .maininfo > .title {
         font-size: 0.95rem;
-    }
-}
-
-.title {
-    font-size: 28px;
-    font-weight: 800;
-    width: 100%;
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-
-/* Small Tablet view */
-@media (min-width: 769px) and (max-width: 992px) {
-    .projects {
-        margin-top: 0;
-        width: 660px;
-    }
-    .project {
-        flex-direction: row;
-    }
-    .project > img {
-        width: 300px;
-        margin-right: 24px;
-        margin-bottom: 0px;
-    }
-    .publications {
-        margin-top: 70px;
-        width: 660px;
-    }
-    .publication > .info {
-        flex-direction: row;
-    }
-}
-
-@media (min-width: 993px) and (max-width: 1024px) {
-    .projects {
-        margin-top: 0;
-        width: 760px;
-    }
-    .project {
-        flex-direction: row;
-    }
-    .project > img {
-        width: 320px;
-        margin-right: 24px;
-        margin-bottom: 0px;
-    }
-    .publications {
-        margin-top: 70px;
-        width: 760px;
-    }
-    .publication > .info {
-        flex-direction: row;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .project-tiles--grid {
-        width: 648px;
-    }
-}
-
-/* Desktop view */
-@media (min-width: 1025px) {
-    .projects {
-        margin-top: 0;
-        width: 960px;
-    }
-    .project {
-        flex-direction: row;
-    }
-    .project > img {
-        width: 360px;
-        margin-right: 24px;
-        margin-bottom: 0px;
-    }
-    .publications {
-        margin-top: 70px;
-        width: 960px;
-    }
-    .publication > .info {
-        flex-direction: row;
     }
 }
 .projects--diagram {

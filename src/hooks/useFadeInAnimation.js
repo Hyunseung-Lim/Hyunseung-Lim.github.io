@@ -200,7 +200,13 @@ export const useFadeInAnimation = (config = {}) => {
         return;
       }
 
+      // Apply the hidden start state without letting a transition run from the element's default
+      // (visible) style. Refs for sibling nodes can force a layout in between, which would otherwise
+      // leave later nodes fading *out* first and skipping the reveal animation.
+      node.style.transition = 'none';
       node.classList.add('fade-in-element');
+      void node.getBoundingClientRect();
+      node.style.transition = '';
 
       if (node.classList.contains('fade-in-active')) {
         pendingElementsRef.current.delete(node);

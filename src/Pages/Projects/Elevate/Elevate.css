@@ -1,67 +1,3 @@
-.project-page--elevate .banner-section {
-  position: relative;
-  width: 100%;
-  height: min(50vh, 100vw);
-  max-height: 50vh;
-  min-height: min(400px, 50vh, 100vw);
-  overflow: hidden;
-}
-
-.project-page--elevate .banner-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.project-page--elevate .banner-section picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.project-page--elevate .elevate-banner {
-  height: min(50vh, 100vw);
-  max-height: 50vh;
-  min-height: 0;
-}
-
-.project-page--elevate .elevate-banner-image {
-  object-position: center 95% !important;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-
-.elevate-award {
-  width: 90px;
-}
-
-
-.project-page--elevate .elevate-body {
-  line-height: 1.65;
-}
-
-.project-page--elevate .elevate-overview__copy {
-  width: 100%;
-  text-align: left;
-}
-
-.project-page--elevate .elevate-video-frame {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000000;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: none;
-}
-
-.project-page--elevate .elevate-video-frame iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
 .project-page--elevate .elevate-applications-grid {
   --applications-gap: 1.25rem;
   --tile-base-size: min(200px, 16vw);
@@ -105,7 +41,7 @@
 
 .project-page--elevate .elevate-hardware-detail__image {
   width: 100%;
-  border-radius: 10px;
+  border-radius: var(--radius-frame);
   display: block;
 }
 
@@ -127,7 +63,7 @@
   position: relative;
   width: var(--tile-base-size, min(200px, 16vw));
   height: var(--tile-base-size, min(200px, 16vw));
-  border-radius: 18px;
+  border-radius: var(--radius-frame);
   overflow: hidden;
   background: rgba(5, 7, 11, 0.95);
   transition:
@@ -137,13 +73,6 @@
   padding: 0;
   cursor: pointer;
   flex: 0 0 auto;
-}
-
-.project-page--elevate .elevate-applications-grid__item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
 .project-page--elevate .elevate-applications-grid__item::before {
@@ -257,36 +186,3 @@
   }
 }
 
-.dark-mode .project-page--elevate {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-@media (max-width: 992px) {
-  .project-page--elevate .banner-section {
-    height: min(50vh, 100vw);
-    max-height: 50vh;
-    min-height: min(300px, 50vh, 100vw);
-  }
-}
-
-@media (max-width: 768px) {
-  .project-page--elevate .banner-section {
-    height: min(40vh, 100vw);
-    min-height: min(250px, 50vh, 100vw);
-  }
-}
-
-@media (max-width: 480px) {
-  .project-page--elevate .banner-section {
-    height: min(35vh, 100vw);
-    min-height: min(200px, 50vh, 100vw);
-  }
-
-  .elevate-award {
-    width: 70px;
-  }
-}
-.project-page--elevate .project-divider:not(.project-divider--header):not(.project-divider--spacer) {
-  margin: 3rem 0 0;
-}

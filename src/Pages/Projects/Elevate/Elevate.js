@@ -2,12 +2,17 @@ import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Topbar } from '../../../Components/Topbar/topbar';
 import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
-import { useTheme } from '../../../contexts/ThemeContext';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
-import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
-import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
+import {
+  ProjectHeader,
+  ProjectBanner,
+  ProjectDivider,
+  ProjectVideoFrame,
+  ProjectBibtexSection,
+  collectProjectAssets
+} from '../../../Components/ProjectPage';
 import './Elevate.css';
 
 const parseLengthToPx = (value) => {
@@ -53,8 +58,6 @@ const getGapValue = (styles) => {
   return 0;
 };
 
-const ELEVATE_DESKTOP_BANNER = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail.png`;
-const ELEVATE_MOBILE_BANNER = `${process.env.PUBLIC_URL}/projects/elevate/thumbnail_mobile.png`;
 const ELEVATE_INSTALLATION_VIDEO_URL = 'https://www.youtube.com/embed/QvuVQ68uf-w?rel=0';
 const ELEVATE_APPLICATION_IMAGES = [
   { name: 'app1', label: 'Landscape' },
@@ -107,13 +110,11 @@ const ELEVATE_HARDWARE_DETAILS = {
     description: (
       <>
         <strong>Elevate</strong> is mounted on a box-framed structure made from aluminum profiles (120 cm wide × 248 cm
-        deep × 73 cm high). The top of the box (at 73 cm) is the actuated platform, covered with a smooth 15T birch
-        plywood sheet that houses the pins and prevents collisions. In the middle, a layered structure of a 6T acrylic
-        sheet and a 14T iron plate is glued together. Together, these elements form a sturdy platform that supports the
+        deep × 73 cm high). The top of the box (at 73 cm) is the actuated platform, covered with a smooth 15 mm birch plywood sheet that houses the pins and prevents collisions. In the middle, a layered structure of a 6 mm acrylic sheet and a 14 mm iron plate is glued together. Together, these elements form a sturdy platform that supports the
         weight of an average user.
       </>
     ),
-    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard1-detail.png`,
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard1_detail.png`,
     detailAlt: 'Detail view of the Elevate structural enclosure and layered platform.'
   },
   hard2: {
@@ -124,7 +125,7 @@ const ELEVATE_HARDWARE_DETAILS = {
         into varied terrains.
       </>
     ),
-    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard2-detail.png`,
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard2_detail.png`,
     detailAlt: 'Close-up of Elevate pin-array construction.'
   },
   hard3: {
@@ -136,7 +137,7 @@ const ELEVATE_HARDWARE_DETAILS = {
         simultaneously pushes or pulls all pins in the same row.
       </>
     ),
-    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard3-detail.png`,
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard3_detail.png`,
     detailAlt: 'Shape generator module traveling under the Elevate platform.'
   },
   hard4: {
@@ -148,21 +149,12 @@ const ELEVATE_HARDWARE_DETAILS = {
         columns and all 1,200 pins.
       </>
     ),
-    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard4-detail.png`,
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard4_detail.png`,
     detailAlt: 'Locking system module that stabilizes Elevate pins.'
   }
 };
-const ELEVATE_PAGE_ASSETS = Array.from(
-  new Set(
-    [
-      ELEVATE_DESKTOP_BANNER,
-      ELEVATE_MOBILE_BANNER,
-      `${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`,
-      `${process.env.PUBLIC_URL}/projects/elevate/chi_logo_dark.png`,
-      `${process.env.PUBLIC_URL}/icons/dl.png`
-    ].filter(Boolean)
-  )
-);
+// Page-specific images to preload in addition to the header/banner assets from the meta.
+const ELEVATE_PAGE_ASSETS = [];
 
 export const ElevateProject = () => {
   const projectData = PROJECTS.elevate;
@@ -173,14 +165,8 @@ export const ElevateProject = () => {
   const [hardwareGridStyle, setHardwareGridStyle] = useState(null);
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
-  const desktopBanner = ELEVATE_DESKTOP_BANNER;
-  const mobileBanner = ELEVATE_MOBILE_BANNER;
   const installationVideoUrl = ELEVATE_INSTALLATION_VIDEO_URL;
-  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(desktopBanner, themeMode);
-  const { isDark } = useTheme();
-  const awardBadgeSrc = isDark
-    ? `${process.env.PUBLIC_URL}/projects/elevate/chi_logo_dark.png`
-    : `${process.env.PUBLIC_URL}/projects/elevate/chi_logo.png`;
+  const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(projectData.banner, themeMode);
   const applicationImages = ELEVATE_APPLICATION_IMAGES;
   const applicationDescriptions = ELEVATE_APPLICATION_DESCRIPTIONS;
   const applicationRows = useMemo(() => {
@@ -207,25 +193,7 @@ export const ElevateProject = () => {
     }, []);
   }, [hardwareImages]);
   const activeHardwareDetail = activeHardware ? hardwareDetails[activeHardware] : null;
-  const resourceLinks = [
-    {
-      type: 'paper',
-      href: 'https://doi.org/10.1145/3411764.3445454',
-      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconAlt: 'ACM DL'
-    }
-  ];
-  const pageAssets = useMemo(() => {
-    const assets = new Set(ELEVATE_PAGE_ASSETS);
-    if (desktopBanner) {
-      assets.add(desktopBanner);
-    }
-    if (mobileBanner) {
-      assets.add(mobileBanner);
-    }
-    return Array.from(assets);
-  }, [desktopBanner, mobileBanner]);
+  const pageAssets = useMemo(() => collectProjectAssets(projectData, ELEVATE_PAGE_ASSETS), [projectData]);
 
   const applicationsGridRef = useRef(null);
   const hardwareGridRef = useRef(null);
@@ -349,93 +317,34 @@ export const ElevateProject = () => {
     <PageLoadGuard assets={pageAssets} message={loaderMessage}>
       <div className={`${pageClassName} project-page--elevate`}>
         <Topbar hideThemeToggle={shouldHideThemeToggle} />
-        {desktopBanner && (
-          <div className="banner-section elevate-banner">
-            <picture>
-              <source media="(max-width: 640px)" srcSet={mobileBanner} />
-              <img
-                src={desktopBanner}
-                alt={`${projectData.title} banner`}
-                className="banner-image elevate-banner-image"
-              />
-            </picture>
-          </div>
-        )}
+        <ProjectBanner project={projectData} />
 
         <div className="project-container" ref={setScrollRoot}>
-        <header className="project-header">
-          <h1 className="project-title project-fade-block" ref={fadeInRef}>
-            {projectData.title}
-          </h1>
-          {projectData.subtitle && (
-            <p className="project-subtitle project-fade-block" ref={fadeInRef}>
-              {projectData.subtitle}
-            </p>
-          )}
-          <div className="project-meta-info">
-            {projectData.period && (
-              <div className="project-period-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Period</div>
-                <div className="meta-value">{projectData.period}</div>
-              </div>
-            )}
-            {projectData.projectType && (
-              <div className="project-type-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Project Type</div>
-                <div className="meta-value">{projectData.projectType}</div>
-              </div>
-            )}
-            <div className="project-awards-section project-fade-block" aria-label="Project awards" ref={fadeInRef}>
-              <img
-                src={awardBadgeSrc}
-                alt="CHI 2021"
-                className="project-award-badge elevate-award"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
-        </header>
-
-        <div
-          className="project-divider project-divider--header project-fade-block"
-          role="presentation"
-          aria-hidden="true"
-          ref={fadeInRef}
-        />
+        <ProjectHeader project={projectData} fadeRef={fadeInRef} />
 
         <main className="project-content">
-          <section className="project-section elevate-overview">
-            <div className="elevate-overview__copy project-fade-block" ref={fadeInRef}>
-              <p className="section-text elevate-body">
+          <section className="project-section project-section--intro">
+            <p className="section-text project-fade-block" ref={fadeInRef}>
                 Head-mounted displays let users explore virtual worlds by simply walking through them, which has led researchers to create haptic displays that simulate different elevation shapes. However, existing shape-changing floors are limited to tabletop scale or can only display coarse terrains due to a limited number of actuators and low vertical resolution. To address this, we introduce Elevate, a dynamic and walkable pin-array floor that supports both large shape variations and fine-grained terrain details.
-              </p>
-            </div>
+            </p>
           </section>
 
           <section className="project-section">
-            <div className="elevate-video-frame project-fade-block" ref={fadeInRef}>
-              <iframe
-                src={installationVideoUrl}
-                title="Elevate installation walkthrough"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-            <div
-              className="project-divider project-fade-block"
-              role="presentation"
-              aria-hidden="true"
-              ref={fadeInRef}
+            <ProjectVideoFrame
+              src={installationVideoUrl}
+              title="Elevate installation walkthrough"
+              fadeRef={fadeInRef}
             />
           </section>
+
+          <ProjectDivider fadeRef={fadeInRef} />
 
           <section className="project-section elevate-applications elevate-hardware">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               System Implementation
             </h2>
             <p className="section-text project-fade-block" ref={fadeInRef}>
-              <strong>Elevate</strong> enables users to experience large variations in shapes as well as the finer details of terrains. It is made of three components: 1200 pins, a shape generator, and a locking system.
+              <strong>Elevate</strong> enables users to experience large variations in shapes as well as the finer details of terrains. It is made of three components: 1,200 pins, a shape generator, and a locking system.
             </p>
             <div className="project-fade-block" ref={fadeInRef}>
               <div
@@ -460,7 +369,7 @@ export const ElevateProject = () => {
                               }
                               data-item={image.name}
                             >
-                              <img
+                              <img className="img-cover"
                                 src={image.src}
                                 alt={image.alt}
                                 loading="lazy"
@@ -540,7 +449,7 @@ export const ElevateProject = () => {
                               }
                               data-item={image.name}
                             >
-                              <img
+                              <img className="img-cover"
                                 src={image.src}
                                 alt={image.alt}
                                 loading="lazy"
@@ -580,20 +489,9 @@ export const ElevateProject = () => {
             )}
           </section>
 
-          <div
-            className="project-divider project-divider--spacer project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
-
-          <section className="project-section">
-            <h2 className="section-title project-fade-block" ref={fadeInRef}>
-              BibTeX
-            </h2>
-            <BibtexCard
-              ref={fadeInRef}
-              text={`@inproceedings{10.1145/3411764.3445454,
+          <ProjectBibtexSection
+            fadeRef={fadeInRef}
+            text={`@inproceedings{10.1145/3411764.3445454,
 author = {Je, Seungwoo and Lim, Hyunseung and Moon, Kongpyung and Teng, Shan-Yuan and Brooks, Jas and Lopes, Pedro and Bianchi, Andrea},
 title = {Elevate: A Walkable Pin-Array for Large Shape-Changing Terrains},
 year = {2021},
@@ -610,9 +508,7 @@ keywords = {Haptic Floor, Shape Changing Display, VR},
 location = {Yokohama, Japan},
 series = {CHI '21}
 }`}
-              className="project-fade-block"
-            />
-          </section>
+          />
         </main>
         </div>
 

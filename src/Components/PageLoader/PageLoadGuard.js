@@ -43,18 +43,3 @@ export const PageLoadGuard = ({
 
   return <>{children}</>;
 };
-
-export const withPageLoader = (Component, assetFactory = []) => {
-  const WrappedComponent = (props) => {
-    const assets = typeof assetFactory === 'function' ? assetFactory(props) : assetFactory;
-
-    return (
-      <PageLoadGuard assets={assets}>
-        <Component {...props} />
-      </PageLoadGuard>
-    );
-  };
-
-  WrappedComponent.displayName = `WithPageLoader(${Component.displayName || Component.name || 'Component'})`;
-  return WrappedComponent;
-};

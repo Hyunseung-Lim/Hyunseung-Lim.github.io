@@ -67,9 +67,9 @@ const GAUGE_PAIRS = [
 const DEFAULT_GAUGE_ANGLES = GAUGE_PAIRS.map(pair => 10 + pair.value * 160);
 
 export const FEED_O_METER_UI_ASSETS = {
-  send: `${process.env.PUBLIC_URL}/projects/feed-o-meter/chatBtn.svg`,
-  sendDark: `${process.env.PUBLIC_URL}/projects/feed-o-meter/chatBtn_dark.svg`,
-  mentor: `${process.env.PUBLIC_URL}/projects/feed-o-meter/character1.png`,
+  send: `${process.env.PUBLIC_URL}/projects/feed-o-meter/chat_btn.svg`,
+  sendDark: `${process.env.PUBLIC_URL}/projects/feed-o-meter/chat_btn_dark.svg`,
+  mentor: `${process.env.PUBLIC_URL}/projects/feed-o-meter/mentor.png`,
   logo: `${process.env.PUBLIC_URL}/projects/feed-o-meter/logo.png`,
   logoDark: `${process.env.PUBLIC_URL}/projects/feed-o-meter/logo_dark.png`,
   pointer: `${process.env.PUBLIC_URL}/projects/feed-o-meter/pointer.svg`,
@@ -77,13 +77,13 @@ export const FEED_O_METER_UI_ASSETS = {
 };
 
 const MENTEE_AVATAR_ASSETS = Array.from({ length: 5 }, (_, row) =>
-  Array.from({ length: 5 }, (_, col) => `${process.env.PUBLIC_URL}/projects/feed-o-meter/students/student${row + 1}${col + 1}.png`)
+  Array.from({ length: 5 }, (_, col) => `${process.env.PUBLIC_URL}/projects/feed-o-meter/students/${row + 1}${col + 1}.png`)
 ).flat();
 
 export const FEED_O_METER_UI_ASSET_PATHS = Array.from(
   new Set([
     ...Object.values(FEED_O_METER_UI_ASSETS),
-    `${process.env.PUBLIC_URL}/projects/feed-o-meter/feed-o-meterUI.png`,
+    `${process.env.PUBLIC_URL}/projects/feed-o-meter/ui.png`,
     ...MENTEE_AVATAR_ASSETS
   ])
 );
@@ -258,10 +258,10 @@ const randomizeMenteeAvatar = direction => {
       window.clearTimeout(resetTimeoutRef.current);
     };
   }, []);
-  const menteeAvatarSrc = `${process.env.PUBLIC_URL}/projects/feed-o-meter/students/student${menteeAvatarKey.row}${menteeAvatarKey.col}.png`;
+  const menteeAvatarSrc = `${process.env.PUBLIC_URL}/projects/feed-o-meter/students/${menteeAvatarKey.row}${menteeAvatarKey.col}.png`;
   return (
     <section className="feedometer-ui project-fade-block" ref={fadeRef}>
-      <div className="feedometer-ui__frame">
+      <div className="feedometer-ui__frame project-demo-frame">
         <header className="feedometer-ui__topbar">
           <div className="feedometer-ui__brand">
             <img src={isDark ? assets.logoDark : assets.logo} alt="Feed-O-Meter logotype" loading="lazy" />
@@ -335,7 +335,7 @@ const randomizeMenteeAvatar = direction => {
                     }`}
                   >
                     <div className="feedometer-chat-bubble__avatar">
-                      <img
+                      <img className="img-cover"
                         src={message.speaker === 'mentee' ? menteeAvatarSrc : assets.mentor}
                         alt=""
                         loading="lazy"
@@ -445,12 +445,12 @@ const randomizeMenteeAvatar = direction => {
           </section>
         </div>
       </div>
-      <p className="feedometer-ui__note">
+      <p className="feedometer-ui__note project-caption">
         This interaction is randomly simulated and not powered by the LLM pipeline.
       </p>
       <div className="feedometer-ui__fallback">
-        <img
-          src={`${process.env.PUBLIC_URL}/projects/feed-o-meter/feed-o-meterUI.png`}
+        <img className="img-fluid"
+          src={`${process.env.PUBLIC_URL}/projects/feed-o-meter/ui.png`}
           alt="Feed-O-Meter interface preview"
           loading="lazy"
         />

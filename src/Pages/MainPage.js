@@ -51,7 +51,7 @@ export const MainPage = () => {
                   key={index}
                   style={{ width: `${100 / extendedImages.length}%` }}
                 >
-                  <img src={src} alt={`${event?.title || 'Slide'} ${index + 1}`} />
+                  <img className="img-cover" src={src} alt={`${event?.title || 'Slide'} ${index + 1}`} />
                 </div>
               ))}
             </div>

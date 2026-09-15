@@ -76,7 +76,7 @@ const QA_ITEMS = [
       </>
     ),
     image: {
-      src: `${process.env.PUBLIC_URL}/projects/aqua/aqua_UI.png`,
+      src: `${process.env.PUBLIC_URL}/projects/aqua/ui.png`,
       alt: 'AQUA overview interface'
     }
   },
@@ -99,8 +99,7 @@ const QA_ITEMS = [
           <strong>Effective for learning</strong>
         </p>
         <p>
-          QA mirrors how many people learn—by asking questions and refining understanding—so readers can follow a clear
-          flow from the question to evidence to an answer.
+          QA mirrors how many people learn, by asking questions and refining their understanding, so readers can follow a clear flow from question to evidence to answer.
         </p>
         <p>
           <strong>Bridging the gap to the reader’s perspective</strong>
@@ -123,8 +122,7 @@ const QA_ITEMS = [
             results, applications).
           </li>
           <li>
-            <strong>Personalized questions:</strong> tailored to the author, using their research background—such as past
-            publications or topics—beyond the paper currently being promoted.
+            <strong>Personalized questions:</strong> tailored to the author, using their research background, such as past publications or topics, beyond the paper currently being promoted.
           </li>
           <li>
             <strong>Follow-up questions:</strong> suggest additional questions based on QA pairs already created.
@@ -175,8 +173,8 @@ const QA_ITEMS = [
           <span className="aqua-qa-highlight">the LLM did not fully capture each author’s unique intent</span>. Also, authors
           often did not revise the auto-generated answers enough, which tended to lead to more passive participation.
         </p>
-        <div className="aqua-qa-table-wrapper">
-          <table className="aqua-qa-table">
+        <div className="aqua-qa-table-wrapper project-table-wrapper">
+          <table className="aqua-qa-table project-table project-table--center">
             <thead>
               <tr>
                 <th scope="col" aria-label="Question type"></th>
@@ -213,8 +211,7 @@ const QA_ITEMS = [
             researchers in other fields?"
           </span>{' '}
           <br /> Promoting research matters because it helps increase
-          academic visibility and can spark interdisciplinary collaboration, but it also demands two different writing skills
-          at once—scientific writing that conveys facts accurately and creative writing that turns expert knowledge into an
+          academic visibility and can spark interdisciplinary collaboration, but it also demands two different writing skills at once: scientific writing that conveys facts accurately and creative writing that turns expert knowledge into an
           accessible, engaging narrative for non-expert readers. Most researchers find it difficult to balance these two.
         </p>
       </>

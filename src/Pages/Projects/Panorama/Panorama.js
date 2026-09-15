@@ -4,12 +4,16 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
-import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { PanoramaDiagram, PANORAMA_DIAGRAM_ASSETS } from './diagram';
-import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import { SegmentedControl } from '../../../Components/SegmentedButton/segmentedbutton';
 import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
+import {
+  ProjectHeader,
+  ProjectDivider,
+  ProjectBibtexSection,
+  collectProjectAssets
+} from '../../../Components/ProjectPage';
 import './Panorama.css';
 
 const parseNumericValue = (value) => {
@@ -581,24 +585,10 @@ export const PanoramaProject = () => {
       ]
     }
   ];
-  const resourceLinks = [
-    { type: 'paper', href: 'https://proceedings.neurips.cc/paper_files/paper/2025/hash/4aab82c8d6b77c0b6b010145c1bfcdd3-Abstract-Datasets_and_Benchmarks_Track.html' },
-    { type: 'github', href: 'https://github.com/LGAI-Research/PANORAMA' },
-    { type: 'dataset', href: 'https://huggingface.co/datasets/LG-AI-Research/PANORAMA' }
-  ];
-  const pageAssets = Array.from(
-    new Set(
-      [
-        `${process.env.PUBLIC_URL}/projects/panorama/neurips.png`,
-        `${process.env.PUBLIC_URL}/projects/panorama/neurips_dark.png`,
-        `${process.env.PUBLIC_URL}/projects/panorama/curation.png`,
-        `${process.env.PUBLIC_URL}/icons/github.svg`,
-        `${process.env.PUBLIC_URL}/icons/github_dark.svg`,
-        `${process.env.PUBLIC_URL}/icons/huggingface-color.svg`,
-        ...PANORAMA_DIAGRAM_ASSETS
-      ].filter(Boolean)
-    )
-  );
+  const pageAssets = collectProjectAssets(projectData, [
+    '/projects/panorama/curation.png',
+    ...PANORAMA_DIAGRAM_ASSETS
+  ]);
 
   const totalBenchmarkLeaders = getTotalBenchmarkColumnLeaders(benchmarkResults);
   const par4pcColumnLeaders = getDetailedBenchmarkColumnLeaders(par4pcDetailedResults);
@@ -613,66 +603,23 @@ export const PanoramaProject = () => {
         <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
         <div className="project-container" ref={setScrollRoot}>
-        <header className="project-header">
-          <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
-            <h1 className="project-title">{projectData.title}</h1>
-            {projectData.subtitle && <p className="project-subtitle">{projectData.subtitle}</p>}
-          </div>
-          <div className="project-meta-info">
-            {projectData.period && (
-              <div className="project-period-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Period</div>
-                <div className="meta-value">{projectData.period}</div>
-              </div>
-            )}
-            {projectData.projectType && (
-              <div className="project-type-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Project Type</div>
-                <div className="meta-value">{projectData.projectType}</div>
-              </div>
-            )}
-            <div
-              className="project-awards-section project-fade-block"
-              aria-label="Conference badge"
-              ref={fadeInRef}
-            >
-              <img
-                src={
-                  isDark
-                    ? `${process.env.PUBLIC_URL}/projects/panorama/neurips_dark.png`
-                    : `${process.env.PUBLIC_URL}/projects/panorama/neurips.png`
-                }
-                alt="NeurIPS 2025"
-                className="project-award-badge"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
-        </header>
-
-        <div
-          className="project-divider project-divider--header project-fade-block"
-          role="presentation"
-          aria-hidden="true"
-          ref={fadeInRef}
-        />
+        <ProjectHeader project={projectData} fadeRef={fadeInRef} />
 
         <main className="project-content">
-          <section className="project-section project-section__fade" ref={fadeInRef}>
-            <p className="section-text panorama-body project-fade-block" ref={fadeInRef}>
+          <section className="project-section project-section--intro">
+            <p className="section-text project-fade-block" ref={fadeInRef}>
               We construct{' '}
               <strong>PANORAMA</strong>, a dataset of 8,143 U.S. patent examination records that preserves the full decision trails,
               including original applications, all cited references, Non-Final Rejections, and Notices of Allowance. Also,{' '}
               <strong>PANORAMA</strong> decomposes the trails into sequential benchmarks that emulate patent professionals' patent review
-              processes and allow researchers to examine large language models' capabilities at each step of them.
+              processes and allow researchers to examine large language models' capabilities at each step.
             </p>
           </section>
 
-          <section className="project-section project-section__fade panorama-diagram-section" ref={fadeInRef}>
+          <section className="project-section panorama-diagram-section">
             <PanoramaDiagram fadeRef={fadeInRef} isDark={isDark} />
             <p
-              className="section-text section-text--small panorama-diagram-caption project-fade-block"
+              className="project-caption panorama-diagram-caption project-fade-block"
               ref={fadeInRef}
             >
               The overview of the PANORAMA dataset and benchmark construction. The PANORAMA dataset is constructed
@@ -682,19 +629,14 @@ export const PanoramaProject = () => {
             </p>
           </section>
 
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
+          <ProjectDivider fadeRef={fadeInRef} />
 
           <h2 className="section-title project-fade-block" ref={fadeInRef}>
             PANORAMA Dataset
           </h2>
-          <section className="project-section project-section__fade panorama-dataset-section" ref={fadeInRef}>
-            <div className="panorama-table-wrapper project-fade-block" ref={fadeInRef}>
-              <table className="panorama-table">
+          <section className="project-section panorama-dataset-section">
+            <div className="panorama-table-wrapper project-table-wrapper project-fade-block" ref={fadeInRef}>
+              <table className="panorama-table project-table">
                 <colgroup>
                   <col />
                   <col />
@@ -831,10 +773,10 @@ export const PanoramaProject = () => {
             </div>
           </section>
 
-          <section className="project-section project-section__fade panorama-dataset-curation" ref={fadeInRef}>
-            <h2 className="section-title panorama-dataset-curation__title project-fade-block" ref={fadeInRef}>
+          <section className="project-section panorama-dataset-curation">
+            <h3 className="section-subtitle project-fade-block" ref={fadeInRef}>
               Dataset Curation
-            </h2>
+            </h3>
             <div className="panorama-curation-figure project-fade-block" ref={fadeInRef}>
               <img
                 src={`${process.env.PUBLIC_URL}/projects/panorama/curation.png`}
@@ -843,8 +785,8 @@ export const PanoramaProject = () => {
               />
             </div>
             <div className="panorama-subsection project-fade-block" ref={fadeInRef}>
-              <h3 className="panorama-subsection__title">Data Collection</h3>
-              <p className="section-text section-text--small panorama-subsection__body">
+              <h3 className="section-subtitle">Data Collection</h3>
+              <p className="section-text panorama-subsection__body">
                 We built a customized pipeline to accurately map USPTO data across multiple APIs and collect only the
                 first Non-Final Rejection per application to avoid redundancy. From each rejection, we extracted
                 examiner-cited patents via regex and retrieved their abstracts, specifications, claims (via patent_client),
@@ -855,8 +797,8 @@ export const PanoramaProject = () => {
             </div>
 
             <div className="panorama-subsection project-fade-block" ref={fadeInRef}>
-              <h3 className="panorama-subsection__title">Parsing Non-Final Rejection Documents</h3>
-              <p className="section-text section-text--small panorama-subsection__body">
+              <h3 className="section-subtitle">Parsing Non-Final Rejection Documents</h3>
+              <p className="section-text panorama-subsection__body">
                 We parsed Non-Final Rejection documents into claim-level data, since examiners evaluate patentability claim by claim,
                 labeling each claim as rejected or accepted and recording the grounds for the decision. Using GPT-4o, we classified
                 claims by legal basis (§101/§102/§103/§112) and, for §102/§103, extracted cited prior art, supporting paragraphs,
@@ -865,24 +807,19 @@ export const PanoramaProject = () => {
               </p>
             </div>
           </section>
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
+          <ProjectDivider fadeRef={fadeInRef} />
 
-          <section className="project-section project-section__fade panorama-benchmark-tasks" ref={fadeInRef}>
+          <section className="project-section panorama-benchmark-tasks">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Benchmark Tasks
             </h2>
-            <p className="section-text section-text--small panorama-subsection__body project-fade-block" ref={fadeInRef}>
+            <p className="section-text panorama-subsection__body project-fade-block" ref={fadeInRef}>
               We divide patent examination into three benchmark tasks (PAR4PC, PI4PC, NOC4PC) that replicate the main steps taken by
               real-world examiners using the PANORAMA dataset, especially the parsed Non-Final Rejection. Our benchmarks primarily focus on patent
               examination under §102 (novelty) and §103 (non-obviousness), where patentability is decided by comparing the claim with
               the prior art.
             </p>
-            <p className="section-text section-text--small panorama-subsection__body project-fade-block" ref={fadeInRef}>
+            <p className="section-text panorama-subsection__body project-fade-block" ref={fadeInRef}>
               We established baseline performance by evaluating 12 LLMs spanning proprietary, open-source, and reasoning models across
               the benchmark tasks using two prompting strategies: zero-shot and chain-of-thought (CoT). Reasoning models were evaluated
               only in the CoT setting.
@@ -896,8 +833,8 @@ export const PanoramaProject = () => {
               />
             </div>
             {benchmarkFilter === 'total' ? (
-              <div className="panorama-benchmark-table-wrapper project-fade-block" ref={fadeInRef}>
-                <table className="panorama-benchmark-table">
+              <div className="panorama-benchmark-table-wrapper project-table-wrapper project-fade-block" ref={fadeInRef}>
+                <table className="panorama-benchmark-table project-table project-table--center">
                   <thead>
                     <tr>
                       <th rowSpan="2">Model</th>
@@ -955,7 +892,7 @@ export const PanoramaProject = () => {
                     })}
                   </tbody>
                 </table>
-                <p className="panorama-benchmark-caption">
+                <p className="panorama-benchmark-caption project-caption">
                   Performance comparison of 12 LLMs across three tasks. The baseline score is the average of 20 trials of random
                   responses.
                 </p>
@@ -963,11 +900,11 @@ export const PanoramaProject = () => {
             ) : (
               visibleBenchmarks.map((task) => (
                 <article key={task.key} className="panorama-benchmark-card project-fade-block" ref={fadeInRef}>
-                  <h3 className="panorama-subsection__title">{task.title}</h3>
-                  <p className="section-text section-text--small panorama-subsection__body">{task.description}</p>
+                  <h3 className="card-title">{task.title}</h3>
+                  <p className="section-text section-text--small panorama-subsection__body panorama-card-body">{task.description}</p>
                   {task.key === 'par4pc' && (
-                    <div className="panorama-benchmark-table-wrapper panorama-benchmark-table-wrapper--compact">
-                      <table className="panorama-benchmark-table panorama-benchmark-table--compact">
+                    <div className="panorama-benchmark-table-wrapper project-table-wrapper panorama-benchmark-table-wrapper--compact">
+                      <table className="panorama-benchmark-table project-table project-table--center panorama-benchmark-table--compact">
                         <thead>
                           <tr>
                             <th rowSpan="2">Model</th>
@@ -1052,8 +989,8 @@ export const PanoramaProject = () => {
                     </div>
                   )}
                   {task.key === 'pi4pc' && (
-                    <div className="panorama-benchmark-table-wrapper panorama-benchmark-table-wrapper--compact">
-                      <table className="panorama-benchmark-table panorama-benchmark-table--compact">
+                    <div className="panorama-benchmark-table-wrapper project-table-wrapper panorama-benchmark-table-wrapper--compact">
+                      <table className="panorama-benchmark-table project-table project-table--center panorama-benchmark-table--compact">
                         <thead>
                           <tr>
                             <th rowSpan="2">Model</th>
@@ -1138,8 +1075,8 @@ export const PanoramaProject = () => {
                     </div>
                   )}
                   {task.key === 'noc4pc' && (
-                    <div className="panorama-benchmark-table-wrapper panorama-benchmark-table-wrapper--compact">
-                      <table className="panorama-benchmark-table panorama-benchmark-table--compact">
+                    <div className="panorama-benchmark-table-wrapper project-table-wrapper panorama-benchmark-table-wrapper--compact">
+                      <table className="panorama-benchmark-table project-table project-table--center panorama-benchmark-table--compact">
                         <thead>
                           <tr>
                             <th rowSpan="2">Model</th>
@@ -1229,19 +1166,9 @@ export const PanoramaProject = () => {
               ))
             )}
           </section>
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
-
-          <section className="project-section project-section__fade" ref={fadeInRef}>
-            <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
-            <BibtexCard
-              ref={fadeInRef}
-              className="project-fade-block"
-              text={`@inproceedings{NEURIPS2025_4aab82c8,
+          <ProjectBibtexSection
+            fadeRef={fadeInRef}
+            text={`@inproceedings{NEURIPS2025_4aab82c8,
  author = {Lim, Hyunseung and Nam, Sooyohn and Na, Sungmin and Cho, Ji Yong and Yang, June Yong and Shin, Hyungyu and Lee, Yoonjoo and Kim, Juho and Lee, Moontae and Hong, Hwajung},
  booktitle = {Advances in Neural Information Processing Systems},
  editor = {D. Belgrave and C. Zhang and H. Lin and L. Montoya and R. Pascanu and P. Koniusz and M. Ghassemi and N. Chen},
@@ -1252,8 +1179,7 @@ export const PanoramaProject = () => {
  volume = {38},
  year = {2025}
 }`}
-            />
-          </section>
+          />
         </main>
         </div>
 

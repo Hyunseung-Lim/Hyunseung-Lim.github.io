@@ -9,7 +9,7 @@ import { PageLoadGuard } from '../Components/PageLoader/PageLoadGuard';
 const TAGLINE_PART_ONE = 'A Design';
 const TAGLINE_PART_TWO = 'AI Researcher';
 const ABOUT_PAGE_ASSETS = [
-  'images/photo.png',
+  '/images/photo.webp',
   '/icons/x.svg',
   '/icons/x_dark.svg',
   '/icons/togglebtn.svg',
@@ -216,7 +216,7 @@ export const About = () => {
                       aria-hidden="true"
                       style={{ transform: `rotate(${crossRotation}deg)` }}
                     >
-                      <img src={crossIconSrc} alt="" />
+                      <img className="img-fluid" src={crossIconSrc} alt="" />
                     </span>
                   </span>
                 </span>
@@ -225,7 +225,7 @@ export const About = () => {
             </div>
 
             <div className="about-photo about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.5s' }}>
-              <img src={'images/photo.png'} alt="Hyunseung Lim" />
+              <img src="/images/photo.webp" alt="Hyunseung Lim" width="800" height="600" decoding="async" />
             </div>
 
             <p className="about-name about-fade-block" ref={fadeInRef} style={{ '--about-fade-delay': '0.75s' }}>

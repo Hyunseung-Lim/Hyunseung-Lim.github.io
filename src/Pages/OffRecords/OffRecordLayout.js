@@ -3,6 +3,7 @@ import { Topbar } from '../../Components/Topbar/topbar';
 import { Footer } from '../../Components/Footer/footer';
 import { useFadeInAnimation } from '../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../hooks/useProjectPageFrame';
+import { ProjectHeader } from '../../Components/ProjectPage';
 import './offRecordBase.css';
 
 export const OffRecordLayout = ({
@@ -58,24 +59,13 @@ export const OffRecordLayout = ({
     <div className={`${pageClassName} project-page--offrecord project-page--offrecord-${pageId}`}>
       <Topbar hideThemeToggle={shouldHideThemeToggle} />
       <div className="project-container" ref={setScrollRoot}>
-        <header className="project-header">
-          <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
-            <h1 className="project-title">{title}</h1>
-            {subtitle && <p className="project-subtitle">{subtitle}</p>}
-          </div>
+        <ProjectHeader project={{ title, subtitle }} fadeRef={fadeInRef}>
           {intro && (
             <p className="off-record-intro project-fade-block" ref={fadeInRef}>
               {intro}
             </p>
           )}
-        </header>
-
-        <div
-          className="project-divider project-divider--header project-fade-block"
-          role="presentation"
-          aria-hidden="true"
-          ref={fadeInRef}
-        />
+        </ProjectHeader>
 
         <main className="project-content">
           {resolvedContent}

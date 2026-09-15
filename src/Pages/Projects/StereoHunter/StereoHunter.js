@@ -5,11 +5,15 @@ import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
 import { useTheme } from '../../../contexts/ThemeContext';
-import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
-import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import { StereoHunterUI, VOCABULARY_SET, STEREOHUNTER_UI_ASSET_PATHS } from './StereoHunterUI';
 import labelCounts from '../../../Data/stereohunter_label_counts.json';
 import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
+import {
+  ProjectHeader,
+  ProjectDivider,
+  ProjectBibtexSection,
+  collectProjectAssets
+} from '../../../Components/ProjectPage';
 import './StereoHunter.css';
 
 const DISTRIBUTION_KEYS = [
@@ -34,7 +38,6 @@ export const StereoHunterProject = () => {
   const themeMode = projectData.themeMode ?? 'auto';
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(null, themeMode);
   const { isDark } = useTheme();
-  const facctLogo = `${process.env.PUBLIC_URL}/projects/stereohunter/${isDark ? 'facct_dark.png' : 'facct.png'}`;
   const flowImage = `${process.env.PUBLIC_URL}/projects/stereohunter/${isDark ? 'flow_dark.png' : 'flow.png'}`;
   const quantitativeRows = QUANTITATIVE_ROWS;
   const distributionKeys = DISTRIBUTION_KEYS;
@@ -71,30 +74,11 @@ export const StereoHunterProject = () => {
       .sort((a, b) => b.total - a.total);
   }, [vocabularyMap, distributionKeys]);
   const perTargetMaxTotal = useMemo(() => (perTargetRows.length ? perTargetRows[0].total : 0), [perTargetRows]);
-  const resourceLinks = [
-    {
-      type: 'paper',
-      href: 'https://doi.org/10.1145/3715275.3732207',
-      icon: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconDark: `${process.env.PUBLIC_URL}/icons/dl.png`,
-      iconAlt: 'ACM DL'
-    },
-    { type: 'github', href: 'https://github.com/Hyunseung-Lim/stereoHunter' }
-  ];
-  const pageAssets = Array.from(
-    new Set(
-      [
-        `${process.env.PUBLIC_URL}/projects/stereohunter/facct.png`,
-        `${process.env.PUBLIC_URL}/projects/stereohunter/facct_dark.png`,
-        `${process.env.PUBLIC_URL}/projects/stereohunter/flow.png`,
-        `${process.env.PUBLIC_URL}/projects/stereohunter/flow_dark.png`,
-        `${process.env.PUBLIC_URL}/icons/dl.png`,
-        `${process.env.PUBLIC_URL}/icons/github.svg`,
-        `${process.env.PUBLIC_URL}/icons/github_dark.svg`,
-        ...STEREOHUNTER_UI_ASSET_PATHS
-      ].filter(Boolean)
-    )
-  );
+  const pageAssets = collectProjectAssets(projectData, [
+    '/projects/stereohunter/flow.png',
+    '/projects/stereohunter/flow_dark.png',
+    ...STEREOHUNTER_UI_ASSET_PATHS
+  ]);
   const bibtexEntry = `@inproceedings{10.1145/3715275.3732207,
 author = {Lim, Hyunseung and Choi, Dasom and Hong, Hwajung},
 title = {How Do Users Identify and Perceive Stereotypes? Understanding User Perspectives on Stereotypical Biases in Large Language Models},
@@ -121,50 +105,11 @@ series = {FAccT '25}
         <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
         <div className="project-container" ref={setScrollRoot}>
-        <header className="project-header">
-          <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
-            <h1 className="project-title">{projectData.title}</h1>
-            {projectData.subtitle && <p className="project-subtitle">{projectData.subtitle}</p>}
-          </div>
-          <div className="project-meta-info">
-            {projectData.period && (
-              <div className="project-period-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Period</div>
-                <div className="meta-value">{projectData.period}</div>
-              </div>
-            )}
-            {projectData.projectType && (
-              <div className="project-type-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Project Type</div>
-                <div className="meta-value">{projectData.projectType}</div>
-              </div>
-            )}
-            <div
-              className="project-awards-section project-fade-block"
-              aria-label="Project awards"
-              ref={fadeInRef}
-            >
-              <img
-                src={facctLogo}
-                alt="ACM FAccT"
-                className="project-award-badge stereohunter-award"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
-        </header>
-
-        <div
-          className="project-divider project-divider--header project-fade-block"
-          role="presentation"
-          aria-hidden="true"
-          ref={fadeInRef}
-        />
+        <ProjectHeader project={projectData} fadeRef={fadeInRef} />
 
         <main className="project-content">
-          <section className="project-section project-section__fade">
-            <p className="section-text project-fade-block stereohunter-body" ref={fadeInRef}>
+          <section className="project-section project-section--intro">
+            <p className="section-text project-fade-block" ref={fadeInRef}>
               Stereotypical biases in large language models have the potential to result in discriminatory responses,
               posing harm to users and disrupting interactions. While prior research has predominantly focused on assessing
               stereotypes in LLMs with fairness metrics, there is a limited understanding of how users identify and perceive
@@ -173,18 +118,18 @@ series = {FAccT '25}
               responses from LLMs.
             </p>
           </section>
-          <section className="project-section project-section__fade stereohunter-ui-section" ref={fadeInRef}>
+          <section className="project-section stereohunter-ui-section">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               StereoHunter UI
             </h2>
             <StereoHunterUI fadeRef={fadeInRef} />
           </section>
-          <section className="project-section project-section__fade stereohunter-flow-section" ref={fadeInRef}>
-            <h2 className="section-title project-fade-block stereohunter-flow-title" ref={fadeInRef}>
+          <section className="project-section stereohunter-flow-section">
+            <h3 className="section-subtitle project-fade-block stereohunter-flow-title" ref={fadeInRef}>
               A Walk-Through Example
-            </h2>
+            </h3>
             <div className="stereohunter-flow-frame project-fade-block" ref={fadeInRef}>
-              <img
+              <img className="img-fluid"
                 src={flowImage}
                 alt="Step-by-step StereoHunter usage flow"
                 loading="lazy"
@@ -198,18 +143,13 @@ series = {FAccT '25}
               questions to understand their reasoning. When users identify a response as Ambiguous, they must explain their reasons for uncertainty in judging the stereotype. After one walk-through, users can enter a new situation for their target group or select a different group.
             </p>
           </section>
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
-          <section className="project-section stereohunter-quantitative" ref={fadeInRef}>
+          <ProjectDivider fadeRef={fadeInRef} />
+          <section className="project-section stereohunter-quantitative">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Interaction Statistics
             </h2>
             <p
-              className="section-text section-text--small stereohunter-interaction-summary project-fade-block"
+              className="section-text stereohunter-interaction-summary project-fade-block"
               ref={fadeInRef}
             >
               We observed how participants identified stereotypes in LLMs using StereoHunter. Fifty participants entered an
@@ -278,7 +218,7 @@ series = {FAccT '25}
                       <div className="stereohunter-quantitative__row-layout">
                         <div className="stereohunter-quantitative__row-header">
                           <span className="stereohunter-quantitative__label">{row.label}</span>
-                          <span className="stereohunter-quantitative__meta">
+                          <span className="stereohunter-quantitative__meta project-caption">
                             {row.targetTerms.toLocaleString()} groups
                           </span>
                         </div>
@@ -375,16 +315,7 @@ series = {FAccT '25}
               </div>
             )}
           </section>
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
-          <section className="project-section stereohunter-bibtex">
-            <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
-            <BibtexCard ref={fadeInRef} text={bibtexEntry} className="project-fade-block" />
-          </section>
+          <ProjectBibtexSection fadeRef={fadeInRef} text={bibtexEntry} />
         </main>
         </div>
 

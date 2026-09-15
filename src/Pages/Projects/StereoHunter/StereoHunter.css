@@ -1,55 +1,35 @@
-.project-page--stereohunter .stereohunter-body {
-  line-height: 1.75;
-  text-align: left;
+/* Palette for this page — extracted from hardcoded literals. Change a color here, not in the rules below.
+   Variables with a dark value are listed again in the .dark-mode block. */
+.project-page--stereohunter {
+  --sh-c1: #fff;
+  --sh-c2: #29328e;
+  --sh-c3: rgba(24, 30, 56, 0.1);
+  --sh-c4: rgba(24, 30, 56, 0.08);
+  --sh-c5: rgba(15, 18, 32, 0.9);
+  --sh-c6: #f47c89;
+  --sh-c7: #47c4a7;
+  --sh-c8: #80b7ff;
+  --sh-c9: #f8c57c;
+  --sh-c10: #bcb6d7;
+  --sh-c11: #212230;
 }
 
-.stereohunter-award {
-  width: 90px;
-}
-
-.project-page--stereohunter .project-divider:not(.project-divider--header) {
-  margin: 2.75rem 0;
-}
-
-.project-page--stereohunter .project-section.project-section__fade {
-  margin-bottom: 3rem;
-}
-
-.project-page--stereohunter .project-content > .project-section.project-section__fade:first-of-type {
-  margin-bottom: 1.5rem;
-}
-
-.project-page--stereohunter .stereohunter-ui-section .section-title {
-  margin-bottom: 1.25rem;
-}
-
-@media (max-width: 480px) {
-  .project-page--stereohunter .stereohunter-ui-section .section-title {
-    margin-bottom: 0.7rem;
-  }
-}
-
-.project-page--stereohunter .stereohunter-flow-section {
-  text-align: left;
+.dark-mode .project-page--stereohunter {
+  --sh-c1: #0f1424;
+  --sh-c2: #9199e8;
+  --sh-c3: rgba(255, 255, 255, 0.15);
+  --sh-c4: rgba(255, 255, 255, 0.12);
+  --sh-c5: rgba(255, 255, 255, 0.9);
 }
 
 .project-page--stereohunter .stereohunter-flow-title {
-  text-align: left;
   margin-bottom: 0.85rem;
-  font-size: 1.35rem;
-  line-height: 1.3;
 }
 
 .project-page--stereohunter .stereohunter-flow-frame {
   width: min(900px, 100%);
   margin: 1rem auto 0;
   padding: 0;
-}
-
-.project-page--stereohunter .stereohunter-flow-frame img {
-  width: 100%;
-  height: auto;
-  display: block;
 }
 
 .project-page--stereohunter .stereohunter-flow-copy {
@@ -65,21 +45,12 @@
   height: 1.35rem;
   margin: 0 0.3rem 0 0.1rem;
   border-radius: 50%;
-  background: #29328e;
-  color: #fff;
+  background: var(--sh-c2);
+  color: var(--sh-c1);
   font-size: 0.85rem;
   font-weight: 600;
 }
-
-.dark-mode .project-page--stereohunter .stereohunter-flow-step {
-  background: #9199e8;
-  color: #0f1424;
-}
-
 @media (max-width: 480px) {
-  .project-page--stereohunter .stereohunter-flow-title {
-    font-size: 0.9rem;
-  }
 
   .project-page--stereohunter .stereohunter-flow-step {
     width: 1rem;
@@ -96,8 +67,6 @@
 
 .project-page--stereohunter .stereohunter-interaction-summary {
   margin: 0 auto 1rem;
-  max-width: 760px;
-  color: var(--text-secondary, #4d5162);
   text-align: center;
 }
 
@@ -113,7 +82,7 @@
 .project-page--stereohunter .stereohunter-view-toggle {
   display: inline-flex;
   border: 1px solid rgba(24, 30, 56, 0.2);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   overflow: hidden;
 }
 
@@ -127,14 +96,14 @@
 }
 
 .project-page--stereohunter .stereohunter-view-toggle__btn.is-active {
-  background: rgba(24, 30, 56, 0.1);
+  background: var(--sh-c3);
   color: var(--text-primary);
 }
 
 .project-page--stereohunter .stereohunter-scale-toggle {
   display: inline-flex;
   border: 1px solid rgba(24, 30, 56, 0.15);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   overflow: hidden;
 }
 
@@ -148,26 +117,16 @@
 }
 
 .project-page--stereohunter .stereohunter-scale-toggle__btn.is-active {
-  background: rgba(24, 30, 56, 0.08);
+  background: var(--sh-c4);
   color: var(--text-primary);
 }
 
 .dark-mode .project-page--stereohunter .stereohunter-view-toggle {
   border-color: rgba(255, 255, 255, 0.25);
 }
-
-.dark-mode .project-page--stereohunter .stereohunter-view-toggle__btn.is-active {
-  background: rgba(255, 255, 255, 0.15);
-}
-
 .dark-mode .project-page--stereohunter .stereohunter-scale-toggle {
   border-color: rgba(255, 255, 255, 0.2);
 }
-
-.dark-mode .project-page--stereohunter .stereohunter-scale-toggle__btn.is-active {
-  background: rgba(255, 255, 255, 0.12);
-}
-
 @media (max-width: 480px) {
   .project-page--stereohunter .stereohunter-view-toggle__btn,
   .project-page--stereohunter .stereohunter-scale-toggle__btn {
@@ -224,30 +183,29 @@
 .project-page--stereohunter .stereohunter-quantitative__legend-swatch {
   width: 0.85rem;
   height: 0.85rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .project-page--stereohunter .stereohunter-quantitative__legend-item.is-stereo .stereohunter-quantitative__legend-swatch {
-  background: #f47c89;
+  background: var(--sh-c6);
 }
 
 .project-page--stereohunter .stereohunter-quantitative__legend-item.is-neutral .stereohunter-quantitative__legend-swatch {
-  background: #47c4a7;
+  background: var(--sh-c7);
 }
 
 .project-page--stereohunter .stereohunter-quantitative__legend-item.is-antiStereo .stereohunter-quantitative__legend-swatch {
-  background: #80b7ff;
+  background: var(--sh-c8);
 }
 
 .project-page--stereohunter .stereohunter-quantitative__legend-item.is-ambiguous .stereohunter-quantitative__legend-swatch {
-  background: #f8c57c;
+  background: var(--sh-c9);
 }
 
 .project-page--stereohunter .stereohunter-quantitative__legend-item.is-unrelated .stereohunter-quantitative__legend-swatch {
-  background: #bcb6d7;
+  background: var(--sh-c10);
 }
-
 
 .project-page--stereohunter .stereohunter-quantitative__rows {
   display: flex;
@@ -289,8 +247,6 @@
 }
 
 .project-page--stereohunter .stereohunter-quantitative__meta {
-  font-size: 0.7rem;
-  color: var(--text-secondary, #666a7a);
   display: block;
   width: 100%;
 }
@@ -408,27 +364,26 @@
 }
 
 .project-page--stereohunter .stereohunter-quantitative__bar-segment.is-stereo {
-  background: #f47c89;
+  background: var(--sh-c6);
 }
 
 .project-page--stereohunter .stereohunter-quantitative__bar-segment.is-neutral {
-  background: #47c4a7;
+  background: var(--sh-c7);
 }
 
 .project-page--stereohunter .stereohunter-quantitative__bar-segment.is-antiStereo {
-  background: #80b7ff;
+  background: var(--sh-c8);
 }
 
 .project-page--stereohunter .stereohunter-quantitative__bar-segment.is-ambiguous {
-  background: #f8c57c;
-  color: #212230;
+  background: var(--sh-c9);
+  color: var(--sh-c11);
 }
 
 .project-page--stereohunter .stereohunter-quantitative__bar-segment.is-unrelated {
-  background: #bcb6d7;
-  color: #212230;
+  background: var(--sh-c10);
+  color: var(--sh-c11);
 }
-
 
 .project-page--stereohunter .stereohunter-quantitative__bar-segment::after {
   content: attr(data-value);
@@ -436,8 +391,8 @@
   top: 100%;
   left: 50%;
   transform: translate(-50%, 0.35rem);
-  background: rgba(15, 18, 32, 0.9);
-  color: #fff;
+  background: var(--sh-c5);
+  color: var(--sh-c1);
   padding: 0.15rem 0.4rem;
   border-radius: 0.35rem;
   font-size: 0.68rem;
@@ -454,8 +409,6 @@
 }
 
 .dark-mode .project-page--stereohunter .stereohunter-quantitative__bar-segment::after {
-  background: rgba(255, 255, 255, 0.9);
-  color: #0f1424;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -476,13 +429,3 @@
   }
 }
 
-.dark-mode .project-page--stereohunter {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-@media (max-width: 480px) {
-  .stereohunter-award {
-    width: 75px;
-  }
-}

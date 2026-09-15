@@ -35,6 +35,12 @@ const getLabelStyle = (ellipse) => ({
   }rem)`
 });
 
+// List view only: exhibition-type design projects are grouped under one label. Project pages keep their own type.
+const LIST_TYPE_LABELS = {
+  Exhibition: 'Design Project',
+  'Graduation Exhibition': 'Design Project'
+};
+
 const handleMouseEnter = (event) => {
   const hoverSrc = event.currentTarget.getAttribute('data-hover');
   if (hoverSrc) {
@@ -66,7 +72,8 @@ export const Projects = () => {
   const layoutSegments = useMemo(
     () => [
       { label: 'Diagram', value: 'diagram' },
-      { label: 'Grid', value: 'grid' }
+      { label: 'Grid', value: 'grid' },
+      { label: 'List', value: 'list' }
     ],
     []
   );
@@ -91,7 +98,7 @@ export const Projects = () => {
     return { iconSrc, hoverSrc };
   };
 
-  const renderProjectTile = (project, { isDiagramLayout }) => {
+  const renderProjectTile = (project, { isDiagramLayout, isListLayout = false }) => {
     const { iconSrc, hoverSrc } = resolveProjectMedia(project);
     const linkTarget = project.href;
     const isExternal = Boolean(project.external);
@@ -115,6 +122,55 @@ export const Projects = () => {
               : `${placement.row}`
           }
         : undefined;
+
+    if (isListLayout) {
+      const summary = project.summary ?? project.subtitle ?? '';
+      const listType = LIST_TYPE_LABELS[project.projectType] ?? project.projectType;
+      const meta = listType;
+      const thumbPath = isDark && project.thumbnailDark ? project.thumbnailDark : project.thumbnail;
+      const thumbSrc = thumbPath ? `${process.env.PUBLIC_URL}${thumbPath}` : iconSrc;
+      return (
+        <div
+          className="project-tile project-tile--list"
+          key={`${project.id}-list`}
+          ref={(node) => assignTileRef(project.id, node)}
+        >
+          <div className="project-tile__fade-wrapper project-list-item" ref={fadeInRef}>
+            <LinkComponent {...linkProps} className="project-list-item__link">
+              <div className={`project-list-item__media${thumbPath ? '' : ' project-list-item__media--icon'}`}>
+                <img src={thumbSrc} alt={`${project.title} thumbnail`} loading="lazy" decoding="async" />
+              </div>
+              <div className="project-list-item__body">
+                {meta && (
+                  <p className="project-list-item__meta">
+                    {meta}
+                    {project.venue && <span className="project-list-item__venue"> ({project.venue})</span>}
+                  </p>
+                )}
+                <h3 className="project-list-item__title">{project.title}</h3>
+                {summary && <p className="project-list-item__summary">{summary}</p>}
+                {project.period && <p className="project-list-item__period">{project.period}</p>}
+                <span className="project-list-item__read" aria-hidden="true">
+                  <span>Read</span>
+                  <svg
+                    className="project-list-item__arrow"
+                    viewBox="0 0 28 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path className="project-list-item__arrow-shaft" d="M1 6h19" vectorEffect="non-scaling-stroke" />
+                    <path className="project-list-item__arrow-head" d="M15.5 1.5L20 6l-4.5 4.5" />
+                  </svg>
+                </span>
+              </div>
+            </LinkComponent>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div
@@ -173,8 +229,24 @@ export const Projects = () => {
   }, []);
 
   const shouldUseDiagramLayout = !isMobileViewport && layoutMode === 'diagram';
+  const shouldUseListLayout = !isMobileViewport && layoutMode === 'list';
+  const previousLayoutRef = useRef(layoutMode);
   useLayoutEffect(() => {
     if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const previousLayout = previousLayoutRef.current;
+    previousLayoutRef.current = layoutMode;
+    // Grid <-> Diagram share the same icon tiles, so they slide into place (FLIP).
+    // List has different markup and simply fades in like a fresh page load.
+    const involvesList = previousLayout === 'list' || layoutMode === 'list';
+    if (involvesList) {
+      const positions = new Map();
+      tileRefs.current.forEach((node, projectId) => {
+        if (node) positions.set(projectId, node.getBoundingClientRect());
+      });
+      tilePositionsRef.current = positions;
       return undefined;
     }
 
@@ -209,11 +281,11 @@ export const Projects = () => {
     tilePositionsRef.current = newPositions;
 
     return undefined;
-  }, [layoutMode, shouldUseDiagramLayout, isMobileViewport]);
+  }, [layoutMode, shouldUseDiagramLayout, shouldUseListLayout, isMobileViewport]);
 
   const tilesClassName = [
     'project-tiles',
-    shouldUseDiagramLayout ? 'project-tiles--diagram' : 'project-tiles--grid'
+    shouldUseDiagramLayout ? 'project-tiles--diagram' : shouldUseListLayout ? 'project-tiles--list' : 'project-tiles--grid'
   ]
     .filter(Boolean)
     .join(' ');
@@ -279,7 +351,10 @@ export const Projects = () => {
             if (!project) {
               return null;
             }
-            return renderProjectTile(project, { isDiagramLayout: shouldUseDiagramLayout });
+            return renderProjectTile(project, {
+              isDiagramLayout: shouldUseDiagramLayout,
+              isListLayout: shouldUseListLayout
+            });
           })}
         </div>
       </div>

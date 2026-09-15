@@ -258,7 +258,7 @@ export const MobileScreenRail = ({
     <section className={sectionClassName} ref={handleSectionRef}>
       {(heading || description) && (
         <div className="mobile-screen-rail__intro" ref={introRef}>
-          {heading && <h2 className="mobile-screen-rail__heading">{heading}</h2>}
+          {heading && <h2 className="mobile-screen-rail__heading section-title">{heading}</h2>}
           {description && <p className="mobile-screen-rail__description">{description}</p>}
         </div>
       )}

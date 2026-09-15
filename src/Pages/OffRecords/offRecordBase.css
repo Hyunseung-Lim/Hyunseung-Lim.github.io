@@ -1,29 +1,5 @@
-.project-page--offrecord {
-  background-color: var(--bg-primary, #ffffff);
-  color: var(--text-primary, #222222);
-}
-
-.project-page--offrecord .project-title,
-.project-page--offrecord .section-title {
-  color: var(--text-primary, #222222);
-}
-
-.project-page--offrecord .project-subtitle,
 .project-page--offrecord .off-record-intro {
-  color: var(--text-secondary, #666666);
-}
-
-.dark-mode .project-page--offrecord {
-  background-color: var(--bg-primary, #050505);
-  color: var(--text-primary, #f5f5f5);
-}
-
-.project-page--offrecord .project-divider {
-  background: var(--border-primary, rgba(0, 0, 0, 0.08));
-}
-
-.dark-mode .project-page--offrecord .project-divider {
-  background: var(--border-primary, rgba(255, 255, 255, 0.15));
+  color: var(--text-secondary);
 }
 
 .project-page--offrecord .project-title {

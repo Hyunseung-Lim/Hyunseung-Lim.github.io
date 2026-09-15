@@ -21,7 +21,7 @@
 
 .project-page .project-container {
   flex: 1;
-  max-width: 824px;
+  max-width: var(--content-width);
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
@@ -32,22 +32,162 @@
   margin-top: 3.5rem;
 }
 
-.project-page .project-container .fade-in-element {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity var(--animation-transition-speed) var(--animation-transition-easing),
-    transform var(--animation-transition-speed) var(--animation-transition-easing);
-}
-
-.project-page .project-container .fade-in-element.fade-in-active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .project-page .project-content {
   width: 100%;
   display: block;
+}
+
+/* ---------------------------------------------------------------- banner */
+.project-page .banner-section {
+  position: relative;
+  width: 100%;
+  height: min(50vh, 100vw);
+  max-height: 50vh;
+  overflow: hidden;
+}
+
+.project-page .banner-section picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.project-page .banner-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 992px) {
+  .project-page .banner-section {
+    min-height: min(300px, 50vh, 100vw);
+  }
+}
+
+@media (max-width: 768px) {
+  .project-page .banner-section {
+    height: min(40vh, 100vw);
+    min-height: min(250px, 50vh, 100vw);
+  }
+}
+
+@media (max-width: 480px) {
+  .project-page .banner-section {
+    height: min(35vh, 100vw);
+    min-height: min(200px, 50vh, 100vw);
+  }
+}
+
+/* ---------------------------------------------------------------- shared media */
+.project-page .project-video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  border-radius: var(--radius-frame);
+  overflow: hidden;
+}
+
+.project-page .project-video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Embedded system demo (Feed-O-Meter / StereoHunter / CrafTeam UI). Colors come from theme vars, so no dark-mode override. */
+.project-page .project-demo-frame {
+  border-radius: var(--radius-frame);
+  border: 1px solid var(--border-secondary);
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+/* Rounded image figure */
+.project-page .project-figure {
+  border-radius: var(--radius-frame);
+  overflow: hidden;
+}
+
+/* Image utilities */
+.img-fluid {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.img-cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Data tables */
+.project-page .project-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.project-page .project-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.project-page .project-table th,
+.project-page .project-table td {
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--table-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.project-page .project-table th {
+  font-weight: 600;
+  background: transparent;
+}
+
+/* Heavier rules frame the table: top of the header, bottom of the header (incl. row-spanning cells), bottom of the body. */
+.project-page .project-table thead tr:first-child th {
+  border-top: 1.5px solid var(--table-line-strong);
+}
+
+.project-page .project-table thead tr:last-child th,
+.project-page .project-table thead th[rowspan] {
+  border-bottom: 1.5px solid var(--table-line-strong);
+}
+
+.project-page .project-table tbody tr:last-child td,
+.project-page .project-table tbody tr:last-child th {
+  border-bottom: 1.5px solid var(--table-line-strong);
+}
+
+.project-page .project-table--center th,
+.project-page .project-table--center td {
+  text-align: center;
+}
+
+/* Figure / table caption and small notes */
+.project-page .project-caption {
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0.75rem auto 0;
+}
+
+@media (max-width: 768px) {
+  .project-page .project-table {
+    font-size: 0.68rem;
+  }
+
+  .project-page .project-table th,
+  .project-page .project-table td {
+    padding: 0.35rem 0.4rem;
+  }
 }
 
 .project-page .project-section {
@@ -58,6 +198,11 @@
 
 .project-page .project-section:last-of-type {
   margin-bottom: 0;
+}
+
+/* Opening abstract/overview paragraph sits closer to the first content section. */
+.project-page .project-section--intro {
+  margin-bottom: 1.5rem;
 }
 
 .project-page .section-list {
@@ -108,6 +253,33 @@
   letter-spacing: -0.02em;
 }
 
+/* Logo-as-title variant (e.g. aqua design project) */
+.project-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0 0 1rem 0;
+}
+
+.project-title--sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.project-title-logo {
+  width: 128px;
+  height: auto;
+  object-fit: contain;
+}
+
 .project-subtitle {
   margin: 0 0 1rem 0;
   font-size: 1rem;
@@ -115,6 +287,21 @@
   color: var(--text-secondary, #666666);
   letter-spacing: 0.01em;
   line-height: 1.5;
+}
+
+/* Multi-line subtitle: each line breaks on desktop, flows inline on small screens */
+.project-subtitle__line {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .project-subtitle__line {
+    display: inline;
+  }
+
+  .project-subtitle__line + .project-subtitle__line::before {
+    content: ' ';
+  }
 }
 
 .project-meta-info {
@@ -150,6 +337,10 @@
   width: 120px;
   max-width: 100%;
   height: auto;
+}
+
+.project-award-badge--compact {
+  width: 90px;
 }
 
 .meta-label {
@@ -195,6 +386,10 @@
     font-size: 2rem;
   }
 
+  .project-title-logo {
+    width: 96px;
+  }
+
   .project-page .project-container {
     padding: 1rem;
   }
@@ -228,6 +423,14 @@
     width: 92px;
   }
 
+  .project-award-badge--compact {
+    width: 70px;
+  }
+
+  .project-title-logo {
+    width: 80px;
+  }
+
   .project-page:not(.has-banner) .project-container {
     padding-top: 3.1rem;
     margin-top: 1.85rem;
@@ -246,11 +449,18 @@
   color: var(--text-primary, #333333);
 }
 
+/* Vertical rhythm: headings and paragraphs carry a bottom margin only, so the title→body gap is 1rem
+   everywhere (flex columns cannot collapse margins, so top margins are never relied on). */
 .project-page .section-text {
   font-size: 1rem;
   line-height: 1.65;
   color: var(--text-primary, #333333);
   text-align: left;
+  margin: 0 0 1rem;
+}
+
+.project-page .section-text:last-child {
+  margin-bottom: 0;
 }
 
 .project-page .section-text.section-text--small,
@@ -274,9 +484,57 @@
     font-size: 0.74rem;
   }
 }
+/* ------------------------------------------------------------------ type hierarchy
+   L0  h1.project-title              2.5rem / 700   page title (header)
+   L1  h2.section-title              1.65rem / 600  section
+   L2  h3.section-subtitle           1.35rem / 600  subsection
+   L3  h4.section-subtitle--small    1.1rem / 600   minor heading inside a subsection
+       .card-title                   1.1rem / 600   title inside a card / panel (same size as L3, separate role)
+       .section-label                0.8rem / 600   uppercase eyebrow label (same style as .meta-label)
+   Body .section-text                1rem           paragraphs under any heading
+        .section-text--small         0.9rem         supporting text: figure descriptions, interactive detail, card body
+        .project-caption             0.74rem        figure / table captions, demo notes
+   Alignment: L1 centered, L2/L3/card titles left, body left.
+   Tags follow the document outline; the class sets the visual level. Pages must not re-declare these sizes. */
+/* Alignment: L1 section titles are centered (inherited from .App); every lower heading level is left-aligned. */
 .project-page .section-subtitle {
   font-weight: 600;
   color: var(--text-primary, #1f1f1f);
   font-size: 1.35rem;
   line-height: 1.3;
+  margin: 0 0 0.75rem;
+  text-align: left;
+}
+
+.project-page .section-subtitle--small {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+}
+
+.project-page .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin: 0 0 0.35rem;
+  text-align: left;
+}
+
+.project-page .section-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin: 0.25rem 0;
+}
+
+@media (max-width: 480px) {
+  .project-page .section-subtitle {
+    font-size: 1.05rem;
+  }
+
+  .project-page .section-subtitle--small {
+    font-size: 0.95rem;
+  }
 }

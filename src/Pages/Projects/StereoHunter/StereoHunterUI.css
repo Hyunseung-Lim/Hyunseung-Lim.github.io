@@ -1,3 +1,48 @@
+/* Palette for this page — extracted from hardcoded literals. Change a color here, not in the rules below.
+   Variables with a dark value are listed again in the .dark-mode block. */
+.project-page--stereohunter {
+  --shui-c1: #357bfb;
+  --shui-c2: #fff;
+  --shui-c3: #f4f4f4;
+  --shui-c4: rgba(53, 123, 251, 0.1);
+  --shui-c5: #1f2233;
+  --shui-c6: #111213;
+  --shui-c7: #1d54c6;
+  --shui-c8: #2d66d4;
+  --shui-c9: #e5e8f5;
+  --shui-c10: #1f254a;
+  --shui-c11: #1b2d5b;
+  --shui-c12: #1d54c6;
+  --shui-c13: #f0f1f8;
+  --shui-c14: #1d2032;
+  --shui-c15: rgba(0, 0, 0, 0.06);
+  --shui-c16: #4a4f65;
+  --shui-c17: #fff;
+  --shui-c18: rgba(24, 30, 56, 0.18);
+  --shui-c19: rgba(24, 30, 56, 0.2);
+  --shui-c20: rgba(24, 30, 56, 0.1);
+}
+
+.dark-mode .project-page--stereohunter {
+  --shui-c1: #7aa2ff;
+  --shui-c2: #101523;
+  --shui-c3: #2b2b2b;
+  --shui-c4: rgba(122, 162, 255, 0.18);
+  --shui-c5: #f1f3ff;
+  --shui-c6: #f4f6ff;
+  --shui-c7: #3469e5;
+  --shui-c8: #3469e5;
+  --shui-c9: rgba(122, 162, 255, 0.18);
+  --shui-c10: #7aa2ff;
+  --shui-c11: #cdd9ff;
+  --shui-c12: #7aa2ff;
+  --shui-c13: rgba(255, 255, 255, 0.08);
+  --shui-c14: #f0f2ff;
+  --shui-c15: rgba(255, 255, 255, 0.08);
+  --shui-c16: #aeb5d1;
+  --shui-c17: #212121;
+}
+
 .project-page--stereohunter .stereohunter-ui {
   width: 100%;
   position: relative;
@@ -9,11 +54,6 @@
 
 .project-page--stereohunter .stereohunter-ui__frame {
   width: min(1200px, 96vw);
-  background: var(--bg-elevated, #ffffff);
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: none;
   height: 640px;
   display: flex;
   flex-direction: column;
@@ -25,21 +65,9 @@
   padding: 0 0.5rem;
 }
 
-.stereohunter-ui__fallback img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 .project-page--stereohunter .stereohunter-ui__frame.is-question-mode {
   height: auto;
   min-height: 0;
-}
-
-.dark-mode .project-page--stereohunter .stereohunter-ui__frame {
-  background: rgba(18, 20, 29, 0.92);
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: none;
 }
 
 .stereohunter-ui__navbar {
@@ -47,12 +75,11 @@
   align-items: center;
   padding: 0.6rem 1.5rem;
   background: transparent;
-  color: #111213;
+  color: var(--shui-c6);
   border-bottom: 1px solid rgba(0, 0, 0, 0.16);
 }
 
 .dark-mode .stereohunter-ui__navbar {
-  color: #f4f6ff;
   border-bottom-color: rgba(255, 255, 255, 0.28);
 }
 
@@ -112,13 +139,9 @@
   font-size: 0.82rem;
 }
 .stereohunter-input-window__title span.is-placeholder {
-  color: #357bfb;
+  color: var(--shui-c1);
   font-weight: 600;
 }
-.dark-mode .stereohunter-input-window__title span.is-placeholder {
-  color: #7aa2ff;
-}
-
 .stereohunter-input-wrapper {
   width: 100%;
   position: relative;
@@ -126,7 +149,7 @@
 
 .stereohunter-input {
   width: 100%;
-  border: 1px solid rgba(24, 30, 56, 0.2);
+  border: 1px solid var(--shui-c19);
   border-radius: 10px;
   padding: 0.85rem 1rem;
   font-size: 0.9rem;
@@ -135,7 +158,7 @@
 }
 
 .stereohunter-input:focus {
-  border-color: rgba(24, 30, 56, 0.2);
+  border-color: var(--shui-c19);
   box-shadow: none;
 }
 
@@ -185,7 +208,7 @@
 }
 
 .stereohunter-dialogue {
-  border: 1px solid rgba(24, 30, 56, 0.18);
+  border: 1px solid var(--shui-c18);
   border-radius: 14px;
   padding: 1.4rem 1.75rem;
   font-family: 'Noto Serif KR', 'Noto Serif', serif;
@@ -222,9 +245,9 @@
 
 .stereohunter-checker__btn {
   border: none;
-  border-radius: 999px;
-  background: #357bfb;
-  color: #fff;
+  border-radius: var(--radius-pill);
+  background: var(--shui-c1);
+  color: var(--shui-c2);
   padding: 0.75rem 1.2rem;
   font-weight: 600;
   font-size: 0.78rem;
@@ -234,31 +257,23 @@
 }
 
 .stereohunter-checker__btn:hover {
-  background: #2d66d4;
+  background: var(--shui-c8);
 }
-
-.dark-mode .stereohunter-checker__btn {
-  background: #7aa2ff;
-  color: #101523;
-}
-
 .stereohunter-checker__btn.is-active {
   background: #1d54c6;
 }
 
 .dark-mode .stereohunter-checker__btn.is-active {
-  background: #3469e5;
   color: #101523;
   box-shadow: none;
 }
 
 .dark-mode .stereohunter-checker__btn:hover {
-  background: #3469e5;
   color: #101523;
 }
 
 .stereohunter-checker__btn.is-active {
-  background: #1d54c6;
+  background: var(--shui-c7);
 }
 
 .stereohunter-eval-panel {
@@ -274,17 +289,8 @@
   color: var(--text-primary, #1d2032);
 }
 
-.stereohunter-eval-panel__hint {
-  color: var(--text-secondary, #5d6273);
-  font-size: 0.75rem;
-}
-
 .dark-mode .stereohunter-eval-panel--text p {
   color: #e2e4f2;
-}
-
-.dark-mode .stereohunter-eval-panel__hint {
-  color: #96a0c2;
 }
 
 .stereohunter-eval-actions {
@@ -305,30 +311,18 @@
 }
 
 .stereohunter-primary {
-  background: #357bfb;
-  color: #fff;
+  background: var(--shui-c1);
+  color: var(--shui-c2);
 }
 
 .stereohunter-secondary {
-  background: #e5e8f5;
-  color: #1f254a;
+  background: var(--shui-c9);
+  color: var(--shui-c10);
 }
 
 .stereohunter-secondary:hover {
   background: #d8ddf0;
-}
-
-.dark-mode .stereohunter-primary {
-  background: #7aa2ff;
-  color: #101523;
-}
-
-.dark-mode .stereohunter-secondary {
-  background: rgba(122, 162, 255, 0.18);
-  color: #7aa2ff;
-}
-
-.stereohunter-eval-actions--center {
+}.stereohunter-eval-actions--center {
   justify-content: center;
 }
 
@@ -360,8 +354,8 @@
 
 .stereohunter-ambiguous textarea {
   width: 100%;
-  border: 1px solid rgba(24, 30, 56, 0.18);
-  border-radius: 12px;
+  border: 1px solid var(--shui-c18);
+  border-radius: var(--radius-inner);
   padding: 0.85rem 1rem;
   font-size: 0.8rem;
   background: var(--bg-primary, #fff);
@@ -406,8 +400,8 @@
   width: 72px;
   height: 28px;
   border: none;
-  background: #f4f4f4;
-  color: #357bfb;
+  background: var(--shui-c3);
+  color: var(--shui-c1);
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -417,12 +411,6 @@
   border-radius: 6px 6px 0 0;
   pointer-events: auto;
 }
-
-.dark-mode .stereohunter-vocabulary__toggle {
-  background: #2b2b2b;
-  color: #7aa2ff;
-}
-
 .stereohunter-play.is-question-mode {
   align-items: center;
   padding-bottom: 1.5rem;
@@ -474,8 +462,7 @@
   color: var(--text-primary, #111213);
 }
 
-.stereohunter-question__description,
-.stereohunter-question__scale-marker {
+.stereohunter-question__description {
   margin: 0 0 0.65rem;
   font-size: 0.72rem;
   color: var(--text-secondary, #5d6273);
@@ -489,8 +476,8 @@
 
 .stereohunter-multi-select__chips {
   min-height: 48px;
-  border: 1px solid rgba(24, 30, 56, 0.18);
-  border-radius: 12px;
+  border: 1px solid var(--shui-c18);
+  border-radius: var(--radius-inner);
   padding: 0.35rem 0.6rem;
   display: flex;
   flex-wrap: wrap;
@@ -514,19 +501,13 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.25rem 0.65rem;
-  background: rgba(53, 123, 251, 0.1);
+  background: var(--shui-c4);
   font-size: 0.74rem;
   font-weight: 600;
-  color: #1b2d5b;
+  color: var(--shui-c11);
 }
-
-.dark-mode .stereohunter-chip {
-  background: rgba(122, 162, 255, 0.18);
-  color: #cdd9ff;
-}
-
 .stereohunter-chip__remove {
   border: none;
   background: transparent;
@@ -573,29 +554,18 @@
 }
 
 .stereohunter-scale__btn.is-active {
-  color: #1d54c6;
+  color: var(--shui-c12);
 }
 
 .stereohunter-scale__btn.is-active .stereohunter-scale__dot {
-  border-color: #357bfb;
-  background: #357bfb;
+  border-color: var(--shui-c1);
+  background: var(--shui-c1);
 }
 
 .dark-mode .stereohunter-scale__dot {
   background: transparent;
   border-color: rgba(255, 255, 255, 0.3);
-}
-
-.dark-mode .stereohunter-scale__btn.is-active {
-  color: #7aa2ff;
-}
-
-.dark-mode .stereohunter-scale__btn.is-active .stereohunter-scale__dot {
-  background: #7aa2ff;
-  border-color: #7aa2ff;
-}
-
-.stereohunter-choice-group {
+}.stereohunter-choice-group {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -604,10 +574,10 @@
 
 .stereohunter-choice {
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.6rem 1.4rem;
-  background: #f0f1f8;
-  color: #1d2032;
+  background: var(--shui-c13);
+  color: var(--shui-c14);
   font-weight: 600;
   font-size: 0.76rem;
   cursor: pointer;
@@ -616,23 +586,11 @@
 }
 
 .stereohunter-choice.is-active {
-  background: #357bfb;
-  color: #fff;
-}
-
-.dark-mode .stereohunter-choice {
-  background: rgba(255, 255, 255, 0.08);
-  color: #f0f2ff;
-}
-
-.dark-mode .stereohunter-choice.is-active {
-  background: #7aa2ff;
-  color: #101523;
-}
-
-.stereohunter-highlight {
+  background: var(--shui-c1);
+  color: var(--shui-c2);
+}.stereohunter-highlight {
   border: 1px dashed rgba(24, 30, 56, 0.3);
-  border-radius: 12px;
+  border-radius: var(--radius-inner);
   padding: 1rem;
   font-family: 'Noto Serif KR', 'Noto Serif', serif;
   font-weight: 600;
@@ -656,17 +614,11 @@
 }
 
 .stereohunter-highlight__mark {
-  background: #357bfb;
-  color: #fff;
+  background: var(--shui-c1);
+  color: var(--shui-c2);
   border-radius: 3px;
   padding: 0;
 }
-
-.dark-mode .stereohunter-highlight__mark {
-  background: #7aa2ff;
-  color: #101523;
-}
-
 .stereohunter-questionnaire__actions {
   display: flex;
   justify-content: center;
@@ -677,7 +629,7 @@
 .stereohunter-questionnaire__actions .stereohunter-primary {
   width: 100%;
   max-width: 420px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
 }
 
 @media (max-width: 1199px) {
@@ -693,12 +645,6 @@
     display: none;
   }
 }
-
-.dark-mode .stereohunter-vocabulary__toggle {
-  background: #2b2b2b;
-  color: #7aa2ff;
-}
-
 .stereohunter-vocabulary__icon {
   width: 14px;
   height: 14px;
@@ -713,18 +659,13 @@
 .stereohunter-vocabulary__tray {
   width: 100%;
   border-radius: 10px 10px 0 0;
-  background: #f4f4f4;
+  background: var(--shui-c3);
   overflow: hidden;
   height: 120px;
   pointer-events: auto;
   padding: 0;
   transition: padding 0.3s ease;
 }
-
-.dark-mode .stereohunter-vocabulary__tray {
-  background: #2b2b2b;
-}
-
 .stereohunter-vocabulary__tray.is-open {
   padding: 0.5rem;
 }
@@ -747,10 +688,10 @@
 
 .stereohunter-vocabulary__chip {
   padding: 0.35rem 0.95rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 0.78rem;
   background: #fff;
-  color: #357bfb;
+  color: var(--shui-c1);
   border: 1px solid #357bfb;
   cursor: pointer;
   line-height: 1;
@@ -758,35 +699,21 @@
 }
 
 .stereohunter-vocabulary__chip.is-checked {
-  background: #357bfb;
-  color: #fff;
+  background: var(--shui-c1);
+  color: var(--shui-c2);
 }
 
 .dark-mode .stereohunter-vocabulary__chip {
   background: transparent;
-  color: #7aa2ff;
   border-color: #7aa2ff;
 }
-
-.dark-mode .stereohunter-vocabulary__chip.is-checked {
-  background: #7aa2ff;
-  color: #101523;
-}
-
 .dark-mode .stereohunter-vocabulary__chip {
   background: transparent;
-  color: #7aa2ff;
   border-color: #7aa2ff;
 }
-
-.dark-mode .stereohunter-vocabulary__chip.is-checked {
-  background: #7aa2ff;
-  color: #101523;
-}
-
 .stereohunter-history {
-  border-left: 1px solid rgba(24, 30, 56, 0.1);
-  background: #f4f4f4;
+  border-left: 1px solid var(--shui-c20);
+  background: var(--shui-c3);
   display: flex;
   flex-direction: column;
   padding: 1.5rem 0;
@@ -798,7 +725,6 @@
 }
 
 .dark-mode .stereohunter-history {
-  background: #2b2b2b;
   border-color: rgba(255, 255, 255, 0.08);
 }
 
@@ -844,13 +770,8 @@
 }
 
 .stereohunter-history__card.is-active {
-  background: rgba(0, 0, 0, 0.06);
+  background: var(--shui-c15);
 }
-
-.dark-mode .stereohunter-history__card.is-active {
-  background: rgba(255, 255, 255, 0.08);
-}
-
 .stereohunter-history__situation {
   font-size: 0.75rem;
   color: #5d6273;
@@ -859,27 +780,17 @@
 
 .stereohunter-history__input-row {
   font-size: 0.74rem;
-  color: #1f2233;
+  color: var(--shui-c5);
   display: flex;
   gap: 0.25rem;
   margin-top: 0.4rem;
   width: 100%;
   margin-left: 0;
 }
-
-.dark-mode .stereohunter-history__input-row {
-  color: #f1f3ff;
-}
-
 .stereohunter-history__input-label {
   font-weight: 600;
-  color: #4a4f65;
+  color: var(--shui-c16);
 }
-
-.dark-mode .stereohunter-history__input-label {
-  color: #aeb5d1;
-}
-
 .stereohunter-history__tag-row {
   display: flex;
   flex-wrap: wrap;
@@ -890,37 +801,25 @@
 .stereohunter-history__tag {
   display: inline-flex;
   padding: 0.25rem 0.65rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 0.62rem;
   font-weight: 600;
-  background: #357bfb;
-  color: #fff;
+  background: var(--shui-c1);
+  color: var(--shui-c2);
   margin-bottom: 0.35rem;
   text-transform: capitalize;
 }
-
-.dark-mode .stereohunter-history__tag {
-  background: #7aa2ff;
-  color: #101523;
-}
-
 .stereohunter-history__tag--target {
-  background: rgba(53, 123, 251, 0.1);
-  color: #357bfb;
+  background: var(--shui-c4);
+  color: var(--shui-c1);
 }
-
-.dark-mode .stereohunter-history__tag--target {
-  background: rgba(122, 162, 255, 0.18);
-  color: #7aa2ff;
-}
-
 .stereohunter-history__dialogue {
   font-size: 0.74rem;
-  color: #1f2233;
+  color: var(--shui-c5);
   margin-top: 0.4rem;
   padding: 0.65rem 0.75rem;
   border-radius: 8px;
-  background: #fff;
+  background: var(--shui-c17);
   border: 1px solid rgba(24, 30, 56, 0.08);
   width: 100%;
   margin-left: 0;
@@ -929,9 +828,7 @@
 }
 
 .dark-mode .stereohunter-history__dialogue {
-  background: #212121;
   border-color: rgba(255, 255, 255, 0.08);
-  color: #f1f3ff;
 }
 
 .stereohunter-history__dialogue > p {
@@ -944,22 +841,20 @@
   margin: 0.75rem auto 0;
   padding: 0 1rem;
   text-align: center;
-  font-size: 0.72rem;
-  color: var(--text-secondary, #5d6273);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 992px) {
   .stereohunter-ui__body {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .stereohunter-history {
     border-left: none;
-    border-top: 1px solid rgba(24, 30, 56, 0.1);
+    border-top: 1px solid var(--shui-c20);
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .stereohunter-play {
     padding: 1.5rem;
   }
@@ -974,7 +869,7 @@
   }
 
   .stereohunter-primary,
-  .stereohunter-secondary {
+.stereohunter-secondary {
     width: 100%;
   }
 }

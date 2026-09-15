@@ -61,12 +61,6 @@
   overflow: hidden;
 }
 
-.project-page--offrecord-movie .off-record-movie-poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
 
 .project-page--offrecord-movie .off-record-movie-title {
   font-size: 1rem;

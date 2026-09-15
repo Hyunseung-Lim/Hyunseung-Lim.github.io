@@ -139,7 +139,7 @@ const ENTER_ICON = {
   light: `${process.env.PUBLIC_URL}/projects/stereohunter/enter.svg`,
   lightHover: `${process.env.PUBLIC_URL}/projects/stereohunter/enter_hover.svg`,
   dark: `${process.env.PUBLIC_URL}/projects/stereohunter/enter_dark.svg`,
-  darkHover: `${process.env.PUBLIC_URL}/projects/stereohunter/enter_dark_hover.svg`
+  darkHover: `${process.env.PUBLIC_URL}/projects/stereohunter/enter_hover_dark.svg`
 };
 export const STEREOHUNTER_UI_ASSET_PATHS = Array.from(
   new Set([
@@ -148,7 +148,7 @@ export const STEREOHUNTER_UI_ASSET_PATHS = Array.from(
     ENTER_ICON.lightHover,
     ENTER_ICON.dark,
     ENTER_ICON.darkHover,
-    `${process.env.PUBLIC_URL}/projects/stereohunter/stereoHunterUI.png`
+    `${process.env.PUBLIC_URL}/projects/stereohunter/ui.png`
   ])
 );
 const DUMMY_OUTPUTS = [
@@ -433,7 +433,7 @@ export const StereoHunterUI = ({ fadeRef }) => {
 
   return (
     <section className="stereohunter-ui project-fade-block" ref={fadeRef}>
-      <div className={`stereohunter-ui__frame${questionMode ? ' is-question-mode' : ''}`}>
+      <div className={`stereohunter-ui__frame project-demo-frame${questionMode ? ' is-question-mode' : ''}`}>
         <header className="stereohunter-ui__navbar">
           <div className="stereohunter-ui__brand">
             <div className="stereohunter-ui__title">StereoHunter</div>
@@ -830,10 +830,10 @@ export const StereoHunterUI = ({ fadeRef }) => {
           </aside>
         </div>
       </div>
-      <p className="stereohunter-ui__note">This interaction is manually simulated, not powered by the LLM pipeline.</p>
+      <p className="stereohunter-ui__note project-caption">This interaction is manually simulated, not powered by the LLM pipeline.</p>
       <div className="stereohunter-ui__fallback">
-        <img
-          src={`${process.env.PUBLIC_URL}/projects/stereohunter/stereoHunterUI.png`}
+        <img className="img-fluid"
+          src={`${process.env.PUBLIC_URL}/projects/stereohunter/ui.png`}
           alt="StereoHunter interface preview"
           loading="lazy"
         />

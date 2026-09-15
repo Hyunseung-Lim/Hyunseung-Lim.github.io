@@ -97,7 +97,7 @@ const CANVAS_VIEWBOX = { width: 800, height: 420 };
 const CANVAS_PADDING = 60;
 const NODE_OUTER_RADIUS = 32;
 const NODE_INNER_RADIUS = 26;
-const TOGGLE_ICON = `${process.env.PUBLIC_URL}/projects/crafteam/togglebtn.svg`;
+const TOGGLE_ICON = `${process.env.PUBLIC_URL}/projects/crafteam/toggle_btn.svg`;
 
 const RELATIONSHIP_TYPES = {
   PEER: {
@@ -1511,7 +1511,7 @@ export const CrafteamUI = ({ fadeRef }) => {
 
   if (isComplete) {
     return (
-      <div className="crafteam-ui" ref={fadeRef}>
+      <div className="crafteam-ui project-demo-frame" ref={fadeRef}>
         <div className="crafteam-complete">
           <p className="crafteam-ui__eyebrow">Team builder</p>
           <h3>Team Successfully Created</h3>
@@ -1526,7 +1526,7 @@ export const CrafteamUI = ({ fadeRef }) => {
   }
 
   return (
-    <div className="crafteam-ui" ref={fadeRef}>
+    <div className="crafteam-ui project-demo-frame" ref={fadeRef}>
       {!hasStarted ? (
         <div className="crafteam-ui__start">
           <div>

@@ -8,13 +8,20 @@
  *   build/projects/<name>/index.html 프로젝트 페이지가 있는 논문은 그 경로가 랜딩 페이지가 됨
  *                                   (빌드된 index.html + citation_* 메타 + 프리렌더 본문, React가 로드되면 대체)
  *   build/publications/index.html  /publications 를 200으로 응답시키는 정적 목록 (React가 로드되면 대체됨)
+ *   build/index.html                홈의 #root 에 순수 HTML 링크(최근 논문 · 프로젝트 랜딩 · Publications)를 주입.
+ *                                   Scholar 크롤러는 JS 내비게이션을 따라가지 못하므로 홈 → 목록 → 논문 → PDF 가
+ *                                   <a href> 만으로 이어져야 한다. React 마운트 시 교체되어 사람은 차이를 못 느낌.
  *   build/sitemap.xml               홈 · 목록 · 랜딩 페이지 · PDF 전체
+ *
+ * 경고: public/PDF 파일이 5MB 를 넘으면 Scholar 가 색인하지 않는다 ("Each file must not exceed 5MB").
+ *       빌드 로그에 경고가 뜨면 `python3 scripts/compress_pdf.py public/PDF/<file>.pdf` 로 압축한다.
  *
  * `npm run build` 뒤에 postbuild 훅으로 자동 실행된다. 자세한 절차는 PUBLICATION_GUIDE.md 참고.
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { PROJECTS } from '../src/Data/projectsMeta.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -28,6 +35,10 @@ const BUILD_INDEX = path.join(BUILD_DIR, 'index.html');
 const OUT_PAPERS_DIR = path.join(BUILD_DIR, 'papers');
 const OUT_LIST = path.join(BUILD_DIR, 'publications', 'index.html');
 const OUT_SITEMAP = path.join(BUILD_DIR, 'sitemap.xml');
+const SCHOLAR_PDF_LIMIT = 5 * 1024 * 1024; // Google Scholar inclusion guidelines: files over 5MB are not indexed
+const HOME_SENTINEL_OPEN = '<!--scholar-home-->';
+const HOME_SENTINEL_CLOSE = '<!--/scholar-home-->';
+const HOME_RECENT_COUNT = 5;
 
 const FONT_LINKS = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">`;
 
@@ -174,7 +185,13 @@ function buildRecords(pubs) {
 
     let pdfUrl = '';
     if (pub.pdf) {
-      if (fs.existsSync(path.join(PDF_DIR, pub.pdf))) pdfUrl = `${SITE_URL}/PDF/${encodeURI(pub.pdf)}`;
+      if (fs.existsSync(path.join(PDF_DIR, pub.pdf))) {
+        pdfUrl = `${SITE_URL}/PDF/${encodeURI(pub.pdf)}`;
+        const bytes = fs.statSync(path.join(PDF_DIR, pub.pdf)).size;
+        if (bytes > SCHOLAR_PDF_LIMIT) {
+          warn(`PDF ${(bytes / 1048576).toFixed(1)}MB > 5MB → Scholar 색인 불가: public/PDF/${pub.pdf} (python3 scripts/compress_pdf.py 로 압축)`);
+        }
+      }
       else warn(`PDF 파일 없음: public/PDF/${pub.pdf} (${pub.title})`);
     } else {
       warn(`PDF 미등록 (Scholar 색인 불가): ${pub.title}`);
@@ -430,6 +447,53 @@ function renderListPage(records, indexHtml) {
     .replace('</head>', `${canonical}</head>`);
 }
 
+// 홈: 빌드된 index.html 의 #root 에 순수 HTML 링크를 주입. sentinel 주석으로 감싸 두어 재실행 시 원상복구 후 다시 주입한다.
+function stripHomePrerender(indexHtml) {
+  const re = new RegExp(`<div id="root">${HOME_SENTINEL_OPEN}[\\s\\S]*?${HOME_SENTINEL_CLOSE}</div>`);
+  return indexHtml.replace(re, '<div id="root"></div>');
+}
+
+function renderHomeMarkup(records) {
+  const recent = [...records]
+    .sort((a, b) => (b.year - a.year) || a.title.localeCompare(b.title))
+    .slice(0, HOME_RECENT_COUNT)
+    .map((r) => {
+      const pdf = r.pdfUrl ? `<a href="${escapeHtml(r.pdfUrl)}">PDF</a>` : '';
+      return `<li><a class="t" href="${escapeHtml(r.pageUrl.replace(SITE_URL, ''))}">${escapeHtml(r.title)}</a>
+<div class="v">${escapeHtml(r.venueShort || r.venueFull)}</div>
+<div class="l">${pdf}</div></li>`;
+    });
+  const projectRoutes = [...new Set(records.filter((r) => r.landing === 'project').map((r) => r.project))];
+  const projects = projectRoutes.map((route) => {
+    const meta = Object.values(PROJECTS).find((pr) => pr.href === route);
+    const label = meta?.title ?? route.replace('/projects/', '');
+    const sub = meta?.subtitle ? ` <span class="v">— ${escapeHtml(meta.subtitle)}</span>` : '';
+    return `<li><a class="t" href="${escapeHtml(route)}/">${escapeHtml(label)}</a>${sub}</li>`;
+  });
+  return `${HOME_SENTINEL_OPEN}<div class="prerender">
+<style>${LIST_CSS}</style>
+<nav><a href="/about">About</a><a href="/projects">Projects</a><a href="/publications/">Publications</a></nav>
+<h1>${escapeHtml(SITE_NAME)}</h1>
+<p class="a">PhD candidate, Department of Industrial Design, KAIST.</p>
+<h2>Recent publications</h2>
+<ul>
+${recent.join('\n')}
+</ul>
+<p class="l"><a href="/publications/">All ${records.length} publications →</a></p>
+<h2>Projects</h2>
+<ul>
+${projects.join('\n')}
+</ul>
+</div>${HOME_SENTINEL_CLOSE}`;
+}
+
+function renderHomePage(records, indexHtml) {
+  if (!indexHtml.includes('<div id="root"></div>')) {
+    throw new Error('build/index.html 에서 <div id="root"></div> 를 찾지 못했습니다.');
+  }
+  return indexHtml.replace('<div id="root"></div>', `<div id="root">${renderHomeMarkup(records)}</div>`);
+}
+
 function renderSitemap(records) {
   const dataMtime = isoDate(fs.statSync(DATA_FILE).mtime);
   const urls = [
@@ -453,7 +517,8 @@ function main() {
   const pubs = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   const records = buildRecords(pubs);
 
-  const indexHtml = fs.readFileSync(BUILD_INDEX, 'utf8');
+  // scholar:pages 를 빌드 없이 재실행해도 동작하도록, 이전 실행이 홈에 주입한 블록은 먼저 걷어낸다.
+  const indexHtml = stripHomePrerender(fs.readFileSync(BUILD_INDEX, 'utf8'));
 
   fs.rmSync(OUT_PAPERS_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_PAPERS_DIR, { recursive: true });
@@ -472,12 +537,13 @@ function main() {
   fs.mkdirSync(path.dirname(OUT_LIST), { recursive: true });
   fs.writeFileSync(OUT_LIST, renderListPage(records, indexHtml));
   fs.writeFileSync(OUT_SITEMAP, renderSitemap(records));
+  fs.writeFileSync(BUILD_INDEX, renderHomePage(records, indexHtml));
 
   const withPdf = records.filter((r) => r.pdfUrl).length;
   const withAbs = records.filter((r) => r.abstract).length;
   console.log(`[scholar-pages] ${records.length} landing pages: ${records.length - projectPages.length} → build/papers/, ${projectPages.length} → project pages (PDF ${withPdf}, abstract ${withAbs})`);
   for (const pp of projectPages) console.log(`[scholar-pages]   ${pp}`);
-  console.log(`[scholar-pages] build/publications/index.html, build/sitemap.xml 생성`);
+  console.log(`[scholar-pages] build/publications/index.html, build/sitemap.xml 생성, build/index.html 에 홈 링크 주입`);
   for (const w of warnings) console.warn(`[scholar-pages] 경고: ${w}`);
 }
 

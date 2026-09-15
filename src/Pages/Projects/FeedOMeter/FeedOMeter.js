@@ -4,12 +4,17 @@ import { Footer } from '../../../Components/Footer/footer';
 import { PROJECTS } from '../../../Data/projectsMeta';
 import { useFadeInAnimation } from '../../../hooks/useFadeInAnimation';
 import { useProjectPageFrame } from '../../../hooks/useProjectPageFrame';
-import { BibtexCard } from '../../../Components/BibtexCard/BibtexCard';
-import { ProjectLinks } from '../../../Components/ProjectLinks/ProjectLinks';
 import './FeedOMeter.css';
 import { FeedOMeterUI, FEED_O_METER_UI_ASSET_PATHS } from './FeedOMeterUI';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { PageLoadGuard } from '../../../Components/PageLoader/PageLoadGuard';
+import {
+  ProjectHeader,
+  ProjectDivider,
+  ProjectVideoFrame,
+  ProjectBibtexSection,
+  collectProjectAssets
+} from '../../../Components/ProjectPage';
 
 export const FeedOMeterProject = () => {
   const projectData = PROJECTS['feed-o-meter'];
@@ -17,17 +22,6 @@ export const FeedOMeterProject = () => {
   const fadeInRef = useFadeInAnimation({ root: scrollRoot });
   const themeMode = projectData.themeMode ?? 'auto';
   const { pageClassName, shouldHideThemeToggle } = useProjectPageFrame(null, themeMode);
-  const resourceLinks = [
-    {
-      type: 'paper',
-      href: 'https://doi.org/10.1016/j.ijhcs.2025.103687',
-      icon: `${process.env.PUBLIC_URL}/icons/elsevier.png`,
-      iconDark: `${process.env.PUBLIC_URL}/icons/elsevier_dark.png`,
-      iconAlt: 'Elsevier'
-    },
-    { type: 'github', href: 'https://github.com/Hyunseung-Lim/Feed-O-Meter' }
-  ];
-
   const renderLabelWithCounts = (label) => {
     if (typeof label !== 'string') {
       return label;
@@ -49,9 +43,9 @@ export const FeedOMeterProject = () => {
   const { isDark } = useTheme();
   const baselinePipelineImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'baseline_pipeline_dark.png' : 'baseline_pipeline.png'}`;
   const interventionPipelineImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'intervention_pipeline_dark.png' : 'intervention_pipeline.png'}`;
-  const dr1PersonaImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/students/student33.png`;
+  const dr1PersonaImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/students/33.png`;
   const studyProcedureImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'study_procedure_dark.png' : 'study_procedure.png'}`;
-  const studyProcedureMobileImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'study_procedure_dark_mobile.png' : 'study_procedure_mobile.png'}`;
+  const studyProcedureMobileImage = `${process.env.PUBLIC_URL}/projects/feed-o-meter/${isDark ? 'study_procedure_mobile_dark.png' : 'study_procedure_mobile.png'}`;
   const sentenceLevelFindings = [
     { metric: 'Timeliness', feedScore: 4.7, baselineScore: 4.8, significance: 'p = 0.3108 (n.s.)' },
     { metric: 'Goal Relevance', feedScore: 4.7, baselineScore: 4.9, significance: 'p = 0.1453 (n.s.)' },
@@ -81,7 +75,7 @@ export const FeedOMeterProject = () => {
         },
         {
           name: 'Understanding Mentee (F: 23, B: 15)',
-          description: "Feedback to get to know mentee's background, understanding, interests, and more.",
+          description: "Feedback to get to know the mentee's background, understanding, interests, and more.",
           example: ['P21: Alex, do you have any pets?', "Alex: Yes, my family has a dog, and that's what inspired me to come up with this idea."]
         }
       ]
@@ -313,22 +307,16 @@ export const FeedOMeterProject = () => {
       });
     });
   });
-  const pageAssets = Array.from(
-    new Set(
-      [
-        `${process.env.PUBLIC_URL}/icons/elsevier.png`,
-        `${process.env.PUBLIC_URL}/icons/elsevier_dark.png`,
-        `${process.env.PUBLIC_URL}/projects/feed-o-meter/baseline_pipeline.png`,
-        `${process.env.PUBLIC_URL}/projects/feed-o-meter/baseline_pipeline_dark.png`,
-        `${process.env.PUBLIC_URL}/projects/feed-o-meter/intervention_pipeline.png`,
-        `${process.env.PUBLIC_URL}/projects/feed-o-meter/intervention_pipeline_dark.png`,
-        dr1PersonaImage,
-        `${process.env.PUBLIC_URL}/projects/feed-o-meter/study_procedure.png`,
-        `${process.env.PUBLIC_URL}/projects/feed-o-meter/study_procedure_dark.png`,
-        ...FEED_O_METER_UI_ASSET_PATHS
-      ].filter(Boolean)
-    )
-  );
+  const pageAssets = collectProjectAssets(projectData, [
+    '/projects/feed-o-meter/baseline_pipeline.png',
+    '/projects/feed-o-meter/baseline_pipeline_dark.png',
+    '/projects/feed-o-meter/intervention_pipeline.png',
+    '/projects/feed-o-meter/intervention_pipeline_dark.png',
+    dr1PersonaImage,
+    '/projects/feed-o-meter/study_procedure.png',
+    '/projects/feed-o-meter/study_procedure_dark.png',
+    ...FEED_O_METER_UI_ASSET_PATHS
+  ]);
 
   const loaderMessage = `Loading ${projectData.title}...`;
 
@@ -338,55 +326,26 @@ export const FeedOMeterProject = () => {
         <Topbar hideThemeToggle={shouldHideThemeToggle} />
 
         <div className="project-container" ref={setScrollRoot}>
-        <header className="project-header">
-          <div className="project-header__fade-block project-fade-block" ref={fadeInRef}>
-            <h1 className="project-title">{projectData.title}</h1>
-            {projectData.subtitle && <p className="project-subtitle">{projectData.subtitle}</p>}
-          </div>
-          <div className="project-meta-info">
-            {projectData.period && (
-              <div className="project-period-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Period</div>
-                <div className="meta-value">{projectData.period}</div>
-              </div>
-            )}
-            {projectData.projectType && (
-              <div className="project-type-section project-fade-block" ref={fadeInRef}>
-                <div className="meta-label">Project Type</div>
-                <div className="meta-value">{projectData.projectType}</div>
-              </div>
-            )}
-          </div>
-          <ProjectLinks links={resourceLinks} className="project-fade-block" fadeRef={fadeInRef} />
-        </header>
-
-        <div
-          className="project-divider project-divider--header project-fade-block"
-          role="presentation"
-          aria-hidden="true"
-          ref={fadeInRef}
-        />
+        <ProjectHeader project={projectData} fadeRef={fadeInRef} />
 
         <main className="project-content">
-          <section className="project-section project-section__fade" ref={fadeInRef}>
-            <p className="section-text feedometer-body project-fade-block" ref={fadeInRef}>
+          <section className="project-section project-section--intro">
+            <p className="section-text project-fade-block" ref={fadeInRef}>
               Effective feedback helps designers develop concepts and refine ideas, supporting informed decision-making throughout the iterative design process. However, in studio-based design courses, students often hesitate to give feedback due to low confidence and fear of judgment, which hinders the development of feedback-giving skills. To address this gap, we proposed Feed-O-Meter, an LLM-powered system that creates a safe space for students to practice design feedback. It lets users role-play as mentors giving feedback to an AI mentee and reflect on how their feedback shapes the mentee's idea development.
             </p>
           </section>
-          <section className="project-section project-section__fade feedometer-ui-section" ref={fadeInRef}>
+          <section className="project-section feedometer-ui-section">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Feed-O-Meter UI
             </h2>
             <FeedOMeterUI fadeRef={fadeInRef} />
           </section>
-          <section className="project-section project-section__fade feedometer-dr1-section">
-            <h3 className="section-title project-fade-block" ref={fadeInRef}>
+          <section className="project-section feedometer-dr1-section">
+            <h3 className="section-subtitle project-fade-block" ref={fadeInRef}>
               DR1: simulate a novice design student
             </h3>
-            <p className="section-text section-text--small feedometer-dr1-description project-fade-block" ref={fadeInRef}>
-              Our goal was to let users practice providing feedback in scenarios that closely mirror real-life
-              situations while fostering active engagement, rather than the hesitation often seen in traditional
-              environments. To achieve this, we assigned users the role of a mentor and designed scenarios in which they
+            <p className="section-text feedometer-dr1-description project-fade-block" ref={fadeInRef}>
+              Our goal was to let users practice giving feedback in scenarios close to real-life situations, so that they engage actively instead of hesitating as they often do in class. To achieve this, we assigned users the role of a mentor and designed scenarios in which they
               provided feedback on an AI mentee's design idea.
             </p>
             <div className="feedometer-dr1-persona project-fade-block" ref={fadeInRef}>
@@ -409,57 +368,47 @@ export const FeedOMeterProject = () => {
                 alt="Baseline pipeline illustrating how Feed-O-Meter simulates a novice design student"
                 loading="lazy"
               />
-              <p className="feedometer-dr1-caption">
+              <p className="feedometer-dr1-caption project-caption">
                 Structure of the Mentee backend pipeline. (1) Feedback is provided by the user and processed by the response generator through the following steps. (2) The categorizer categorizes the feedback into six predefined categories, such as information and recommendations. (3) Knowledge and action plan are extracted by the knowledge extractor according to their categories and integrated into the knowledge state. When the user clicks the "Update Idea" button, a design idea is revised based on action plans and the chat history.
               </p>
             </div>
           </section>
-          <section className="project-section project-section__fade feedometer-dr2-section">
-            <h3 className="section-title project-fade-block" ref={fadeInRef}>
+          <section className="project-section feedometer-dr2-section">
+            <h3 className="section-subtitle project-fade-block" ref={fadeInRef}>
               DR2: promote critical reflections on feedback and its effects
             </h3>
             <p
-              className="section-text section-text--small feedometer-dr2-description project-fade-block"
+              className="section-text feedometer-dr2-description project-fade-block"
               ref={fadeInRef}
             >
-              Our system aims not only to provide an environment for practicing feedback but also to help users improve
-              their feedback skills. Instead of prescribing a fixed rubric, we emphasized user autonomy by allowing users
-              observe how their feedback shapes mentee's ideation process. We designed three components to provide
+              Our system provides an environment for practicing feedback. It also helps users improve their feedback skills. Instead of prescribing a fixed rubric, we emphasized user autonomy by allowing users to observe how their feedback shapes the mentee's ideation process. We designed three components to provide
               indirect guidance and encourage users to reflect on the impact of their feedback and refine their
               strategies.
             </p>
             <div className="feedometer-dr2-figure project-fade-block" ref={fadeInRef}>
-              <img
+              <img className="img-fluid"
                 src={interventionPipelineImage}
                 alt="Intervention pipeline illustrating how Feed-O-Meter promotes critical reflections on feedback and its effects"
                 loading="lazy"
               />
-              <p className="feedometer-dr2-caption">
-                Pipeline of the Feedback Reflection Interface. The pipeline starts by categorizing user feedback into one of six categories - three from the question family and three from the statement family. Each feedback sentence is then evaluated according to criteria specific to its category. The evaluation results are displayed in the feedback reflection interface, influencing the mentee's facial expressions, which change dynamically based on the feedback. Counter-questions are generated when certain conditions are met.
+              <p className="feedometer-dr2-caption project-caption">
+                Pipeline of the Feedback Reflection Interface. The pipeline starts by categorizing user feedback into one of six categories: three from the question family and three from the statement family. Each feedback sentence is then evaluated according to criteria specific to its category. The evaluation results are displayed in the feedback reflection interface, influencing the mentee's facial expressions, which change dynamically based on the feedback. Counter-questions are generated when certain conditions are met.
               </p>
             </div>
           </section>
-          <section className="project-section project-section__fade" ref={fadeInRef}>
+          <section className="project-section">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Feed-O-Meter Demo
             </h2>
-            <div className="feedometer-video-frame project-fade-block" ref={fadeInRef}>
-              <iframe
-                src="https://www.youtube.com/embed/EsqDqSN2LCI?rel=0"
-                title="Feed-O-Meter demo video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
+            <ProjectVideoFrame
+              src="https://www.youtube.com/embed/EsqDqSN2LCI?rel=0"
+              title="Feed-O-Meter demo video"
+              fadeRef={fadeInRef}
+            />
           </section>
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
+          <ProjectDivider fadeRef={fadeInRef} />
 
-          <section className="project-section project-section__fade feedometer-findings-section">
+          <section className="project-section feedometer-findings-section">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               User Study
             </h2>
@@ -475,14 +424,14 @@ export const FeedOMeterProject = () => {
                   />
                 </picture>
               </div>
-              <p className="section-text section-text--small feedometer-study-description project-fade-block" ref={fadeInRef}>
-                We conducted a within-subject study with two conditions: (1) a baseline condition and (2) the Feed-O-Meter condition. In the baseline condition, participants used a version of Feed-O-Meter without the Feedback Reflection Interface (FRI), meaning that the feedback evaluation was not displayed, and Alex did not ask counter-questions. In the Feed-O-Meter condition, all features of Feed-O-Meter were activated.
+              <p className="section-text feedometer-study-description project-fade-block" ref={fadeInRef}>
+                We conducted a within-subject study with two conditions: (1) a baseline condition and (2) the Feed-O-Meter condition. In the baseline condition, participants used a version of Feed-O-Meter without the Feedback Reflection Interface (FRI), meaning that the feedback evaluation was not displayed, and the AI mentee (Alex) did not ask counter-questions. In the Feed-O-Meter condition, all features of Feed-O-Meter were activated.
               </p>
             </div>
             <div className="feedometer-study-subsection">
               <h3 className="section-subtitle project-fade-block" ref={fadeInRef}>Evaluation Criteria</h3>
-              <div className="feedometer-evaluation-table-wrapper project-fade-block" ref={fadeInRef}>
-                <table className="feedometer-evaluation-table">
+              <div className="feedometer-evaluation-table-wrapper project-table-wrapper project-fade-block" ref={fadeInRef}>
+                <table className="feedometer-evaluation-table project-table">
                   <thead>
                     <tr>
                       <th>Feedback Type</th>
@@ -495,13 +444,8 @@ export const FeedOMeterProject = () => {
               </div>
             </div>
           </section>
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
-          <section className="project-section project-section__fade feedometer-results-section" ref={fadeInRef}>
+          <ProjectDivider fadeRef={fadeInRef} />
+          <section className="project-section feedometer-results-section">
             <h2 className="section-title project-fade-block" ref={fadeInRef}>
               Findings
             </h2>
@@ -515,7 +459,7 @@ export const FeedOMeterProject = () => {
                   <span><span className="legend-swatch legend-swatch--baseline" />Baseline</span>
                 </div>
                 <div className="feedometer-findings-block">
-                  <h4 className="project-fade-block" ref={fadeInRef}>Sentence level</h4>
+                  <h4 className="section-label project-fade-block" ref={fadeInRef}>Sentence level</h4>
                   {sentenceLevelFindings.map(({ metric, feedScore, baselineScore, significance }) => (
                     <div
                       className="feedometer-findings-group project-fade-block"
@@ -549,7 +493,7 @@ export const FeedOMeterProject = () => {
                 </div>
                 <div className="feedometer-findings-divider" />
                 <div className="feedometer-findings-block">
-                  <h4 className="project-fade-block" ref={fadeInRef}>Session level</h4>
+                  <h4 className="section-label project-fade-block" ref={fadeInRef}>Session level</h4>
                   {sessionLevelFindings.map(({ metric, feedScore, baselineScore, significance }) => (
                     <div
                       className="feedometer-findings-group project-fade-block"
@@ -587,8 +531,8 @@ export const FeedOMeterProject = () => {
               <h3 className="section-subtitle project-fade-block" ref={fadeInRef}>
                 Categorization of User Feedback
               </h3>
-              <div className="feedometer-categorization-table-wrapper project-fade-block" ref={fadeInRef}>
-                <table className="feedometer-categorization-table">
+              <div className="feedometer-categorization-table-wrapper project-table-wrapper project-fade-block" ref={fadeInRef}>
+                <table className="feedometer-categorization-table project-table">
                   <thead>
                     <tr>
                       <th>Category</th>
@@ -625,25 +569,16 @@ export const FeedOMeterProject = () => {
                     )}
                   </tbody>
                 </table>
-                <p className="feedometer-categorization-caption">
+                <p className="feedometer-categorization-caption project-caption">
                   Categorization of user feedback at the sentence level. Six predefined categories have 15 subcategories, each with associated descriptions and examples. The number of feedback instances belonging to the Feed-O-Meter condition is indicated by F, and those in the Baseline condition are indicated by B.
                 </p>
               </div>
             </div>
           </section>
 
-          <div
-            className="project-divider project-fade-block"
-            role="presentation"
-            aria-hidden="true"
-            ref={fadeInRef}
-          />
-
-          <section className="project-section project-section__fade" ref={fadeInRef}>
-            <h2 className="section-title project-fade-block" ref={fadeInRef}>BibTeX</h2>
-            <BibtexCard
-              ref={fadeInRef}
-              text={`@article{LIM2026103687,
+          <ProjectBibtexSection
+            fadeRef={fadeInRef}
+            text={`@article{LIM2026103687,
 title = {Feed-O-Meter: Investigating AI-generated mentee personas as interactive agents for scaffolding design feedback practice},
 journal = {International Journal of Human-Computer Studies},
 volume = {208},
@@ -656,9 +591,7 @@ author = {Hyunseung Lim and Dasom Choi and DaEun Choi and Sooyohn Nam and Hwajun
 keywords = {Design education, Design feedback, Human-computer interaction, Large language model, AI-generated agent},
 abstract = {Effective feedback, including critique and evaluation, helps designers develop design concepts and refine their ideas, supporting informed decision-making throughout the iterative design process. However, in studio-based design courses, students often struggle to provide feedback due to a lack of confidence and fear of being judged, which limits their ability to develop essential feedback-giving skills. Recent advances in large language models (LLMs) suggest that role-playing with AI agents can allow learners to engage in multi-turn feedback without the anxiety of external judgment or the time constraints of real-world settings. Yet prior studies have raised concerns that LLMs struggle to behave like real people in role-play scenarios, diminishing the educational benefits of these interactions. Therefore, designing AI-based agents that effectively support learners in practicing and developing intellectual reasoning skills requires more than merely assigning the target persona's personality and role to the agent. By addressing these issues, we present Feed-O-Meter, a novel system that employs carefully designed LLM-based agents to create an environment in which students can practice giving design feedback. The system enables users to role-play as mentors, providing feedback to an AI mentee and allowing them to reflect on how that feedback impacts the AI mentee's idea development process. A user study (N=24) indicated that Feed-O-Meter increased participants' engagement and motivation through role-switching and helped them adjust feedback to be more comprehensible for an AI mentee. Based on these findings, we discuss future directions for designing systems to foster feedback skills in design education.}
 }`}
-              className="project-fade-block"
-            />
-          </section>
+          />
         </main>
         </div>
 

@@ -8,12 +8,12 @@ const MOVIE_YEARS = [
     label: 'Best Motion Picture',
     nominees: [
       {
-        title: 'No Other Choice',
-        image: '/movies/2025/no_other_choice.png'
-      },
-      {
         title: 'One Battle After Another',
         image: '/movies/2025/one_battle_after_another.png'
+      },
+      {
+        title: 'Sinners',
+        image: '/movies/2025/sinners.png'
       },
       {
         title: 'The World of Love',
@@ -110,7 +110,7 @@ export const MovieOffRecord = () => (
               {year.nominees.map((nominee) => (
                 <article className="off-record-movie-card project-fade-block" ref={fadeInRef} key={nominee.title}>
                   <div className="off-record-movie-poster">
-                    <img src={nominee.image} alt={`${nominee.title} poster`} loading="lazy" />
+                    <img className="img-cover" src={nominee.image} alt={`${nominee.title} poster`} loading="lazy" />
                   </div>
                   <p className="off-record-movie-title">{nominee.title}</p>
                 </article>

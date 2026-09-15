@@ -1,30 +1,13 @@
-.project-page--aqua .project-container {
-  flex: 1;
-  max-width: 824px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
+/* Palette for this page — extracted from hardcoded literals. Change a color here, not in the rules below.
+   Variables with a dark value are listed again in the .dark-mode block. */
+.project-page--aqua {
+  --aq-c1: #f6f6f6;
+  --aq-c2: #3a7576;
 }
 
-.project-page--aqua .aqua-subtitle__first-line::after {
-  content: '\A';
-  white-space: pre;
-}
-
-@media (max-width: 768px) {
-  .project-page--aqua .aqua-subtitle__first-line::after {
-    content: ' ';
-    white-space: normal;
-  }
-}
-
-.project-page--aqua .aqua-body {
-  line-height: 1.65;
-  text-align: left;
-}
-
-.aqua-qa-section {
-  margin-top: 1.5rem;
+.dark-mode .project-page--aqua {
+  --aq-c1: rgba(255, 255, 255, 0.06);
+  --aq-c2: #c0f6f7;
 }
 
 .aqua-qa-container {
@@ -35,14 +18,14 @@
 }
 
 .aqua-qa-item {
-  border-radius: 12px;
+  border-radius: var(--radius-inner);
   border: none;
   overflow: hidden;
 }
 
 .aqua-qa-item__inner {
   padding: 1rem 1.25rem;
-  background: #f6f6f6;
+  background: var(--aq-c1);
   border: 1px solid var(--border-primary, #e0e0e0);
   border-radius: inherit;
   display: flex;
@@ -61,7 +44,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  color: #3a7576;
+  color: var(--aq-c2);
   font-weight: 600;
   font-size: 1rem;
   text-align: left;
@@ -134,7 +117,7 @@
 
 .aqua-qa-image {
   margin: 0.5rem 0 0.5rem;
-  border-radius: 16px;
+  border-radius: var(--radius-frame);
   display: flex;
   justify-content: center;
 }
@@ -143,47 +126,21 @@
     display: block;
     width: 80%;
     height: auto;
-    border-radius: 12px;
+    border-radius: var(--radius-inner);
 }
 
 .aqua-qa-table-wrapper {
-  width: 100%;
-  overflow-x: auto;
   margin-top: 0.35rem;
 }
 
 .aqua-qa-table {
-  width: 100%;
   min-width: 520px;
-  border-collapse: collapse;
-  font-size: 0.74rem;
-  color: var(--text-primary);
-}
-
-.aqua-qa-table th,
-.aqua-qa-table td {
-  padding: 0.45rem 0.5rem;
-  border-bottom: 1px solid var(--border-primary, #dcdcdc);
-  text-align: center;
-}
-
-.aqua-qa-table thead th {
-  font-weight: 600;
-  color: #3a7576;
-  background: rgba(58, 117, 118, 0.08);
 }
 
 .aqua-qa-table tbody th {
   font-weight: 600;
   color: var(--text-primary);
   white-space: nowrap;
-  font-size: 0.66rem;
-}
-
-.aqua-qa-table tbody td {
-  color: var(--text-secondary, #4a4f63);
-  font-weight: 500;
-  font-size: 0.72rem;
 }
 
 .aqua-qa-col--clicks {
@@ -199,33 +156,17 @@
   display: inline;
 }
 
-.dark-mode .aqua-qa-table thead th {
-  color: #c8f7f6;
-  background: rgba(200, 247, 246, 0.08);
-}
-
-.aqua-qa-table tbody tr:last-child th,
-.aqua-qa-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
 @media (max-width: 768px) {
   .aqua-qa-image img {
     width: 100%;
   }
 
   .aqua-qa-table {
-    font-size: 0.66rem;
     min-width: 100%;
-  }
-
-  .aqua-qa-table tbody td {
-    font-size: 0.64rem;
   }
 
   .aqua-qa-table tbody th {
     white-space: normal;
-    font-size: 0.6rem;
   }
 
   .aqua-qa-table-sd {
@@ -237,40 +178,10 @@
   }
 }
 
-.dark-mode .project-page--aqua {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
 .dark-mode .aqua-qa-item__inner {
-  background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
-
-.dark-mode .aqua-qa-question {
-  color: #c0f6f7;
-}
-
-@media (max-width: 992px) {
-  .project-page--aqua .project-container {
-    padding: 1.5rem;
-  }
-
-  .project-page--aqua:not(.has-banner) .project-container {
-    padding-top: 3.5rem;
-    margin-top: 2.5rem;
-  }
-}
-
 @media (max-width: 768px) {
-  .project-page--aqua .project-container {
-    padding: 1rem;
-  }
-
-  .project-page--aqua:not(.has-banner) .project-container {
-    padding-top: 3.5rem;
-    margin-top: 2.25rem;
-  }
 
   .aqua-qa-question {
     font-size: 0.95rem;

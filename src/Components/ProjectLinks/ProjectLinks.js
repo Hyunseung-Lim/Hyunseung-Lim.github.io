@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
+import { assetUrl } from '../ProjectPage/assetUrl';
 import './ProjectLinks.css';
 
 const DEFAULT_LINK_PRESETS = {
@@ -8,15 +9,30 @@ const DEFAULT_LINK_PRESETS = {
   },
   github: {
     label: 'Github',
-    icon: `${process.env.PUBLIC_URL}/icons/github.svg`,
-    iconDark: `${process.env.PUBLIC_URL}/icons/github_dark.svg`,
+    icon: '/icons/github.svg',
+    iconDark: '/icons/github_dark.svg',
     iconAlt: 'GitHub'
   },
   dataset: {
     label: 'Dataset',
-    icon: `${process.env.PUBLIC_URL}/icons/huggingface-color.svg`,
-    iconDark: `${process.env.PUBLIC_URL}/icons/huggingface-color.svg`,
+    icon: '/icons/huggingface-color.svg',
+    iconDark: '/icons/huggingface-color.svg',
     iconAlt: 'Hugging Face'
+  }
+};
+
+// Icons for `type: 'paper'` links, selected via `publisher`. Venues without a
+// library icon (e.g. NeurIPS proceedings) simply omit `publisher` and render text only.
+const PUBLISHER_ICONS = {
+  acm: {
+    icon: '/icons/dl.png',
+    iconDark: '/icons/dl.png',
+    iconAlt: 'ACM DL'
+  },
+  elsevier: {
+    icon: '/icons/elsevier.png',
+    iconDark: '/icons/elsevier_dark.png',
+    iconAlt: 'Elsevier'
   }
 };
 
@@ -27,13 +43,26 @@ const normalizeLabel = (type, explicitLabel) => {
   return preset?.label ?? type;
 };
 
-const resolveIconConfig = ({ type, icon, iconDark, iconAlt }) => {
+const resolveIconConfig = ({ type, publisher, icon, iconDark, iconAlt }) => {
   const preset = type ? DEFAULT_LINK_PRESETS[type] : null;
+  const publisherPreset = type === 'paper' && publisher ? PUBLISHER_ICONS[publisher] : null;
   return {
-    icon: icon ?? preset?.icon ?? null,
-    iconDark: iconDark ?? preset?.iconDark ?? null,
-    iconAlt: iconAlt ?? preset?.iconAlt ?? ''
+    icon: icon ?? publisherPreset?.icon ?? preset?.icon ?? null,
+    iconDark: iconDark ?? publisherPreset?.iconDark ?? preset?.iconDark ?? null,
+    iconAlt: iconAlt ?? publisherPreset?.iconAlt ?? preset?.iconAlt ?? ''
   };
+};
+
+/** Root-relative icon paths used by a link list (for asset preloading). */
+export const resolveLinkIconPaths = (links = []) => {
+  if (!Array.isArray(links)) return [];
+  return links
+    .filter((link) => link && !link.hidden && link.href)
+    .flatMap((link) => {
+      const { icon, iconDark } = resolveIconConfig(link);
+      return [icon, iconDark];
+    })
+    .filter(Boolean);
 };
 
 export const ProjectLinks = ({
@@ -58,8 +87,8 @@ export const ProjectLinks = ({
           key: link.key ?? `${label}-${href}`,
           label,
           href,
-          icon,
-          iconDark,
+          icon: assetUrl(icon),
+          iconDark: assetUrl(iconDark),
           iconAlt
         };
       })
