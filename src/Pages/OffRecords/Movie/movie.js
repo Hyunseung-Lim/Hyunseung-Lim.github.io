@@ -9,15 +9,15 @@ const MOVIE_YEARS = [
     nominees: [
       {
         title: 'One Battle After Another',
-        image: '/movies/2025/one_battle_after_another.png'
+        image: '/movies/2025/one_battle_after_another.webp'
       },
       {
         title: 'Sinners',
-        image: '/movies/2025/sinners.png'
+        image: '/movies/2025/sinners.webp'
       },
       {
         title: 'The World of Love',
-        image: '/movies/2025/the_world_of_love.png'
+        image: '/movies/2025/the_world_of_love.webp'
       }
     ]
   },
@@ -27,15 +27,15 @@ const MOVIE_YEARS = [
     nominees: [
       {
         title: 'Anatomy of a Fall',
-        image: '/movies/2024/anatomy_of_a_fall.png'
+        image: '/movies/2024/anatomy_of_a_fall.webp'
       },
       {
         title: 'Look Back',
-        image: '/movies/2024/look_back.png'
+        image: '/movies/2024/look_back.webp'
       },
       {
         title: 'The Zone of Interest',
-        image: '/movies/2024/the_zone_of_interest.png'
+        image: '/movies/2024/the_zone_of_interest.webp'
       }
     ]
   },
@@ -45,15 +45,15 @@ const MOVIE_YEARS = [
     nominees: [
       {
         title: 'Monster',
-        image: '/movies/2023/monster.png'
+        image: '/movies/2023/monster.webp'
       },
       {
         title: 'Oppenheimer',
-        image: '/movies/2023/oppenheimer.png'
+        image: '/movies/2023/oppenheimer.webp'
       },
       {
         title: 'Spider-Man: Across the Spider-Verse',
-        image: '/movies/2023/spider-man_across_the_spider_verse.png'
+        image: '/movies/2023/spider-man_across_the_spider_verse.webp'
       }
     ]
   },
@@ -63,15 +63,15 @@ const MOVIE_YEARS = [
     nominees: [
       {
         title: 'Decision to Leave',
-        image: '/movies/2022/decision_to_leave.png'
+        image: '/movies/2022/decision_to_leave.webp'
       },
       {
         title: 'Everything Everywhere All at Once',
-        image: '/movies/2022/everything_everywhere_all_at_once.png'
+        image: '/movies/2022/everything_everywhere_all_at_once.webp'
       },
       {
         title: 'The Worst Person in the World',
-        image: '/movies/2022/the_worst_person_in_the_world.png'
+        image: '/movies/2022/the_worst_person_in_the_world.webp'
       }
     ]
   }
