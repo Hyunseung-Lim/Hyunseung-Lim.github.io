@@ -66,7 +66,7 @@ const ELEVATE_APPLICATION_IMAGES = [
   { name: 'app4', objectPosition: '30% center', label: 'Golf' }
 ].map((entry, index) => ({
   ...entry,
-  src: `${process.env.PUBLIC_URL}/projects/elevate/${entry.name}.png`,
+  src: `${process.env.PUBLIC_URL}/projects/elevate/${entry.name}.webp`,
   alt: `Elevate application ${index + 1}`
 }));
 const ELEVATE_APPLICATION_DESCRIPTIONS = {
@@ -102,7 +102,7 @@ const ELEVATE_HARDWARE_IMAGES = [
   { name: 'hard4', label: 'Locking System' }
 ].map((entry, index) => ({
   ...entry,
-  src: `${process.env.PUBLIC_URL}/projects/elevate/${entry.name}.png`,
+  src: `${process.env.PUBLIC_URL}/projects/elevate/${entry.name}.webp`,
   alt: `Elevate hardware section ${index + 1}`
 }));
 const ELEVATE_HARDWARE_DETAILS = {
@@ -114,7 +114,7 @@ const ELEVATE_HARDWARE_DETAILS = {
         weight of an average user.
       </>
     ),
-    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard1_detail.png`,
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard1_detail.webp`,
     detailAlt: 'Detail view of the Elevate structural enclosure and layered platform.'
   },
   hard2: {
@@ -125,7 +125,7 @@ const ELEVATE_HARDWARE_DETAILS = {
         into varied terrains.
       </>
     ),
-    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard2_detail.png`,
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard2_detail.webp`,
     detailAlt: 'Close-up of Elevate pin-array construction.'
   },
   hard3: {
@@ -137,7 +137,7 @@ const ELEVATE_HARDWARE_DETAILS = {
         simultaneously pushes or pulls all pins in the same row.
       </>
     ),
-    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard3_detail.png`,
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard3_detail.webp`,
     detailAlt: 'Shape generator module traveling under the Elevate platform.'
   },
   hard4: {
@@ -149,7 +149,7 @@ const ELEVATE_HARDWARE_DETAILS = {
         columns and all 1,200 pins.
       </>
     ),
-    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard4_detail.png`,
+    detailImage: `${process.env.PUBLIC_URL}/projects/elevate/hard4_detail.webp`,
     detailAlt: 'Locking system module that stabilizes Elevate pins.'
   }
 };

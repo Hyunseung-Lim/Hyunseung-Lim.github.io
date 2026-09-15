@@ -23,6 +23,9 @@ WEBP_QUALITY = 82
 FIGURES = {
     'datopia/interface': 1200,    # .datopia-figures 2-column grid inside the 824px container
     'datopia/exhibition': 1200,
+    # Elevate: application/hardware tiles (1125x600 sources shown ≤ ~400px wide) and hardware detail strips (full 824px width)
+    **{f'elevate/{n}': 1125 for n in ('app1', 'app2', 'app3', 'app4', 'hard1', 'hard2', 'hard3', 'hard4')},
+    **{f'elevate/{n}_detail': 1600 for n in ('hard1', 'hard2', 'hard3', 'hard4')},
 }
 
 
