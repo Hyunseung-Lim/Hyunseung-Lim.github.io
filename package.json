@@ -25,7 +25,8 @@
     "assets:thumbnails": "python3 scripts/make_thumbnails.py",
     "assets:banners": "python3 scripts/make_banners.py",
     "pdf:check": "python3 scripts/compress_pdf.py --check",
-    "assets:slides": "python3 scripts/make_slides.py"
+    "assets:slides": "python3 scripts/make_slides.py",
+    "assets:figures": "python3 scripts/make_figures.py"
   },
   "eslintConfig": {
     "extends": [

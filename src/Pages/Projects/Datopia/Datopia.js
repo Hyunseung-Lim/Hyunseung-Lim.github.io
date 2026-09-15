@@ -19,8 +19,8 @@ const RUN_SEQUENCE = [1, 2, 3];
 const GLIDE_DURATION = 9; // seconds
 const GLIDE_DELAY_STEP = 1.4; // seconds
 const DATOPIA_ASSETS = collectProjectAssets(PROJECTS.datopia, [
-  '/projects/datopia/interface.png',
-  '/projects/datopia/exhibition.png',
+  '/projects/datopia/interface.webp',
+  '/projects/datopia/exhibition.webp',
   '/projects/datopia/animation.gif',
   ...Array.from({ length: 10 }, (_, index) => `/projects/datopia/screen/${index + 1}.png`)
 ]);
@@ -116,11 +116,11 @@ export const DatopiaProject = () => {
               <div className="datopia-figures project-fade-block" ref={fadeInRef}>
                 {[
                   {
-                    src: `${process.env.PUBLIC_URL}/projects/datopia/interface.png`,
+                    src: `${process.env.PUBLIC_URL}/projects/datopia/interface.webp`,
                     alt: 'Datopia interface detail'
                   },
                   {
-                    src: `${process.env.PUBLIC_URL}/projects/datopia/exhibition.png`,
+                    src: `${process.env.PUBLIC_URL}/projects/datopia/exhibition.webp`,
                     alt: 'Datopia exhibition interaction'
                   }
                 ].map((figure, index) => (
