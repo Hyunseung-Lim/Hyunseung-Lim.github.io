@@ -135,6 +135,13 @@
   }
 }
 
+/* Long paragraph captions read better ragged-right; short one-line captions keep the centred default. */
+.project-page--feed-o-meter .feedometer-dr1-caption,
+.project-page--feed-o-meter .feedometer-dr2-caption,
+.project-page--feed-o-meter .feedometer-categorization-caption {
+  text-align: left;
+}
+
 .project-page--feed-o-meter .feedometer-dr2-figure {
   width: 100%;
   margin-top: 0.5rem;

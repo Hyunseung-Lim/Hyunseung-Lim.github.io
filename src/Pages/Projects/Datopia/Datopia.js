@@ -102,7 +102,7 @@ export const DatopiaProject = () => {
           <section className="project-section datopia-reflection">
               <h2 className="section-title datopia-reflection__title project-fade-block" ref={fadeInRef}>Rethinking Future Love</h2>
               <p className="section-text datopia-reflection__body project-fade-block" ref={fadeInRef}>
-                Datopia is a critical design project that asks how data-driven services, which are now part of everyday life, might change the way we form relationships. Today, a wide range of recommendation algorithms make decision-making easier. At times, they even infer our preferences, behaviors, and memories, including things we may not be fully aware of, and make decisions on our behalf.
+                Datopia is a speculative design project that asks how data-driven services, which are now part of everyday life, might change the way we form relationships. Today, a wide range of recommendation algorithms make decision-making easier. At times, they even infer our preferences, behaviors, and memories, including things we may not be fully aware of, and make decisions on our behalf.
               </p>
               <p className="section-text datopia-reflection__body project-fade-block" ref={fadeInRef}>
                 But can love really be judged by data alone? How can we be sure that the person an algorithm recommends is truly our destined partner? Is it okay to hand over agency in love to an algorithm? Through Datopia, this exhibition imagines a form of love that may exist in the future, and lets visitors experience it and think about these questions.

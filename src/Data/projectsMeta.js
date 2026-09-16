@@ -29,10 +29,10 @@
 export const PROJECTS = {
   datopia: {
     id: 'datopia',
-    venue: 'DDP Exhibition 2022',
+    venue: 'DDP Exhibition',
     thumbnail: '/projects/datopia/thumbnail.webp',
     title: 'Datopia',
-    summary: 'A critical design exhibition imagining a data-driven dating service',
+    summary: 'A speculative design exhibition imagining a data-driven dating service',
     period: '2022.09-2022.12',
     projectType: 'Exhibition',
     icon: '/projects/datopia/icon.png',
