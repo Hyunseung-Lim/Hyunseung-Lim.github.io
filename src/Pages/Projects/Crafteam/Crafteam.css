@@ -1,6 +1,16 @@
 /* Palette for this page — extracted from hardcoded literals. Change a color here, not in the rules below.
    Variables with a dark value are listed again in the .dark-mode block. */
 .project-page--crafteam {
+  /* Shared with public/projects/crafteam/overview(.png|_dark.png): keep the figure and the
+     Team Formation cards on one palette. Light values are the reference; dark values are the
+     counterparts the dark figure is recoloured to. */
+  --ct-blue: #2b7fff;                 /* agents, bubbles, numbers, supervisor edges */
+  --ct-green: #0fca58;                /* the human ("Me" / Robin) */
+  --ct-orange: #ffbb46;               /* accent (Minami, highlight card) */
+  --ct-card: #ffffff;                 /* outer card / tile */
+  --ct-panel: #f1f6fd;                /* inner panel (graph background) */
+  --ct-edge: rgba(31, 43, 76, 0.3);   /* peer edges */
+  --ct-edge-strong: rgba(43, 127, 255, 0.85);
   --ct-c1: #2b7fff;
   --ct-c2: #fff;
   --ct-c3: #2b7fff;
@@ -14,15 +24,10 @@
   --ct-c11: #2b2f47;
   --ct-c12: #5c6cf2;
   --ct-c13: #2b7fff;
-  --ct-c14: #ffffff;
   --ct-c15: #0d1231;
   --ct-c16: rgba(21, 28, 58, 0.7);
   --ct-c17: rgba(23, 32, 62, 0.9);
   --ct-c18: rgba(14, 21, 44, 0.8);
-  --ct-c19: rgba(86, 98, 133, 0.35);
-  --ct-c20: rgba(89, 108, 255, 0.85);
-  --ct-c21: #0dba9e;
-  --ct-c22: #7a8cff;
   --ct-c23: rgba(11, 21, 51, 0.85);
   --ct-c24: rgba(15, 22, 52, 0.65);
   --ct-c25: #fafbff;
@@ -91,6 +96,13 @@
 }
 
 .dark-mode .project-page--crafteam {
+  --ct-blue: #7ea6ff;
+  --ct-green: #22d36b;
+  --ct-orange: #ffbb46;
+  --ct-card: #1c2130;
+  --ct-panel: #262c3d;
+  --ct-edge: rgba(255, 255, 255, 0.28);
+  --ct-edge-strong: rgba(126, 166, 255, 0.9);
   --ct-c1: #7c8cff;
   --ct-c2: #0b0f25;
   --ct-c3: #4d63ff;
@@ -104,15 +116,10 @@
   --ct-c11: rgba(255, 255, 255, 0.78);
   --ct-c12: #4d63ff;
   --ct-c13: #5c6cf2;
-  --ct-c14: rgba(13, 18, 38, 0.9);
   --ct-c15: #f8f9ff;
   --ct-c16: rgba(224, 230, 255, 0.75);
   --ct-c17: rgba(240, 242, 255, 0.9);
   --ct-c18: rgba(234, 238, 255, 0.95);
-  --ct-c19: rgba(255, 255, 255, 0.18);
-  --ct-c20: rgba(115, 130, 255, 0.95);
-  --ct-c21: #33deb9;
-  --ct-c22: #6e7dff;
   --ct-c23: rgba(237, 239, 255, 0.9);
   --ct-c24: rgba(226, 231, 255, 0.6);
   --ct-c25: rgba(20, 24, 39, 0.9);
@@ -1206,7 +1213,7 @@
 }
 
 .crafteam-team-card {
-  background: var(--ct-c14);
+  background: var(--ct-card);
   border-radius: 20px;
   border: 1px solid rgba(37, 45, 78, 0.12);
   padding: 1.25rem;
@@ -1267,13 +1274,13 @@
   display: block;
   border-radius: var(--radius-frame);
   border: 1px solid rgba(46, 52, 91, 0.12);
-  background: linear-gradient(180deg, rgba(250, 251, 255, 0.9), rgba(244, 246, 255, 0.9));
+  background: var(--ct-panel);
   padding: 0.5rem 0.3rem;
   box-sizing: border-box;
 }
 
 .crafteam-team-graph__edge {
-  stroke: var(--ct-c19);
+  stroke: var(--ct-edge);
   stroke-width: 1.5;
   fill: none;
 }
@@ -1289,7 +1296,7 @@
 
 /* team-graph variants (class built as `__edge--${type}` / `__node-circle--${role}` in CrafteamUI) */
 .crafteam-team-graph__edge--supervisor {
-  stroke: var(--ct-c20);
+  stroke: var(--ct-edge-strong);
 }
 
 .crafteam-team-graph__edge--peer {
@@ -1297,11 +1304,11 @@
 }
 
 .crafteam-team-graph__node-circle--owner {
-  fill: var(--ct-c21);
+  fill: var(--ct-green);
 }
 
 .crafteam-team-graph__node-circle--agent {
-  fill: var(--ct-c22);
+  fill: var(--ct-blue);
 }
 
 
@@ -1327,7 +1334,7 @@
   display: block;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #5c6bff;
+  color: var(--ct-blue);
 }
 
 .crafteam-team-card__stat-label {
@@ -1343,7 +1350,6 @@
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: none;
 }.dark-mode .crafteam-team-graph {
-  background: rgba(10, 15, 32, 0.8);
   border-color: rgba(255, 255, 255, 0.08);
 }@media (max-width: 992px) {
   .crafteam-team-row {
