@@ -453,6 +453,11 @@ function stripHomePrerender(indexHtml) {
   return indexHtml.replace(re, '<div id="root"></div>');
 }
 
+// The homepage prerender exists for crawlers that do not run JS (Scholar). Visitors with JS
+// would otherwise see it flash until React mounts and replaces #root, so keep it in the DOM
+// but off-screen. Scoped to #root so the static publication pages keep their visible layout.
+const HOME_HIDE_CSS = '#root>.prerender{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}';
+
 function renderHomeMarkup(records) {
   const recent = [...records]
     .sort((a, b) => (b.year - a.year) || a.title.localeCompare(b.title))
@@ -471,7 +476,7 @@ function renderHomeMarkup(records) {
     return `<li><a class="t" href="${escapeHtml(route)}/">${escapeHtml(label)}</a>${sub}</li>`;
   });
   return `${HOME_SENTINEL_OPEN}<div class="prerender">
-<style>${LIST_CSS}</style>
+<style>${LIST_CSS}${HOME_HIDE_CSS}</style>
 <nav><a href="/about">About</a><a href="/projects">Projects</a><a href="/publications/">Publications</a></nav>
 <h1>${escapeHtml(SITE_NAME)}</h1>
 <p class="a">PhD candidate, Department of Industrial Design, KAIST.</p>

@@ -30,6 +30,11 @@
     <title>Hyunseung Lim</title>
   </head>
   <body>
+    <script>
+      /* Apply the saved theme before first paint so dark-mode visitors don't see a light flash while React boots.
+         Mirrors ThemeProvider (src/contexts/ThemeContext.js), which reads the same localStorage key. */
+      try { if (JSON.parse(localStorage.getItem('darkMode')) === true) document.body.classList.add('dark-mode'); } catch (e) {}
+    </script>
     <noscript><a href="/publications/">Publications</a></noscript>
     <div id="root"></div>
     <!--
