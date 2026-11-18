@@ -5,7 +5,7 @@
  * (src/Components/ProjectPage):
  *   title, subtitle | subtitleLines, titleLogo, period, projectType
  *   summary  (optional) one-line overview for the Projects list view; falls back to subtitle
- *   venue    (optional) publication venue shown after the type label in the list view, e.g. 'CHI 2026'
+ *   venue    (optional) publication venue: after the type label in the list view and under the title in the grid view, e.g. 'CHI 2026'
  *   badge:  { src, srcDark?, alt, href?, linkLabel?, size?: 'compact' }   (or an array)
  *   links:  [{ type: 'paper', publisher?: 'acm' | 'elsevier', href }, { type: 'github' | 'dataset', href }]
  *   banner, bannerMobile?, bannerPosition?   (root-relative paths under public/)
@@ -168,7 +168,7 @@ export const PROJECTS = {
   },
   'aqua-design': {
     id: 'aqua-design',
-    venue: 'iF Design Award 2021',
+    venue: 'iF Design Award',
     thumbnail: '/projects/aqua-design/thumbnail.webp',
     title: 'aqua',
     subtitle: 'A new paradigm of personal asset management',
@@ -191,7 +191,7 @@ export const PROJECTS = {
   },
   brownie: {
     id: 'brownie',
-    venue: 'Seoul Design Festival 2021',
+    venue: 'Seoul Design Festival',
     thumbnail: '/projects/brownie/thumbnail.webp',
     title: 'Brownie',
     subtitle: 'A social community for sharing cooking fails',

@@ -953,6 +953,17 @@
     color: var(--text-primary);
 }
 
+/* Grid only: venue under the title, styled like the venue in the List label (12px, secondary). */
+.project-tile__venue {
+    margin: 4px 0 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
 @media (max-width: 768px) {
     .about-name,
     .about-tagline {

@@ -58,7 +58,7 @@ const handleMouseLeave = (event) => {
 export const Projects = () => {
   const [scrollContainer, setScrollContainer] = useState(null);
   const [isMobileViewport, setIsMobileViewport] = useState(getIsMobileViewport);
-  const [layoutMode, setLayoutMode] = useState(() => (getIsMobileViewport() ? 'grid' : 'diagram'));
+  const [layoutMode, setLayoutMode] = useState('grid');
   const tileRefs = useRef(new Map());
   const tilePositionsRef = useRef(new Map());
   const fadeInRef = useFadeInAnimation({
@@ -71,8 +71,8 @@ export const Projects = () => {
   const { isDark } = useTheme();
   const layoutSegments = useMemo(
     () => [
-      { label: 'Diagram', value: 'diagram' },
       { label: 'Grid', value: 'grid' },
+      { label: 'Diagram', value: 'diagram' },
       { label: 'List', value: 'list' }
     ],
     []
@@ -199,6 +199,9 @@ export const Projects = () => {
             <p className="project-tile__title">
               {project.title}
             </p>
+            {!isDiagramLayout && project.venue && (
+              <p className="project-tile__venue">{project.venue}</p>
+            )}
           </LinkComponent>
         </div>
       </div>
