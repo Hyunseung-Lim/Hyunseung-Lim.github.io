@@ -191,7 +191,7 @@ export const PROJECTS = {
   },
   brownie: {
     id: 'brownie',
-    venue: 'Seoul Design Festival',
+    venue: 'Graduation Exhibition',
     thumbnail: '/projects/brownie/thumbnail.webp',
     title: 'Brownie',
     subtitle: 'A social community for sharing cooking fails',
