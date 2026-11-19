@@ -139,7 +139,10 @@ export const PROJECTS = {
       src: '/projects/crafteam/badge.png',
       alt: 'CHI 2026'
     },
-    links: [{ type: 'paper', publisher: 'acm', href: 'https://dl.acm.org/doi/full/10.1145/3772318.3791166' }]
+    links: [
+      { type: 'paper', publisher: 'acm', href: 'https://dl.acm.org/doi/full/10.1145/3772318.3791166' },
+      { type: 'github', href: 'https://github.com/Hyunseung-Lim/CrafTeam' }
+    ]
   },
   aqua: {
     id: 'aqua',
